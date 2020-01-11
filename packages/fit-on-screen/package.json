@@ -1,0 +1,17 @@
+{
+  "name": "@ovo/fit-on-screen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ovo/scroll-events": "1.0.0"
+  }
+}

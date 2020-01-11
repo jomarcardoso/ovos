@@ -17,18 +17,9 @@
   },
   "homepage": "https://github.com/jomarcardoso/ovo#readme",
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-transform-modules-umd": "^7.7.4",
-    "@babel/preset-env": "^7.7.7",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
     "lerna": "^3.20.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-loader": "^3.0.2",
-    "eslint-plugin-import": "^2.18.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-merge": "^4.2.2"
+    "eslint-plugin-import": "^2.18.2"
   }
 }

@@ -1,0 +1,27 @@
+[data-carousel="carousel"] {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+[data-carousel="slide"] {
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+[data-carousel="arrow"] {
+  visibility: hidden;
+
+  &.is-loaded {
+    visibility: visible;
+  }
+}
