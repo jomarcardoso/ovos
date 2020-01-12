@@ -2,7 +2,7 @@
   "name": "ovo",
   "version": "0.1.0",
   "description": "Uma biblioteca Javascript/CSS como qualquer outra.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
