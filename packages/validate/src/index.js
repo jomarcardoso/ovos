@@ -3,7 +3,7 @@
  * @return {boolean}
  * @description "isArray" say more than "Array.isArray(any);"
  */
-export function isArray(any) {
+function isArray(any) {
   return Array.isArray(any);
 }
 
@@ -11,7 +11,7 @@ export function isArray(any) {
  * @param {string}
  * @return {boolean}
  */
-export function isCep({ length } = '') {
+function isCep({ length } = '') {
   return length === 8;
 }
 
@@ -19,7 +19,7 @@ export function isCep({ length } = '') {
  * @param {string}
  * @returns {boolean}
  */
-export function isCpf({ length } = '') {
+function isCpf({ length } = '') {
   return length === 11;
 }
 
@@ -27,9 +27,9 @@ export function isCpf({ length } = '') {
  * @param {string} string
  * @returns {boolean}
  */
-export function isDate(string) {
+function isDate(string) {
   // TODO: no momento não valida se o dia existe
-  return (String(new Date(string)) !== 'Invalid Date');
+  return String(new Date(string)) !== 'Invalid Date';
 }
 
 /**
@@ -37,7 +37,7 @@ export function isDate(string) {
  * @param {string} limit
  * @returns {boolean}
  */
-export function isDateAbove(value, limit) {
+function isDateAbove(value, limit) {
   return limit < value;
 }
 
@@ -46,7 +46,7 @@ export function isDateAbove(value, limit) {
  * @param {string} limit
  * @returns {boolean}
  */
-export function isDateBelow(value, limit) {
+function isDateBelow(value, limit) {
   return limit > value;
 }
 
@@ -57,10 +57,12 @@ export function isDateBelow(value, limit) {
  * @param {string} options.max
  * @returns {boolean}
  */
-export function isDateBetween(value, { min, max } = {}) {
+function isDateBetween(value, { min, max } = {}) {
   const date = isDate(value) ? value : new Date(value);
-  if (min && (date < min)) return false;
-  if (max && (max < date)) return false;
+
+  if (min && date < min) return false;
+  if (max && max < date) return false;
+
   return true;
 }
 
@@ -68,7 +70,7 @@ export function isDateBetween(value, { min, max } = {}) {
  * @param {string} string
  * @returns {boolean}
  */
-export function isEmail(string) {
+function isEmail(string) {
   return new RegExp(/^([\w_.\-+])+@([\w-]+.)+([\w]{2,10})+$/).test(string);
 }
 
@@ -77,7 +79,7 @@ export function isEmail(string) {
  * @return {boolean}
  * @description "isEmptyString" say more than "string === ''"
  */
-export function isEmptyString(string) {
+function isEmptyString(string) {
   return string === '';
 }
 
@@ -86,12 +88,14 @@ export function isEmptyString(string) {
  * @return {boolean}
  * @description "isFunction" say more than typeof any === 'function'"
  */
-export function isFunction(any) {
+function isFunction(any) {
   return typeof any === 'function';
 }
 
-export function isImageFile(anything) {
-  return new RegExp(/^.*\.(jpg|JPG|png|PNG|gif|GIF|bmp|BMP|webp|WEBP)$/).test(anything);
+function isImageFile(anything) {
+  return new RegExp(/^.*\.(jpg|JPG|png|PNG|gif|GIF|bmp|BMP|webp|WEBP)$/).test(
+    anything
+  );
 }
 
 /**
@@ -99,20 +103,23 @@ export function isImageFile(anything) {
  * @return {boolean}
  * @description "isNumber" say more than typeof any === 'number'"
  */
-export function isNumber(any) {
+function isNumber(any) {
   return Number.isInteger(any);
 }
 
-export function isOverflown(element) {
-  return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
 }
 
 /**
  * @param {string}
  * @return {boolean}
  */
-export function isPhone({ length } = '') {
-  return (length === 11 || length === 10);
+function isPhone({ length } = '') {
+  return length === 11 || length === 10;
 }
 
 /**
@@ -120,6 +127,24 @@ export function isPhone({ length } = '') {
  * @return {boolean}
  * @description "isString" say more than "typeof any === 'string'"
  */
-export function isString(any) {
+function isString(any) {
   return typeof any === 'string';
 }
+
+export default {
+  isArray,
+  isCep,
+  isCpf,
+  isDate,
+  isDateAbove,
+  isDateBelow,
+  isDateBetween,
+  isEmail,
+  isEmptyString,
+  isFunction,
+  isImageFile,
+  isNumber,
+  isOverflown,
+  isPhone,
+  isString,
+};

@@ -1,4 +1,6 @@
-import { isNumber } from '@ovo/validate';
+import validate from '@ovo/validate';
+
+const { isNumber } = validate;
 
 export function getScrollTopMax(scrollingElement) {
   return scrollingElement.scrollHeight - scrollingElement.clientHeight;

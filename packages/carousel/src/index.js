@@ -1,11 +1,7 @@
-import './carousel.scss';
+// import './carousel.scss';
 import ScrollSpy, { ScrollSpyItem } from '@ovo/scroll-spy';
 
-function Slide({
-  elSlide,
-  elDot,
-  onActivate,
-}) {
+function Slide({ elSlide, elDot, onActivate }) {
   const scrollSpyItem = ScrollSpyItem(elDot, elSlide);
 
   function activate() {
@@ -24,7 +20,7 @@ function Slide({
   };
 }
 
-export function Carousel({
+export default function Carousel({
   el = document.querySelector('[data-carousel="carousel"]'),
   elSlides = Array.from(document.querySelectorAll('[ data-carousel="slide"]')),
   elDots = Array.from(document.querySelectorAll('[ data-carousel="dot"]')),
@@ -32,10 +28,7 @@ export function Carousel({
   autoplayTime = 0,
   currentSlide = 0,
 } = {}) {
-  const [
-    elArrowLeft,
-    elArrowRight,
-  ] = elArrows;
+  const [elArrowLeft, elArrowRight] = elArrows;
 
   let mouseOver = false;
   let intervalAutoplay = 0;
@@ -67,11 +60,14 @@ export function Carousel({
   }
 
   function createSlides() {
-    return elSlides.map((elSlide, index) => new Slide({
-      elDot: elDots[index],
-      elSlide,
-      onActivate: () => handleActivateSlide(index),
-    }));
+    return elSlides.map(
+      (elSlide, index) =>
+        new Slide({
+          elDot: elDots[index],
+          elSlide,
+          onActivate: () => handleActivateSlide(index),
+        })
+    );
   }
 
   function autoplay() {
@@ -151,7 +147,9 @@ export function Carousel({
   function bindEvents() {
     const elAnchors = [...elDots, ...elArrows];
 
-    elAnchors.forEach((elAchor) => elAchor.addEventListener('click', handleClickAnchor));
+    elAnchors.forEach((elAchor) => {
+      elAchor.addEventListener('click', handleClickAnchor);
+    });
     el.addEventListener('mouseover', handleMouseOver);
     el.addEventListener('mouseout', handleMouseOut);
   }

@@ -2,18 +2,18 @@
  * @description This class could be extended and your activate method overridden
  */
 
-const activeClass = 'is-active';
+const ACTIVE_CLASS = 'is-active';
 
 export function ScrollSpyItem(menu, content, { callback } = {}) {
   function activate() {
-    menu.classList.add(activeClass);
-    content.classList.add(activeClass);
+    menu.classList.add(ACTIVE_CLASS);
+    content.classList.add(ACTIVE_CLASS);
     if (callback) callback({ active: true });
   }
 
   function deActivate() {
-    menu.classList.remove(activeClass);
-    content.classList.remove(activeClass);
+    menu.classList.remove(ACTIVE_CLASS);
+    content.classList.remove(ACTIVE_CLASS);
     if (callback) callback({ active: false });
   }
 
@@ -68,11 +68,15 @@ export default function (list, {
 
       const previousStartNearThanCurrentStart = previousProximityStart < currentProximityStart;
       const previousStartNearThanCurrentEnd = previousProximityStart < currentProximityEnd;
-      const previesStartNearThanCurrent = previousStartNearThanCurrentStart && previousStartNearThanCurrentEnd;
+      const previesStartNearThanCurrent = (
+        previousStartNearThanCurrentStart && previousStartNearThanCurrentEnd
+      );
 
       const previousEndNearThanCurrentStart = previousProximityEnd < currentProximityEnd;
       const previousEndNearThanCurrentEnd = previousProximityEnd < currentProximityStart;
-      const previesEndNearThanCurrent = previousEndNearThanCurrentStart && previousEndNearThanCurrentEnd;
+      const previesEndNearThanCurrent = (
+        previousEndNearThanCurrentStart && previousEndNearThanCurrentEnd
+      );
 
       if (previesStartNearThanCurrent || previesEndNearThanCurrent) {
         return previousValue;
