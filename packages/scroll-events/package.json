@@ -2,7 +2,7 @@
   "name": "@ovo/scroll-events",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "author": "Jomar Cardoso",
   "license": "MIT",
   "dependencies": {

@@ -1,14 +1,14 @@
-import { ScrollEvents } from 'jo-scrollevents';
+import { ScrollEvents } from '@ovo/scroll-events';
 
-export function FitOnScreen({
+export default function FitOnScreen({
   elRelative = document,
   elsToFit = Array.from(document.querySelectorAll('[data-js="fit-on-screen"]')),
-  proximityToFit = 240
+  proximityToFit = 240,
 } = {}) {
   function scrollTo({ scrollingElement, top }) {
     scrollingElement.scrollTo({
       top,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
 
@@ -33,7 +33,7 @@ export function FitOnScreen({
 
     scrollTo({
       top: nearElement.offsetTop,
-      scrollingElement
+      scrollingElement,
     });
   }
 
@@ -44,8 +44,8 @@ export function FitOnScreen({
       lazyTime: 1000,
       gap: {
         top: 100,
-        bottom: 100
-      }
+        bottom: 100,
+      },
     });
   }
 
