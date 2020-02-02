@@ -1,6 +1,3 @@
 scripts/
 webpack.*.js
 dist/
-dist
-dist/*
-dist/**/*
