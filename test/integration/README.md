@@ -1,1 +1,0 @@
-Is a sub-directory for integration tests.

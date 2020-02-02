@@ -4,5 +4,5 @@
   "env": {
     "jest": true,
     "browser": true
-  },
+  }
 }
