@@ -6,6 +6,13 @@
     "browser": true
   },
   "rules": {
+    "max-nested-callbacks": "error",
+    "max-statements": "error",
+    "max-lines-per-function": "error",
+    "max-lines": "error",
+    "complexity": "error",
+    "max-depth": "error",
+    "max-params": ["error", 1],
     "padding-line-between-statements": [
       "error",
       {

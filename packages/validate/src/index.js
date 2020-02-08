@@ -37,7 +37,7 @@ function isDate(string) {
  * @param {string} limit
  * @returns {boolean}
  */
-function isDateAbove(value, limit) {
+function isDateAbove({ value, limit } = {}) {
   return limit < value;
 }
 
@@ -46,7 +46,7 @@ function isDateAbove(value, limit) {
  * @param {string} limit
  * @returns {boolean}
  */
-function isDateBelow(value, limit) {
+function isDateBelow({ value, limit } = {}) {
   return limit > value;
 }
 
@@ -57,7 +57,7 @@ function isDateBelow(value, limit) {
  * @param {string} options.max
  * @returns {boolean}
  */
-function isDateBetween(value, { min, max } = {}) {
+function isDateBetween({ value, min, max } = {}) {
   const date = isDate(value) ? value : new Date(value);
 
   if (min && date < min) return false;
@@ -71,7 +71,7 @@ function isDateBetween(value, { min, max } = {}) {
  * @returns {boolean}
  */
 function isEmail(string) {
-  return new RegExp(/^([\w_.\-+])+@([\w-]+.)+([\w]{2,10})+$/).test(string);
+  return /^([\w_.\-+])+@([\w-]+.)+([\w]{2,10})+$/.test(string);
 }
 
 /**
@@ -93,9 +93,7 @@ function isFunction(any) {
 }
 
 function isImageFile(anything) {
-  return new RegExp(/^.*\.(jpg|JPG|png|PNG|gif|GIF|bmp|BMP|webp|WEBP)$/).test(
-    anything
-  );
+  return /^.*\.(jpg|JPG|png|PNG|gif|GIF|bmp|BMP|webp|WEBP)$/.test(anything);
 }
 
 /**

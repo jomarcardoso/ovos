@@ -1,4 +1,6 @@
-import {
+import validate from '../src';
+
+const {
   isNumber,
   isFunction,
   isString,
@@ -9,7 +11,7 @@ import {
   isDate,
   isDateAbove,
   isDateBelow,
-} from '../src';
+} = validate;
 
 describe('validate', () => {
   describe('isNumber', () => {

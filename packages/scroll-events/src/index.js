@@ -16,7 +16,10 @@ export function getScrollingElement(target) {
   return target;
 }
 
-export function getScrollPosition({ scrollingElement, relativeStart = { x: 0, y: 0 } }) {
+export function getScrollPosition({
+  scrollingElement,
+  relativeStart = { x: 0, y: 0 },
+}) {
   const x = scrollingElement.scrollLeft - relativeStart.x;
   const y = scrollingElement.scrollTop - relativeStart.y;
 
@@ -27,10 +30,16 @@ export function getScrollPosition({ scrollingElement, relativeStart = { x: 0, y:
 }
 
 export function getRelativeScrollPosition({
-  lastRelativeScrollPosition, scrollPosition, lastScrollPosition, limit,
+  lastRelativeScrollPosition,
+  scrollPosition,
+  lastScrollPosition,
+  limit,
 }) {
-  let x = lastRelativeScrollPosition.x + scrollPosition.x - lastScrollPosition.x;
-  let y = lastRelativeScrollPosition.y + scrollPosition.y - lastScrollPosition.y;
+  let x =
+    lastRelativeScrollPosition.x + scrollPosition.x - lastScrollPosition.x;
+
+  let y =
+    lastRelativeScrollPosition.y + scrollPosition.y - lastScrollPosition.y;
 
   if (limit) {
     if (y < limit.top) y = limit.top;
@@ -66,8 +75,10 @@ export function getDirection({ lastScrollPosition, scrollPosition }) {
 }
 
 export function isSafe({ scrollPosition, lastScrolledPosition, debounce }) {
-  const beOnVerticalSafe = Math.abs(scrollPosition.y - lastScrolledPosition.y) < debounce.y;
-  const beOnHorizontalSafe = Math.abs(scrollPosition.x - lastScrolledPosition.x) < debounce.x;
+  const beOnVerticalSafe =
+    Math.abs(scrollPosition.y - lastScrolledPosition.y) < debounce.y;
+  const beOnHorizontalSafe =
+    Math.abs(scrollPosition.x - lastScrolledPosition.x) < debounce.x;
 
   if (beOnVerticalSafe && beOnHorizontalSafe) return true;
 
@@ -76,15 +87,21 @@ export function isSafe({ scrollPosition, lastScrolledPosition, debounce }) {
 
 export function isOnGap({ scrollPosition, gap, scrollingElement }) {
   const beOnTopGap = scrollPosition.y < gap.top;
+
   if (gap.top !== null && beOnTopGap) return true;
 
-  const beOnBottomGap = scrollPosition.y > (getScrollTopMax(scrollingElement) - gap.bottom);
+  const beOnBottomGap =
+    scrollPosition.y > getScrollTopMax(scrollingElement) - gap.bottom;
+
   if (gap.bottom !== null && beOnBottomGap) return true;
 
   const beOnLeftGap = scrollPosition.x < gap.left;
+
   if (gap.left !== null && beOnLeftGap) return true;
 
-  const beOnRightGap = scrollPosition.x > (getScrollLeftMax(scrollingElement) - gap.right);
+  const beOnRightGap =
+    scrollPosition.x > getScrollLeftMax(scrollingElement) - gap.right;
+
   if (gap.right !== null && beOnRightGap) return true;
 
   return false;
@@ -95,21 +112,25 @@ export function isOutOfLimit({ relativeScrollPosition, limit = {} }) {
 
   if (isNumber(limit.top)) {
     const outOfTopLimit = relativeScrollPosition.y <= limit.top;
+
     if (outOfTopLimit) return true;
   }
 
   if (isNumber(limit.bottom)) {
     const outOfBottomLimit = relativeScrollPosition.y >= limit.bottom;
+
     if (outOfBottomLimit) return true;
   }
 
   if (limit.left) {
     const outOfLeftLimit = relativeScrollPosition.x <= limit.left;
+
     if (outOfLeftLimit) return true;
   }
 
   if (limit.right) {
     const outOfRightLimit = relativeScrollPosition.x >= limit.right;
+
     if (outOfRightLimit) return true;
   }
 
@@ -142,18 +163,20 @@ export default function ScrollEvents({
   let lastDirection = null;
 
   function handleScroll(event) {
-    function isToScroll({
-      changedDirection,
-      scrollPosition,
-      direction,
-    }) {
+    function isToScroll({ changedDirection, scrollPosition, direction }) {
       if (onlyOnChangedDirection && !changedDirection) return false;
       if (isOnGap({ scrollPosition, gap, scrollingElement })) return false;
-      if (isSafe({ scrollPosition, lastScrolledPosition, debounce })) return false;
+      if (isSafe({ scrollPosition, lastScrolledPosition, debounce })) {
+        return false;
+      }
       if (onlyOnDirection && onlyOnDirection !== direction) return false;
-      if (limit && isOutOfLimit({
-        relativeScrollPosition: lastRelativeScrollPosition, limit,
-      })) {
+
+      const outOfLimit = isOutOfLimit({
+        relativeScrollPosition: lastRelativeScrollPosition,
+        limit,
+      });
+
+      if (limit && outOfLimit) {
         return false;
       }
 
@@ -162,7 +185,10 @@ export default function ScrollEvents({
 
     const scrollPosition = getScrollPosition({ scrollingElement });
     const relativeScrollPosition = getRelativeScrollPosition({
-      lastRelativeScrollPosition, lastScrollPosition, scrollPosition, limit,
+      lastRelativeScrollPosition,
+      lastScrollPosition,
+      scrollPosition,
+      limit,
     });
     const direction = getDirection({ lastScrollPosition, scrollPosition });
     const changedDirection = lastDirection !== direction;

@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack --config ../../webpack.dev.js",
     "build": "webpack --config ../../webpack.prod.js",
-    "lint": "eslint src/**/*.js --fix"
+    "lint": "eslint src/**/*.js --fix",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC"
