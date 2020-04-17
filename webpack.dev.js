@@ -8,10 +8,10 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.([j|t]s)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader'
-      }
-    ]
+        loader: 'eslint-loader',
+      },
+    ],
   },
 });

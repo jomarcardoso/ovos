@@ -1,8 +1,8 @@
 {
-  "trailingComma": "es5",
+  "trailingComma": "all",
   "singleQuote": true,
   "arrowParens": "always",
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "parser": "babel",
   "jsxSingleQuote": true
 }

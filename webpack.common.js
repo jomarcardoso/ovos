@@ -1,9 +1,11 @@
+const path = require('path');
+
 module.exports = {
   entry: {
-    index: './src/index.js',
+    '/scroll-spy/dist/scroll-spy': './packages/scroll-spy/src/index.ts',
   },
   output: {
-    // path: 'dist',
+    path: path.resolve(__dirname, 'packages'),
     libraryTarget: 'umd',
   },
   module: {
@@ -11,7 +13,7 @@ module.exports = {
       {
         test: /\.([j|t]s)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        loader: 'ts-loader',
       },
     ],
   },

@@ -4,7 +4,9 @@
   "description": "Uma biblioteca Javascript/CSS como qualquer outra.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "webpack --config webpack.dev.js -w",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -17,16 +19,12 @@
   },
   "homepage": "https://github.com/jomarcardoso/ovo#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
-    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
-    "@babel/plugin-transform-modules-umd": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
-    "babel-loader": "^8.0.6",
+    "@typescript-eslint/eslint-plugin": "^2.27.0",
+    "@typescript-eslint/parser": "^2.27.0",
     "eslint": "^6.5.1",
-    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.18.2",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-merge": "^4.2.2"

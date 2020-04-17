@@ -1,10 +1,16 @@
-/**
- * @description This class could be extended and your activate method overridden
- */
-
 const ACTIVE_CLASS = 'is-active';
 
-export function ScrollSpyItem(menu, content, { callback } = {}) {
+interface ScrollSpyItemArgs {
+  menu?: string;
+  content?: string;
+  callback?: string;
+}
+
+export function ScrollSpyItem({
+  menu,
+  content,
+  callback,
+}: ScrollSpyItemArgs = {}) {
   function activate() {
     menu.classList.add(ACTIVE_CLASS);
     content.classList.add(ACTIVE_CLASS);
@@ -27,9 +33,9 @@ export function ScrollSpyItem(menu, content, { callback } = {}) {
 /**
  * @param {Array<>} list
  */
-export default function(
+export default function (
   list,
-  { elRelative = document.body, method = 'current', axis = 'y' } = {}
+  { elRelative = document.body, method = 'current', axis = 'y' } = {},
 ) {
   let currentActive;
   let getTheActive;
@@ -136,9 +142,9 @@ export default function(
   }
 
   function getScrolledElement() {
-    let scrolledElement = elRelative;
+    let scrolledElement: HTMLElement = elRelative;
 
-    if (isDocumentScrolling()) scrolledElement = document;
+    if (isDocumentScrolling()) scrolledElement = window.body;
 
     return scrolledElement;
   }

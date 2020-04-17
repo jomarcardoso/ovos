@@ -2,11 +2,6 @@
   "recommendations": [
     "editorconfig.editorconfig", // configurações do editor
     "dbaeumer.vscode-eslint", // eslint
-    "wayou.vscode-todo-highlight", // hightlight de comentários
     "esbenp.prettier-vscode", // prettier
-    "kisstkondoros.vscode-codemetrics", // mostra a complexidade do código
-    "andys8.jest-snippets", // ajuda a escrever os testes
-    "kisstkondoros.vscode-codemetrics", // mostra a complexidade do código
-    "visualstudioexptteam.vscodeintellicode" // snippets para javascript
   ]
 }
