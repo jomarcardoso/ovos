@@ -2,7 +2,9 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    '/scroll-spy/dist/scroll-spy': './packages/scroll-spy/src/index.ts',
+    // '/scroll-events/dist': './packages/scroll-events/src/index.ts',
+    // '/to-fit/dist': './packages/to-fit/src/index.ts',
+    '/ovo/dist': './packages/ovo/src/index.js',
   },
   output: {
     path: path.resolve(__dirname, 'packages'),

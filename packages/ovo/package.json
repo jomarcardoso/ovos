@@ -1,11 +1,18 @@
 {
-  "name": "ovo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@ovo/to-fit",
+  "version": "0.1.0",
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack -config ../../webpack.dev.js"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@ovo/scroll-events": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "3.8.3"
+  }
 }

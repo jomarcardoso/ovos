@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+
+  "references": [{
+    "path": "../scroll-events/tsconfig.json"
+  }],
+
+  "include": [
+    "src/**/*"
+  ]
+}

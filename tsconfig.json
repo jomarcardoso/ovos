@@ -1,9 +1,12 @@
 {
+  "extends": "./tsconfig.build.json",
+
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    // "baseUrl": "./"
-  },
-  // "include": [
-  //   "packages"
-  // ]
+    "baseUrl": "./packages",
+    "paths": {
+      "@nighttrax/foo": ["scroll-events/src"],
+      "@nighttrax/bar": ["to-fit/src"],
+      "@nighttrax/*": ["*/src"]
+    }
+  }
 }

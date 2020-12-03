@@ -1,6 +1,6 @@
 import { isNumber } from 'lodash/isNumber';
 
-type Element = HTMLElement | HTMLDocument;
+export type Element = HTMLElement | HTMLDocument;
 
 interface Axes {
   x: number;
@@ -215,14 +215,14 @@ export function isOutOfLimit({
 }
 
 interface ScrollEventArgs {
-  el: Element;
+  el?: Element;
   onScroll(onScrollArgs: OnScrollArgs): void;
-  onlyOnChangedDirection: boolean;
-  onlyOnDirection: boolean;
-  gap: Position;
-  debounce: Axes;
-  limit: Position;
-  lazyTime: number;
+  onlyOnChangedDirection?: boolean;
+  onlyOnDirection?: boolean;
+  gap?: Position;
+  debounce?: Axes;
+  limit?: Position;
+  lazyTime?: number;
 }
 
 interface ScrollEvents extends Partial<ScrollEventArgs> {
