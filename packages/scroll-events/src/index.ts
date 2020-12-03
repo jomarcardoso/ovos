@@ -1,25 +1,69 @@
-import validate from '@ovo/validate';
+import { isNumber } from 'lodash/isNumber';
 
-const { isNumber } = validate;
+type Element = HTMLElement | HTMLDocument;
 
-export function getScrollTopMax(scrollingElement) {
+interface Axes {
+  x: number;
+  y: number;
+}
+
+enum Direction {
+  UP = 'up',
+  DOWN = 'down',
+  LEFT = 'left',
+  RIGHT = 'right',
+  NONE = '',
+}
+
+enum Position {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  RIGHT = 'right',
+  NONE = '',
+}
+
+interface Dimension2d {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
+interface OnScrollArgs {
+  event: UIEvent;
+  scrollingElement: HTMLElement;
+  scrollPosition: Axes;
+  direction: Direction;
+  changedDirection: boolean,
+  relativeScrollPosition: Axes,
+}
+
+export function getScrollTopMax(scrollingElement: HTMLElement): number {
   return scrollingElement.scrollHeight - scrollingElement.clientHeight;
 }
 
-export function getScrollLeftMax(scrollingElement) {
+export function getScrollLeftMax(scrollingElement: HTMLElement): number {
   return scrollingElement.scrollWidth - scrollingElement.clientWidth;
 }
 
-export function getScrollingElement(target) {
-  if (target.scrollingElement) return target.scrollingElement;
+export function getScrollingElement(
+  target: HTMLElement & HTMLDocument
+): HTMLElement {
+  if (target.scrollingElement) return target.scrollingElement as HTMLElement;
 
   return target;
+}
+
+interface GetScrollPositionArgs {
+  scrollingElement: HTMLElement;
+  relativeStart?: Axes;
 }
 
 export function getScrollPosition({
   scrollingElement,
   relativeStart = { x: 0, y: 0 },
-}) {
+}: GetScrollPositionArgs): Axes {
   const x = scrollingElement.scrollLeft - relativeStart.x;
   const y = scrollingElement.scrollTop - relativeStart.y;
 
@@ -29,12 +73,19 @@ export function getScrollPosition({
   };
 }
 
+interface GetRelativeScrollPositionArgs {
+  lastRelativeScrollPosition: Axes,
+  scrollPosition: Axes,
+  lastScrollPosition: Axes,
+  limit: Dimension2d,
+}
+
 export function getRelativeScrollPosition({
   lastRelativeScrollPosition,
   scrollPosition,
   lastScrollPosition,
   limit,
-}) {
+}: GetRelativeScrollPositionArgs): Axes {
   let x =
     lastRelativeScrollPosition.x + scrollPosition.x - lastScrollPosition.x;
 
@@ -54,24 +105,27 @@ export function getRelativeScrollPosition({
   };
 }
 
-export function getDirection({ lastScrollPosition, scrollPosition }) {
+export function getDirection({
+  lastScrollPosition, scrollPosition
+}: { lastScrollPosition: Axes; scrollPosition: Axes
+}): Direction {
   if (lastScrollPosition.x < scrollPosition.x) {
-    return 'right';
+    return Direction.RIGHT;
   }
 
   if (lastScrollPosition.x > scrollPosition.x) {
-    return 'left';
+    return Direction.LEFT;
   }
 
   if (lastScrollPosition.y < scrollPosition.y) {
-    return 'down';
+    return Direction.DOWN;
   }
 
   if (lastScrollPosition.y > scrollPosition.y) {
-    return 'up';
+    return Direction.UP;
   }
 
-  return null;
+  return Direction.NONE;
 }
 
 export function isSafe({ scrollPosition, lastScrolledPosition, debounce }) {
@@ -107,9 +161,20 @@ export function isOnGap({ scrollPosition, gap, scrollingElement }) {
   return false;
 }
 
-export function isOutOfLimit({ relativeScrollPosition, limit = {} }) {
-  // console.log(limit.top, isNumber(limit.top));
+interface IsOutOfLimitArgs {
+  limit: Dimension2d;
+  relativeScrollPosition: Axes;
+}
 
+export function isOutOfLimit({
+  relativeScrollPosition,
+  limit = {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
+  } }: IsOutOfLimitArgs
+): boolean {
   if (isNumber(limit.top)) {
     const outOfTopLimit = relativeScrollPosition.y <= limit.top;
 
@@ -137,7 +202,23 @@ export function isOutOfLimit({ relativeScrollPosition, limit = {} }) {
   return false;
 }
 
-export default function ScrollEvents({
+interface ScrollEventArgs {
+  el: Element;
+  onScroll(onScrollArgs: OnScrollArgs): void;
+  onlyOnChangedDirection: boolean;
+  onlyOnDirection: boolean;
+  gap: Dimension2d;
+  debounce: Axes;
+  limit: Dimension2d;
+  lazyTime: number;
+}
+
+interface ScrollEvents extends Partial<ScrollEventArgs> {
+  lastScrolledPosition: Axes,
+  scrollingElement: Element,
+}
+
+export default function scrollEvents({
   el = document,
   onScroll,
   onlyOnChangedDirection,
@@ -154,8 +235,9 @@ export default function ScrollEvents({
   },
   limit = null,
   lazyTime = 0,
-} = {}) {
-  const scrollingElement = getScrollingElement(el);
+}: ScrollEventArgs): ScrollEvents {
+  const scrollingElement =
+    getScrollingElement(el as HTMLElement & HTMLDocument);
   let lastRelativeScrollPosition = { x: 0, y: 0 };
   let lastScrolledPosition = getScrollPosition({ scrollingElement });
   let lastScrollPosition = lastScrolledPosition;
@@ -196,7 +278,6 @@ export default function ScrollEvents({
       changedDirection,
       scrollPosition,
       direction,
-      relativeScrollPosition,
     });
 
     const timeout = window.setTimeout(() => {

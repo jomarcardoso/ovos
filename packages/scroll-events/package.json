@@ -6,7 +6,7 @@
   "author": "Jomar Cardoso",
   "license": "MIT",
   "dependencies": {
-    "@ovo/validate": "1.0.0"
+    "lodash": "4.17.20"
   },
   "scripts": {
     "start": "webpack --config ../../webpack.dev.js",
