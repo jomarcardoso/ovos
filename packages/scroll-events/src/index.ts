@@ -15,15 +15,7 @@ enum Direction {
   NONE = '',
 }
 
-enum Position {
-  TOP = 'top',
-  BOTTOM = 'bottom',
-  LEFT = 'left',
-  RIGHT = 'right',
-  NONE = '',
-}
-
-interface Dimension2d {
+interface Position {
   top: number;
   bottom: number;
   left: number;
@@ -77,7 +69,7 @@ interface GetRelativeScrollPositionArgs {
   lastRelativeScrollPosition: Axes,
   scrollPosition: Axes,
   lastScrollPosition: Axes,
-  limit: Dimension2d,
+  limit: Position,
 }
 
 export function getRelativeScrollPosition({
@@ -128,7 +120,17 @@ export function getDirection({
   return Direction.NONE;
 }
 
-export function isSafe({ scrollPosition, lastScrolledPosition, debounce }) {
+interface IsSafeArgs {
+  scrollPosition: Axes;
+  lastScrolledPosition: Axes;
+  debounce: Axes;
+}
+
+export function isSafe({
+  scrollPosition,
+  lastScrolledPosition,
+  debounce
+}: IsSafeArgs): boolean {
   const beOnVerticalSafe =
     Math.abs(scrollPosition.y - lastScrolledPosition.y) < debounce.y;
   const beOnHorizontalSafe =
@@ -139,7 +141,17 @@ export function isSafe({ scrollPosition, lastScrolledPosition, debounce }) {
   return false;
 }
 
-export function isOnGap({ scrollPosition, gap, scrollingElement }) {
+interface IsOnGapArgs {
+  scrollPosition: Axes,
+  gap: Position,
+  scrollingElement: HTMLElement;
+}
+
+export function isOnGap({
+  scrollPosition,
+  gap,
+  scrollingElement
+}: IsOnGapArgs): boolean {
   const beOnTopGap = scrollPosition.y < gap.top;
 
   if (gap.top !== null && beOnTopGap) return true;
@@ -162,7 +174,7 @@ export function isOnGap({ scrollPosition, gap, scrollingElement }) {
 }
 
 interface IsOutOfLimitArgs {
-  limit: Dimension2d;
+  limit: Position;
   relativeScrollPosition: Axes;
 }
 
@@ -207,9 +219,9 @@ interface ScrollEventArgs {
   onScroll(onScrollArgs: OnScrollArgs): void;
   onlyOnChangedDirection: boolean;
   onlyOnDirection: boolean;
-  gap: Dimension2d;
+  gap: Position;
   debounce: Axes;
-  limit: Dimension2d;
+  limit: Position;
   lazyTime: number;
 }
 
