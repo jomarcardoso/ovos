@@ -3,8 +3,7 @@ import {
   getScrollLeftMax,
   getScrollingElement,
   getScrollPosition,
-  getRelativeStart,
-} from '../src';
+} from './scroll-events';
 
 describe('ScrollEvents', () => {
   describe('getScrollTopMax', () => {

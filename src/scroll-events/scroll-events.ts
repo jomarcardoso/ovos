@@ -1,35 +1,11 @@
 import isNumber from 'lodash/isNumber';
-
-export type Element = HTMLElement | HTMLDocument;
-
-interface Axes {
-  x: number;
-  y: number;
-}
-
-enum Direction {
-  UP = 'up',
-  DOWN = 'down',
-  LEFT = 'left',
-  RIGHT = 'right',
-  NONE = '',
-}
-
-interface Position {
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-}
-
-interface OnScrollArgs {
-  event: UIEvent;
-  scrollingElement: HTMLElement;
-  scrollPosition: Axes;
-  direction: Direction;
-  changedDirection: boolean,
-  relativeScrollPosition: Axes,
-}
+import {
+  Axes,
+  Direction,
+  Element,
+  Position,
+  OnScrollArgs
+} from '../types/types';
 
 const POSITION_DEFAULT: Position = {
   bottom: null,
