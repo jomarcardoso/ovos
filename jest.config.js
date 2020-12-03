@@ -1,9 +1,13 @@
+const path = require('path');
+
 module.exports = {
-  projects: ['<rootDir>/packages/*/jest.config.js'],
-  coverageDirectory: '<rootDir>/coverage/',
-  collectCoverageFrom: ['<rootDir>/packages/*/src/**/*.{ts,tsx}'],
+  collectCoverageFrom: [
+    'src/*/**.{ts,tsx,js,jsx}',
+    '!**/node_modules/**',
+    '!**/dist/**',
+  ],
+
   moduleNameMapper: {
-    '.json$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-  moduleDirectories: ['node_modules'],
 };

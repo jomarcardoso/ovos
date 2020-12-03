@@ -1,4 +1,4 @@
-import { isNumber } from 'lodash/isNumber';
+import isNumber from 'lodash/isNumber';
 
 export type Element = HTMLElement | HTMLDocument;
 
@@ -29,6 +29,13 @@ interface OnScrollArgs {
   direction: Direction;
   changedDirection: boolean,
   relativeScrollPosition: Axes,
+}
+
+const POSITION_DEFAULT: Position = {
+  bottom: null,
+  left: null,
+  right: null,
+  top: null,
 }
 
 export function getScrollTopMax(scrollingElement: HTMLElement): number {
@@ -180,12 +187,8 @@ interface IsOutOfLimitArgs {
 
 export function isOutOfLimit({
   relativeScrollPosition,
-  limit = {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    top: 0,
-  } }: IsOutOfLimitArgs
+  limit = POSITION_DEFAULT
+}: IsOutOfLimitArgs
 ): boolean {
   if (isNumber(limit.top)) {
     const outOfTopLimit = relativeScrollPosition.y <= limit.top;
@@ -194,6 +197,8 @@ export function isOutOfLimit({
   }
 
   if (isNumber(limit.bottom)) {
+    if (limit.bottom === 0) return false;
+
     const outOfBottomLimit = relativeScrollPosition.y >= limit.bottom;
 
     if (outOfBottomLimit) return true;
@@ -206,6 +211,8 @@ export function isOutOfLimit({
   }
 
   if (limit.right) {
+    if (limit.right === 0) return false;
+
     const outOfRightLimit = relativeScrollPosition.x >= limit.right;
 
     if (outOfRightLimit) return true;
@@ -233,19 +240,14 @@ interface ScrollEvents extends Partial<ScrollEventArgs> {
 export default function scrollEvents({
   el = document,
   onScroll,
-  onlyOnChangedDirection,
-  onlyOnDirection,
-  gap = {
-    top: null,
-    bottom: null,
-    left: null,
-    right: null,
-  },
+  onlyOnChangedDirection = false,
+  onlyOnDirection = null,
+  gap = POSITION_DEFAULT,
   debounce = {
     x: 0,
     y: 0,
   },
-  limit = null,
+  limit = POSITION_DEFAULT,
   lazyTime = 0,
 }: ScrollEventArgs): ScrollEvents {
   const scrollingElement =

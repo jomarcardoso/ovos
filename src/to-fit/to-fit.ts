@@ -1,4 +1,6 @@
-import ScrollEvents, { Element } from '@ovo/scroll-events';
+import ScrollEvents, { Element } from '../scroll-events/scroll-events';
+
+console.log('fit');
 
 interface ToFitArgs {
   el?: Element;

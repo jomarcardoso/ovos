@@ -4,8 +4,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  plugins: ['@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
+  // parser: '@typescript-eslint/parser',
   env: {
     jest: true,
     browser: true,

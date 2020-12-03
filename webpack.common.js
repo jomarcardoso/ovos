@@ -1,13 +1,12 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
-    // '/scroll-events/dist': './packages/scroll-events/src/index.ts',
-    // '/to-fit/dist': './packages/to-fit/src/index.ts',
-    '/ovo/dist': './packages/ovo/src/index.js',
+    ovo: './src/ovo.ts',
   },
   output: {
-    path: path.resolve(__dirname, 'packages'),
+    path: path.resolve(__dirname, 'dist'),
     libraryTarget: 'umd',
   },
   module: {
@@ -15,8 +14,15 @@ module.exports = {
       {
         test: /\.([j|t]s)$/,
         exclude: /node_modules/,
-        loader: 'ts-loader',
+        loader: 'babel-loader',
       },
     ],
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+  },
+  plugins: [new CleanWebpackPlugin()],
 };
