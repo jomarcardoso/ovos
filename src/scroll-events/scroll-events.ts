@@ -14,33 +14,37 @@ const POSITION_DEFAULT: Position = {
   top: null,
 }
 
-export function getScrollTopMax(scrollingElement: HTMLElement): number {
+export function getMaxVerticalScroll(scrollingElement: HTMLElement): number {
   return scrollingElement.scrollHeight - scrollingElement.clientHeight;
 }
 
-export function getScrollLeftMax(scrollingElement: HTMLElement): number {
+export function getMaxHorizontalScroll(scrollingElement: HTMLElement): number {
   return scrollingElement.scrollWidth - scrollingElement.clientWidth;
 }
 
 export function getScrollingElement(
-  target: HTMLElement & HTMLDocument
+  target: HTMLElement | HTMLDocument
 ): HTMLElement {
-  if (target.scrollingElement) return target.scrollingElement as HTMLElement;
+  const documentTarget = target as HTMLDocument;
 
-  return target;
+  if (documentTarget.scrollingElement) {
+    return documentTarget.scrollingElement as HTMLElement;
+  }
+
+  return target as HTMLElement;
 }
 
 interface GetScrollPositionArgs {
   scrollingElement: HTMLElement;
-  relativeStart?: Axes;
+  delay?: Axes;
 }
 
 export function getScrollPosition({
   scrollingElement,
-  relativeStart = { x: 0, y: 0 },
+  delay = { x: 0, y: 0 },
 }: GetScrollPositionArgs): Axes {
-  const x = scrollingElement.scrollLeft - relativeStart.x;
-  const y = scrollingElement.scrollTop - relativeStart.y;
+  const x = Math.max(0, scrollingElement.scrollLeft - delay.x);
+  const y = Math.max(0, scrollingElement.scrollTop - delay.y);
 
   return {
     x,
@@ -140,7 +144,7 @@ export function isOnGap({
   if (gap.top !== null && beOnTopGap) return true;
 
   const beOnBottomGap =
-    scrollPosition.y > getScrollTopMax(scrollingElement) - gap.bottom;
+    scrollPosition.y > getMaxVerticalScroll(scrollingElement) - gap.bottom;
 
   if (gap.bottom !== null && beOnBottomGap) return true;
 
@@ -149,7 +153,7 @@ export function isOnGap({
   if (gap.left !== null && beOnLeftGap) return true;
 
   const beOnRightGap =
-    scrollPosition.x > getScrollLeftMax(scrollingElement) - gap.right;
+    scrollPosition.x > getMaxHorizontalScroll(scrollingElement) - gap.right;
 
   if (gap.right !== null && beOnRightGap) return true;
 
@@ -197,15 +201,24 @@ export function isOutOfLimit({
   return false;
 }
 
+function getScrollViewPosition(position: Axes): Axes {
+  return {
+    x: position.x + window.innerWidth,
+    y: position.y + window.innerHeight,
+  }
+}
+
 interface ScrollEventArgs {
   el?: Element;
   onScroll(onScrollArgs: OnScrollArgs): void;
   onlyOnChangedDirection?: boolean;
   onlyOnDirection?: boolean;
+  onlyOnWhenInOrOutTheRegion: Position;
   gap?: Position;
   debounce?: Axes;
   limit?: Position;
   lazyTime?: number;
+  delay?: Axes;
 }
 
 interface ScrollEvents extends Partial<ScrollEventArgs> {
@@ -218,6 +231,16 @@ export default function scrollEvents({
   onScroll,
   onlyOnChangedDirection = false,
   onlyOnDirection = null,
+  onlyOnWhenInOrOutTheRegion = {
+    bottom: null,
+    left: null,
+    right: null,
+    top: null,
+  },
+  delay = {
+    x: 0,
+    y: 0,
+  },
   gap = POSITION_DEFAULT,
   debounce = {
     x: 0,
@@ -229,10 +252,11 @@ export default function scrollEvents({
   const scrollingElement =
     getScrollingElement(el as HTMLElement & HTMLDocument);
   let lastRelativeScrollPosition = { x: 0, y: 0 };
-  let lastScrolledPosition = getScrollPosition({ scrollingElement });
+  let lastScrolledPosition = getScrollPosition({ scrollingElement, delay });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
   let lastDirection = null;
+  let isInTheRegion = null;
 
   function handleScroll(event) {
     function isToScroll({ changedDirection, scrollPosition, direction }) {
@@ -255,7 +279,7 @@ export default function scrollEvents({
       return true;
     }
 
-    const scrollPosition = getScrollPosition({ scrollingElement });
+    const scrollPosition = getScrollPosition({ scrollingElement, delay });
     const relativeScrollPosition = getRelativeScrollPosition({
       lastRelativeScrollPosition,
       lastScrollPosition,
@@ -269,6 +293,7 @@ export default function scrollEvents({
       scrollPosition,
       direction,
     });
+    const scrollViewPosition = getScrollViewPosition(scrollPosition);
 
     const timeout = window.setTimeout(() => {
       if (onScroll && toScroll) {
@@ -279,6 +304,7 @@ export default function scrollEvents({
           direction,
           changedDirection,
           relativeScrollPosition,
+          scrollViewPosition,
         });
       }
     }, lazyTime);

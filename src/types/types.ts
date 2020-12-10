@@ -24,6 +24,7 @@ export interface OnScrollArgs {
   event: UIEvent;
   scrollingElement: HTMLElement;
   scrollPosition: Axes;
+  scrollViewPosition: Axes;
   direction: Direction;
   changedDirection: boolean;
   relativeScrollPosition: Axes;

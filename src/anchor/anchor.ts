@@ -2,17 +2,23 @@ import ScrollEvents from '../scroll-events/scroll-events';
 import { Position, OnScrollArgs } from '../types/types';
 
 interface AnchorArgs {
-  el?: Element;
-  position: Partial<Position>;
+  elScrolling?: HTMLElement;
+  elFloating?: HTMLElement;
+  elToAnchor?: HTMLElement;
+  anchorIfBelow?: boolean;
+  anchorIfRightOf?: boolean;
+  anchorIfLeftOf?: boolean;
 }
 
-export default function anchor({ el = document, position }: AnchorArgs): void {
-  function handleScroll(scrollArgs: OnScrollArgs) {
-    if (position)
-  }
+export default function anchor({
+  elFloating,
+  elScrolling,
+  elToAnchor,
+}: AnchorArgs): void {
+  function handleScroll(scrollArgs: OnScrollArgs) {}
 
   ScrollEvents({
-    el,
+    el: elScrolling,
     onScroll: handleScroll,
   });
 }
