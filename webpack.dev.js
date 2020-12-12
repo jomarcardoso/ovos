@@ -1,11 +1,12 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: {
-    ovo: './src/ovo.ts',
-    anchor: './src/anchor/anchor.ts',
-    parallax: './src/anchor/anchor.ts',
+    ['./src/dist/ovo']: './src/ovo.ts',
+    ['./src/anchor/dist/anchor']: './src/anchor/anchor.ts',
+    ['./src/parallax/dist/parallax']: './src/parallax/parallax.ts',
   },
   output: {
     path: path.resolve(__dirname),
