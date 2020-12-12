@@ -8,12 +8,11 @@ module.exports = merge(common, {
     parallax: './src/anchor/anchor.ts',
   },
   output: {
-    // path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname),
     libraryTarget: 'umd',
   },
   mode: 'development',
   devtool: 'inline-source-map',
-  watch: true,
   module: {
     rules: [
       {

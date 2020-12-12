@@ -4,7 +4,7 @@ import {
   Direction,
   Element,
   Position,
-  OnScrollArgs
+  OnScrollArgs,
 } from '../types/types';
 
 const POSITION_DEFAULT: Position = {
@@ -12,7 +12,7 @@ const POSITION_DEFAULT: Position = {
   left: null,
   right: null,
   top: null,
-}
+};
 
 export function getMaxVerticalScroll(scrollingElement: HTMLElement): number {
   return scrollingElement.scrollHeight - scrollingElement.clientHeight;
@@ -23,7 +23,7 @@ export function getMaxHorizontalScroll(scrollingElement: HTMLElement): number {
 }
 
 export function getScrollingElement(
-  target: HTMLElement | HTMLDocument
+  target: HTMLElement | HTMLDocument,
 ): HTMLElement {
   const documentTarget = target as HTMLDocument;
 
@@ -53,10 +53,10 @@ export function getScrollPosition({
 }
 
 interface GetRelativeScrollPositionArgs {
-  lastRelativeScrollPosition: Axes,
-  scrollPosition: Axes,
-  lastScrollPosition: Axes,
-  limit: Position,
+  lastRelativeScrollPosition: Axes;
+  scrollPosition: Axes;
+  lastScrollPosition: Axes;
+  limit: Position;
 }
 
 export function getRelativeScrollPosition({
@@ -85,8 +85,11 @@ export function getRelativeScrollPosition({
 }
 
 export function getDirection({
-  lastScrollPosition, scrollPosition
-}: { lastScrollPosition: Axes; scrollPosition: Axes
+  lastScrollPosition,
+  scrollPosition,
+}: {
+  lastScrollPosition: Axes;
+  scrollPosition: Axes;
 }): Direction {
   if (lastScrollPosition.x < scrollPosition.x) {
     return Direction.RIGHT;
@@ -116,7 +119,7 @@ interface IsSafeArgs {
 export function isSafe({
   scrollPosition,
   lastScrolledPosition,
-  debounce
+  debounce,
 }: IsSafeArgs): boolean {
   const beOnVerticalSafe =
     Math.abs(scrollPosition.y - lastScrolledPosition.y) < debounce.y;
@@ -129,15 +132,15 @@ export function isSafe({
 }
 
 interface IsOnGapArgs {
-  scrollPosition: Axes,
-  gap: Position,
+  scrollPosition: Axes;
+  gap: Position;
   scrollingElement: HTMLElement;
 }
 
 export function isOnGap({
   scrollPosition,
   gap,
-  scrollingElement
+  scrollingElement,
 }: IsOnGapArgs): boolean {
   const beOnTopGap = scrollPosition.y < gap.top;
 
@@ -167,9 +170,8 @@ interface IsOutOfLimitArgs {
 
 export function isOutOfLimit({
   relativeScrollPosition,
-  limit = POSITION_DEFAULT
-}: IsOutOfLimitArgs
-): boolean {
+  limit = POSITION_DEFAULT,
+}: IsOutOfLimitArgs): boolean {
   if (isNumber(limit.top)) {
     const outOfTopLimit = relativeScrollPosition.y <= limit.top;
 
@@ -205,7 +207,7 @@ function getScrollViewPosition(position: Axes): Axes {
   return {
     x: position.x + window.innerWidth,
     y: position.y + window.innerHeight,
-  }
+  };
 }
 
 interface ScrollEventArgs {
@@ -222,8 +224,8 @@ interface ScrollEventArgs {
 }
 
 interface ScrollEvents extends Partial<ScrollEventArgs> {
-  lastScrolledPosition: Axes,
-  scrollingElement: Element,
+  lastScrolledPosition: Axes;
+  scrollingElement: Element;
 }
 
 export default function scrollEvents({
@@ -231,12 +233,12 @@ export default function scrollEvents({
   onScroll,
   onlyOnChangedDirection = false,
   onlyOnDirection = null,
-  onlyOnWhenInOrOutTheRegion = {
-    bottom: null,
-    left: null,
-    right: null,
-    top: null,
-  },
+  // onlyOnWhenInOrOutTheRegion = {
+  //   bottom: null,
+  //   left: null,
+  //   right: null,
+  //   top: null,
+  // },
   delay = {
     x: 0,
     y: 0,
@@ -249,14 +251,15 @@ export default function scrollEvents({
   limit = POSITION_DEFAULT,
   lazyTime = 0,
 }: ScrollEventArgs): ScrollEvents {
-  const scrollingElement =
-    getScrollingElement(el as HTMLElement & HTMLDocument);
+  const scrollingElement = getScrollingElement(
+    el as HTMLElement & HTMLDocument,
+  );
   let lastRelativeScrollPosition = { x: 0, y: 0 };
   let lastScrolledPosition = getScrollPosition({ scrollingElement, delay });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
   let lastDirection = null;
-  let isInTheRegion = null;
+  // let isInTheRegion = null;
 
   function handleScroll(event) {
     function isToScroll({ changedDirection, scrollPosition, direction }) {

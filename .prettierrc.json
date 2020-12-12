@@ -3,6 +3,6 @@
   "singleQuote": true,
   "arrowParens": "always",
   "endOfLine": "auto",
-  "parser": "babel",
+  "parser": "typescript",
   "jsxSingleQuote": true
 }
