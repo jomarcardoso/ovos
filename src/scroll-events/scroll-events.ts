@@ -213,7 +213,7 @@ interface ScrollEventArgs {
   onScroll(onScrollArgs: OnScrollArgs): void;
   onlyOnChangedDirection?: boolean;
   onlyOnDirection?: boolean;
-  onlyOnWhenInOrOutTheRegion: Position;
+  onlyOnWhenInOrOutTheRegion?: Position;
   gap?: Position;
   debounce?: Axes;
   limit?: Position;

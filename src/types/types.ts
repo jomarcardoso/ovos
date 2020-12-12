@@ -1,16 +1,21 @@
 export type Element = HTMLElement | HTMLDocument;
 
-export interface Axes {
-  x: number;
-  y: number;
-}
-
 export enum Direction {
   UP = 'up',
   DOWN = 'down',
   LEFT = 'left',
   RIGHT = 'right',
   NONE = '',
+}
+
+export enum Axis {
+  X,
+  Y
+}
+
+export interface Axes {
+  x: number;
+  y: number;
 }
 
 export interface Position {

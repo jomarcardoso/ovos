@@ -2,14 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: {
-    ovo: './src/ovo.ts',
-    anchor: './src/anchor/anchor.ts',
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd',
-  },
   module: {
     rules: [
       {

@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build": "webpack --config webpack.prod.js",
+    "start": "webpack --config webpack.prod.js",
     "dev": "webpack --config webpack.dev.js",
     "test": "jest"
   },
