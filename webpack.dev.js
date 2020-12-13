@@ -4,9 +4,9 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: {
-    ['./src/dist/ovo']: './src/ovo.ts',
-    ['./src/anchor/dist/anchor']: './src/anchor/anchor.ts',
-    ['./src/parallax/dist/parallax']: './src/parallax/parallax.ts',
+    // ['./src/dist/ovo']: './src/ovo.ts',
+    // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
+    ['./src/parallax/public/dist/index']: './src/parallax/public/index.ts',
   },
   output: {
     path: path.resolve(__dirname),

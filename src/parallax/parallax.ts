@@ -25,7 +25,7 @@ interface ParallaxArgs {
   axis?: Axis;
 }
 
-export function parallax({
+export default function parallax({
   el,
   callback,
   distance = 1000,
@@ -33,7 +33,7 @@ export function parallax({
   gap = 0,
   axis = Axis.Y,
 }: ParallaxArgs): void {
-  let lastPosition = 0;
+  // let lastPosition = 0;
   const item = parallaxItem({ el, callback });
 
   function handleScroll({ scrollingElement }: OnScrollArgs): void {
@@ -67,8 +67,7 @@ export function parallax({
       return calculateTranslateY(position);
     }
 
-    if (lastPosition === position) return;
-    lastPosition = position;
+    // lastPosition = position;
     const translateY = getTranslateY();
 
     if (!isElOnScreen({ translateY })) return;
