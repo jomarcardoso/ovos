@@ -9,8 +9,8 @@ export enum Direction {
 }
 
 export enum Axis {
-  X,
-  Y,
+  X = 'x',
+  Y = 'y',
 }
 
 export interface Axes {

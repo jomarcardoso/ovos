@@ -1,6 +1,7 @@
 import scrollEvents, {
   getScrollingElement,
 } from '../scroll-events/scroll-events';
+import { Axes, Axis, Element, OnScrollArgs } from '../types/types';
 
 const ACTIVE_CLASS = 'is-active';
 
@@ -10,11 +11,17 @@ interface ScrollSpyItemArgs {
   callback?({ active: boolean }): void;
 }
 
+interface ScrollSpyItem {
+  activate(): void;
+  deActivate(): void;
+  content: HTMLElement;
+}
+
 export function ScrollSpyItem({
   elMenu,
   elContent,
   callback,
-}: ScrollSpyItemArgs = {}) {
+}: ScrollSpyItemArgs = {}): ScrollSpyItem {
   function activate() {
     elMenu.classList.add(ACTIVE_CLASS);
     elContent.classList.add(ACTIVE_CLASS);
@@ -34,23 +41,36 @@ export function ScrollSpyItem({
   };
 }
 
-export default function (
+export enum Method {
+  current,
+  closest,
+}
+
+interface ScrollSpyArgs {
+  list: Array<ScrollSpyItem>;
+  elRelative?: Element;
+  method?: Method;
+  axis?: Axis;
+}
+
+export default function scrollSpy({
   list,
-  { elRelative = document, method = 'current', axis = 'y' } = {},
-) {
+  elRelative = document,
+  method = Method.current,
+  axis = Axis.Y,
+}: ScrollSpyArgs) {
   let currentActive;
   let getTheActive;
-  const elHtml = document.querySelector('html');
   const scrollingElement = getScrollingElement(elRelative);
 
-  function getTheCurrent(position) {
+  function getTheCurrent(position: Axes) {
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
-        axis === 'y'
+        axis === Axis.Y
           ? currentValue.content.offsetTop
           : currentValue.content.offsetLeft;
 
-      if (position >= currentStart - 1) {
+      if (position[axis] >= currentStart - 1) {
         return currentValue;
       }
 
@@ -58,27 +78,27 @@ export default function (
     });
   }
 
-  function getTheClosest(position) {
+  function getTheClosest(position: Axes) {
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
-        axis === 'y'
+        axis === Axis.Y
           ? previousValue.content.offsetTop - 1
           : previousValue.content.offsetLeft - 1;
       const previousEnd =
-        axis === 'y'
+        axis === Axis.Y
           ? previousStart + previousValue.content.offsetHeight - 1
           : previousStart + previousValue.content.offsetWidth - 1;
       const currentStart =
-        axis === 'y'
+        axis === Axis.Y
           ? currentValue.content.offsetTop + 1
           : currentValue.content.offsetLeft + 1;
       const currentEnd =
-        axis === 'y'
+        axis === Axis.Y
           ? currentStart + currentValue.content.offsetHeight + 1
           : currentStart + currentValue.content.offsetWidth + 1;
 
       const middleScrolled = Math.abs(
-        position + scrollingElement.offsetWidth / 2,
+        position[axis] + scrollingElement.offsetWidth / 2,
       );
 
       const previousProximityStart = Math.abs(middleScrolled - previousStart);
@@ -109,22 +129,14 @@ export default function (
   }
 
   getTheActive = getTheCurrent;
-  if (method === 'closest') {
+  if (method === Method.closest) {
     getTheActive = getTheClosest;
   }
 
-  function handleScroll() {
-    function getPositions() {
-      if (axis === 'y') {
-        return scrollingElement.scrollTop + elHtml.scrollTop;
-      }
+  function handleScroll({ scrollPosition }: OnScrollArgs) {
+    const currentToActive = getTheActive(scrollPosition, list);
 
-      return scrollingElement.scrollLeft + elHtml.scrollLeft;
-    }
-
-    const position = getPositions();
-
-    const currentToActive = getTheActive(position, list);
+    console.log(currentToActive);
 
     if (currentToActive !== currentActive) {
       if (currentToActive.activate) currentToActive.activate();
