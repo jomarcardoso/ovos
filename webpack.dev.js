@@ -6,6 +6,7 @@ module.exports = merge(common, {
   entry: {
     // ['./src/dist/ovo']: './src/ovo.ts',
     // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
+    ['./src/scroll-spy/sample/dist/index']: './src/scroll-spy/sample/index.ts',
     ['./src/fit-on-screen/sample/dist/index']:
       './src/fit-on-screen/sample/index.ts',
     ['./src/sticky-header/sample/dist/index']:
