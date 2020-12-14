@@ -8,6 +8,8 @@ module.exports = merge(common, {
     // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
     ['./src/fit-on-screen/sample/dist/index']:
       './src/fit-on-screen/sample/index.ts',
+    ['./src/sticky-header/sample/dist/index']:
+      './src/sticky-header/sample/index.ts',
     ['./src/parallax/sample/dist/index']: './src/parallax/sample/index.ts',
     ['./src/scrollable-sticky/sample/dist/index']:
       './src/scrollable-sticky/sample/index.ts',
