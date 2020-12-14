@@ -1,7 +1,19 @@
 import ScrollEvents from '../scroll-events/scroll-events';
 import { Axis, Element, OnScrollArgs } from '../types/types';
 
-export function parallaxItem({ el, callback }) {
+type Callback = (translateY: number) => void;
+
+interface ParallaxItem {
+  el: HTMLElement;
+  doParallax: Callback;
+}
+
+interface ParallaxItemArgs {
+  el: HTMLElement;
+  callback: Callback;
+}
+
+export function parallaxItem({ el, callback }: ParallaxItemArgs): ParallaxItem {
   function doParallax(translateY) {
     // eslint-disable-next-line no-param-reassign
     el.style.transform = `translate3d(0, ${translateY}px, 0)`;
@@ -18,7 +30,7 @@ export function parallaxItem({ el, callback }) {
 
 interface ParallaxArgs {
   el: HTMLElement;
-  callback?(event: UIEvent): void;
+  callback?: Callback;
   distance?: number;
   elRelative?: Element;
   gap?: number;
@@ -33,7 +45,6 @@ export default function parallax({
   gap = 0,
   axis = Axis.Y,
 }: ParallaxArgs): void {
-  // let lastPosition = 0;
   const item = parallaxItem({ el, callback });
 
   function handleScroll({ scrollingElement }: OnScrollArgs): void {

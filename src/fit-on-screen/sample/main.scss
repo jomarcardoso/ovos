@@ -1,0 +1,18 @@
+@import '~sanitize.css';
+
+article {
+  background-color: lightblue;
+  border: 8px solid black;
+  min-height: 100vh;
+  border-radius: 20px;
+}
+
+header,
+footer {
+  background-color: black;
+  min-height: 100px;
+}
+
+main {
+  background-color: black;
+}

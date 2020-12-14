@@ -6,9 +6,11 @@ module.exports = merge(common, {
   entry: {
     // ['./src/dist/ovo']: './src/ovo.ts',
     // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
-    ['./src/parallax/public/dist/index']: './src/parallax/public/index.ts',
-    ['./src/scrollable-sticky/public/dist/index']:
-      './src/scrollable-sticky/public/index.ts',
+    ['./src/fit-on-screen/sample/dist/index']:
+      './src/fit-on-screen/sample/index.ts',
+    ['./src/parallax/sample/dist/index']: './src/parallax/sample/index.ts',
+    ['./src/scrollable-sticky/sample/dist/index']:
+      './src/scrollable-sticky/sample/index.ts',
   },
   output: {
     path: path.resolve(__dirname),

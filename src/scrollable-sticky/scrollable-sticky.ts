@@ -1,6 +1,5 @@
+import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
-
-/* eslint-disable */
 import scrollEvents from '../scroll-events/scroll-events';
 import { OnScrollArgs } from '../types/types';
 
@@ -8,10 +7,10 @@ interface ScrollableSticky {
   el?: HTMLElement;
   elWrapper?: HTMLElement;
   elContainer?: HTMLElement;
-  onUnpin?(event: UIEvent): void;
-  onPin?(event: UIEvent): void;
-  onUnfix?(event: UIEvent): void;
-  onFix?(event: UIEvent): void;
+  onUnpin?(): void;
+  onPin?(): void;
+  onUnfix?(): void;
+  onFix?(): void;
 }
 
 function getViewportHeight() {
@@ -45,11 +44,11 @@ export default function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]'),
   elWrapper = document.querySelector('[data-ovo_ss="wrapper"]'),
   elContainer = document.querySelector('[data-ovo_ss="container"]'),
-}: // onUnpin,
-// onPin,
-// onUnfix,
-// onFix,
-ScrollableSticky) {
+  onUnpin,
+  onPin,
+  onUnfix,
+  onFix,
+}: ScrollableSticky): void {
   let fixed = false;
   let pinnedOnBottom = false;
 
@@ -57,40 +56,47 @@ ScrollableSticky) {
     function pinOnBottom() {
       if (pinnedOnBottom) return;
 
-      // onPin();
-      elContainer.dataset['ovo_ss_pinned'] = 'bottom';
+      // eslint-disable-next-line no-param-reassign
+      elContainer.dataset.ovo_ss_pinned = 'bottom';
       pinnedOnBottom = true;
+      if (isFunction(onPin)) onPin();
     }
 
     function unpinOnBottom() {
       if (!pinnedOnBottom) return;
 
-      // onUnpin();
-      elContainer.dataset['ovo_ss_pinned'] = '';
+      // eslint-disable-next-line no-param-reassign
+      elContainer.dataset.ovo_ss_pinned = '';
       pinnedOnBottom = false;
+      if (isFunction(onUnpin)) onUnpin();
     }
 
     function fix() {
       if (fixed) return;
 
       fixed = true;
-      elContainer.dataset['ovo_ss_fixed'] = 'true';
+      // eslint-disable-next-line no-param-reassign
+      elContainer.dataset.ovo_ss_fixed = 'true';
+      // eslint-disable-next-line no-param-reassign
       el.style.width = String(elContainer.offsetWidth);
-      // onFix();
+      if (isFunction(onFix)) onFix();
     }
 
     function unfix() {
       if (!fixed) return;
 
       fixed = false;
-      elContainer.dataset['ovo_ss_fixed'] = 'false';
+      // eslint-disable-next-line no-param-reassign
+      elContainer.dataset.ovo_ss_fixed = 'false';
+      // eslint-disable-next-line no-param-reassign
       el.style.transform = `translateY(0)`;
-      // onUnfix();
+      if (isFunction(onUnfix)) onUnfix();
     }
 
     if (isOnViewport({ el: elWrapper, scrollPosition })) {
       fix();
       unpinOnBottom();
+
       return;
     }
 
@@ -98,6 +104,7 @@ ScrollableSticky) {
 
     if (!isBottomOfElementBelowOfViewport({ el: elWrapper, scrollPosition })) {
       pinOnBottom();
+
       return;
     }
 
@@ -117,6 +124,7 @@ ScrollableSticky) {
       const maxToScroll = el.offsetHeight - getViewportHeight();
       const positionScroll = scrollPosition - elWrapper.offsetTop;
       const difference = positionScroll - lastPositionScroll;
+
       lastPositionScroll = positionScroll;
 
       toScroll += difference;
@@ -128,6 +136,7 @@ ScrollableSticky) {
         toScroll = minToScroll;
       }
 
+      // eslint-disable-next-line no-param-reassign
       el.style.transform = `translateY(-${toScroll}px)`;
     };
   })();
@@ -139,5 +148,4 @@ ScrollableSticky) {
   }
 
   bindEvents();
-  // handleScroll();
 }
