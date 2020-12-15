@@ -11,13 +11,13 @@ interface ScrollSpyItemArgs {
   callback?({ active: boolean }): void;
 }
 
-interface ScrollSpyItem {
+export interface ScrollSpyItem {
   activate(): void;
   deActivate(): void;
   content: HTMLElement;
 }
 
-export function ScrollSpyItem({
+export function createScrollSpyItem({
   elMenu,
   elContent,
   callback,
@@ -58,7 +58,7 @@ export default function scrollSpy({
   elRelative = document,
   method = Method.current,
   axis = Axis.Y,
-}: ScrollSpyArgs) {
+}: ScrollSpyArgs): void {
   let currentActive;
   let getTheActive;
   const scrollingElement = getScrollingElement(elRelative);
@@ -135,8 +135,6 @@ export default function scrollSpy({
 
   function handleScroll({ scrollPosition }: OnScrollArgs) {
     const currentToActive = getTheActive(scrollPosition, list);
-
-    console.log(currentToActive);
 
     if (currentToActive !== currentActive) {
       if (currentToActive.activate) currentToActive.activate();

@@ -12,6 +12,7 @@ module.exports = merge(common, {
     ['./src/sticky-header/sample/dist/index']:
       './src/sticky-header/sample/index.ts',
     ['./src/parallax/sample/dist/index']: './src/parallax/sample/index.ts',
+    ['./src/carousel/sample/dist/index']: './src/carousel/sample/index.ts',
     ['./src/scrollable-sticky/sample/dist/index']:
       './src/scrollable-sticky/sample/index.ts',
   },

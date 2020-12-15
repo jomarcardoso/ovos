@@ -1,4 +1,8 @@
-[data-carousel="carousel"] {
+[data-carousel='carousel'] {
+  // display: flex;
+}
+
+[data-carousel='slider'] {
   display: flex;
   width: 100%;
   overflow-x: auto;
@@ -21,7 +25,7 @@
 [data-carousel="arrow"] {
   visibility: hidden;
 
-  &.is-loaded {
+  &.is-arrow--loaded {
     visibility: visible;
   }
 }
