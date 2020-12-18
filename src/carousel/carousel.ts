@@ -59,7 +59,9 @@ const carousel: Carousel = ({
   if (!el) return;
 
   const elSlider: HTMLElement = el.querySelector('[data-carousel="slider"]');
-  const elSlides = Array.from(el.querySelectorAll('[data-carousel="slide"]'));
+  const elSlides: Array<HTMLElement> = Array.from(
+    el.querySelectorAll('[data-carousel="slide"]'),
+  );
   const elDots: Array<HTMLAnchorElement> = Array.from(
     el.querySelectorAll('[data-carousel="dot"]'),
   );
@@ -67,10 +69,9 @@ const carousel: Carousel = ({
     el.querySelectorAll('[data-carousel="arrow"]'),
   );
 
-  console.log(elDots);
-
   function detectType(): CarouselFitType {
     const firstSlideWidth = elSlides[0].offsetWidth;
+
     const halfSliderWidth = elSlider.offsetWidth / 2;
     const firstSlideSmallerThanHalfSlider =
       firstSlideWidth <= halfSliderWidth + 1;
@@ -83,6 +84,7 @@ const carousel: Carousel = ({
   }
 
   const internalType = type || detectType();
+
   const [elArrowLeft, elArrowRight] = elArrows;
   let mouseOver = false;
   let intervalAutoplay = 0;
@@ -93,8 +95,6 @@ const carousel: Carousel = ({
     for (let i = 0; i < toRemove; i += 1) {
       elDots[lastPosition - i]?.remove();
     }
-
-    elDots.pop(toRemove);
   }
 
   function removeNotUsedSlides() {
@@ -104,9 +104,12 @@ const carousel: Carousel = ({
     const sliderWidth = elSlider.offsetWidth;
     const visibleSlides = sliderWidth / (firstSlideWidth - 1);
     const toRemove = Math.round(visibleSlides - 1);
+    const totalSlides = elSlides.length;
 
-    elSlides.pop(toRemove);
     removeNotUsedDotsFromHTML(toRemove);
+
+    elSlides.splice(totalSlides - toRemove, toRemove);
+    elDots.splice(totalSlides - toRemove, toRemove);
   }
 
   const quantity = elSlides.length;
@@ -253,6 +256,8 @@ const carousel: Carousel = ({
   bindEvents();
   handleChangeSlide();
   startOnCurrentSlide();
+
+  elSlider.dispatchEvent(new Event('scroll'));
 };
 
 export default carousel;

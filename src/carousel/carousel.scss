@@ -16,6 +16,7 @@
 }
 
 [data-carousel="slide"] {
+  box-sizing: border-box;
   width: 100%;
   flex-shrink: 0;
   scroll-snap-align: center;
@@ -27,5 +28,23 @@
 
   &.is-arrow--loaded {
     visibility: visible;
+  }
+}
+
+[data-carousel-visible-slides='2'] {
+  [data-carousel="slide"] {
+    width: 50%;
+  }
+}
+
+[data-carousel-visible-slides='3'] {
+  [data-carousel="slide"] {
+    width: calc(100% / 3);
+  }
+}
+
+[data-carousel-visible-slides='4'] {
+  [data-carousel="slide"] {
+    width: 25%;
   }
 }
