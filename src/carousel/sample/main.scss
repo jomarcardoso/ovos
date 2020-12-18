@@ -21,12 +21,9 @@ main {
   position: relative;
 
   a {
-    // position: absolute;
-    // top: 50%;
     width: 24px;
     height: 24px;
     background: black;
-    // transform: translateY(-50%);
     align-self: center;
 
     &:first-child {

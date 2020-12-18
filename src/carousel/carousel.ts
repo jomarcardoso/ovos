@@ -87,7 +87,7 @@ const carousel: Carousel = ({
 
   const [elArrowLeft, elArrowRight] = elArrows;
   let mouseOver = false;
-  let intervalAutoplay = 0;
+  let intervalAutoplay = null;
 
   function removeNotUsedDotsFromHTML(toRemove = 0) {
     const lastPosition = elDots.length - 1;
@@ -218,12 +218,12 @@ const carousel: Carousel = ({
 
   function handleMouseOver() {
     mouseOver = true;
-    scrollToAndAutoplay();
+    autoplay();
   }
 
   function handleMouseOut() {
     mouseOver = false;
-    scrollToAndAutoplay();
+    autoplay();
   }
 
   function bindEvents() {
