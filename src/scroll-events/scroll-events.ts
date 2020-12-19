@@ -6,7 +6,10 @@ import {
   isSafe,
 } from '../services/scroll/scroll.service';
 import { getScrollingElement } from '../services/element/element.service';
-import { getDirection } from '../services/direction/direction.service';
+import {
+  getDirection,
+  isOnTheSameDirection,
+} from '../services/direction/direction.service';
 import {
   POSITION_DEFAULT,
   isOnTheRegion,
@@ -109,7 +112,10 @@ export default function scrollEvents({
       lastPosition: lastScrollPosition,
       position: scrollPosition,
     });
-    const changedDirection = lastDirection !== direction;
+    const changedDirection = !isOnTheSameDirection({
+      direction,
+      lastDirection,
+    });
     const toScroll = isToScroll({
       changedDirection,
       scrollPosition,
