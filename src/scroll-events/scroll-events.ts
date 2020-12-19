@@ -210,6 +210,20 @@ function getScrollViewPosition(position: Axes): Axes {
   };
 }
 
+interface IsOnTheRegionArgs {
+  region: Position;
+  position: Axes;
+}
+
+type IsOnTheRegion = (args: IsOnTheRegionArgs) => boolean;
+
+const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
+  const onBelowTheTop = position.y > region.top;
+  const onAboveTheBottom = position.y < region.bottom;
+
+  return onBelowTheTop && onAboveTheBottom;
+};
+
 interface ScrollEventArgs {
   el?: Element;
   onScroll(onScrollArgs: OnScrollArgs): void;
@@ -233,12 +247,12 @@ export default function scrollEvents({
   onScroll,
   onlyOnChangedDirection = false,
   onlyOnDirection = null,
-  // onlyOnWhenInOrOutTheRegion = {
-  //   bottom: null,
-  //   left: null,
-  //   right: null,
-  //   top: null,
-  // },
+  onlyOnWhenInOrOutTheRegion = {
+    bottom: null,
+    left: null,
+    right: null,
+    top: null,
+  },
   delay = {
     x: 0,
     y: 0,
@@ -259,7 +273,7 @@ export default function scrollEvents({
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
   let lastDirection = null;
-  // let isInTheRegion = null;
+  let lastOnTheRegion = false;
 
   function handleScroll(event) {
     function isToScroll({ changedDirection, scrollPosition, direction }) {
@@ -269,6 +283,18 @@ export default function scrollEvents({
         return false;
       }
       if (onlyOnDirection && onlyOnDirection !== direction) return false;
+
+      if (onlyOnWhenInOrOutTheRegion) {
+        const onTheRegion = isOnTheRegion({
+          position: scrollPosition,
+          region: onlyOnWhenInOrOutTheRegion,
+        });
+
+        if (onTheRegion && lastOnTheRegion) return false;
+        if (onTheRegion && !lastOnTheRegion) return false;
+
+        lastOnTheRegion = onTheRegion;
+      }
 
       const outOfLimit = isOutOfLimit({
         relativeScrollPosition: lastRelativeScrollPosition,

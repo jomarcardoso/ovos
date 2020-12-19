@@ -1,8 +1,8 @@
 // import ScrollEvents from '../scroll-events/scroll-events';
-// import { Position, OnScrollArgs } from '../types/types';
+// import { OnScrollArgs, Element } from '../types/types';
 
 // interface AnchorArgs {
-//   elScrolling?: HTMLElement;
+//   elScrolling?: Element;
 //   elFloating?: HTMLElement;
 //   elToAnchor?: HTMLElement;
 //   anchorIfBelow?: boolean;
@@ -12,10 +12,12 @@
 
 // export default function anchor({
 //   elFloating,
-//   elScrolling,
+//   elScrolling = document,
 //   elToAnchor,
 // }: AnchorArgs): void {
-//   function handleScroll(scrollArgs: OnScrollArgs) {}
+//   function handleScroll(scrollArgs: OnScrollArgs) {
+//     // scrollArgs.scrollPosition
+//   }
 
 //   ScrollEvents({
 //     el: elScrolling,
