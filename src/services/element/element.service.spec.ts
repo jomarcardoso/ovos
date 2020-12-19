@@ -1,8 +1,7 @@
-import ElementService from './element.service';
+import { getScrollingElement } from './element.service';
 
 describe('ElementService', () => {
   describe('getScrollingElement', () => {
-    const { getScrollingElement } = ElementService;
     it('document', () => {
       const copyDocument = {
         ...document,
@@ -15,6 +14,13 @@ describe('ElementService', () => {
 
     it('el', () => {
       const el = document.createElement('div');
+      const scrollingElement = getScrollingElement(el);
+
+      expect(scrollingElement).toBe(el);
+    });
+
+    it('html', () => {
+      const el = document.createElement('html');
       const scrollingElement = getScrollingElement(el);
 
       expect(scrollingElement).toBe(el);

@@ -16,8 +16,8 @@ interface IsOnTheRegionArgs {
 type IsOnTheRegion = (args: IsOnTheRegionArgs) => boolean;
 
 export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
-  const onBelowTheTop = position.y > region.top;
-  const onAboveTheBottom = position.y < region.bottom;
+  const onBelowTheTop = position.y >= region.top;
+  const onAboveTheBottom = position.y <= region.bottom;
 
   return onBelowTheTop && onAboveTheBottom;
 };
@@ -65,6 +65,7 @@ export function isOutOfLimit({
 const PositionService = {
   POSITION_DEFAULT,
   isOnTheRegion,
+  isOutOfLimit,
 };
 
 export default PositionService;
