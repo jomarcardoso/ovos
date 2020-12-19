@@ -1,30 +1,31 @@
 import { Axes, Direction } from '../../types/types';
 
-export function getDirection({
-  lastScrollPosition,
-  scrollPosition,
-}: {
-  lastScrollPosition: Axes;
-  scrollPosition: Axes;
-}): Direction {
-  if (lastScrollPosition.x < scrollPosition.x) {
+interface GetDirectionArgs {
+  lastPosition: Axes;
+  position: Axes;
+}
+
+type GetDirection = (args: GetDirectionArgs) => Direction;
+
+export const getDirection: GetDirection = ({ lastPosition, position }) => {
+  if (lastPosition.x < position.x) {
     return Direction.RIGHT;
   }
 
-  if (lastScrollPosition.x > scrollPosition.x) {
+  if (lastPosition.x > position.x) {
     return Direction.LEFT;
   }
 
-  if (lastScrollPosition.y < scrollPosition.y) {
+  if (lastPosition.y < position.y) {
     return Direction.DOWN;
   }
 
-  if (lastScrollPosition.y > scrollPosition.y) {
+  if (lastPosition.y > position.y) {
     return Direction.UP;
   }
 
   return Direction.NONE;
-}
+};
 
 const DirectionService = {
   getDirection,

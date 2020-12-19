@@ -105,7 +105,10 @@ export default function scrollEvents({
       scrollPosition,
       limit,
     });
-    const direction = getDirection({ lastScrollPosition, scrollPosition });
+    const direction = getDirection({
+      lastPosition: lastScrollPosition,
+      position: scrollPosition,
+    });
     const changedDirection = lastDirection !== direction;
     const toScroll = isToScroll({
       changedDirection,

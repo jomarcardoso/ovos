@@ -1,12 +1,9 @@
-import {
-  getMaxVerticalScroll,
-  getMaxHorizontalScroll,
-  getScrollingElement,
-  getScrollPosition,
-} from './scroll-events';
+import ScrollService from './scroll.service';
 
-describe('ScrollEvents', () => {
+describe('ScrollService', () => {
   describe('getMaxVerticalScroll', () => {
+    const { getMaxVerticalScroll } = ScrollService;
+
     it('scrollHeight = 1000; clientHeight: 200', () => {
       const element = { ...document.createElement('div') };
 
@@ -20,6 +17,8 @@ describe('ScrollEvents', () => {
   });
 
   describe('getMaxHorizontalScroll', () => {
+    const { getMaxHorizontalScroll } = ScrollService;
+
     it('scrollHeight = 1000; clientHeight: 200', () => {
       const element = { ...document.createElement('div') };
 
@@ -32,26 +31,9 @@ describe('ScrollEvents', () => {
     });
   });
 
-  describe('getScrollingElement', () => {
-    it('document', () => {
-      const copyDocument = {
-        ...document,
-        scrollingElement: document.documentElement,
-      };
-      const scrollingElement = getScrollingElement(copyDocument);
-
-      expect(scrollingElement.tagName).toBe('HTML');
-    });
-
-    it('el', () => {
-      const el = document.createElement('div');
-      const scrollingElement = getScrollingElement(el);
-
-      expect(scrollingElement).toBe(el);
-    });
-  });
-
   describe('getScrollPosition', () => {
+    const { getScrollPosition } = ScrollService;
+
     it('scrollingElement: { scrollLeft: 30, scrollTop: 50 }', () => {
       const scrollingElement = { ...document.createElement('div') };
 
