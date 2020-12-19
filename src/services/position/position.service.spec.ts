@@ -1,4 +1,5 @@
-import { isOnTheRegion } from './position.service';
+import { Axes } from '../../types/types';
+import { isOnTheRegion, getRelativePosition } from './position.service';
 
 describe('PositionService', () => {
   describe('isOnTheRegion', () => {
@@ -69,6 +70,62 @@ describe('PositionService', () => {
       });
 
       expect(result).toBe(true);
+    });
+  });
+
+  describe('getRelativePosition', () => {
+    it('stay on zero', () => {
+      const relativePosition = getRelativePosition({
+        position: { x: 0, y: 0 },
+      });
+
+      const expected: Axes = { x: 0, y: 0 };
+
+      expect(relativePosition).toStrictEqual(expected);
+    });
+
+    it('out of zero to {2,2}', () => {
+      const relativePosition = getRelativePosition({
+        position: { x: 2, y: 2 },
+      });
+
+      const expected: Axes = { x: 2, y: 2 };
+
+      expect(relativePosition).toStrictEqual(expected);
+    });
+
+    it('last {2,2} to {7,10}: {5,8}', () => {
+      const relativePosition = getRelativePosition({
+        position: { x: 7, y: 10 },
+        lastPosition: { x: 2, y: 2 },
+      });
+
+      const expected: Axes = { x: 5, y: 8 };
+
+      expect(relativePosition).toStrictEqual(expected);
+    });
+
+    it('last {7,10} to {2,2}: {-5,-8}', () => {
+      const relativePosition = getRelativePosition({
+        position: { x: 2, y: 2 },
+        lastPosition: { x: 7, y: 10 },
+      });
+
+      const expected: Axes = { x: -5, y: -8 };
+
+      expect(relativePosition).toStrictEqual(expected);
+    });
+
+    it('relative to {10,10} last {7,10} to {2,2}: {5,2}', () => {
+      const relativePosition = getRelativePosition({
+        position: { x: 2, y: 2 },
+        lastPosition: { x: 7, y: 10 },
+        lastRelativePosition: { x: 10, y: 10 },
+      });
+
+      const expected: Axes = { x: 5, y: 2 };
+
+      expect(relativePosition).toStrictEqual(expected);
     });
   });
 });

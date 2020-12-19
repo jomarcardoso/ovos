@@ -26,38 +26,6 @@ export function getScrollPosition({
   };
 }
 
-interface GetRelativeScrollPositionArgs {
-  lastRelativeScrollPosition: Axes;
-  scrollPosition: Axes;
-  lastScrollPosition: Axes;
-  limit: Position;
-}
-
-export function getRelativeScrollPosition({
-  lastRelativeScrollPosition,
-  scrollPosition,
-  lastScrollPosition,
-  limit,
-}: GetRelativeScrollPositionArgs): Axes {
-  let x =
-    lastRelativeScrollPosition.x + scrollPosition.x - lastScrollPosition.x;
-
-  let y =
-    lastRelativeScrollPosition.y + scrollPosition.y - lastScrollPosition.y;
-
-  if (limit) {
-    if (y < limit.top) y = limit.top;
-    if (y > limit.bottom) y = limit.bottom;
-    if (x < limit.left) x = limit.left;
-    if (x > limit.right) x = limit.right;
-  }
-
-  return {
-    x,
-    y,
-  };
-}
-
 interface IsSafeArgs {
   scrollPosition: Axes;
   lastScrolledPosition: Axes;
@@ -115,7 +83,6 @@ const ScrollService = {
   getMaxVerticalScroll,
   getMaxHorizontalScroll,
   getScrollPosition,
-  getRelativeScrollPosition,
   isOnGap,
 };
 

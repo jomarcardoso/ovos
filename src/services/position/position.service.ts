@@ -62,10 +62,42 @@ export function isOutOfLimit({
   return false;
 }
 
+interface GetRelativeScrollPositionArgs {
+  position: Axes;
+  lastRelativePosition?: Axes;
+  lastPosition?: Axes;
+  limit?: Position;
+}
+
+type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
+
+export const getRelativePosition: GetRelativePosition = ({
+  position,
+  lastRelativePosition = { x: 0, y: 0 },
+  lastPosition = { x: 0, y: 0 },
+  limit,
+}) => {
+  let x = lastRelativePosition.x + position.x - lastPosition.x;
+  let y = lastRelativePosition.y + position.y - lastPosition.y;
+
+  if (limit) {
+    if (y < limit.top) y = limit.top;
+    if (y > limit.bottom) y = limit.bottom;
+    if (x < limit.left) x = limit.left;
+    if (x > limit.right) x = limit.right;
+  }
+
+  return {
+    x,
+    y,
+  };
+};
+
 const PositionService = {
   POSITION_DEFAULT,
   isOnTheRegion,
   isOutOfLimit,
+  getRelativePosition,
 };
 
 export default PositionService;

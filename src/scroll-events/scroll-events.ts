@@ -2,7 +2,6 @@ import { Axes, Element, Position, OnScrollArgs } from '../types/types';
 import {
   isOnGap,
   getScrollPosition,
-  getRelativeScrollPosition,
   isSafe,
 } from '../services/scroll/scroll.service';
 import { getScrollingElement } from '../services/element/element.service';
@@ -14,6 +13,7 @@ import {
   POSITION_DEFAULT,
   isOnTheRegion,
   isOutOfLimit,
+  getRelativePosition,
 } from '../services/position/position.service';
 import { getScrollViewPosition } from '../services/view/view.service';
 
@@ -102,10 +102,10 @@ export default function scrollEvents({
     }
 
     const scrollPosition = getScrollPosition({ scrollingElement, delay });
-    const relativeScrollPosition = getRelativeScrollPosition({
-      lastRelativeScrollPosition,
-      lastScrollPosition,
-      scrollPosition,
+    const relativeScrollPosition = getRelativePosition({
+      lastRelativePosition: lastRelativeScrollPosition,
+      lastPosition: lastScrollPosition,
+      position: scrollPosition,
       limit,
     });
     const direction = getDirection({
