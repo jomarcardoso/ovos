@@ -90,7 +90,7 @@ export default function scrollEvents({
       }
 
       const outOfLimit = isOutOfLimit({
-        relativeScrollPosition: lastRelativeScrollPosition,
+        position: lastRelativeScrollPosition,
         limit,
       });
 

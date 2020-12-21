@@ -293,5 +293,80 @@ describe('PositionService', () => {
     });
   });
 
-  describe('isOutOfLimit', () => {});
+  describe('isOutOfLimit', () => {
+    it('with no limit {0,0}: false', () => {
+      const result = isOutOfLimit({ position: { x: 0, y: 0 } });
+
+      expect(result).toBe(false);
+    });
+
+    it('with no limit {2,10}: false', () => {
+      const result = isOutOfLimit({ position: { x: 2, y: 10 } });
+
+      expect(result).toBe(false);
+    });
+
+    it('with no limit {-2,-7}: false', () => {
+      const result = isOutOfLimit({ position: { x: -2, y: -7 } });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,2} limit {top:0}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 2 },
+        limit: {
+          top: 0,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,2} limit {top:2}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 2 },
+        limit: {
+          top: 2,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,2} limit {top:3}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 2 },
+        limit: {
+          top: 3,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {2,2} limit {top:2, bottom:2}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 2 },
+        limit: {
+          top: 2,
+          bottom: 2,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,3} limit {top:2, bottom:2}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 3 },
+        limit: {
+          top: 2,
+          bottom: 2,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+  });
 });

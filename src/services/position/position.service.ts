@@ -1,5 +1,10 @@
 import isNumber from 'lodash/isNumber';
-import { Position, Axes } from '../../types/types';
+import { Position } from '../../types/types';
+import {
+  IsOnTheRegion,
+  IsOutOfLimit,
+  GetRelativePosition,
+} from './types/position.types';
 
 export const POSITION_DEFAULT: Position = {
   bottom: null,
@@ -8,13 +13,6 @@ export const POSITION_DEFAULT: Position = {
   top: null,
 };
 
-interface IsOnTheRegionArgs {
-  region: Position;
-  position: Axes;
-}
-
-type IsOnTheRegion = (args: IsOnTheRegionArgs) => boolean;
-
 export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
   const onBelowTheTop = position.y >= region.top;
   const onAboveTheBottom = position.y <= region.bottom;
@@ -22,17 +20,12 @@ export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
   return onBelowTheTop && onAboveTheBottom;
 };
 
-interface IsOutOfLimitArgs {
-  limit: Position;
-  relativeScrollPosition: Axes;
-}
-
-export function isOutOfLimit({
-  relativeScrollPosition,
+export const isOutOfLimit: IsOutOfLimit = ({
+  position,
   limit = POSITION_DEFAULT,
-}: IsOutOfLimitArgs): boolean {
+}) => {
   if (isNumber(limit.top)) {
-    const outOfTopLimit = relativeScrollPosition.y <= limit.top;
+    const outOfTopLimit = position.y < limit.top;
 
     if (outOfTopLimit) return true;
   }
@@ -40,13 +33,13 @@ export function isOutOfLimit({
   if (isNumber(limit.bottom)) {
     if (limit.bottom === 0) return false;
 
-    const outOfBottomLimit = relativeScrollPosition.y >= limit.bottom;
+    const outOfBottomLimit = position.y > limit.bottom;
 
     if (outOfBottomLimit) return true;
   }
 
   if (limit.left) {
-    const outOfLeftLimit = relativeScrollPosition.x <= limit.left;
+    const outOfLeftLimit = position.x < limit.left;
 
     if (outOfLeftLimit) return true;
   }
@@ -54,22 +47,13 @@ export function isOutOfLimit({
   if (limit.right) {
     if (limit.right === 0) return false;
 
-    const outOfRightLimit = relativeScrollPosition.x >= limit.right;
+    const outOfRightLimit = position.x > limit.right;
 
     if (outOfRightLimit) return true;
   }
 
   return false;
-}
-
-interface GetRelativeScrollPositionArgs {
-  position: Axes;
-  lastRelativePosition?: Axes;
-  lastPosition?: Axes;
-  limit?: Partial<Position>;
-}
-
-type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
+};
 
 export const getRelativePosition: GetRelativePosition = ({
   position,
