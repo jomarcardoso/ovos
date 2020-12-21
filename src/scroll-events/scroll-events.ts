@@ -1,4 +1,4 @@
-import { Axes, Element, Position, OnScrollArgs } from '../types/types';
+import { ScrollEvents } from './types/scroll-events.types';
 import {
   isOnGap,
   getScrollPosition,
@@ -17,25 +17,7 @@ import {
 } from '../services/position/position.service';
 import { getScrollViewPosition } from '../services/view/view.service';
 
-interface ScrollEventArgs {
-  el?: Element;
-  onScroll(onScrollArgs: OnScrollArgs): void;
-  onlyOnChangedDirection?: boolean;
-  onlyOnDirection?: boolean;
-  onlyOnWhenInOrOutTheRegion?: Position;
-  gap?: Position;
-  debounce?: Axes;
-  limit?: Position;
-  lazyTime?: number;
-  delay?: Axes;
-}
-
-interface ScrollEvents extends Partial<ScrollEventArgs> {
-  lastScrolledPosition: Axes;
-  scrollingElement: Element;
-}
-
-export default function scrollEvents({
+const scrollEvents: ScrollEvents = ({
   el = document,
   onScroll,
   onlyOnChangedDirection = false,
@@ -57,7 +39,7 @@ export default function scrollEvents({
   },
   limit = POSITION_DEFAULT,
   lazyTime = 0,
-}: ScrollEventArgs): ScrollEvents {
+}) => {
   const scrollingElement = getScrollingElement(
     el as HTMLElement & HTMLDocument,
   );
@@ -165,4 +147,6 @@ export default function scrollEvents({
     lastScrolledPosition,
     scrollingElement,
   };
-}
+};
+
+export default scrollEvents;

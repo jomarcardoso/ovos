@@ -1,35 +1,12 @@
+import './parallax.scss';
 import ScrollEvents from '../scroll-events/scroll-events';
 import { Axis, Element, OnScrollArgs } from '../types/types';
 
 type Callback = (translateY: number) => void;
 
-interface ParallaxItem {
-  el: HTMLElement;
-  doParallax: Callback;
-}
-
-interface ParallaxItemArgs {
-  el: HTMLElement;
-  callback: Callback;
-}
-
-export function parallaxItem({ el, callback }: ParallaxItemArgs): ParallaxItem {
-  function doParallax(translateY) {
-    // eslint-disable-next-line no-param-reassign
-    el.style.transform = `translate3d(0, ${translateY}px, 0)`;
-    if (callback) callback(translateY);
-  }
-
-  el.style.willChange = 'transform'; // eslint-disable-line no-param-reassign
-
-  return {
-    el,
-    doParallax,
-  };
-}
-
 interface ParallaxArgs {
   el: HTMLElement;
+  elContent: HTMLElement;
   callback?: Callback;
   distance?: number;
   elRelative?: Element;
@@ -38,14 +15,28 @@ interface ParallaxArgs {
 }
 
 export default function parallax({
-  el,
+  el = document.querySelector('[data-ovo-parallax]'),
+  elContent: externalElContent,
   callback,
   distance = 1000,
   elRelative = document,
   gap = 0,
   axis = Axis.Y,
 }: ParallaxArgs): void {
-  const item = parallaxItem({ el, callback });
+  let elContent = externalElContent;
+
+  if (!elContent) {
+    elContent =
+      el.querySelector('[data-ovo-parallax="content"]') ??
+      (el.firstElementChild as HTMLElement);
+  }
+
+  elContent.style.willChange = 'transform';
+
+  function doParallax(translateY) {
+    elContent.style.transform = `translate3d(0, ${translateY}px, 0)`;
+    if (callback) callback(translateY);
+  }
 
   function handleScroll({ scrollingElement }: OnScrollArgs): void {
     const position =
@@ -61,7 +52,7 @@ export default function parallax({
     }
 
     function isElOnScreen({ translateY }) {
-      const { bottom, top } = item.el.getBoundingClientRect();
+      const { bottom, top } = el.getBoundingClientRect();
       const visualBottom = bottom - translateY;
       const topOnScreen = top >= 0;
       const bottomOnScreen = visualBottom >= 0;
@@ -83,7 +74,7 @@ export default function parallax({
 
     if (!isElOnScreen({ translateY })) return;
 
-    item.doParallax(translateY);
+    doParallax(translateY);
   }
 
   function bindScroll() {
