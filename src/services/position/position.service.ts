@@ -66,7 +66,7 @@ interface GetRelativeScrollPositionArgs {
   position: Axes;
   lastRelativePosition?: Axes;
   lastPosition?: Axes;
-  limit?: Position;
+  limit?: Partial<Position>;
 }
 
 type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
@@ -81,10 +81,10 @@ export const getRelativePosition: GetRelativePosition = ({
   let y = lastRelativePosition.y + position.y - lastPosition.y;
 
   if (limit) {
-    if (y < limit.top) y = limit.top;
-    if (y > limit.bottom) y = limit.bottom;
-    if (x < limit.left) x = limit.left;
-    if (x > limit.right) x = limit.right;
+    if (isNumber(limit.top)) y = Math.max(y, limit.top);
+    if (isNumber(limit.bottom)) y = Math.min(y, limit.bottom);
+    if (isNumber(limit.left)) x = Math.max(x, limit.left);
+    if (isNumber(limit.right)) x = Math.min(x, limit.right);
   }
 
   return {
