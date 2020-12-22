@@ -1,18 +1,12 @@
 import './sticky-header.scss';
+import { getHeight, translate } from '../services/element/element.service';
 import scrollEvents from '../scroll-events/scroll-events';
-
-export function getHeight(el) {
-  return el.offsetHeight;
-}
-
-export function hide({ el, position }) {
-  // eslint-disable-next-line no-param-reassign
-  el.style.transform = `translate3d(0, -${position}px, 0)`;
-}
 
 export default function stickyHeader({
   el = document.querySelector('[data-ovo-hs="header"]'),
-} = {}) {
+}: {
+  el?: HTMLElement;
+}): void {
   // function isFullyVisible(hided) {
   //   if (hided <= 0) return true;
 
@@ -26,7 +20,7 @@ export default function stickyHeader({
   // }
 
   function handleDocumentScroll({ relativeScrollPosition: { y: position } }) {
-    hide({ el, position });
+    translate({ el, position });
   }
 
   function bindEvents() {
