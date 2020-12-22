@@ -10,8 +10,18 @@ export function getScrollingElement(
   return target as HTMLElement;
 }
 
+export function getMaxVerticalScroll(scrollingElement: HTMLElement): number {
+  return scrollingElement.scrollHeight - scrollingElement.clientHeight;
+}
+
+export function getMaxHorizontalScroll(scrollingElement: HTMLElement): number {
+  return scrollingElement.scrollWidth - scrollingElement.clientWidth;
+}
+
 const ElementService = {
   getScrollingElement,
+  getMaxVerticalScroll,
+  getMaxHorizontalScroll,
 };
 
 export default ElementService;

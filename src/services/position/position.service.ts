@@ -1,9 +1,15 @@
 import isNumber from 'lodash/isNumber';
 import { Position } from '../../types/types';
 import {
+  getMaxHorizontalScroll,
+  getMaxVerticalScroll,
+} from '../element/element.service';
+import {
   IsOnTheRegion,
   IsOutOfLimit,
   GetRelativePosition,
+  IsSafe,
+  IsOnGap,
 } from './types/position.types';
 
 export const POSITION_DEFAULT: Position = {
@@ -77,11 +83,41 @@ export const getRelativePosition: GetRelativePosition = ({
   };
 };
 
+export const isSafe: IsSafe = ({ position, lastPosition, debounce }) => {
+  const beOnVerticalSafe = Math.abs(position.y - lastPosition.y) < debounce.y;
+  const beOnHorizontalSafe = Math.abs(position.x - lastPosition.x) < debounce.x;
+
+  if (beOnVerticalSafe && beOnHorizontalSafe) return true;
+
+  return false;
+};
+
+export const isOnGap: IsOnGap = ({ position, gap, el }) => {
+  const beOnTopGap = position.y < gap.top;
+
+  if (gap.top !== null && beOnTopGap) return true;
+
+  const beOnBottomGap = position.y > getMaxVerticalScroll(el) - gap.bottom;
+
+  if (gap.bottom !== null && beOnBottomGap) return true;
+
+  const beOnLeftGap = position.x < gap.left;
+
+  if (gap.left !== null && beOnLeftGap) return true;
+
+  const beOnRightGap = position.x > getMaxHorizontalScroll(el) - gap.right;
+
+  if (gap.right !== null && beOnRightGap) return true;
+
+  return false;
+};
+
 const PositionService = {
   POSITION_DEFAULT,
   isOnTheRegion,
   isOutOfLimit,
   getRelativePosition,
+  isOnGap,
 };
 
 export default PositionService;

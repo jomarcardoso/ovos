@@ -1,36 +1,6 @@
 import ScrollService from './scroll.service';
 
 describe('ScrollService', () => {
-  describe('getMaxVerticalScroll', () => {
-    const { getMaxVerticalScroll } = ScrollService;
-
-    it('scrollHeight = 1000; clientHeight: 200', () => {
-      const element = { ...document.createElement('div') };
-
-      element.scrollHeight = 1000;
-      element.clientHeight = 200;
-
-      const scrollTopMax = getMaxVerticalScroll(element);
-
-      expect(scrollTopMax).toBe(800);
-    });
-  });
-
-  describe('getMaxHorizontalScroll', () => {
-    const { getMaxHorizontalScroll } = ScrollService;
-
-    it('scrollHeight = 1000; clientHeight: 200', () => {
-      const element = { ...document.createElement('div') };
-
-      element.scrollWidth = 1000;
-      element.clientWidth = 200;
-
-      const scrollTopMax = getMaxHorizontalScroll(element);
-
-      expect(scrollTopMax).toBe(800);
-    });
-  });
-
   describe('getScrollPosition', () => {
     const { getScrollPosition } = ScrollService;
 

@@ -1,9 +1,5 @@
 import { ScrollEvents } from './types/scroll-events.types';
-import {
-  isOnGap,
-  getScrollPosition,
-  isSafe,
-} from '../services/scroll/scroll.service';
+import { getScrollPosition } from '../services/scroll/scroll.service';
 import { getScrollingElement } from '../services/element/element.service';
 import {
   getDirection,
@@ -14,6 +10,8 @@ import {
   isOnTheRegion,
   isOutOfLimit,
   getRelativePosition,
+  isSafe,
+  isOnGap,
 } from '../services/position/position.service';
 import { getScrollViewPosition } from '../services/view/view.service';
 
@@ -53,8 +51,15 @@ const scrollEvents: ScrollEvents = ({
   function handleScroll(event) {
     function isToScroll({ changedDirection, scrollPosition, direction }) {
       if (onlyOnChangedDirection && !changedDirection) return false;
-      if (isOnGap({ scrollPosition, gap, scrollingElement })) return false;
-      if (isSafe({ scrollPosition, lastScrolledPosition, debounce })) {
+      if (isOnGap({ position: scrollPosition, gap, el: scrollingElement }))
+        return false;
+      if (
+        isSafe({
+          position: scrollPosition,
+          lastPosition: lastScrolledPosition,
+          debounce,
+        })
+      ) {
         return false;
       }
       if (onlyOnDirection && onlyOnDirection !== direction) return false;

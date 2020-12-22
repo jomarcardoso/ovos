@@ -22,3 +22,19 @@ export interface GetRelativeScrollPositionArgs {
 }
 
 export type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
+
+interface IsSafeArgs {
+  position: Axes;
+  lastPosition: Axes;
+  debounce: Axes;
+}
+
+export type IsSafe = (args: IsSafeArgs) => boolean;
+
+interface IsOnGapArgs {
+  position: Axes;
+  gap: Position;
+  el: HTMLElement;
+}
+
+export type IsOnGap = (args: IsOnGapArgs) => boolean;
