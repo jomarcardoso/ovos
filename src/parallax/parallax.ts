@@ -1,5 +1,5 @@
 import './parallax.scss';
-import ScrollEvents from '../scroll-events/scroll-events';
+import ScrollEvents from '../api/scroll-events/scroll-events';
 import { Axis, Element, OnScrollArgs } from '../types/types';
 
 type Callback = (translateY: number) => void;

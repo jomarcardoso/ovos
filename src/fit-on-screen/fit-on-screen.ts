@@ -1,4 +1,4 @@
-import scrollEvents from '../scroll-events/scroll-events';
+import scrollEvents from '../api/scroll-events/scroll-events';
 import { Element } from '../types/types';
 
 interface FitOnScreenArgs {

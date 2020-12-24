@@ -1,10 +1,10 @@
 import { ScrollEvents } from './types/scroll-events.types';
-import { getScrollPosition } from '../services/scroll/scroll.service';
-import { getScrollingElement } from '../services/element/element.service';
+import { getScrollPosition } from '../../services/scroll/scroll.service';
+import { getScrollingElement } from '../../services/element/element.service';
 import {
   getDirection,
   isOnTheSameDirection,
-} from '../services/direction/direction.service';
+} from '../../services/direction/direction.service';
 import {
   POSITION_DEFAULT,
   isOnTheRegion,
@@ -12,8 +12,8 @@ import {
   getRelativePosition,
   isSafe,
   isOnGap,
-} from '../services/position/position.service';
-import { getScrollViewPosition } from '../services/view/view.service';
+} from '../../services/position/position.service';
+import { getScrollViewPosition } from '../../services/view/view.service';
 
 const scrollEvents: ScrollEvents = ({
   el = document,

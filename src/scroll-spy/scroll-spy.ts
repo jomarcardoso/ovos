@@ -1,4 +1,4 @@
-import scrollEvents from '../scroll-events/scroll-events';
+import scrollEvents from '../api/scroll-events/scroll-events';
 import { getScrollingElement } from '../services/element/element.service';
 import { Axes, Axis, Element, OnScrollArgs } from '../types/types';
 
