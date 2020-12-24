@@ -1,3 +1,38 @@
+import './element.service.scss';
+
+import {
+  ToggleScrollDisabled,
+  ToggleDocumentScroll,
+} from './types/element.service.types';
+
+export const toggleScrollDisabled: ToggleScrollDisabled = ({
+  el = document.documentElement,
+  toggle: provisionalToggle,
+}) => {
+  const hasDataDisabled = el.dataset?.['data-ovo-non-scrollable'] === 'true';
+  const toggle = provisionalToggle ?? !hasDataDisabled;
+
+  function handlePreventScroll(event: Event): void {
+    event.preventDefault();
+  }
+
+  if (toggle) {
+    el.setAttribute('data-ovo-non-scrollable', 'true');
+    el.addEventListener('touchmove', handlePreventScroll);
+  } else {
+    el.setAttribute('data-ovo-non-scrollable', 'false');
+    el.removeEventListener('touchmove', handlePreventScroll);
+  }
+
+  return toggle;
+};
+
+export const toggleDocumentScroll: ToggleDocumentScroll = ({ toggle }) => {
+  toggleScrollDisabled({ el: document.documentElement, toggle });
+
+  return toggleScrollDisabled({ el: document.body, toggle });
+};
+
 export function getScrollingElement(
   target: HTMLElement | HTMLDocument,
 ): HTMLElement {
