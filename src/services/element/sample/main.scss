@@ -1,0 +1,23 @@
+@import '../../../sample/main.scss';
+
+body {
+  position: relative;
+}
+
+header,
+footer {
+  position: fixed;
+  width: 100%;
+}
+
+header {
+  top: 0;
+}
+
+footer {
+  bottom: 0;
+}
+
+main {
+  min-height: 400vh;
+}

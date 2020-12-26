@@ -15,6 +15,8 @@ module.exports = merge(common, {
     ['./src/carousel/sample/dist/index']: './src/carousel/sample/index.ts',
     ['./src/scrollable-sticky/sample/dist/index']:
       './src/scrollable-sticky/sample/index.ts',
+    ['./src/services/element/sample/dist/index']:
+      './src/services/element/sample/index.ts',
   },
   output: {
     path: path.resolve(__dirname),

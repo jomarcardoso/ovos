@@ -9,7 +9,7 @@ export const toggleScrollDisabled: ToggleScrollDisabled = ({
   el = document.documentElement,
   toggle: provisionalToggle,
 }) => {
-  const hasDataDisabled = el.dataset?.['data-ovo-non-scrollable'] === 'true';
+  const hasDataDisabled = el.dataset?.ovoNonScrollable === 'true';
   const toggle = provisionalToggle ?? !hasDataDisabled;
 
   function handlePreventScroll(event: Event): void {
