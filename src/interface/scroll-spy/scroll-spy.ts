@@ -1,26 +1,15 @@
 import scrollEvents from '../../api/scroll-events/scroll-events';
-import { getScrollingElement } from '../../services/element/element.service';
+import { getScrollingElement } from '../../utilities/element/element.service';
 import { Axes, Axis, Element, OnScrollArgs } from '../../types/types';
+import { ScrollSpyItem, Method } from './types/scroll-spy.type';
 
 const ACTIVE_CLASS = 'is-active';
 
-interface ScrollSpyItemArgs {
-  elMenu?: HTMLElement;
-  elContent?: HTMLElement;
-  callback?({ active: boolean }): void;
-}
-
-export interface ScrollSpyItem {
-  activate(): void;
-  deActivate(): void;
-  content: HTMLElement;
-}
-
-export function createScrollSpyItem({
+export const createScrollSpyItem: ScrollSpyItem = ({
   elMenu,
   elContent,
   callback,
-}: ScrollSpyItemArgs = {}): ScrollSpyItem {
+}) => {
   function activate() {
     elMenu.classList.add(ACTIVE_CLASS);
     elContent.classList.add(ACTIVE_CLASS);
@@ -38,12 +27,7 @@ export function createScrollSpyItem({
     deActivate,
     content: elContent,
   };
-}
-
-export enum Method {
-  current,
-  closest,
-}
+};
 
 interface ScrollSpyArgs {
   list: Array<ScrollSpyItem>;

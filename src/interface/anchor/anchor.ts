@@ -1,20 +1,44 @@
-// import ScrollEvents from '../../api/scroll-events/scroll-events';
-// import { OnScrollArgs } from '../../types/types';
-// import { Anchor } from './types/anchor.types';
+import { getMiddleRelativeScreen } from '@/utilities/element/element.service';
+import ScrollEvents from '../../api/scroll-events/scroll-events';
+import { OnScrollArgs, Direction, Axes } from '../../types/types';
+import { Anchor } from './types/anchor.types';
 
-// const anchor: Anchor = ({
-//   elFloating = document.querySelector('[data-ovo-anchor="floating"]'),
-//   elScrolling = document,
-//   elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
-// }) => {
-//   function handleScroll(scrollArgs: OnScrollArgs) {
-//     // scrollArgs.scrollPosition
-//   }
+interface GetOffsetArgs {
+  floatingMiddle: Axes;
+  toAnchorMiddle: Axes;
+}
 
-//   ScrollEvents({
-//     el: elScrolling,
-//     onScroll: handleScroll,
-//   });
-// };
+type GetOffset = (args: GetOffsetArgs) => Direction;
 
-// export default Anchor;
+const anchor: Anchor = ({
+  elFloating = document.querySelector('[data-ovo-anchor="floating"]'),
+  elScrolling = document,
+  elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
+}) => {
+  const lastOffset = Direction.UP;
+
+  const getOffset: GetOffset = ({ floatingMiddle, toAnchorMiddle }) => {
+    if (floatingMiddle.y < toAnchorMiddle.y) {
+      return Direction.UP;
+    }
+
+    return Direction.DOWN;
+  };
+
+  const verifyAndAnchor = (offset: Direction) => {
+    if (lastOffset !== offset) {
+    }
+  };
+
+  function handleScroll(scrollArgs: OnScrollArgs) {
+    const { y: floatingMiddle } = getMiddleRelativeScreen(elFloating);
+    const { y: toAnchorMiddle } = getMiddleRelativeScreen(elToAnchor);
+  }
+
+  ScrollEvents({
+    el: elScrolling,
+    onScroll: handleScroll,
+  });
+};
+
+export default anchor;

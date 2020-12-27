@@ -20,8 +20,8 @@ module.exports = merge(common, {
       './src/interface/scrollable-sticky/sample/index.ts',
     ['./src/interface/anchor/sample/dist/index']:
       './src/interface/anchor/sample/index.ts',
-    ['./src/services/element/sample/dist/index']:
-      './src/services/element/sample/index.ts',
+    ['./src/utilities/element/sample/dist/index']:
+      './src/utilities/element/sample/index.ts',
   },
   output: {
     path: path.resolve(__dirname),

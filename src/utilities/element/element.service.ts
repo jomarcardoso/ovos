@@ -1,3 +1,4 @@
+import { Axes, Position } from '../../types/types';
 import './element.service.scss';
 
 import {
@@ -57,6 +58,14 @@ export function getHeight(el: HTMLElement): number {
   return el.offsetHeight;
 }
 
+export function getOffsetOfTopOfDocument(el: HTMLElement): number {
+  return el.offsetTop;
+}
+
+export function getCenterOffsetOfTopOfDocument(el: HTMLElement): number {
+  return el.offsetTop + getHeight(el) / 2;
+}
+
 export function translate({
   el,
   position,
@@ -66,6 +75,26 @@ export function translate({
 }): void {
   // eslint-disable-next-line no-param-reassign
   el.style.transform = `translate3d(0, -${position}px, 0)`;
+}
+
+export function getPositionRelativeScreen(el: HTMLElement): Position {
+  const { bottom, left, top, right } = el.getBoundingClientRect();
+
+  return {
+    bottom,
+    left,
+    top,
+    right,
+  };
+}
+
+export function getMiddleRelativeScreen(el: HTMLElement): Axes {
+  const { bottom, left, top, right } = getPositionRelativeScreen(el);
+
+  return {
+    x: right - left,
+    y: bottom - top,
+  };
 }
 
 const ElementService = {

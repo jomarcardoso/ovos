@@ -1,3 +1,4 @@
-import anchor from '../anchor';
+import './main.scss';
+// import anchor from '../anchor';
 
-anchor({});
+// anchor({});

@@ -1,5 +1,6 @@
 import './main.scss';
-import ScrollSpy, { createScrollSpyItem, Method } from '../scroll-spy';
+import ScrollSpy, { createScrollSpyItem } from '../scroll-spy';
+import { Method } from '../types/scroll-spy.type';
 import { Axis } from '../../../types/types';
 
 ScrollSpy({
