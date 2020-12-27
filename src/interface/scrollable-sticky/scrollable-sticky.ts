@@ -3,33 +3,11 @@ import './scrollable-sticky.scss';
 import scrollEvents from '../../api/scroll-events/scroll-events';
 import { OnScrollArgs } from '../../types/types';
 import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
-
-function getViewportHeight() {
-  return window.innerHeight;
-}
-
-function getElTop(el) {
-  return el.offsetTop;
-}
-
-function isTopOfElementAboveOfViewport({ el, scrollPosition }) {
-  return getElTop(el) <= scrollPosition;
-}
-
-function isBottomOfElementBelowOfViewport({ el, scrollPosition }) {
-  const elHeight = el.offsetHeight;
-  const bottomViewport = getViewportHeight() + scrollPosition;
-  const bottomOfFilter = elHeight + getElTop(el);
-
-  return bottomOfFilter >= bottomViewport;
-}
-
-function isOnViewport({ el, scrollPosition }) {
-  return (
-    isTopOfElementAboveOfViewport({ el, scrollPosition }) &&
-    isBottomOfElementBelowOfViewport({ el, scrollPosition })
-  );
-}
+import { getViewportHeight } from '../../utilities/view/view.service';
+import {
+  isBottomOfElementBelowOfViewport,
+  isOnViewport,
+} from '../../utilities/element/element.service';
 
 export default function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]'),

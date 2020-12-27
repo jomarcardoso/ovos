@@ -7,6 +7,10 @@ export function getScrollViewPosition(position: Axes): Axes {
   };
 }
 
+export function getViewportHeight(): number {
+  return window.innerHeight;
+}
+
 const ViewService = {
   getScrollViewPosition,
 };

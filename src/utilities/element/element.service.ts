@@ -5,6 +5,7 @@ import {
   ToggleScrollDisabled,
   ToggleDocumentScroll,
 } from './types/element.service.types';
+import { getViewportHeight } from '../view/view.service';
 
 export const toggleScrollDisabled: ToggleScrollDisabled = ({
   el = document.documentElement,
@@ -95,6 +96,32 @@ export function getMiddleRelativeScreen(el: HTMLElement): Axes {
     x: right - left,
     y: bottom - top,
   };
+}
+
+export function getElTop(el: HTMLElement): number {
+  return el.offsetTop;
+}
+
+export function isTopOfElementAboveOfViewport({ el, scrollPosition }): boolean {
+  return getElTop(el) <= scrollPosition;
+}
+
+export function isBottomOfElementBelowOfViewport({
+  el,
+  scrollPosition,
+}): boolean {
+  const elHeight = el.offsetHeight;
+  const bottomViewport = getViewportHeight() + scrollPosition;
+  const bottomOfFilter = elHeight + getElTop(el);
+
+  return bottomOfFilter >= bottomViewport;
+}
+
+export function isOnViewport({ el, scrollPosition }): boolean {
+  return (
+    isTopOfElementAboveOfViewport({ el, scrollPosition }) &&
+    isBottomOfElementBelowOfViewport({ el, scrollPosition })
+  );
 }
 
 const ElementService = {
