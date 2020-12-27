@@ -1,7 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
-import scrollEvents from '../api/scroll-events/scroll-events';
-import { OnScrollArgs } from '../types/types';
+import scrollEvents from '../../api/scroll-events/scroll-events';
+import { OnScrollArgs } from '../../types/types';
 
 interface ScrollableSticky {
   el?: HTMLElement;

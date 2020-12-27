@@ -1,6 +1,6 @@
-import scrollEvents from '../api/scroll-events/scroll-events';
-import { getScrollingElement } from '../services/element/element.service';
-import { Axes, Axis, Element, OnScrollArgs } from '../types/types';
+import scrollEvents from '../../api/scroll-events/scroll-events';
+import { getScrollingElement } from '../../services/element/element.service';
+import { Axes, Axis, Element, OnScrollArgs } from '../../types/types';
 
 const ACTIVE_CLASS = 'is-active';
 

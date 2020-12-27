@@ -1,5 +1,5 @@
-import scrollEvents from '../api/scroll-events/scroll-events';
-import { Element } from '../types/types';
+import scrollEvents from '../../api/scroll-events/scroll-events';
+import { Element } from '../../types/types';
 
 interface FitOnScreenArgs {
   elRelative?: Element;

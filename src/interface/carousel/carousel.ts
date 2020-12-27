@@ -4,7 +4,7 @@ import scrollSpy, {
   ScrollSpyItem,
   Method,
 } from '../scroll-spy/scroll-spy';
-import { Axis } from '../types/types';
+import { Axis } from '../../types/types';
 
 interface SlideArgs {
   elSlide: HTMLElement;

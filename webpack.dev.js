@@ -6,15 +6,20 @@ module.exports = merge(common, {
   entry: {
     // ['./src/dist/ovo']: './src/ovo.ts',
     // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
-    ['./src/scroll-spy/sample/dist/index']: './src/scroll-spy/sample/index.ts',
-    ['./src/fit-on-screen/sample/dist/index']:
-      './src/fit-on-screen/sample/index.ts',
-    ['./src/sticky-header/sample/dist/index']:
-      './src/sticky-header/sample/index.ts',
-    ['./src/parallax/sample/dist/index']: './src/parallax/sample/index.ts',
-    ['./src/carousel/sample/dist/index']: './src/carousel/sample/index.ts',
-    ['./src/scrollable-sticky/sample/dist/index']:
-      './src/scrollable-sticky/sample/index.ts',
+    ['./src/interface/scroll-spy/sample/dist/index']:
+      './src/interface/scroll-spy/sample/index.ts',
+    ['./src/interface/fit-on-screen/sample/dist/index']:
+      './src/interface/fit-on-screen/sample/index.ts',
+    ['./src/interface/sticky-header/sample/dist/index']:
+      './src/interface/sticky-header/sample/index.ts',
+    ['./src/interface/parallax/sample/dist/index']:
+      './src/interface/parallax/sample/index.ts',
+    ['./src/interface/carousel/sample/dist/index']:
+      './src/interface/carousel/sample/index.ts',
+    ['./src/interface/scrollable-sticky/sample/dist/index']:
+      './src/interface/scrollable-sticky/sample/index.ts',
+    ['./src/interface/anchor/sample/dist/index']:
+      './src/interface/anchor/sample/index.ts',
     ['./src/services/element/sample/dist/index']:
       './src/services/element/sample/index.ts',
   },
