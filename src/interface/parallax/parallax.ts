@@ -1,18 +1,7 @@
 import './parallax.scss';
 import ScrollEvents from '../../api/scroll-events/scroll-events';
-import { Axis, Element, OnScrollArgs } from '../../types/types';
-
-type Callback = (translateY: number) => void;
-
-interface ParallaxArgs {
-  el: HTMLElement;
-  elContent: HTMLElement;
-  callback?: Callback;
-  distance?: number;
-  elRelative?: Element;
-  gap?: number;
-  axis?: Axis;
-}
+import { Axis, OnScrollArgs } from '../../types/types';
+import { ParallaxArgs } from './types/parallax.types';
 
 export default function parallax({
   el = document.querySelector('[data-ovo-parallax]'),

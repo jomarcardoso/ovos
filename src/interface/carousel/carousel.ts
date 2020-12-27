@@ -1,17 +1,10 @@
 import './carousel.scss';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
-import { ScrollSpyItem, Method } from '../scroll-spy/types/scroll-spy.type';
+import { Method } from '../scroll-spy/types/scroll-spy.type';
 import { Axis } from '../../types/types';
+import { CreateSlide, Carousel, CarouselFitType } from './types/carousel.type';
 
-interface SlideArgs {
-  elSlide: HTMLElement;
-  elDot: HTMLAnchorElement;
-  onActivate(): void;
-}
-
-type Slide = (args: SlideArgs) => ScrollSpyItem;
-
-const createSlide: Slide = ({ elSlide, elDot, onActivate }) => {
+const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
   const scrollSpyItem = createScrollSpyItem({
     elMenu: elDot,
     elContent: elSlide,
@@ -32,20 +25,6 @@ const createSlide: Slide = ({ elSlide, elDot, onActivate }) => {
     content: elSlide,
   };
 };
-
-enum CarouselFitType {
-  BOX,
-  CENTER,
-}
-
-interface CarouselArgs {
-  el?: HTMLElement;
-  autoplayTime?: number;
-  currentSlide?: number;
-  type: CarouselFitType;
-}
-
-type Carousel = (args: CarouselArgs) => void;
 
 const carousel: Carousel = ({
   el = document.querySelector('[data-carousel="carousel"]'),

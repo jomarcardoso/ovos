@@ -1,11 +1,15 @@
 import scrollEvents from '../../api/scroll-events/scroll-events';
 import { getScrollingElement } from '../../utilities/element/element.service';
 import { Axes, Axis, Element, OnScrollArgs } from '../../types/types';
-import { ScrollSpyItem, Method } from './types/scroll-spy.type';
+import {
+  CreateScrollSpyItem,
+  Method,
+  ScrollSpyItem,
+} from './types/scroll-spy.type';
 
 const ACTIVE_CLASS = 'is-active';
 
-export const createScrollSpyItem: ScrollSpyItem = ({
+export const createScrollSpyItem: CreateScrollSpyItem = ({
   elMenu,
   elContent,
   callback,

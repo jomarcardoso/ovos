@@ -4,13 +4,13 @@ interface ScrollSpyItemArgs {
   callback?({ active: boolean }): void;
 }
 
-interface ScrollSpyItemReturn {
+export interface ScrollSpyItem {
   activate(): void;
   deActivate(): void;
   content: HTMLElement;
 }
 
-export type ScrollSpyItem = (args: ScrollSpyItemArgs) => ScrollSpyItemReturn;
+export type CreateScrollSpyItem = (args: ScrollSpyItemArgs) => ScrollSpyItem;
 
 export enum Method {
   current,

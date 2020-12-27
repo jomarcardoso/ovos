@@ -1,11 +1,5 @@
 import scrollEvents from '../../api/scroll-events/scroll-events';
-import { Element } from '../../types/types';
-
-interface FitOnScreenArgs {
-  elRelative?: Element;
-  elsToFit?: Array<HTMLElement>;
-  proximityToFit?: number;
-}
+import { FitOnScreenArgs } from './types/fit-on-screen.types';
 
 export default function fitOnScreen({
   elRelative = document,

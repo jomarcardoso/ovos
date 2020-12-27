@@ -2,16 +2,7 @@ import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
 import scrollEvents from '../../api/scroll-events/scroll-events';
 import { OnScrollArgs } from '../../types/types';
-
-interface ScrollableSticky {
-  el?: HTMLElement;
-  elWrapper?: HTMLElement;
-  elContainer?: HTMLElement;
-  onUnpin?(): void;
-  onPin?(): void;
-  onUnfix?(): void;
-  onFix?(): void;
-}
+import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
 
 function getViewportHeight() {
   return window.innerHeight;
@@ -48,7 +39,7 @@ export default function scrollableSticky({
   onPin,
   onUnfix,
   onFix,
-}: ScrollableSticky): void {
+}: ScrollableStickyArgs): void {
   let fixed = false;
   let pinnedOnBottom = false;
 
