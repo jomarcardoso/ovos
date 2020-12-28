@@ -102,25 +102,17 @@ export function getElTop(el: HTMLElement): number {
   return el.offsetTop;
 }
 
-export function isTopOfElementAboveOfViewport({ el, scrollPosition }): boolean {
-  return getElTop(el) <= scrollPosition;
+export function isTopOfElementAboveOfViewport(el: HTMLElement): boolean {
+  return getPositionRelativeScreen(el).top < 0;
 }
 
-export function isBottomOfElementBelowOfViewport({
-  el,
-  scrollPosition,
-}): boolean {
-  const elHeight = el.offsetHeight;
-  const bottomViewport = getViewportHeight() + scrollPosition;
-  const bottomOfFilter = elHeight + getElTop(el);
-
-  return bottomOfFilter >= bottomViewport;
+export function isBottomOfElementBelowOfViewport(el: HTMLElement): boolean {
+  return getPositionRelativeScreen(el).bottom > getViewportHeight();
 }
 
-export function isOnViewport({ el, scrollPosition }): boolean {
+export function isOnViewport(el: HTMLElement): boolean {
   return (
-    isTopOfElementAboveOfViewport({ el, scrollPosition }) &&
-    isBottomOfElementBelowOfViewport({ el, scrollPosition })
+    isTopOfElementAboveOfViewport(el) && isBottomOfElementBelowOfViewport(el)
   );
 }
 

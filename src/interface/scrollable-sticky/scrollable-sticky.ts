@@ -21,7 +21,7 @@ export default function scrollableSticky({
   let fixed = false;
   let pinnedOnBottom = false;
 
-  function pinAndFix({ scrollPosition }) {
+  function pinAndFix() {
     function pinOnBottom() {
       if (pinnedOnBottom) return;
 
@@ -62,7 +62,7 @@ export default function scrollableSticky({
       if (isFunction(onUnfix)) onUnfix();
     }
 
-    if (isOnViewport({ el: elWrapper, scrollPosition })) {
+    if (isOnViewport(elWrapper)) {
       fix();
       unpinOnBottom();
 
@@ -71,7 +71,7 @@ export default function scrollableSticky({
 
     unfix();
 
-    if (!isBottomOfElementBelowOfViewport({ el: elWrapper, scrollPosition })) {
+    if (!isBottomOfElementBelowOfViewport(elWrapper)) {
       pinOnBottom();
 
       return;
@@ -85,7 +85,7 @@ export default function scrollableSticky({
     let lastPositionScroll = 0;
 
     return ({ scrollPosition: { y: scrollPosition } }) => {
-      pinAndFix({ scrollPosition });
+      pinAndFix();
 
       if (!fixed) return;
 
