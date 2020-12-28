@@ -3,7 +3,7 @@ import {
   isOnTheRegion,
   getRelativePosition,
   isOutOfLimit,
-} from './position.service';
+} from './position.utilities';
 
 describe('PositionService', () => {
   describe('isOnTheRegion', () => {

@@ -1,7 +1,7 @@
 import { Axes } from '../../../types/types';
 
 interface GetScrollPositionArgs {
-  scrollingElement: HTMLElement;
+  scrollingEl: HTMLElement;
   delay?: Axes;
 }
 

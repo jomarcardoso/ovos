@@ -10,7 +10,7 @@ import {
   GetRelativePosition,
   IsSafe,
   IsOnGap,
-} from './types/position.types';
+} from './types/position.utilities';
 
 export const POSITION_DEFAULT: Position = {
   bottom: null,

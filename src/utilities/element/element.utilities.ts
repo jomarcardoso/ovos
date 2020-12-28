@@ -1,11 +1,11 @@
-import './element.service.scss';
+import './element.utilities.scss';
 import { Axes, Position } from '../../types/types';
 
 import {
   ToggleScrollDisabled,
   ToggleDocumentScroll,
-} from './types/element.service.types';
-import { getViewportHeight } from '../view/view.service';
+} from './types/element.utilities.types';
+import { getViewportHeight } from '../view/view.utilities';
 
 export const toggleScrollDisabled: ToggleScrollDisabled = ({
   el = document.documentElement,

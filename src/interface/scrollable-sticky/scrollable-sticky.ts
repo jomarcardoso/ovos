@@ -3,7 +3,7 @@ import './scrollable-sticky.scss';
 import scrollEvents from '../../api/scroll-events/scroll-events';
 import { OnScrollArgs } from '../../types/types';
 import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
-import { getViewportHeight } from '../../utilities/view/view.service';
+import { getViewportHeight } from '../../utilities/view/view.utilities';
 import {
   isBottomOfElementBelowOfViewport,
   isAboveAndBelowScreen,

@@ -1,4 +1,4 @@
-import ScrollService from './scroll.service';
+import ScrollService from './scroll.utilities';
 
 describe('ScrollService', () => {
   describe('getScrollPosition', () => {
@@ -11,7 +11,7 @@ describe('ScrollService', () => {
       scrollingElement.scrollTop = 50;
 
       const scrollPosition = getScrollPosition({
-        scrollingElement,
+        scrollingEl: scrollingElement,
       });
 
       expect(scrollPosition).toEqual({ x: 30, y: 50 });
@@ -27,7 +27,7 @@ describe('ScrollService', () => {
       scrollingElement.scrollTop = 50;
 
       const scrollPosition = getScrollPosition({
-        scrollingElement,
+        scrollingEl: scrollingElement,
         delay: {
           x: 0,
           y: 0,
@@ -47,7 +47,7 @@ describe('ScrollService', () => {
       scrollingElement.scrollTop = 50;
 
       const scrollPosition = getScrollPosition({
-        scrollingElement,
+        scrollingEl: scrollingElement,
         delay: {
           x: 10,
           y: 20,
@@ -67,7 +67,7 @@ describe('ScrollService', () => {
       scrollingElement.scrollTop = 50;
 
       const scrollPosition = getScrollPosition({
-        scrollingElement,
+        scrollingEl: scrollingElement,
         delay: {
           x: 40,
           y: 70,

@@ -1,5 +1,5 @@
 import { Axes, Direction } from '../../types/types';
-import DirectionService from './direction.service';
+import DirectionService from './direction.utilities';
 
 describe('DirectionService', () => {
   describe('getDirection', () => {

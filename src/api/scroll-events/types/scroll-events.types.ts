@@ -15,7 +15,7 @@ interface ScrollEventArgs {
 
 interface ScrollEventsReturn extends Partial<ScrollEventArgs> {
   lastScrolledPosition: Axes;
-  scrollingElement: Element;
+  scrollingEl: Element;
 }
 
 export type ScrollEvents = (args: ScrollEventArgs) => ScrollEventsReturn;

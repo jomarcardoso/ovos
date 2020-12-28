@@ -1,10 +1,10 @@
 import { ScrollEvents } from './types/scroll-events.types';
-import { getScrollPosition } from '../../utilities/scroll/scroll.service';
+import { getScrollPosition } from '../../utilities/scroll/scroll.utilities';
 import { getScrollingEl } from '../../utilities/element/element.utilities';
 import {
   getDirection,
   isOnTheSameDirection,
-} from '../../utilities/direction/direction.service';
+} from '../../utilities/direction/direction.utilities';
 import {
   POSITION_DEFAULT,
   isOnTheRegion,
@@ -12,8 +12,8 @@ import {
   getRelativePosition,
   isSafe,
   isOnGap,
-} from '../../utilities/position/position.service';
-import { getScrollViewPosition } from '../../utilities/view/view.service';
+} from '../../utilities/position/position.utilities';
+import { getScrollViewPosition } from '../../utilities/view/view.utilities';
 
 const scrollEvents: ScrollEvents = ({
   el = document,
@@ -40,7 +40,10 @@ const scrollEvents: ScrollEvents = ({
 }) => {
   const scrollingElement = getScrollingEl(el as HTMLElement & HTMLDocument);
   let lastRelativeScrollPosition = { x: 0, y: 0 };
-  let lastScrolledPosition = getScrollPosition({ scrollingElement, delay });
+  let lastScrolledPosition = getScrollPosition({
+    scrollingEl: scrollingElement,
+    delay,
+  });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
   let lastDirection = null;
@@ -86,7 +89,10 @@ const scrollEvents: ScrollEvents = ({
       return true;
     }
 
-    const scrollPosition = getScrollPosition({ scrollingElement, delay });
+    const scrollPosition = getScrollPosition({
+      scrollingEl: scrollingElement,
+      delay,
+    });
     const relativeScrollPosition = getRelativePosition({
       lastRelativePosition: lastRelativeScrollPosition,
       lastPosition: lastScrollPosition,
@@ -148,7 +154,7 @@ const scrollEvents: ScrollEvents = ({
     debounce,
     lazyTime,
     lastScrolledPosition,
-    scrollingElement,
+    scrollingEl: scrollingElement,
   };
 };
 
