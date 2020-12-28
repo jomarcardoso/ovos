@@ -6,8 +6,8 @@ import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
 import { getViewportHeight } from '../../utilities/view/view.service';
 import {
   isBottomOfElementBelowOfViewport,
-  isOnViewport,
-} from '../../utilities/element/element.service';
+  isAboveAndBelowScreen,
+} from '../../utilities/element/element.utilities';
 
 export default function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]'),
@@ -62,7 +62,7 @@ export default function scrollableSticky({
       if (isFunction(onUnfix)) onUnfix();
     }
 
-    if (isOnViewport(elWrapper)) {
+    if (isAboveAndBelowScreen(elWrapper)) {
       fix();
       unpinOnBottom();
 

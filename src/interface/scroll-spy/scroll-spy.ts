@@ -1,5 +1,5 @@
 import scrollEvents from '../../api/scroll-events/scroll-events';
-import { getScrollingElement } from '../../utilities/element/element.service';
+import { getScrollingEl } from '../../utilities/element/element.utilities';
 import { Axes, Axis, Element, OnScrollArgs } from '../../types/types';
 import {
   CreateScrollSpyItem,
@@ -48,7 +48,7 @@ export default function scrollSpy({
 }: ScrollSpyArgs): void {
   let currentActive;
   let getTheActive;
-  const scrollingElement = getScrollingElement(elRelative);
+  const scrollingElement = getScrollingEl(elRelative);
 
   function getTheCurrent(position: Axes) {
     return list.reduce((previousValue, currentValue) => {

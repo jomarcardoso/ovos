@@ -1,5 +1,5 @@
-import { Axes, Position } from '../../types/types';
 import './element.service.scss';
+import { Axes, Position } from '../../types/types';
 
 import {
   ToggleScrollDisabled,
@@ -35,7 +35,7 @@ export const toggleDocumentScroll: ToggleDocumentScroll = ({ toggle }) => {
   return toggleScrollDisabled({ el: document.body, toggle });
 };
 
-export function getScrollingElement(
+export function getScrollingEl(
   target: HTMLElement | HTMLDocument,
 ): HTMLElement {
   const documentTarget = target as HTMLDocument;
@@ -47,12 +47,12 @@ export function getScrollingElement(
   return target as HTMLElement;
 }
 
-export function getMaxVerticalScroll(scrollingElement: HTMLElement): number {
-  return scrollingElement.scrollHeight - scrollingElement.clientHeight;
+export function getMaxVerticalScroll(el: HTMLElement): number {
+  return el.scrollHeight - el.clientHeight;
 }
 
-export function getMaxHorizontalScroll(scrollingElement: HTMLElement): number {
-  return scrollingElement.scrollWidth - scrollingElement.clientWidth;
+export function getMaxHorizontalScroll(el: HTMLElement): number {
+  return el.scrollWidth - el.clientWidth;
 }
 
 export function getHeight(el: HTMLElement): number {
@@ -110,17 +110,8 @@ export function isBottomOfElementBelowOfViewport(el: HTMLElement): boolean {
   return getPositionRelativeScreen(el).bottom > getViewportHeight();
 }
 
-export function isOnViewport(el: HTMLElement): boolean {
+export function isAboveAndBelowScreen(el: HTMLElement): boolean {
   return (
     isTopOfElementAboveOfViewport(el) && isBottomOfElementBelowOfViewport(el)
   );
 }
-
-const ElementService = {
-  getScrollingElement,
-  getMaxVerticalScroll,
-  getMaxHorizontalScroll,
-  getHeight,
-};
-
-export default ElementService;

@@ -1,6 +1,6 @@
 import { ScrollEvents } from './types/scroll-events.types';
 import { getScrollPosition } from '../../utilities/scroll/scroll.service';
-import { getScrollingElement } from '../../utilities/element/element.service';
+import { getScrollingEl } from '../../utilities/element/element.utilities';
 import {
   getDirection,
   isOnTheSameDirection,
@@ -38,9 +38,7 @@ const scrollEvents: ScrollEvents = ({
   limit = POSITION_DEFAULT,
   lazyTime = 0,
 }) => {
-  const scrollingElement = getScrollingElement(
-    el as HTMLElement & HTMLDocument,
-  );
+  const scrollingElement = getScrollingEl(el as HTMLElement & HTMLDocument);
   let lastRelativeScrollPosition = { x: 0, y: 0 };
   let lastScrolledPosition = getScrollPosition({ scrollingElement, delay });
   let lastScrollPosition = lastScrolledPosition;

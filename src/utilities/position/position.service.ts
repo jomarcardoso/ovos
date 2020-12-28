@@ -3,7 +3,7 @@ import { Position } from '../../types/types';
 import {
   getMaxHorizontalScroll,
   getMaxVerticalScroll,
-} from '../element/element.service';
+} from '../element/element.utilities';
 import {
   IsOnTheRegion,
   IsOutOfLimit,

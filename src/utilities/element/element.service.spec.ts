@@ -1,8 +1,8 @@
 import {
-  getScrollingElement,
+  getScrollingEl,
   getMaxHorizontalScroll,
   getMaxVerticalScroll,
-} from './element.service';
+} from './element.utilities';
 
 describe('ElementService', () => {
   describe('getMaxVerticalScroll', () => {
@@ -37,21 +37,21 @@ describe('ElementService', () => {
         ...document,
         scrollingElement: document.documentElement,
       };
-      const scrollingElement = getScrollingElement(copyDocument);
+      const scrollingElement = getScrollingEl(copyDocument);
 
       expect(scrollingElement.tagName).toBe('HTML');
     });
 
     it('el', () => {
       const el = document.createElement('div');
-      const scrollingElement = getScrollingElement(el);
+      const scrollingElement = getScrollingEl(el);
 
       expect(scrollingElement).toBe(el);
     });
 
     it('html', () => {
       const el = document.createElement('html');
-      const scrollingElement = getScrollingElement(el);
+      const scrollingElement = getScrollingEl(el);
 
       expect(scrollingElement).toBe(el);
     });

@@ -1,4 +1,4 @@
-import { getMiddleRelativeScreen } from '@/utilities/element/element.service';
+import { getMiddleRelativeScreen } from '@/utilities/element/element.utilities';
 import ScrollEvents from '../../api/scroll-events/scroll-events';
 import { OnScrollArgs, Direction, Axes } from '../../types/types';
 import { Anchor } from './types/anchor.types';

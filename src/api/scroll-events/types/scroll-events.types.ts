@@ -1,4 +1,4 @@
-import { Axes, Element, Position, OnScrollArgs } from '../../types/types';
+import { Axes, Element, Position, OnScrollArgs } from '../../../types/types';
 
 interface ScrollEventArgs {
   el?: Element;
