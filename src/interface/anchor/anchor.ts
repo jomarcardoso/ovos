@@ -1,7 +1,11 @@
-import { getMiddleRelativeScreen } from '@/utilities/element/element.utilities';
-import ScrollEvents from '../../api/scroll-events/scroll-events';
-import { OnScrollArgs, Direction, Axes } from '../../types/types';
+import { getMiddleRelativeScreen } from '../../utilities/element/element.utilities';
+import {
+  isAboveTheScreen,
+  isBelowTheScreen,
+} from '../../utilities/position/position.utilities';
+import { Direction, Axes } from '../../types/types';
 import { Anchor } from './types/anchor.types';
+import './anchor.scss';
 
 interface GetOffsetArgs {
   floatingMiddle: Axes;
@@ -15,7 +19,36 @@ const anchor: Anchor = ({
   elScrolling = document,
   elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
 }) => {
-  const lastOffset = Direction.UP;
+  let lastOffset = Direction.UP;
+  let floating = true;
+
+  if (!elFloating || !elToAnchor) return;
+
+  function toFloat(position: Direction) {
+    if (floating) return;
+
+    // eslint-disable-next-line no-param-reassign
+    elFloating.dataset.anFixed = 'true';
+    floating = true;
+
+    if (position === Direction.UP) {
+      // eslint-disable-next-line no-param-reassign
+      elFloating.dataset.anPosition = 'top';
+
+      return;
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    elFloating.dataset.anPosition = 'bottom';
+  }
+
+  function toAnchor() {
+    if (!floating) return;
+
+    // eslint-disable-next-line no-param-reassign
+    elFloating.dataset.anFixed = 'false';
+    floating = false;
+  }
 
   const getOffset: GetOffset = ({ floatingMiddle, toAnchorMiddle }) => {
     if (floatingMiddle.y < toAnchorMiddle.y) {
@@ -25,20 +58,51 @@ const anchor: Anchor = ({
     return Direction.DOWN;
   };
 
-  const verifyAndAnchor = (offset: Direction) => {
+  const verifyAndToAnchor = (offset: Direction) => {
     if (lastOffset !== offset) {
+      lastOffset = offset;
+      toAnchor();
     }
   };
 
-  function handleScroll(scrollArgs: OnScrollArgs) {
-    const { y: floatingMiddle } = getMiddleRelativeScreen(elFloating);
-    const { y: toAnchorMiddle } = getMiddleRelativeScreen(elToAnchor);
+  function verifyAboveAndToFloat(toAnchorMiddle: Axes) {
+    const aboveTheScreen = isAboveTheScreen(toAnchorMiddle.y);
+
+    if (aboveTheScreen) {
+      toFloat(Direction.UP);
+
+      return true;
+    }
+
+    return false;
   }
 
-  ScrollEvents({
-    el: elScrolling,
-    onScroll: handleScroll,
-  });
+  function verifyBelowAndToFloat(toAnchorMiddle: Axes) {
+    const aboveTheScreen = isBelowTheScreen(toAnchorMiddle.y);
+
+    if (aboveTheScreen) {
+      toFloat(Direction.DOWN);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  function handleScroll() {
+    const floatingMiddle = getMiddleRelativeScreen(elFloating);
+    const toAnchorMiddle = getMiddleRelativeScreen(elToAnchor);
+    const offset = getOffset({ floatingMiddle, toAnchorMiddle });
+
+    if (verifyAboveAndToFloat(toAnchorMiddle)) return;
+    if (verifyBelowAndToFloat(toAnchorMiddle)) return;
+
+    verifyAndToAnchor(offset);
+  }
+
+  toFloat();
+
+  elScrolling.addEventListener('scroll', handleScroll);
 };
 
 export default anchor;

@@ -4,6 +4,7 @@ import {
   getMaxHorizontalScroll,
   getMaxVerticalScroll,
 } from '../element/element.utilities';
+import { getViewportHeight } from '../view/view.utilities';
 import {
   IsOnTheRegion,
   IsOutOfLimit,
@@ -112,8 +113,17 @@ export const isOnGap: IsOnGap = ({ position, gap, el }) => {
   return false;
 };
 
+export function isAboveTheScreen(position: number): boolean {
+  return position < 0;
+}
+
+export function isBelowTheScreen(position: number): boolean {
+  return position > getViewportHeight();
+}
+
 const PositionService = {
   POSITION_DEFAULT,
+  isAboveTheScreen,
   isOnTheRegion,
   isOutOfLimit,
   getRelativePosition,

@@ -59,6 +59,10 @@ export function getHeight(el: HTMLElement): number {
   return el.offsetHeight;
 }
 
+export function getWidth(el: HTMLElement): number {
+  return el.offsetWidth;
+}
+
 export function getOffsetOfTopOfDocument(el: HTMLElement): number {
   return el.offsetTop;
 }
@@ -90,11 +94,13 @@ export function getPositionRelativeScreen(el: HTMLElement): Position {
 }
 
 export function getMiddleRelativeScreen(el: HTMLElement): Axes {
-  const { bottom, left, top, right } = getPositionRelativeScreen(el);
+  const { left, top } = getPositionRelativeScreen(el);
+  const height = getHeight(el);
+  const width = getWidth(el);
 
   return {
-    x: right - left,
-    y: bottom - top,
+    x: left + width / 2,
+    y: top + height / 2,
   };
 }
 
