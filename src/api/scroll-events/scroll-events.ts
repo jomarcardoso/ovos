@@ -51,9 +51,12 @@ const scrollEvents: ScrollEvents = ({
 
   function handleScroll(event) {
     function isToScroll({ changedDirection, scrollPosition, direction }) {
-      if (onlyOnChangedDirection && !changedDirection) return false;
-      if (isOnGap({ position: scrollPosition, gap, el: scrollingElement }))
+      if (onlyOnChangedDirection && !changedDirection) {
         return false;
+      }
+      if (isOnGap({ position: scrollPosition, gap, el: scrollingElement })) {
+        return false;
+      }
       if (
         isSafe({
           position: scrollPosition,
@@ -63,9 +66,17 @@ const scrollEvents: ScrollEvents = ({
       ) {
         return false;
       }
-      if (onlyOnDirection && onlyOnDirection !== direction) return false;
 
-      if (onlyOnWhenInOrOutTheRegion) {
+      if (onlyOnDirection && onlyOnDirection !== direction) {
+        return false;
+      }
+
+      if (
+        onlyOnWhenInOrOutTheRegion.bottom ||
+        onlyOnWhenInOrOutTheRegion.left ||
+        onlyOnWhenInOrOutTheRegion.right ||
+        onlyOnWhenInOrOutTheRegion.top
+      ) {
         const onTheRegion = isOnTheRegion({
           position: scrollPosition,
           region: onlyOnWhenInOrOutTheRegion,
@@ -144,6 +155,8 @@ const scrollEvents: ScrollEvents = ({
   }
 
   bindEvents();
+
+  el.dispatchEvent(new Event('scroll'));
 
   return {
     el,

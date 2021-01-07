@@ -19,13 +19,16 @@ const anchor: Anchor = ({
   elScrolling = document,
   elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
 }) => {
-  let lastOffset = Direction.UP;
+  let lastOffset: Direction = null;
   let floating = true;
+  let lastToAnchorPosition: Direction = null;
 
   if (!elFloating || !elToAnchor) return;
 
   function toFloat(position: Direction) {
-    if (floating) return;
+    if (floating && position === lastToAnchorPosition) return;
+
+    lastToAnchorPosition = position;
 
     // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anFixed = 'true';
@@ -78,9 +81,9 @@ const anchor: Anchor = ({
   }
 
   function verifyBelowAndToFloat(toAnchorMiddle: Axes) {
-    const aboveTheScreen = isBelowTheScreen(toAnchorMiddle.y);
+    const belowTheScreen = isBelowTheScreen(toAnchorMiddle.y);
 
-    if (aboveTheScreen) {
+    if (belowTheScreen) {
       toFloat(Direction.DOWN);
 
       return true;
@@ -100,7 +103,7 @@ const anchor: Anchor = ({
     verifyAndToAnchor(offset);
   }
 
-  toFloat();
+  handleScroll();
 
   elScrolling.addEventListener('scroll', handleScroll);
 };
