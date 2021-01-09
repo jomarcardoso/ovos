@@ -1,16 +1,31 @@
 # ovo 🍳
 
-Uma biblioteca de animações baseada em rolagens e arrastos de tela.
+A library for animations based on scroll and touch events.
 
-![cena do Chavez colocando um ovo na mesa e ele rolando até o chão - https://gifs.com/gif/ovo-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
+![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovo-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
 
-## Módulos
+## Components
 
-- Anchor
+### Interfaces
+
+- [Anchor](/src/interface/anchor)
+- [Carousel](/src/interface/carousel)
 - Fit On Screen
+- Page Progress
 - Parallax
-- Scroll Events
 - Scroll Spy
 - Scrollable Sticky
 - Sticky Header
+
+### APIs
+
+- Scroll Events
 - Touch Events
+
+### Utilities
+
+- Direction
+- Element
+- Position
+- Scroll
+- View

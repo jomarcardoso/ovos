@@ -4,8 +4,6 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
   entry: {
-    // ['./src/dist/ovo']: './src/ovo.ts',
-    // ['./src/anchor/public/dist/index']: './src/anchor/anchor.ts',
     ['./src/interface/scroll-spy/sample/dist/index']:
       './src/interface/scroll-spy/sample/index.ts',
     ['./src/interface/page-progress/sample/dist/index']:
