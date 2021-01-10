@@ -4,6 +4,10 @@ import { Method } from '../scroll-spy/types/scroll-spy.type';
 import { Axis } from '../../types/types';
 import { CreateSlide, Carousel, CarouselFitType } from './types/carousel.type';
 
+interface CustomCSSStyleDeclaration extends CSSStyleDeclaration {
+  scrollSnapAlign: string;
+}
+
 const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
   const scrollSpyItem = createScrollSpyItem({
     elMenu: elDot,
@@ -215,13 +219,17 @@ const carousel: Carousel = ({
   function startOnCurrentSlide() {
     if (internalType === CarouselFitType.BOX) {
       elSlides.forEach((elSlide) => {
+        const style = elSlide.style as CustomCSSStyleDeclaration;
+
         // eslint-disable-next-line no-param-reassign
-        elSlide.style.scrollSnapAlign = 'start';
+        style.scrollSnapAlign = 'start';
       });
     } else {
       elSlides.forEach((elSlide) => {
+        const style = elSlide.style as CustomCSSStyleDeclaration;
+
         // eslint-disable-next-line no-param-reassign
-        elSlide.style.scrollSnapAlign = 'center';
+        style.scrollSnapAlign = 'center';
       });
     }
 
