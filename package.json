@@ -1,8 +1,8 @@
 {
   "name": "ovo",
   "version": "0.1.0",
-  "description": "Uma biblioteca Javascript/CSS como qualquer outra.",
-  "main": "dist/index",
+  "description": "A library for animations based on scroll and touch events.",
+  "main": "dist/ovo",
   "types": "dist/index",
   "files": [
     "dist"
@@ -11,6 +11,7 @@
     "build": "webpack --config webpack.prod.js",
     "start": "webpack --config webpack.dev.js",
     "dev": "webpack --config webpack.dev.js -w",
+    "tsc": "tsc",
     "surge": "gulp",
     "test": "jest",
     "test:watch": "jest --watch --watchAll"
@@ -55,6 +56,7 @@
     "typescript": "^4.1.2",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0",
-    "webpack-merge": "^5.4.0"
+    "webpack-merge": "^5.4.0",
+    "webpack-node-externals": "^2.5.2"
   }
 }
