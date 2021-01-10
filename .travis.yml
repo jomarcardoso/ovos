@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 10
+before_script:
+  - yarn
+script:
+  - yarn build
+after_success:
+  - surge --project ./src/interface/anchor/sample/ --domain ovo-anchor.surge.sh
