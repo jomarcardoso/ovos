@@ -14,9 +14,3 @@ after_success:
   - surge --project ./src/interface/scroll-spy/sample/ --domain ovo-scroll-spy.surge.sh
   - surge --project ./src/interface/scrollable-sticky/sample/ --domain ovo-scrollable-sticky.surge.sh
   - surge --project ./src/interface/sticky-header/sample/ --domain ovo-sticky-header.surge.sh
-
-
-    {
-      project: './src/interface/sticky-header/sample/',
-      domain: 'ovo-sticky-header.surge.sh',
-    },
