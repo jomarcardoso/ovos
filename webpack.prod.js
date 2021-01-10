@@ -14,5 +14,9 @@ module.exports = merge(common, {
   // },
   externalsPresets: { node: true },
   externals: [nodeExternals()],
-  // plugins: [new CleanWebpackPlugin()],
+  // plugins: [
+  //   new CleanWebpackPlugin({
+  //     dry: true,
+  //   }),
+  // ],
 });
