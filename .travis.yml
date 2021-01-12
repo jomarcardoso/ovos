@@ -1,10 +1,13 @@
+if: branch = master
 language: node_js
 node_js:
   - 10
-before_script:
-  - yarn
-script:
-  - yarn build
+deploy:
+  provider: npm
+  email: antonionetocardoso@hotmail.com
+  api_key: $NPM_AUTH_TOKEN
+  on:
+    branch: master
 after_success:
   - surge --project ./src/interface/anchor/sample/ --domain ovo-anchor.surge.sh
   - surge --project ./src/interface/carousel/sample/ --domain ovo-carousel.surge.sh
