@@ -1,10 +1,8 @@
 import { Axes, Direction } from '../../types/types';
-import DirectionService from './direction.utilities';
+import { isOnTheSameDirection, getDirection } from './direction.utilities';
 
 describe('DirectionService', () => {
   describe('getDirection', () => {
-    const { getDirection } = DirectionService;
-
     it('same position {4,6}: none', () => {
       const position: Axes = { x: 4, y: 6 };
       const direction = getDirection({ lastPosition: position, position });
@@ -148,8 +146,6 @@ describe('DirectionService', () => {
   });
 
   describe('isOnTheSameDirection', () => {
-    const { isOnTheSameDirection } = DirectionService;
-
     it('both down: true', () => {
       const sameDirection = isOnTheSameDirection({
         direction: Direction.DOWN,
