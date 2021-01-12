@@ -5,18 +5,68 @@ node_js:
 before_script:
   - yarn
 script:
+  - yarn start
   - yarn lint
   - yarn test
-deploy:
-  provider: npm
-  email: antonionetocardoso@hotmail.com
-  api_key: $NPM_AUTH_TOKEN
-  on:
-    branch: master
 deploy:
   provider: surge
   project: ./src/interface/anchor/sample/
   domain: ovo-anchor.surge.sh
   skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/carousel/sample/
+  domain: ovo-carousel.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/fit-on-screen/sample/
+  domain: ovo-fit-on-screen.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/page-progress/sample/
+  domain: ovo-page-progress.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/parallax/sample/
+  domain: ovo-parallax.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/scroll-spy/sample/
+  domain: ovo-scroll-spy.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/scrollable-sticky/sample/
+  domain: ovo-scrollable-sticky.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: surge
+  project: ./src/interface/sticky-header/sample/
+  domain: ovo-sticky-header.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
+deploy:
+  provider: npm
+  email: antonionetocardoso@hotmail.com
+  api_key: $NPM_AUTH_TOKEN
   on:
     branch: master
