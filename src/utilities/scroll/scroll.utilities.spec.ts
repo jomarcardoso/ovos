@@ -1,9 +1,7 @@
-import ScrollService from './scroll.utilities';
+import { getScrollPosition } from './scroll.utilities';
 
 describe('ScrollService', () => {
   describe('getScrollPosition', () => {
-    const { getScrollPosition } = ScrollService;
-
     it('scrollingElement: { scrollLeft: 30, scrollTop: 50 }', () => {
       const scrollingElement = { ...document.createElement('div') };
 

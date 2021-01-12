@@ -45,6 +45,7 @@ const touchEvents: TouchEvents = ({
     clicking = true;
     const x = mouseEvent.screenX;
     const y = mouseEvent.screenY;
+
     handleGrab(mouseEvent, x, y);
   });
 
@@ -53,6 +54,7 @@ const touchEvents: TouchEvents = ({
 
     const x = touchEvent.changedTouches[0].screenX;
     const y = touchEvent.changedTouches[0].screenY;
+
     handleGrab(touchEvent, x, y);
   });
 
@@ -119,6 +121,7 @@ const touchEvents: TouchEvents = ({
 
     const x = mouseEvent.screenX;
     const y = mouseEvent.screenY;
+
     clicking = false;
     handleDrop(mouseEvent, x, y);
   });
@@ -128,6 +131,7 @@ const touchEvents: TouchEvents = ({
 
     const x = touchEvent.changedTouches[0].screenX;
     const y = touchEvent.changedTouches[0].screenY;
+
     handleDrop(touchEvent, x, y);
   });
 
@@ -197,6 +201,7 @@ const touchEvents: TouchEvents = ({
     if (!clicking) return;
     const x = event.screenX;
     const y = event.screenY;
+
     handleDrag(event, x, y);
   });
 
@@ -205,6 +210,7 @@ const touchEvents: TouchEvents = ({
 
     const x = touchEvent.changedTouches[0].screenX;
     const y = touchEvent.changedTouches[0].screenY;
+
     handleDrag(touchEvent, x, y);
   });
 };
