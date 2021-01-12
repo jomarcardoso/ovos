@@ -13,12 +13,10 @@ deploy:
   api_key: $NPM_AUTH_TOKEN
   on:
     branch: master
-after_success:
-  - surge --project ./src/interface/anchor/sample/ --domain ovo-anchor.surge.sh
-  - surge --project ./src/interface/carousel/sample/ --domain ovo-carousel.surge.sh
-  - surge --project ./src/interface/fit-on-screen/sample/ --domain ovo-fit-on-screen.surge.sh
-  - surge --project ./src/interface/page-progress/sample/ --domain ovo-page-progress.surge.sh
-  - surge --project ./src/interface/parallax/sample/ --domain ovo-parallax.surge.sh
-  - surge --project ./src/interface/scroll-spy/sample/ --domain ovo-scroll-spy.surge.sh
-  - surge --project ./src/interface/scrollable-sticky/sample/ --domain ovo-scrollable-sticky.surge.sh
-  - surge --project ./src/interface/sticky-header/sample/ --domain ovo-sticky-header.surge.sh
+deploy:
+  provider: surge
+  project: ./src/interface/anchor/sample/
+  domain: ovo-anchor.surge.sh
+  skip_cleanup: true
+  on:
+    branch: master
