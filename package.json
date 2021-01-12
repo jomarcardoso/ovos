@@ -11,7 +11,7 @@
     "build": "webpack --config webpack.prod.js",
     "start": "webpack --config webpack.dev.js",
     "dev": "webpack --config webpack.dev.js -w",
-    "prepublish": "yarn && yarn build && tsc",
+    "prepublish": "yarn build && tsc",
     "tsc": "tsc",
     "surge": "gulp",
     "test": "jest",

@@ -2,6 +2,11 @@ if: branch = master
 language: node_js
 node_js:
   - 10
+before_script:
+  - yarn
+script:
+  - yarn lint
+  - yarn test
 deploy:
   provider: npm
   email: antonionetocardoso@hotmail.com
