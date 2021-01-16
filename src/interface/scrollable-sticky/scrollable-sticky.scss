@@ -1,19 +1,19 @@
-[data-ovo_ss='wrapper'] {
+[data-ovos_ss='wrapper'] {
   min-height: 100vh;
   position: relative;
 }
 
-[data-ovo_ss='container'] {
+[data-ovos_ss='container'] {
   display: flex;
 
-  &[data-ovo_ss_pinned='bottom'] {
-    [data-ovo_ss='content'] {
+  &[data-ovos_ss_pinned='bottom'] {
+    [data-ovos_ss='content'] {
       align-self: flex-end;
     }
   }
 
-  &[data-ovo_ss_fixed='true'] {
-    [data-ovo_ss='content'] {
+  &[data-ovos_ss_fixed='true'] {
+    [data-ovos_ss='content'] {
       position: fixed;
       top: 0;
     }

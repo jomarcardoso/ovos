@@ -10,9 +10,9 @@ import {
 } from '../../utilities/element/element.utilities';
 
 export default function scrollableSticky({
-  el = document.querySelector('[data-ovo_ss="content"]'),
-  elWrapper = document.querySelector('[data-ovo_ss="wrapper"]'),
-  elContainer = document.querySelector('[data-ovo_ss="container"]'),
+  el = document.querySelector('[data-ovos_ss="content"]'),
+  elWrapper = document.querySelector('[data-ovos_ss="wrapper"]'),
+  elContainer = document.querySelector('[data-ovos_ss="container"]'),
   onUnpin,
   onPin,
   onUnfix,
@@ -26,7 +26,7 @@ export default function scrollableSticky({
       if (pinnedOnBottom) return;
 
       // eslint-disable-next-line no-param-reassign
-      elContainer.dataset.ovo_ss_pinned = 'bottom';
+      elContainer.dataset.ovos_ss_pinned = 'bottom';
       pinnedOnBottom = true;
       if (isFunction(onPin)) onPin();
     }
@@ -35,7 +35,7 @@ export default function scrollableSticky({
       if (!pinnedOnBottom) return;
 
       // eslint-disable-next-line no-param-reassign
-      elContainer.dataset.ovo_ss_pinned = '';
+      elContainer.dataset.ovos_ss_pinned = '';
       pinnedOnBottom = false;
       if (isFunction(onUnpin)) onUnpin();
     }
@@ -45,7 +45,7 @@ export default function scrollableSticky({
 
       fixed = true;
       // eslint-disable-next-line no-param-reassign
-      elContainer.dataset.ovo_ss_fixed = 'true';
+      elContainer.dataset.ovos_ss_fixed = 'true';
       // eslint-disable-next-line no-param-reassign
       el.style.width = String(elContainer.offsetWidth);
       if (isFunction(onFix)) onFix();
@@ -56,7 +56,7 @@ export default function scrollableSticky({
 
       fixed = false;
       // eslint-disable-next-line no-param-reassign
-      elContainer.dataset.ovo_ss_fixed = 'false';
+      elContainer.dataset.ovos_ss_fixed = 'false';
       // eslint-disable-next-line no-param-reassign
       el.style.transform = `translateY(0)`;
       if (isFunction(onUnfix)) onUnfix();

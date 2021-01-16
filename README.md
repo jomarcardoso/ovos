@@ -1,31 +1,33 @@
-# ovo 🍳
+# ovos 🍳
+
+https://travis-ci.com/jomarcardoso/ovos.svg?branch=master
 
 A library for animations based on scroll and touch events.
 
-![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovo-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
+![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovos-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
 
 ## Components
 
-### Interfaces
+### Interface
 
 - [Anchor](/src/interface/anchor)
 - [Carousel](/src/interface/carousel)
-- Fit On Screen
-- Page Progress
-- Parallax
-- Scroll Spy
-- Scrollable Sticky
-- Sticky Header
+- [Fit On Screen](/src/interface/fit-on-screen)
+- [Page Progress](/src/interface/page-progress)
+- [Parallax](/src/interface/parallax)
+- [Scroll Spy](/src/interface/scroll-spy)
+- [Scrollable Sticky](/src/interface/scrollable-sticky)
+- [Sticky Header](/src/interface/scrollable-sticky)
 
-### APIs
+### API
 
-- Scroll Events
-- Touch Events
+- [Scroll Events](/src/api/scroll-events)
+- [Touch Events](/src/api/touch-events)
 
 ### Utilities
 
-- Direction
-- Element
-- Position
-- Scroll
-- View
+- [Direction](/src/utilities/direction)
+- [Element](/src/utilities/element)
+- [Position](/src/utilities/position)
+- [Scroll](/src/utilities/scroll)
+- [View](/src/utilities/view)

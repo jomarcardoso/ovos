@@ -3,7 +3,7 @@ import { FitOnScreenArgs } from './types/fit-on-screen.types';
 
 export default function fitOnScreen({
   elRelative = document,
-  elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
+  elsToFit = Array.from(document.querySelectorAll('[data-ovos-fs="content"]')),
   proximityToFit = 240,
 }: FitOnScreenArgs): void {
   function scrollTo({ scrollingElement, top }) {

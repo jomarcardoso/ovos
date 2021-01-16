@@ -15,9 +15,9 @@ interface GetOffsetArgs {
 type GetOffset = (args: GetOffsetArgs) => Direction;
 
 const anchor: Anchor = ({
-  elFloating = document.querySelector('[data-ovo-anchor="floating"]'),
+  elFloating = document.querySelector('[data-ovos-anchor="floating"]'),
   elScrolling = document,
-  elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
+  elToAnchor = document.querySelector('[data-ovos-anchor="to-anchor"]'),
 }) => {
   let lastOffset: Direction = null;
   let floating = true;
