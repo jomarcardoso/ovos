@@ -6,7 +6,7 @@ import {
 import scrollEvents from '../../api/scroll-events/scroll-events';
 
 export default function stickyHeader({
-  el = document.querySelector('[data-ovo-hs="header"]'),
+  el = document.querySelector('[data-ovos-hs="header"]'),
 }: {
   el?: HTMLElement;
 }): void {

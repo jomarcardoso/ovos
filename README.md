@@ -4,11 +4,11 @@ https://travis-ci.com/jomarcardoso/ovos.svg?branch=master
 
 A library for animations based on scroll and touch events.
 
-![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovo-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
+![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovos-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
 
 ## Components
 
-### Interfaces
+### Interface
 
 - [Anchor](/src/interface/anchor)
 - [Carousel](/src/interface/carousel)
@@ -19,7 +19,7 @@ A library for animations based on scroll and touch events.
 - [Scrollable Sticky](/src/interface/scrollable-sticky)
 - [Sticky Header](/src/interface/scrollable-sticky)
 
-### APIs
+### API
 
 - [Scroll Events](/src/api/scroll-events)
 - [Touch Events](/src/api/touch-events)

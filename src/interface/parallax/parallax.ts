@@ -4,7 +4,7 @@ import { Axis, OnScrollArgs } from '../../types/types';
 import { ParallaxArgs } from './types/parallax.types';
 
 export default function parallax({
-  el = document.querySelector('[data-ovo-parallax]'),
+  el = document.querySelector('[data-ovos-parallax]'),
   elContent: externalElContent,
   callback,
   distance = 1000,
@@ -16,7 +16,7 @@ export default function parallax({
 
   if (!elContent) {
     elContent =
-      el.querySelector('[data-ovo-parallax="content"]') ??
+      el.querySelector('[data-ovos-parallax="content"]') ??
       (el.firstElementChild as HTMLElement);
   }
 
