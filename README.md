@@ -10,6 +10,8 @@ A library for animations based on scroll and touch events.
 
 ### NPM module
 
+Install
+
 ```sh
 yarn add ovos
 
@@ -18,9 +20,18 @@ yarn add ovos
 npm install --save ovos
 ```
 
+Import:
+
+```js
+import { fitOnScreen } from 'ovos';
+```
+
 ### CDN
 
-https://unpkg.com/ovos@0.3.0/dist/ovo.bundle.min.js
+```html
+<script src="https://unpkg.com/ovos@0.3.1/dist/ovos.bundle.min.js"></script>
+<script>window.ovos.fitOnScreen</script>
+```
 
 ## Components
 
