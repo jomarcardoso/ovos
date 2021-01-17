@@ -1,6 +1,6 @@
 {
   "name": "ovos",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A library for animations based on scroll and touch events.",
   "main": "dist/ovo.js",
   "types": "types/ovo.d.ts",
@@ -9,10 +9,11 @@
     "types"
   ],
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "start": "webpack --config webpack.dev.js",
-    "dev": "webpack --config webpack.dev.js -w",
-    "prepublishOnly": "yarn build && tsc",
+    "build": "webpack",
+    "bundle": "webpack --env bundle",
+    "start": "webpack --env mode=development --env bundle",
+    "dev": "yarn start -w",
+    "prepublishOnly": "yarn build && yarn bundle && yarn tsc",
     "tsc": "tsc",
     "test": "jest",
     "lint": "eslint src/**/*.{js,ts,tsx}",
@@ -46,6 +47,7 @@
     "eslint": "^7.14.0",
     "eslint-config-airbnb-typescript-prettier": "^4.1.0",
     "eslint-loader": "^4.0.2",
+    "fork-ts-checker-webpack-plugin": "^6.1.0",
     "jest": "^26.6.3",
     "prettier": "^2.2.1",
     "sanitize.css": "^12.0.1",
