@@ -9,7 +9,7 @@ const generateConfig = ({
   mode = 'production',
   bundle = false,
   entry = {
-    ['./dist/ovo']: './src/ovo.ts',
+    ['./dist/ovos']: './src/ovos.ts',
     ['./src/interface/scroll-spy/sample/dist/index']:
       './src/interface/scroll-spy/sample/index.ts',
     ['./src/interface/page-progress/sample/dist/index']:
@@ -38,6 +38,7 @@ const generateConfig = ({
       filename: '[name].min.js',
       path: path.resolve(__dirname),
       libraryTarget: 'umd',
+      globalObject: 'window',
     },
     module: {
       rules: [
