@@ -38,6 +38,7 @@ const generateConfig = ({
       filename: '[name].min.js',
       path: path.resolve(__dirname),
       libraryTarget: 'umd',
+      library: 'ovos',
       globalObject: 'window',
     },
     module: {
