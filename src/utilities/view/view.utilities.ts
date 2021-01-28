@@ -1,18 +1,23 @@
 import { Axes } from '../../types/types';
 
-export function getScrollViewPosition(position: Axes): Axes {
-  return {
-    x: position.x + window.innerWidth,
-    y: position.y + window.innerHeight,
-  };
-}
-
 export function getViewportHeight(): number {
   return window.innerHeight;
 }
 
-const ViewService = {
-  getScrollViewPosition,
+export function getViewportWicth(): number {
+  return window.innerWidth;
+}
+
+export function getTotalViewScrolled(position: Axes): Axes {
+  return {
+    x: position.x + getViewportWicth(),
+    y: position.y + getViewportHeight(),
+  };
+}
+
+const ViewUtilities = {
+  getScrollViewPosition: getTotalViewScrolled,
+  getViewportHeight,
 };
 
-export default ViewService;
+export default ViewUtilities;

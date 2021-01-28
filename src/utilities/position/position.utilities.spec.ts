@@ -3,6 +3,8 @@ import {
   isOnTheRegion,
   getRelativePosition,
   isOutOfLimit,
+  isAboveTheScreen,
+  isBelowTheScreen,
 } from './position.utilities';
 
 describe('PositionService', () => {
@@ -20,6 +22,7 @@ describe('PositionService', () => {
 
       expect(result).toBe(false);
     });
+
     it('below the region: false', () => {
       const result = isOnTheRegion({
         position: { x: 0, y: 20 },
@@ -367,6 +370,48 @@ describe('PositionService', () => {
       });
 
       expect(result).toBe(true);
+    });
+  });
+
+  describe('isAboveTheScreen', () => {
+    it('position -5 is true', () => {
+      expect(isAboveTheScreen(-5)).toBe(true);
+    });
+
+    it('position 0 is false', () => {
+      expect(isAboveTheScreen(0)).toBe(false);
+    });
+
+    it('position 2 is false', () => {
+      expect(isAboveTheScreen(2)).toBe(false);
+    });
+  });
+
+  describe('isBelowTheScreen', () => {
+    global.innerHeight = 768;
+
+    it('position 0 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(0)).toBe(false);
+    });
+
+    it('position -10 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(-10)).toBe(false);
+    });
+
+    it('position 400 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(400)).toBe(false);
+    });
+
+    it('position 768 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(768)).toBe(false);
+    });
+
+    it('position 769 is below the screen 768px', () => {
+      expect(isBelowTheScreen(769)).toBe(true);
+    });
+
+    it('position 1000 is below the screen 768px', () => {
+      expect(isBelowTheScreen(1000)).toBe(true);
     });
   });
 });

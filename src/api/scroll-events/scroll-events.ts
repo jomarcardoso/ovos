@@ -13,7 +13,7 @@ import {
   isSafe,
   isOnGap,
 } from '../../utilities/position/position.utilities';
-import { getScrollViewPosition } from '../../utilities/view/view.utilities';
+import { getTotalViewScrolled } from '../../utilities/view/view.utilities';
 
 const scrollEvents: ScrollEvents = ({
   el = document,
@@ -123,7 +123,7 @@ const scrollEvents: ScrollEvents = ({
       scrollPosition,
       direction,
     });
-    const scrollViewPosition = getScrollViewPosition(scrollPosition);
+    const scrollViewPosition = getTotalViewScrolled(scrollPosition);
 
     const timeout = window.setTimeout(() => {
       if (onScroll && toScroll) {
