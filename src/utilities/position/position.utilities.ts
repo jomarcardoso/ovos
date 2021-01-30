@@ -104,8 +104,6 @@ export const isOnGapOfEl: IsOnGapOfEl = ({ position, gap, el }) => {
 
   const beOnBottomGap = position.y > getMaxVerticalScroll(el) - gap.bottom;
 
-  console.log(position.y, getMaxVerticalScroll(el), gap.bottom);
-
   if (gap.bottom !== null && beOnBottomGap) return true;
 
   const beOnLeftGap = position.x < gap.left;
@@ -134,6 +132,7 @@ const PositionService = {
   isOutOfLimit,
   getRelativePosition,
   isOnGap: isOnGapOfEl,
+  isSafe,
 };
 
 export default PositionService;

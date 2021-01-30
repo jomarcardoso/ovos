@@ -6,6 +6,7 @@ import {
   isAboveTheScreen,
   isBelowTheScreen,
   isOnGapOfEl,
+  isSafe,
 } from './position.utilities';
 
 describe('PositionService', () => {
@@ -527,6 +528,58 @@ describe('PositionService', () => {
       });
 
       expect(onGap).toBe(true);
+    });
+  });
+
+  describe('isSafe', () => {
+    it('no debounce to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 0, y: 0 },
+        lastPosition: { x: 0, y: 0 },
+        position: { x: 1, y: 1 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 20 from 0 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 0, y: 0 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 22 from 10 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 22, y: 22 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 20 from 10 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 11 and moved 20 from 10 to be true', () => {
+      const safe = isSafe({
+        debounce: { x: 11, y: 11 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(true);
     });
   });
 });
