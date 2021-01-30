@@ -5,6 +5,7 @@ import {
   isOutOfLimit,
   isAboveTheScreen,
   isBelowTheScreen,
+  isOnGapOfEl,
 } from './position.utilities';
 
 describe('PositionService', () => {
@@ -412,6 +413,120 @@ describe('PositionService', () => {
 
     it('position 1000 is below the screen 768px', () => {
       expect(isBelowTheScreen(1000)).toBe(true);
+    });
+  });
+
+  describe('isOnGapOfEl el 1000px and sreen 200px', () => {
+    const el = { ...document.createElement('div') };
+
+    el.scrollHeight = 1000;
+    el.clientHeight = 200;
+    el.scrollWidth = 1000;
+    el.clientWidth = 200;
+
+    it('gap 0 and positon 0 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+        },
+        position: { x: 0, y: 0 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('no gap and positon 0 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: null,
+          top: null,
+        },
+        position: { x: 0, y: 0 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('no gap and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: null,
+          top: null,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap 0 and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap 10 and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 10,
+          left: 10,
+          right: 10,
+          top: 10,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap bottom 200 of 1000 and positon y 900 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 200,
+          left: 10,
+          right: 10,
+          top: 10,
+        },
+        position: { x: 100, y: 900 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap bottom 200 of 1000 and positon y 100 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 200,
+          left: 10,
+          right: 10,
+          top: 200,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
     });
   });
 });

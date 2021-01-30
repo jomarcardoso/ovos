@@ -11,7 +11,7 @@ import {
   isOutOfLimit,
   getRelativePosition,
   isSafe,
-  isOnGap,
+  isOnGapOfEl,
 } from '../../utilities/position/position.utilities';
 import { getTotalViewScrolled } from '../../utilities/view/view.utilities';
 
@@ -54,7 +54,9 @@ const scrollEvents: ScrollEvents = ({
       if (onlyOnChangedDirection && !changedDirection) {
         return false;
       }
-      if (isOnGap({ position: scrollPosition, gap, el: scrollingElement })) {
+      if (
+        isOnGapOfEl({ position: scrollPosition, gap, el: scrollingElement })
+      ) {
         return false;
       }
       if (

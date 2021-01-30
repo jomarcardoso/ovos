@@ -10,7 +10,7 @@ import {
   IsOutOfLimit,
   GetRelativePosition,
   IsSafe,
-  IsOnGap,
+  IsOnGap as IsOnGapOfEl,
 } from './types/position.utilities';
 
 export const POSITION_DEFAULT: Position = {
@@ -93,12 +93,18 @@ export const isSafe: IsSafe = ({ position, lastPosition, debounce }) => {
   return false;
 };
 
-export const isOnGap: IsOnGap = ({ position, gap, el }) => {
+export const isOnGapOfEl: IsOnGapOfEl = ({ position, gap, el }) => {
+  // const hasGap = gap.bottom || gap.left || gap.right || gap.top;
+
+  // if (!hasGap) return true;
+
   const beOnTopGap = position.y < gap.top;
 
   if (gap.top !== null && beOnTopGap) return true;
 
   const beOnBottomGap = position.y > getMaxVerticalScroll(el) - gap.bottom;
+
+  console.log(position.y, getMaxVerticalScroll(el), gap.bottom);
 
   if (gap.bottom !== null && beOnBottomGap) return true;
 
@@ -127,7 +133,7 @@ const PositionService = {
   isOnTheRegion,
   isOutOfLimit,
   getRelativePosition,
-  isOnGap,
+  isOnGap: isOnGapOfEl,
 };
 
 export default PositionService;
