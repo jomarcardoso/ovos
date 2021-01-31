@@ -1,3 +1,4 @@
+import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
 import { Position } from '../../types/types';
 import {
@@ -37,7 +38,7 @@ export const isOutOfLimit: IsOutOfLimit = ({
     if (outOfTopLimit) return true;
   }
 
-  if (isNumber(limit.bottom)) {
+  if (!isNil(limit.bottom)) {
     if (limit.bottom === 0) return false;
 
     const outOfBottomLimit = position.y > limit.bottom;
@@ -51,7 +52,7 @@ export const isOutOfLimit: IsOutOfLimit = ({
     if (outOfLeftLimit) return true;
   }
 
-  if (limit.right) {
+  if (!isNil(limit.right)) {
     if (limit.right === 0) return false;
 
     const outOfRightLimit = position.x > limit.right;
@@ -100,19 +101,19 @@ export const isOnGapOfEl: IsOnGapOfEl = ({ position, gap, el }) => {
 
   const beOnTopGap = position.y < gap.top;
 
-  if (gap.top !== null && beOnTopGap) return true;
+  if (!isNil(gap.top) && beOnTopGap) return true;
 
   const beOnBottomGap = position.y > getMaxVerticalScroll(el) - gap.bottom;
 
-  if (gap.bottom !== null && beOnBottomGap) return true;
+  if (!isNil(gap.bottom) && beOnBottomGap) return true;
 
   const beOnLeftGap = position.x < gap.left;
 
-  if (gap.left !== null && beOnLeftGap) return true;
+  if (!isNil(gap.left) && beOnLeftGap) return true;
 
   const beOnRightGap = position.x > getMaxHorizontalScroll(el) - gap.right;
 
-  if (gap.right !== null && beOnRightGap) return true;
+  if (!isNil(gap.right) && beOnRightGap) return true;
 
   return false;
 };

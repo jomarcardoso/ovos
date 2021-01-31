@@ -373,6 +373,98 @@ describe('PositionService', () => {
 
       expect(result).toBe(true);
     });
+
+    it('position {2,3} limit {left:2, bottom:10}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 3 },
+        limit: {
+          left: 2,
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,3} limit {left:3, bottom:10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 3 },
+        limit: {
+          left: 3,
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {8,3} limit {left:3, right:10}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 8, y: 3 },
+        limit: {
+          left: 3,
+          right: 10,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,3} limit {left:3, right:10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 3 },
+        limit: {
+          left: 3,
+          right: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {18,20} limit {bottom: 10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 20 },
+        limit: {
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {18,10} limit {bottom: 20}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          bottom: 20,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,10} limit {bottom: 0}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          bottom: 0,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,10} limit {right: 0}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          right: 0,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
   });
 
   describe('isAboveTheScreen', () => {
@@ -525,6 +617,66 @@ describe('PositionService', () => {
           top: 200,
         },
         position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap left 200 of 1000 and positon x 100 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: 200,
+          right: 10,
+          top: null,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap left 200 of 1000 and positon x 210 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: 200,
+          right: 10,
+          top: null,
+        },
+        position: { x: 210, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap right 200 of 1000 and positon x 600 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: 200,
+          top: null,
+        },
+        position: { x: 600, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap right 200 of 1000 and positon x 900 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: 200,
+          top: null,
+        },
+        position: { x: 900, y: 100 },
       });
 
       expect(onGap).toBe(true);
