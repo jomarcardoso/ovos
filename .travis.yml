@@ -10,6 +10,12 @@ script:
   - yarn test
 deploy:
   - provider: surge
+    project: ./src/api/scroll-events/sample/
+    domain: ovos-scroll-events.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
     project: ./src/interface/anchor/sample/
     domain: ovos-anchor.surge.sh
     skip_cleanup: true
