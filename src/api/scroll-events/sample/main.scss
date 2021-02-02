@@ -1,0 +1,32 @@
+@import '../../../sample//main.scss';
+
+body {
+  min-height: 400vh;
+  border-top: 300px solid black;
+  border-bottom: 300px solid black;
+}
+
+section {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+article {
+  color: white;
+  font-size: 24px;
+  background-color: black;
+  padding: 20px;
+}
+
+@media (max-width: 450px) {
+  article {
+    font-size: 18px;
+    padding: 15px;
+  }
+}

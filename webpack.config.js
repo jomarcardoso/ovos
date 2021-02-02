@@ -10,6 +10,8 @@ const generateConfig = ({
   bundle = false,
   entry = {
     ['./dist/ovos']: './src/ovos.ts',
+    ['./src/api/scroll-events/sample/dist/index']:
+      './src/api/scroll-events/sample/index.ts',
     ['./src/interface/scroll-spy/sample/dist/index']:
       './src/interface/scroll-spy/sample/index.ts',
     ['./src/interface/page-progress/sample/dist/index']:

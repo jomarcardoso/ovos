@@ -33,7 +33,7 @@ export type IsSafe = (args: IsSafeArgs) => boolean;
 
 interface IsOnGapArgs {
   position: Axes;
-  gap: Position;
+  gap: Partial<Position>;
   el: HTMLElement;
 }
 

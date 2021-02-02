@@ -6,7 +6,7 @@ interface ScrollEventArgs {
   onlyOnChangedDirection?: boolean;
   onlyOnDirection?: boolean;
   onlyOnWhenInOrOutTheRegion?: Position;
-  gap?: Position;
+  gap?: Partial<Position>;
   debounce?: Axes;
   limit?: Position;
   lazyTime?: number;
