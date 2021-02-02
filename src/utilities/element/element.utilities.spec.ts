@@ -1,10 +1,12 @@
+import { Position } from '@/types/types';
 import {
   getScrollingEl,
   getMaxHorizontalScroll,
   getMaxVerticalScroll,
+  getPositionRelativeOfTheDocument,
 } from './element.utilities';
 
-describe('ElementService', () => {
+describe('ElementUtilities', () => {
   describe('getMaxVerticalScroll', () => {
     it('scrollHeight = 1000; clientHeight: 200', () => {
       const element = { ...document.createElement('div') };
@@ -54,6 +56,42 @@ describe('ElementService', () => {
       const scrollingElement = getScrollingEl(el);
 
       expect(scrollingElement).toBe(el);
+    });
+  });
+
+  describe('getPositionRelativeOfTheDocument', () => {
+    const el = { ...document.createElement('div') };
+
+    el.offsetTop = 100;
+    el.offsetLeft = 50;
+    el.offsetHeight = 100;
+    el.offsetWidth = 100;
+
+    el.getBoundingClientRect = jest.fn(() => ({
+      toJSON: jest.fn(),
+      bottom: 200,
+      height: 100,
+      left: 50,
+      right: 150,
+      top: 100,
+      width: 100,
+      x: 50,
+      y: 100,
+    }));
+
+    global.innerHeight = 600;
+    global.innerWidth = 600;
+
+    it('middle of the document', () => {
+      const position = getPositionRelativeOfTheDocument(el);
+      const expected: Position = {
+        bottom: 200,
+        left: 50,
+        right: 150,
+        top: 100,
+      };
+
+      expect(position).toStrictEqual(expected);
     });
   });
 });
