@@ -1,4 +1,4 @@
-import { Position } from '@/types/types';
+import { Position } from '../../types/types';
 import {
   getScrollingEl,
   getMaxHorizontalScroll,
