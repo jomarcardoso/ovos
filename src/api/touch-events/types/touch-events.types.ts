@@ -1,4 +1,4 @@
-import { Axes, Element } from '../../../types/types';
+import { Axes } from '../../../types/types';
 
 interface CallbackArgs {
   event: TouchEvent;
@@ -6,7 +6,7 @@ interface CallbackArgs {
 }
 
 interface TouchEventsArgs {
-  el?: Element;
+  el?: HTMLElement;
   safeX?: number;
   safeY?: number;
   onDragTop?(args: CallbackArgs): void;
