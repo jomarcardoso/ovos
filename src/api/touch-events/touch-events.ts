@@ -24,7 +24,7 @@ const touchEvents: TouchEvents = ({
   let endY = 0;
   let clicking = false;
 
-  function handleGrab(event, x, y) {
+  function handleGrab(event: Event, x = 0, y = 0) {
     breakpointX = x;
     breakpointY = y;
     startX = breakpointX;
@@ -58,7 +58,7 @@ const touchEvents: TouchEvents = ({
     handleGrab(touchEvent, x, y);
   });
 
-  function handleDrop(event, x, y) {
+  function handleDrop(event: Event, x = 0, y = 0) {
     endX = x;
     endY = y;
 
@@ -135,7 +135,7 @@ const touchEvents: TouchEvents = ({
     handleDrop(touchEvent, x, y);
   });
 
-  function handleDrag(event, x, y) {
+  function handleDrag(event: Event, x = 0, y = 0) {
     const positionX = x;
     const positionY = y;
 
@@ -197,7 +197,7 @@ const touchEvents: TouchEvents = ({
       });
   }
 
-  document.addEventListener('mousemove', (event) => {
+  document.addEventListener('mousemove', (event: MouseEvent) => {
     if (!clicking) return;
     const x = event.screenX;
     const y = event.screenY;

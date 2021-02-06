@@ -1,7 +1,7 @@
 import { Axes } from '../../../types/types';
 
 interface CallbackArgs {
-  event: TouchEvent;
+  event: Event;
   position: Axes;
 }
 

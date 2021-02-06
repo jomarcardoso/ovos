@@ -5,3 +5,10 @@ export interface FitOnScreenArgs {
   elsToFit?: Array<HTMLElement>;
   proximityToFit?: number;
 }
+
+interface IsNearOfElementArgs {
+  elToFit: HTMLElement;
+  scrolledPosition: number;
+}
+
+export type IsNearOfElement = (args: IsNearOfElementArgs) => boolean;

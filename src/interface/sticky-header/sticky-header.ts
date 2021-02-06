@@ -22,7 +22,9 @@ export default function stickyHeader({
   //   return false;
   // }
 
-  function handleDocumentScroll({ relativeScrollPosition: { y: position } }) {
+  function handleDocumentScroll({
+    relativeScrollPosition: { y: position = 0 },
+  }) {
     translate({ el, position });
   }
 

@@ -1,4 +1,10 @@
-import { Axes, Element, Position, OnScrollArgs } from '../../../types/types';
+import {
+  Axes,
+  Element,
+  Position,
+  OnScrollArgs,
+  Direction,
+} from '../../../types/types';
 
 interface ScrollEventArgs {
   el?: Element;
@@ -19,3 +25,11 @@ interface ScrollEventsReturn extends Partial<ScrollEventArgs> {
 }
 
 export type ScrollEvents = (args: ScrollEventArgs) => ScrollEventsReturn;
+
+interface IsToScrollArgs {
+  changedDirection: boolean;
+  scrollPosition: Axes;
+  direction: Direction;
+}
+
+export type IsToScroll = (args: IsToScrollArgs) => boolean;

@@ -22,7 +22,7 @@ export default function parallax({
 
   elContent.style.willChange = 'transform';
 
-  function doParallax(translateY) {
+  function doParallax(translateY = 0) {
     elContent.style.transform = `translate3d(0, ${translateY}px, 0)`;
     if (callback) callback(translateY);
   }
@@ -33,14 +33,14 @@ export default function parallax({
         ? scrollingElement.scrollLeft
         : scrollingElement.scrollTop;
 
-    function calculateTranslateY(currentPosition) {
+    function calculateTranslateY(currentPosition = 0) {
       const perspective = distance / 500 || 1;
       const start = currentPosition - gap > 0 ? currentPosition - gap : 0;
 
       return start / perspective;
     }
 
-    function isElOnScreen({ translateY }) {
+    function isElOnScreen({ translateY = 0 }) {
       const { bottom, top } = el.getBoundingClientRect();
       const visualBottom = bottom - translateY;
       const topOnScreen = top >= 0;

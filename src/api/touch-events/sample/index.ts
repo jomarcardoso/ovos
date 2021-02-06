@@ -34,11 +34,11 @@ function onTouchMove() {
     // console.log(axes);
   }
 
-  function dropX(direction) {
+  function dropX(direction = '') {
     elDropX.innerHTML = direction;
   }
 
-  function dropY(direction) {
+  function dropY(direction = '') {
     elDropY.innerHTML = direction;
   }
 

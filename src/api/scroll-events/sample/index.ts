@@ -1,4 +1,5 @@
 import './main.scss';
+import { OnScrollArgs } from '../../../types/types';
 import ScrollEvents from '../scroll-events';
 
 const direction = document.querySelector('#direction');
@@ -8,10 +9,10 @@ const y = document.querySelector('#y');
 // const rx = document.querySelector('#r-x');
 // const ry = document.querySelector('#r-y');
 
-function handleScroll(args) {
+function handleScroll(args: OnScrollArgs) {
   direction.innerHTML = args.direction;
-  x.innerHTML = args.scrollPosition.x;
-  y.innerHTML = args.scrollPosition.y;
+  x.innerHTML = String(args.scrollPosition.x);
+  y.innerHTML = String(args.scrollPosition.y);
   element.innerHTML = args.scrollingElement.tagName;
 }
 

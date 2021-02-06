@@ -1,4 +1,5 @@
-import { ScrollEvents } from './types/scroll-events.types';
+import { Direction } from '../../types/types';
+import { ScrollEvents, IsToScroll } from './types/scroll-events.types';
 import { getScrollPosition } from '../../utilities/scroll/scroll.utilities';
 import { getScrollingEl } from '../../utilities/element/element.utilities';
 import {
@@ -46,11 +47,15 @@ const scrollEvents: ScrollEvents = ({
   });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
-  let lastDirection = null;
+  let lastDirection: Partial<Direction> = null;
   let lastOnTheRegion = false;
 
-  function handleScroll(event) {
-    function isToScroll({ changedDirection, scrollPosition, direction }) {
+  function handleScroll(event: UIEvent) {
+    const isToScroll: IsToScroll = ({
+      changedDirection,
+      scrollPosition,
+      direction,
+    }) => {
       if (onlyOnChangedDirection && !changedDirection) {
         return false;
       }
@@ -69,9 +74,9 @@ const scrollEvents: ScrollEvents = ({
         return false;
       }
 
-      if (onlyOnDirection && onlyOnDirection !== direction) {
-        return false;
-      }
+      // if (onlyOnDirection && onlyOnDirection !== direction) {
+      //   return false;
+      // }
 
       if (
         onlyOnWhenInOrOutTheRegion.bottom ||
@@ -100,7 +105,7 @@ const scrollEvents: ScrollEvents = ({
       }
 
       return true;
-    }
+    };
 
     const scrollPosition = getScrollPosition({
       scrollingEl: scrollingElement,

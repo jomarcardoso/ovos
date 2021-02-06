@@ -46,11 +46,11 @@ export default function scrollSpy({
   method = Method.current,
   axis = Axis.Y,
 }: ScrollSpyArgs): void {
-  let currentActive;
-  let getTheActive;
+  let currentActive: ScrollSpyItem;
+  let getTheActive: (postion: Axes) => ScrollSpyItem;
   const scrollingElement = getScrollingEl(elRelative);
 
-  function getTheCurrent(position: Axes) {
+  function getTheCurrent(position: Axes): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
         axis === Axis.Y
@@ -65,7 +65,7 @@ export default function scrollSpy({
     });
   }
 
-  function getTheClosest(position: Axes) {
+  function getTheClosest(position: Axes): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
         axis === Axis.Y
@@ -121,7 +121,7 @@ export default function scrollSpy({
   }
 
   function handleScroll({ scrollPosition }: OnScrollArgs) {
-    const currentToActive = getTheActive(scrollPosition, list);
+    const currentToActive = getTheActive(scrollPosition);
 
     if (currentToActive !== currentActive) {
       if (currentToActive.activate) currentToActive.activate();

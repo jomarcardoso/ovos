@@ -67,7 +67,7 @@ const carousel: Carousel = ({
 
   const [elArrowLeft, elArrowRight] = elArrows;
   let mouseOver = false;
-  let intervalAutoplay = null;
+  let intervalAutoplay: NodeJS.Timeout = null;
 
   function removeNotUsedDotsFromHTML(toRemove = 0) {
     const lastPosition = elDots.length - 1;
@@ -94,11 +94,11 @@ const carousel: Carousel = ({
 
   const quantity = elSlides.length;
 
-  function getIndexSlideAtRight(index) {
+  function getIndexSlideAtRight(index = 0) {
     return (((index + 1) % quantity) + quantity) % quantity;
   }
 
-  function changeArrowsLink(index) {
+  function changeArrowsLink(index = 0) {
     const slideAtLeft =
       elSlides[(((index - 1) % quantity) + quantity) % quantity];
     const slideAtRight = elSlides[getIndexSlideAtRight(index)];
@@ -115,7 +115,7 @@ const carousel: Carousel = ({
     }
   }
 
-  function handleActivateSlide(index) {
+  function handleActivateSlide(index = 0) {
     changeArrowsLink(index);
   }
 
@@ -129,7 +129,7 @@ const carousel: Carousel = ({
     );
   }
 
-  function scrollTo(index) {
+  function scrollTo(index = 0) {
     const elTarget = elSlides[index];
 
     if (!elTarget) return;
@@ -163,14 +163,16 @@ const carousel: Carousel = ({
     }, autoplayTime);
   }
 
-  function scrollToAndAutoplay(index) {
+  function scrollToAndAutoplay(index = 0) {
     scrollTo(index);
     autoplay();
   }
 
-  function handleClickAnchor(e) {
+  function handleClickAnchor(e: Event) {
     e.preventDefault();
-    const target = e.currentTarget.attributes.href.value;
+
+    const anchorTarget = e.target as HTMLAnchorElement;
+    const target = anchorTarget.attributes.getNamedItem('href').value;
 
     if (!target || target === '#') return;
     const index = elSlides.findIndex(({ id }) => `#${id}` === target);
