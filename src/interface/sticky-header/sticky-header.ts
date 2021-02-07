@@ -6,7 +6,7 @@ import {
 import scrollEvents from '../../api/scroll-events/scroll-events';
 
 export default function stickyHeader({
-  el = document.querySelector('[data-ovos-hs="header"]'),
+  el = document.querySelector('[data-ovo-hs="header"]'),
 }: {
   el?: HTMLElement;
 }): void {
@@ -22,7 +22,9 @@ export default function stickyHeader({
   //   return false;
   // }
 
-  function handleDocumentScroll({ relativeScrollPosition: { y: position } }) {
+  function handleDocumentScroll({
+    relativeScrollPosition: { y: position = 0 },
+  }) {
     translate({ el, position });
   }
 

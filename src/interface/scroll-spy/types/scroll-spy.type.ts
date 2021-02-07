@@ -1,7 +1,10 @@
+interface ScrollSpyItemArgsCallBackArgs {
+  active: boolean;
+}
 interface ScrollSpyItemArgs {
   elMenu?: HTMLElement;
   elContent?: HTMLElement;
-  callback?({ active: boolean }): void;
+  callback?(args: ScrollSpyItemArgsCallBackArgs): void;
 }
 
 export interface ScrollSpyItem {

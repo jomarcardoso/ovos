@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    // "typeRoots": ["types"],
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "skipLibCheck": true,
     "outDir": "./types/",
     "esModuleInterop": true,

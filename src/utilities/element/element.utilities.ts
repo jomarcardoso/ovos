@@ -11,7 +11,7 @@ export const toggleScrollDisabled: ToggleScrollDisabled = ({
   el = document.documentElement,
   toggle: provisionalToggle,
 }) => {
-  const hasDataDisabled = el.dataset?.ovosNonScrollable === 'true';
+  const hasDataDisabled = el.dataset?.ovoNonScrollable === 'true';
   const toggle = provisionalToggle ?? !hasDataDisabled;
 
   function handlePreventScroll(event: Event): void {
@@ -19,10 +19,10 @@ export const toggleScrollDisabled: ToggleScrollDisabled = ({
   }
 
   if (toggle) {
-    el.setAttribute('data-ovos-non-scrollable', 'true');
+    el.setAttribute('data-ovo-non-scrollable', 'true');
     el.addEventListener('touchmove', handlePreventScroll);
   } else {
-    el.setAttribute('data-ovos-non-scrollable', 'false');
+    el.setAttribute('data-ovo-non-scrollable', 'false');
     el.removeEventListener('touchmove', handlePreventScroll);
   }
 
@@ -63,12 +63,30 @@ export function getWidth(el: HTMLElement): number {
   return el.offsetWidth;
 }
 
-export function getOffsetOfTopOfDocument(el: HTMLElement): number {
+export function getLeftRelativeLeftOfTheDocument(el: HTMLElement): number {
+  return el.offsetLeft;
+}
+
+export function getTopRelativeTopOfTheDocument(el: HTMLElement): number {
   return el.offsetTop;
 }
 
-export function getCenterOffsetOfTopOfDocument(el: HTMLElement): number {
-  return el.offsetTop + getHeight(el) / 2;
+export function getPositionRelativeOfTheDocument(el: HTMLElement): Position {
+  const top = getTopRelativeTopOfTheDocument(el);
+  const left = getLeftRelativeLeftOfTheDocument(el);
+  const height = getHeight(el);
+  const width = getWidth(el);
+
+  return {
+    top,
+    left,
+    bottom: top + height,
+    right: left + width,
+  };
+}
+
+export function getCenterRelativeTopOfDocument(el: HTMLElement): number {
+  return getTopRelativeTopOfTheDocument(el) + getHeight(el) / 2;
 }
 
 export function translate({
@@ -102,10 +120,6 @@ export function getMiddleRelativeScreen(el: HTMLElement): Axes {
     x: left + width / 2,
     y: top + height / 2,
   };
-}
-
-export function getElTop(el: HTMLElement): number {
-  return el.offsetTop;
 }
 
 export function isTopOfElementAboveOfViewport(el: HTMLElement): boolean {

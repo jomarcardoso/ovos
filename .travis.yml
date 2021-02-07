@@ -10,50 +10,56 @@ script:
   - yarn test
 deploy:
   - provider: surge
+    project: ./src/api/scroll-events/sample/
+    domain: ovo-scroll-events.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
     project: ./src/interface/anchor/sample/
-    domain: ovos-anchor.surge.sh
+    domain: ovo-anchor.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/carousel/sample/
-    domain: ovos-carousel.surge.sh
+    domain: ovo-carousel.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/fit-on-screen/sample/
-    domain: ovos-fit-on-screen.surge.sh
+    domain: ovo-fit-on-screen.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/page-progress/sample/
-    domain: ovos-page-progress.surge.sh
+    domain: ovo-page-progress.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/parallax/sample/
-    domain: ovos-parallax.surge.sh
+    domain: ovo-parallax.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/scroll-spy/sample/
-    domain: ovos-scroll-spy.surge.sh
+    domain: ovo-scroll-spy.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/scrollable-sticky/sample/
-    domain: ovos-scrollable-sticky.surge.sh
+    domain: ovo-scrollable-sticky.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
     project: ./src/interface/sticky-header/sample/
-    domain: ovos-sticky-header.surge.sh
+    domain: ovo-sticky-header.surge.sh
     skip_cleanup: true
     on:
       branch: master

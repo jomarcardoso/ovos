@@ -4,7 +4,7 @@ import { Axis, OnScrollArgs } from '../../types/types';
 import { ParallaxArgs } from './types/parallax.types';
 
 export default function parallax({
-  el = document.querySelector('[data-ovos-parallax]'),
+  el = document.querySelector('[data-ovo-parallax]'),
   elContent: externalElContent,
   callback,
   distance = 1000,
@@ -16,13 +16,13 @@ export default function parallax({
 
   if (!elContent) {
     elContent =
-      el.querySelector('[data-ovos-parallax="content"]') ??
+      el.querySelector('[data-ovo-parallax="content"]') ??
       (el.firstElementChild as HTMLElement);
   }
 
   elContent.style.willChange = 'transform';
 
-  function doParallax(translateY) {
+  function doParallax(translateY = 0) {
     elContent.style.transform = `translate3d(0, ${translateY}px, 0)`;
     if (callback) callback(translateY);
   }
@@ -33,14 +33,14 @@ export default function parallax({
         ? scrollingElement.scrollLeft
         : scrollingElement.scrollTop;
 
-    function calculateTranslateY(currentPosition) {
+    function calculateTranslateY(currentPosition = 0) {
       const perspective = distance / 500 || 1;
       const start = currentPosition - gap > 0 ? currentPosition - gap : 0;
 
       return start / perspective;
     }
 
-    function isElOnScreen({ translateY }) {
+    function isElOnScreen({ translateY = 0 }) {
       const { bottom, top } = el.getBoundingClientRect();
       const visualBottom = bottom - translateY;
       const topOnScreen = top >= 0;

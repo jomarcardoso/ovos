@@ -3,6 +3,10 @@ import {
   isOnTheRegion,
   getRelativePosition,
   isOutOfLimit,
+  isAboveTheScreen,
+  isBelowTheScreen,
+  isOnGapOfEl,
+  isSafe,
 } from './position.utilities';
 
 describe('PositionService', () => {
@@ -20,6 +24,7 @@ describe('PositionService', () => {
 
       expect(result).toBe(false);
     });
+
     it('below the region: false', () => {
       const result = isOnTheRegion({
         position: { x: 0, y: 20 },
@@ -367,6 +372,366 @@ describe('PositionService', () => {
       });
 
       expect(result).toBe(true);
+    });
+
+    it('position {2,3} limit {left:2, bottom:10}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 3 },
+        limit: {
+          left: 2,
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {2,3} limit {left:3, bottom:10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 2, y: 3 },
+        limit: {
+          left: 3,
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {8,3} limit {left:3, right:10}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 8, y: 3 },
+        limit: {
+          left: 3,
+          right: 10,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,3} limit {left:3, right:10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 3 },
+        limit: {
+          left: 3,
+          right: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {18,20} limit {bottom: 10}: true', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 20 },
+        limit: {
+          bottom: 10,
+        },
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('position {18,10} limit {bottom: 20}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          bottom: 20,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,10} limit {bottom: 0}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          bottom: 0,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+
+    it('position {18,10} limit {right: 0}: false', () => {
+      const result = isOutOfLimit({
+        position: { x: 18, y: 10 },
+        limit: {
+          right: 0,
+        },
+      });
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('isAboveTheScreen', () => {
+    it('position -5 is true', () => {
+      expect(isAboveTheScreen(-5)).toBe(true);
+    });
+
+    it('position 0 is false', () => {
+      expect(isAboveTheScreen(0)).toBe(false);
+    });
+
+    it('position 2 is false', () => {
+      expect(isAboveTheScreen(2)).toBe(false);
+    });
+  });
+
+  describe('isBelowTheScreen', () => {
+    global.innerHeight = 768;
+
+    it('position 0 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(0)).toBe(false);
+    });
+
+    it('position -10 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(-10)).toBe(false);
+    });
+
+    it('position 400 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(400)).toBe(false);
+    });
+
+    it('position 768 is not below the screen 768px', () => {
+      expect(isBelowTheScreen(768)).toBe(false);
+    });
+
+    it('position 769 is below the screen 768px', () => {
+      expect(isBelowTheScreen(769)).toBe(true);
+    });
+
+    it('position 1000 is below the screen 768px', () => {
+      expect(isBelowTheScreen(1000)).toBe(true);
+    });
+  });
+
+  describe('isOnGapOfEl el 1000px and sreen 200px', () => {
+    const el = { ...document.createElement('div') };
+
+    el.scrollHeight = 1000;
+    el.clientHeight = 200;
+    el.scrollWidth = 1000;
+    el.clientWidth = 200;
+
+    it('gap 0 and positon 0 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+        },
+        position: { x: 0, y: 0 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('no gap and positon 0 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: null,
+          top: null,
+        },
+        position: { x: 0, y: 0 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('no gap and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: null,
+          top: null,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap 0 and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap 10 and positon 100 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 10,
+          left: 10,
+          right: 10,
+          top: 10,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap bottom 200 of 1000 and positon y 900 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 200,
+          left: 10,
+          right: 10,
+          top: 10,
+        },
+        position: { x: 100, y: 900 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap bottom 200 of 1000 and positon y 100 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: 200,
+          left: 10,
+          right: 10,
+          top: 200,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap left 200 of 1000 and positon x 100 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: 200,
+          right: 10,
+          top: null,
+        },
+        position: { x: 100, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+
+    it('gap left 200 of 1000 and positon x 210 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: 200,
+          right: 10,
+          top: null,
+        },
+        position: { x: 210, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap right 200 of 1000 and positon x 600 to be false', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: 200,
+          top: null,
+        },
+        position: { x: 600, y: 100 },
+      });
+
+      expect(onGap).toBe(false);
+    });
+
+    it('gap right 200 of 1000 and positon x 900 to be true', () => {
+      const onGap = isOnGapOfEl({
+        el,
+        gap: {
+          bottom: null,
+          left: null,
+          right: 200,
+          top: null,
+        },
+        position: { x: 900, y: 100 },
+      });
+
+      expect(onGap).toBe(true);
+    });
+  });
+
+  describe('isSafe', () => {
+    it('no debounce to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 0, y: 0 },
+        lastPosition: { x: 0, y: 0 },
+        position: { x: 1, y: 1 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 20 from 0 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 0, y: 0 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 22 from 10 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 22, y: 22 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 20 from 10 to be false', () => {
+      const safe = isSafe({
+        debounce: { x: 10, y: 10 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 11 and moved 20 from 10 to be true', () => {
+      const safe = isSafe({
+        debounce: { x: 11, y: 11 },
+        lastPosition: { x: 10, y: 10 },
+        position: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(true);
     });
   });
 });

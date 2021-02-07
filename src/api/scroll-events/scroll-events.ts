@@ -1,4 +1,5 @@
-import { ScrollEvents } from './types/scroll-events.types';
+import { Direction } from '../../types/types';
+import { ScrollEvents, IsToScroll } from './types/scroll-events.types';
 import { getScrollPosition } from '../../utilities/scroll/scroll.utilities';
 import { getScrollingEl } from '../../utilities/element/element.utilities';
 import {
@@ -11,9 +12,9 @@ import {
   isOutOfLimit,
   getRelativePosition,
   isSafe,
-  isOnGap,
+  isOnGapOfEl,
 } from '../../utilities/position/position.utilities';
-import { getScrollViewPosition } from '../../utilities/view/view.utilities';
+import { getTotalViewScrolled } from '../../utilities/view/view.utilities';
 
 const scrollEvents: ScrollEvents = ({
   el = document,
@@ -46,15 +47,17 @@ const scrollEvents: ScrollEvents = ({
   });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
-  let lastDirection = null;
+  let lastDirection: Partial<Direction> = null;
   let lastOnTheRegion = false;
 
-  function handleScroll(event) {
-    function isToScroll({ changedDirection, scrollPosition, direction }) {
+  function handleScroll(event: UIEvent) {
+    const isToScroll: IsToScroll = ({ changedDirection, scrollPosition }) => {
       if (onlyOnChangedDirection && !changedDirection) {
         return false;
       }
-      if (isOnGap({ position: scrollPosition, gap, el: scrollingElement })) {
+      if (
+        isOnGapOfEl({ position: scrollPosition, gap, el: scrollingElement })
+      ) {
         return false;
       }
       if (
@@ -67,9 +70,9 @@ const scrollEvents: ScrollEvents = ({
         return false;
       }
 
-      if (onlyOnDirection && onlyOnDirection !== direction) {
-        return false;
-      }
+      // if (onlyOnDirection && onlyOnDirection !== direction) {
+      //   return false;
+      // }
 
       if (
         onlyOnWhenInOrOutTheRegion.bottom ||
@@ -98,7 +101,7 @@ const scrollEvents: ScrollEvents = ({
       }
 
       return true;
-    }
+    };
 
     const scrollPosition = getScrollPosition({
       scrollingEl: scrollingElement,
@@ -123,7 +126,7 @@ const scrollEvents: ScrollEvents = ({
       scrollPosition,
       direction,
     });
-    const scrollViewPosition = getScrollViewPosition(scrollPosition);
+    const scrollViewPosition = getTotalViewScrolled(scrollPosition);
 
     const timeout = window.setTimeout(() => {
       if (onScroll && toScroll) {

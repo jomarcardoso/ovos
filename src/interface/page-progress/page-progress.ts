@@ -12,7 +12,7 @@ interface PageProgressArgs {
 type PageProgress = (args: PageProgressArgs) => void;
 
 const pageProgress: PageProgress = ({
-  el = document.querySelector('[data-ovos-pp="bar"]'),
+  el = document.querySelector('[data-ovo-pp="bar"]'),
 }) => {
   const elRelative = getScrollingEl(document);
 

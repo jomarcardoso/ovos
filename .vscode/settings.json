@@ -1,8 +1,8 @@
 {
   // colocar o prettier como formatador
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
 
     // Format a file on save. A formatter must be available, the file must not be saved after delay, and the editor must not be shutting down.
@@ -17,13 +17,11 @@
     "javascript": "javascriptreact" // usa as abreviações do emmet em arquivos que por padrão não tem
   },
 
-  "eslint.enable": true, // garante que o eslint está ligado
-
   // The default end of line character.
   //  - \n: LF
   //  - \r\n: CRLF
   //  - auto: Uses operating system specific end of line character.
-  "files.eol": "auto", // quebra de linha no formato unix
+  "files.eol": "auto",
 
   // When enabled, will trim trailing whitespace when saving a file.
   "files.trimTrailingWhitespace": true, // remove os espaços em branco no final

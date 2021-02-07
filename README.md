@@ -6,7 +6,7 @@ A library for animations based on scroll and touch events.
 
 ![El Chavo scene puttin and egg on the table and it roll at the floor - https://gifs.com/gif/ovos-ZYP1G8](https://j.gifs.com/ZYP1G8.gif)
 
-## Installation
+## Installation and usage
 
 ### NPM module
 

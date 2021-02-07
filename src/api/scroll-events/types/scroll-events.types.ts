@@ -1,4 +1,10 @@
-import { Axes, Element, Position, OnScrollArgs } from '../../../types/types';
+import {
+  Axes,
+  Element,
+  Position,
+  OnScrollArgs,
+  Direction,
+} from '../../../types/types';
 
 interface ScrollEventArgs {
   el?: Element;
@@ -6,7 +12,7 @@ interface ScrollEventArgs {
   onlyOnChangedDirection?: boolean;
   onlyOnDirection?: boolean;
   onlyOnWhenInOrOutTheRegion?: Position;
-  gap?: Position;
+  gap?: Partial<Position>;
   debounce?: Axes;
   limit?: Position;
   lazyTime?: number;
@@ -19,3 +25,11 @@ interface ScrollEventsReturn extends Partial<ScrollEventArgs> {
 }
 
 export type ScrollEvents = (args: ScrollEventArgs) => ScrollEventsReturn;
+
+interface IsToScrollArgs {
+  changedDirection: boolean;
+  scrollPosition: Axes;
+  direction: Direction;
+}
+
+export type IsToScroll = (args: IsToScrollArgs) => boolean;
