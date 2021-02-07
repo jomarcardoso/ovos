@@ -1,24 +1,13 @@
-// @import '~sanitize.css';
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-@import 'node_modules/bootstrap/scss/reboot';
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@import '../../../sample/main.scss';
 
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   flex-direction: column;
-  background-color: lightblue;
 }
 
 main {
   display: flex;
   position: relative;
+  width: 100%;
 
   a {
     width: 24px;
@@ -51,6 +40,7 @@ article {
 ul {
   padding-left: 0;
   display: flex;
+  width: 100%;
   justify-content: center;
   list-style: none;
 }

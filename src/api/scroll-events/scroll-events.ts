@@ -51,11 +51,7 @@ const scrollEvents: ScrollEvents = ({
   let lastOnTheRegion = false;
 
   function handleScroll(event: UIEvent) {
-    const isToScroll: IsToScroll = ({
-      changedDirection,
-      scrollPosition,
-      direction,
-    }) => {
+    const isToScroll: IsToScroll = ({ changedDirection, scrollPosition }) => {
       if (onlyOnChangedDirection && !changedDirection) {
         return false;
       }
