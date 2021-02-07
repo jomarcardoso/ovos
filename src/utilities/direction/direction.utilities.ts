@@ -82,10 +82,3 @@ export const isOnTheSameDirection: IsOnTheSameDirection = ({
 
   return Boolean(intersection(lastDirections, directions).length);
 };
-
-const DirectionService = {
-  getDirection,
-  isOnTheSameDirection,
-};
-
-export default DirectionService;

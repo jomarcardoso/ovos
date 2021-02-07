@@ -125,15 +125,3 @@ export function isAboveTheScreen(position: number): boolean {
 export function isBelowTheScreen(position: number): boolean {
   return position > getViewportHeight();
 }
-
-const PositionService = {
-  POSITION_DEFAULT,
-  isAboveTheScreen,
-  isOnTheRegion,
-  isOutOfLimit,
-  getRelativePosition,
-  isOnGap: isOnGapOfEl,
-  isSafe,
-};
-
-export default PositionService;

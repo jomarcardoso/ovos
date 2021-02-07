@@ -14,10 +14,3 @@ export function getTotalViewScrolled(position: Axes): Axes {
     y: position.y + getViewportHeight(),
   };
 }
-
-const ViewUtilities = {
-  getScrollViewPosition: getTotalViewScrolled,
-  getViewportHeight,
-};
-
-export default ViewUtilities;
