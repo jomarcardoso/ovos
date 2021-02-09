@@ -63,17 +63,17 @@ export function getWidth(el: HTMLElement): number {
   return el.offsetWidth;
 }
 
-export function getLeftRelativeLeftOfTheDocument(el: HTMLElement): number {
+export function getLeft(el: HTMLElement): number {
   return el.offsetLeft;
 }
 
-export function getTopRelativeTopOfTheDocument(el: HTMLElement): number {
+export function getTop(el: HTMLElement): number {
   return el.offsetTop;
 }
 
 export function getPositionRelativeOfTheDocument(el: HTMLElement): Position {
-  const top = getTopRelativeTopOfTheDocument(el);
-  const left = getLeftRelativeLeftOfTheDocument(el);
+  const top = getTop(el);
+  const left = getLeft(el);
   const height = getHeight(el);
   const width = getWidth(el);
 
@@ -86,7 +86,7 @@ export function getPositionRelativeOfTheDocument(el: HTMLElement): Position {
 }
 
 export function getCenterRelativeTopOfDocument(el: HTMLElement): number {
-  return getTopRelativeTopOfTheDocument(el) + getHeight(el) / 2;
+  return getTop(el) + getHeight(el) / 2;
 }
 
 export function translate({

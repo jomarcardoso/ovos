@@ -1,4 +1,5 @@
 import scrollEvents from '../../api/scroll-events/scroll-events';
+import { scrollTo } from '../../utilities/scroll/scroll.utilities';
 import { FitOnScreenArgs, IsNearOfElement } from './types/fit-on-screen.types';
 
 export default function fitOnScreen({
@@ -6,19 +7,6 @@ export default function fitOnScreen({
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
 }: FitOnScreenArgs): void {
-  function scrollTo({
-    scrollingElement,
-    top = 0,
-  }: {
-    scrollingElement: HTMLElement;
-    top: number;
-  }) {
-    scrollingElement.scrollTo({
-      top,
-      behavior: 'smooth',
-    });
-  }
-
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
     const topElToFit = elToFit.offsetTop;
     const highTopElToFit = topElToFit - proximityToFit;
