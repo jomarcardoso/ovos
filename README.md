@@ -29,7 +29,7 @@ import { fitOnScreen } from 'ovos';
 ### CDN
 
 ```html
-<script src="https://unpkg.com/ovos@0.4.0/dist/ovos.bundle.min.js"></script>
+<script src="https://unpkg.com/ovos@0.4.1/dist/ovos.bundle.min.js"></script>
 <script>window.ovos.fitOnScreen</script>
 ```
 

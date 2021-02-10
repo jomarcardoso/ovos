@@ -1,4 +1,7 @@
-import { getMiddleRelativeScreen } from '../../utilities/element/element.utilities';
+import {
+  getMiddleRelativeScreen,
+  getScrollParent,
+} from '../../utilities/element/element.utilities';
 import {
   isAboveTheScreen,
   isBelowTheScreen,
@@ -16,9 +19,10 @@ type GetOffset = (args: GetOffsetArgs) => Direction;
 
 const anchor: Anchor = ({
   elFloating = document.querySelector('[data-ovo-anchor="floating"]'),
-  elScrolling = document,
   elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
 }) => {
+  const elScrolling = getScrollParent(elToAnchor);
+
   let lastOffset: Direction = null;
   let floating = true;
   let lastToAnchorPosition: Direction = null;
@@ -107,5 +111,17 @@ const anchor: Anchor = ({
 
   elScrolling.addEventListener('scroll', handleScroll);
 };
+
+function autoStart() {
+  const flag = document.querySelector(
+    '[data-ovo-anchor="to-anchor"][data-ovo-auto]',
+  );
+
+  if (!flag) return;
+
+  anchor({});
+}
+
+autoStart();
 
 export default anchor;

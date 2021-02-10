@@ -2,11 +2,11 @@
 
 It defines a floating element and a to anchor element. When the floating element passes over the To Achor, it follows it until go out the screen.
 
+Sample in https://ovo-anchor.surge.sh
+
 ## Usage
 
-In the element to anchor put the `data-ovo-anchor="to-anchor"` attribute.
-
-Inside this element to achor must be the floating element with `data-ovo-anchor="floating"` attribute.
+When the "floating element" pass over the "element to anchor" the floating element will replace the atribute `data-an-fixed="true"` to `false` it will unfix and the element and you and do more things in the CSS with this `data-an-fixed="false"`.
 
 ```html
 <div data-ovo-anchor="to-anchor">
@@ -14,10 +14,36 @@ Inside this element to achor must be the floating element with `data-ovo-anchor=
 </div>
 ```
 
-In the JS call the component.
+To activate it use one these ways:
+
+### Only HTML
+
+The attribute `data-ovo-auto` do to start automatically.
+
+```html
+<div data-ovo-anchor="to-anchor" data-ovo-auto>
+```
+
+### With JS
 
 ```ts
 import { anchor } from 'ovos';
 
-anchor({});
+anchor(options: AnchorArgs);
 ```
+
+## Options
+
+### elFloating
+
+JS: `anchor({ elFloating?: HTMLElement })`
+
+or HTML: put the attribute `[data-ovo-anchor="floating"]`
+
+### elToAnchor
+
+JS: `anchor({ elToAnchor?: HTMLElement })`
+
+or HTML: put the attribute `[data-ovo-anchor="to-anchor"]`
+
+
