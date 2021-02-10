@@ -17,7 +17,6 @@ interface CarouselArgs {
   el?: HTMLElement;
   autoplayTime?: number;
   currentSlide?: number;
-  type?: CarouselFitType;
 }
 
 export type Carousel = (args: CarouselArgs) => void;

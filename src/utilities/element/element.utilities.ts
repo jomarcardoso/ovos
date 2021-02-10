@@ -1,5 +1,5 @@
 import './element.utilities.scss';
-import { Axes, Position } from '../../types/types';
+import { Axes, Element, Position } from '../../types/types';
 
 import {
   ToggleScrollDisabled,
@@ -45,6 +45,24 @@ export function getScrollingEl(
   }
 
   return target as HTMLElement;
+}
+
+export function getScrollParent(el: HTMLElement): Element {
+  if (el == null) {
+    return document;
+  }
+
+  const elHTML = el as HTMLElement;
+
+  if (elHTML.scrollHeight > elHTML.clientHeight) {
+    if (elHTML.tagName === 'BODY' || elHTML.tagName === 'HTML') {
+      return document;
+    }
+
+    return elHTML;
+  }
+
+  return getScrollParent(elHTML.parentNode as HTMLElement);
 }
 
 export function getMaxVerticalScroll(el: HTMLElement): number {

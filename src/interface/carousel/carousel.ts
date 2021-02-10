@@ -32,12 +32,17 @@ const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
 
 const carousel: Carousel = ({
   el = document.querySelector('[data-carousel="carousel"]'),
-  autoplayTime = 0,
-  currentSlide = 0,
-  type,
+  autoplayTime: extAutoplayTime = 0,
+  currentSlide: extCurrentSlide = 0,
 }) => {
   if (!el) return;
 
+  function getAutoPlayTime() {
+    return Number(el.dataset.carouselAutoplay) ?? extAutoplayTime;
+  }
+
+  let currentSlide = extCurrentSlide;
+  const autoplayTime = getAutoPlayTime();
   const elSlider: HTMLElement = el.querySelector('[data-carousel="slider"]');
   const elSlides: Array<HTMLElement> = Array.from(
     el.querySelectorAll('[data-carousel="slide"]'),
@@ -63,7 +68,7 @@ const carousel: Carousel = ({
     return CarouselFitType.CENTER;
   }
 
-  const internalType = type || detectType();
+  const type = detectType();
 
   const [elArrowLeft, elArrowRight] = elArrows;
   let mouseOver = false;
@@ -78,7 +83,7 @@ const carousel: Carousel = ({
   }
 
   function removeNotUsedSlides() {
-    if (internalType !== CarouselFitType.BOX) return;
+    if (type !== CarouselFitType.BOX) return;
 
     const firstSlideWidth = elSlides[0].offsetWidth;
     const sliderWidth = elSlider.offsetWidth;
@@ -136,7 +141,7 @@ const carousel: Carousel = ({
     const position = elTarget.offsetLeft;
     let scrollLeft = position;
 
-    if (internalType === CarouselFitType.CENTER) {
+    if (type === CarouselFitType.CENTER) {
       const slideWidth = elTarget.offsetWidth;
       const sliderWidth = elSlider.offsetWidth;
 
@@ -145,7 +150,6 @@ const carousel: Carousel = ({
 
     // eslint-disable-next-line no-param-reassign
     elSlider.scrollLeft = scrollLeft;
-    // eslint-disable-next-line no-param-reassign
     currentSlide = index;
   }
 
@@ -193,8 +197,7 @@ const carousel: Carousel = ({
       list: slides,
       elRelative: elSlider,
       axis: Axis.X,
-      method:
-        internalType === CarouselFitType.BOX ? Method.current : Method.closest,
+      method: type === CarouselFitType.BOX ? Method.current : Method.closest,
     });
   }
 
@@ -219,7 +222,7 @@ const carousel: Carousel = ({
   }
 
   function startOnCurrentSlide() {
-    if (internalType === CarouselFitType.BOX) {
+    if (type === CarouselFitType.BOX) {
       elSlides.forEach((elSlide) => {
         const style = elSlide.style as CustomCSSStyleDeclaration;
 
@@ -245,5 +248,17 @@ const carousel: Carousel = ({
 
   elSlider.dispatchEvent(new Event('scroll'));
 };
+
+function autoStart() {
+  const flag = document.querySelector(
+    '[data-carousel="carousel"][data-ovo-auto]',
+  );
+
+  if (!flag) return;
+
+  carousel({});
+}
+
+autoStart();
 
 export default carousel;
