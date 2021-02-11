@@ -1,18 +1,37 @@
+import { Axis } from '../../types/types';
+import { getLeft, getTop } from '../../utilities/element/element.utilities';
 import scrollEvents from '../../api/scroll-events/scroll-events';
-import { scrollTo } from '../../utilities/scroll/scroll.utilities';
+import {
+  scrollTopTo,
+  scrollLeftTo,
+} from '../../utilities/scroll/scroll.utilities';
 import { FitOnScreenArgs, IsNearOfElement } from './types/fit-on-screen.types';
+
+function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
+  if (axis === Axis.Y) return getTop(el);
+
+  return getLeft(el);
+}
+
+function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
+  if (axis === Axis.Y) return el.scrollTop;
+
+  return el.scrollLeft;
+}
 
 export default function fitOnScreen({
   elRelative = document,
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
+  axis = Axis.Y,
 }: FitOnScreenArgs): void {
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
-    const topElToFit = elToFit.offsetTop;
-    const highTopElToFit = topElToFit - proximityToFit;
-    const lowTopElToFit = topElToFit + proximityToFit;
+    const offsetElToFit = getOffsetByAxis({ axis, el: elToFit });
+    const highOffsetElToFit = offsetElToFit - proximityToFit;
+    const lowOffsetElToFit = offsetElToFit + proximityToFit;
     const betweenLowHigh =
-      scrolledPosition > highTopElToFit && scrolledPosition < lowTopElToFit;
+      scrolledPosition > highOffsetElToFit &&
+      scrolledPosition < lowOffsetElToFit;
 
     return betweenLowHigh;
   };
@@ -29,13 +48,22 @@ export default function fitOnScreen({
     scrollingElement: HTMLElement;
   }) {
     const nearElement = getNearElement({
-      scrolledPosition: scrollingElement.scrollTop,
+      scrolledPosition: getScrolledByAxis({ el: scrollingElement, axis }),
     });
 
     if (!nearElement) return;
 
-    scrollTo({
-      top: nearElement.offsetTop,
+    if (axis === Axis.Y) {
+      scrollTopTo({
+        top: getOffsetByAxis({ axis, el: nearElement }),
+        scrollingElement,
+      });
+
+      return;
+    }
+
+    scrollLeftTo({
+      left: getOffsetByAxis({ axis, el: nearElement }),
       scrollingElement,
     });
   }
