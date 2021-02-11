@@ -1,0 +1,35 @@
+[data-ovo-rs='slider'] {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
+  > * {
+    box-sizing: border-box;
+    height: 1px;
+    opacity: 0;;
+    overflow: hidden;
+    flex-shrink: 0;
+    scroll-snap-stop: always;
+    display: block;
+    width: 100%;
+    scroll-snap-align: start;
+    margin: 0;
+  }
+
+  // > [type="radio"] {
+  // }
+}
