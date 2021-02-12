@@ -53,8 +53,6 @@ export default function fitOnScreen({
       scrolledPosition: getScrolledByAxis({ el: scrollingElement, axis }),
     });
 
-    console.log('ei');
-
     if (!nearElement) return;
 
     if (axis === Axis.Y) {
@@ -65,8 +63,6 @@ export default function fitOnScreen({
 
       return;
     }
-
-    console.log('scrollLeftTo');
 
     scrollLeftTo({
       left: getOffsetByAxis({ axis, el: nearElement }),
