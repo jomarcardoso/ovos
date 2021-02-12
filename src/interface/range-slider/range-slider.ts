@@ -3,6 +3,8 @@ import './range-slider.scss';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
 import { Method, ScrollSpyItem } from '../scroll-spy/types/scroll-spy.type';
 import { Axis } from '@/types/types';
+import fitOnScreen from '../fit-on-screen/fit-on-screen';
+import { getWidth } from '@/utilities/element/element.utilities';
 
 interface RangeSliderArgs {
   el?: HTMLElement;
@@ -53,7 +55,15 @@ const rangeSlider: RangeSlider = ({
     list,
     axis: Axis.X,
     elRelative: elSlider,
-    method: Method.closest
+    method: Method.closest,
+  });
+
+  fitOnScreen({
+    axis: Axis.X,
+    elRelative: elSlider,
+    elsToFit: elRanges,
+    lazyTime: 100,
+    proximityToFit: getWidth(elRanges[0]) / 2,
   })
 }
 

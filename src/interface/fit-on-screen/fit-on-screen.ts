@@ -24,6 +24,8 @@ export default function fitOnScreen({
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
   axis = Axis.Y,
+  lazyTime = 1000,
+  gap,
 }: FitOnScreenArgs): void {
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
     const offsetElToFit = getOffsetByAxis({ axis, el: elToFit });
@@ -51,6 +53,8 @@ export default function fitOnScreen({
       scrolledPosition: getScrolledByAxis({ el: scrollingElement, axis }),
     });
 
+    console.log('ei');
+
     if (!nearElement) return;
 
     if (axis === Axis.Y) {
@@ -62,6 +66,8 @@ export default function fitOnScreen({
       return;
     }
 
+    console.log('scrollLeftTo');
+
     scrollLeftTo({
       left: getOffsetByAxis({ axis, el: nearElement }),
       scrollingElement,
@@ -72,13 +78,8 @@ export default function fitOnScreen({
     scrollEvents({
       el: elRelative,
       onScroll: handleScroll,
-      lazyTime: 1000,
-      gap: {
-        bottom: 100,
-        left: 0,
-        right: 0,
-        top: 100,
-      },
+      lazyTime,
+      gap,
     });
   }
 

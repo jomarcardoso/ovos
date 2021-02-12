@@ -13,8 +13,12 @@
     flex-shrink: 0;
     scroll-snap-stop: always;
     display: block;
-    width: 100%;
+    width: 250%;
     scroll-snap-align: start;
     margin: 0;
+
+    &:last-child {
+      width: 100%;
+    }
   }
 }
