@@ -1,0 +1,24 @@
+[data-ovo-rs='slider'] {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+
+  > * {
+    box-sizing: border-box;
+    height: 1px;
+    opacity: 0;;
+    overflow: hidden;
+    flex-shrink: 0;
+    scroll-snap-stop: always;
+    display: block;
+    width: 250%;
+    scroll-snap-align: start;
+    margin: 0;
+
+    &:last-child {
+      width: 100%;
+    }
+  }
+}
