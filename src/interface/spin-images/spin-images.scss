@@ -1,0 +1,52 @@
+[data-jo='spinimages'] {
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+
+  img {
+    width: 100%;
+  }
+
+  &::before {
+    content: '360';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    color: white;
+    transition: opacity .4s;
+    opacity: 0;
+  }
+
+  &.is-loaded {
+    &::before {
+      opacity: 1;
+    }
+
+    &.is-active {
+      cursor: grabbing;
+
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+[data-jo='spinimages-sprite'] {
+  transition: opacity 0.3s;
+  display: flex;
+
+  > * {
+    flex: 1;
+    // width: 100%;
+  }
+}

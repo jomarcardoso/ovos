@@ -26,7 +26,7 @@ export type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
 interface IsSafeArgs {
   position: Axes;
   lastPosition: Axes;
-  debounce: Axes;
+  debounce: Partial<Axes>;
 }
 
 export type IsSafe = (args: IsSafeArgs) => boolean;

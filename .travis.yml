@@ -58,6 +58,12 @@ deploy:
     on:
       branch: master
   - provider: surge
+    project: ./src/interface/spin-images/sample/
+    domain: ovo-spin-images.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
     project: ./src/interface/sticky-header/sample/
     domain: ovo-sticky-header.surge.sh
     skip_cleanup: true

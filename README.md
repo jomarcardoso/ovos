@@ -44,6 +44,7 @@ import { fitOnScreen } from 'ovos';
 - [Parallax](/src/interface/parallax)
 - [Scroll Spy](/src/interface/scroll-spy)
 - [Scrollable Sticky](/src/interface/scrollable-sticky)
+- [Spin Images](/src/interface/spin-images)
 - [Sticky Header](/src/interface/scrollable-sticky)
 
 ### API
