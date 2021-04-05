@@ -16,6 +16,9 @@ const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
 
   function activate() {
     scrollSpyItem.activate();
+
+    if (!onActivate) return;
+
     onActivate();
   }
 
@@ -31,19 +34,21 @@ const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
 };
 
 const carousel: Carousel = ({
-  el = document.querySelector('[data-carousel="carousel"]'),
+  el = document.querySelector('[data-carousel="carousel"]') as HTMLElement,
   autoplayTime: extAutoplayTime = 0,
   currentSlide: extCurrentSlide = 0,
 }) => {
   if (!el) return;
 
   function getAutoPlayTime() {
+    if (!el) return 0;
+
     return Number(el.dataset.carouselAutoplay) ?? extAutoplayTime;
   }
 
   let currentSlide = extCurrentSlide;
   const autoplayTime = getAutoPlayTime();
-  const elSlider: HTMLElement = el.querySelector('[data-carousel="slider"]');
+  const elSlider = el.querySelector('[data-carousel="slider"]') as HTMLElement;
   const elSlides: Array<HTMLElement> = Array.from(
     el.querySelectorAll('[data-carousel="slide"]'),
   );
@@ -72,7 +77,7 @@ const carousel: Carousel = ({
 
   const [elArrowLeft, elArrowRight] = elArrows;
   let mouseOver = false;
-  let intervalAutoplay: NodeJS.Timeout = null;
+  let intervalAutoplay: null | ReturnType<typeof setTimeout> = null;
 
   function removeNotUsedDotsFromHTML(toRemove = 0) {
     const lastPosition = elDots.length - 1;
@@ -156,7 +161,9 @@ const carousel: Carousel = ({
   function autoplay() {
     if (!autoplayTime) return;
 
-    clearInterval(intervalAutoplay);
+    if (intervalAutoplay) {
+      clearInterval(intervalAutoplay);
+    }
 
     if (mouseOver) return;
 
@@ -176,7 +183,15 @@ const carousel: Carousel = ({
     e.preventDefault();
 
     const anchorTarget = e.target as HTMLAnchorElement;
-    const target = anchorTarget.attributes.getNamedItem('href').value;
+
+    if (
+      !anchorTarget ||
+      !anchorTarget.attributes ||
+      !anchorTarget.attributes.getNamedItem
+    )
+      return;
+
+    const target = anchorTarget.attributes.getNamedItem('href')?.value;
 
     if (!target || target === '#') return;
     const index = elSlides.findIndex(({ id }) => `#${id}` === target);

@@ -10,9 +10,11 @@ import {
 } from '../../utilities/element/element.utilities';
 
 export default function scrollableSticky({
-  el = document.querySelector('[data-ovo_ss="content"]'),
-  elWrapper = document.querySelector('[data-ovo_ss="wrapper"]'),
-  elContainer = document.querySelector('[data-ovo_ss="container"]'),
+  el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
+  elWrapper = document.querySelector('[data-ovo_ss="wrapper"]') as HTMLElement,
+  elContainer = document.querySelector(
+    '[data-ovo_ss="container"]',
+  ) as HTMLElement,
   onUnpin,
   onPin,
   onUnfix,

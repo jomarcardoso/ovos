@@ -15,12 +15,16 @@ export const createScrollSpyItem: CreateScrollSpyItem = ({
   callback,
 }) => {
   function activate() {
+    if (!elMenu || !elContent) return;
+
     elMenu.classList.add(ACTIVE_CLASS);
     elContent.classList.add(ACTIVE_CLASS);
     if (callback) callback({ active: true });
   }
 
   function deActivate() {
+    if (!elMenu || !elContent) return;
+
     elMenu.classList.remove(ACTIVE_CLASS);
     elContent.classList.remove(ACTIVE_CLASS);
     if (callback) callback({ active: false });
@@ -54,8 +58,8 @@ export default function scrollSpy({
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
         axis === Axis.Y
-          ? currentValue.content.offsetTop
-          : currentValue.content.offsetLeft;
+          ? currentValue?.content?.offsetTop ?? 0
+          : currentValue?.content?.offsetLeft ?? 0;
 
       if (position[axis] >= currentStart - 1) {
         return currentValue;
@@ -69,20 +73,20 @@ export default function scrollSpy({
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
         axis === Axis.Y
-          ? previousValue.content.offsetTop - 1
-          : previousValue.content.offsetLeft - 1;
+          ? previousValue?.content?.offsetTop ?? 0 - 1
+          : previousValue?.content?.offsetLeft ?? 0 - 1;
       const previousEnd =
         axis === Axis.Y
-          ? previousStart + previousValue.content.offsetHeight - 1
-          : previousStart + previousValue.content.offsetWidth - 1;
+          ? previousValue?.content?.offsetHeight ?? 0 + previousStart - 1
+          : previousValue?.content?.offsetWidth ?? 0 + previousStart - 1;
       const currentStart =
         axis === Axis.Y
-          ? currentValue.content.offsetTop + 1
-          : currentValue.content.offsetLeft + 1;
+          ? currentValue?.content?.offsetTop ?? 0 + 1
+          : currentValue?.content?.offsetLeft ?? 0 + 1;
       const currentEnd =
         axis === Axis.Y
-          ? currentStart + currentValue.content.offsetHeight + 1
-          : currentStart + currentValue.content.offsetWidth + 1;
+          ? currentValue?.content?.offsetHeight ?? 0 + currentStart + 1
+          : currentValue?.content?.offsetWidth ?? 0 + currentStart + 1;
 
       const middleScrolled = Math.abs(
         position[axis] + scrollingElement.offsetWidth / 2,

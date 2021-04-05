@@ -8,17 +8,20 @@ function setSpriteSize({
   elSprite,
   quantityFrames = 0,
 }: {
-  elSprite: HTMLElement;
+  elSprite: Element;
   quantityFrames: number;
 }) {
-  elSprite.style.width = `${100 * quantityFrames}%`; // eslint-disable-line no-param-reassign
+  const htmlSprite = elSprite as HTMLElement;
+
+  // eslint-disable-next-line no-param-reassign
+  htmlSprite.style.width = `${100 * quantityFrames}%`;
 }
 
 function getFramePersentSize(quantityFrames = 0) {
   return 100 / quantityFrames;
 }
 
-function activateSprite(el: HTMLElement) {
+function activateSprite(el: Element) {
   el.classList.add('is-loaded');
 }
 
@@ -53,7 +56,9 @@ const spinImages: SpinImages = ({
   onDrop,
   rotateOnScrollDebounce = 0,
 }) => {
-  const elSprite: HTMLElement = el.querySelector(
+  if (!el) return;
+
+  const elSprite: Element | null = el.querySelector(
     '[data-jo="spinimages-sprite"]',
   );
   let frameSize = 0;
@@ -70,22 +75,18 @@ const spinImages: SpinImages = ({
 
   function onSpriteLoaded(cb: () => void) {
     cb();
-    // if (elSprite.complete) {
-    //   cb();
-    //   return;
-    // }
-
-    // elSprite.addEventListener('load', cb);
   }
 
   function rotateCounterclockwise() {
+    if (!elSprite) return;
+
     rotated = (rotated + frameSize) % 100;
-    rotate({ elSprite, rotated });
+    rotate({ elSprite: elSprite as HTMLElement, rotated });
   }
 
   function rotateClockwise() {
     rotated = (rotated - frameSize) % 100;
-    rotate({ elSprite, rotated });
+    rotate({ elSprite: elSprite as HTMLElement, rotated });
   }
 
   function autoRotate() {
@@ -106,11 +107,15 @@ const spinImages: SpinImages = ({
   }
 
   function handleGrab() {
+    if (!el) return;
+
     el.classList.add('is-active');
     if (onGrab) onGrab();
   }
 
   function handleDrop() {
+    if (!el) return;
+
     el.classList.remove('is-active');
     if (onDrop) onDrop();
   }
@@ -127,7 +132,7 @@ const spinImages: SpinImages = ({
     }
   });
 
-  setSpriteSize({ elSprite, quantityFrames });
+  setSpriteSize({ elSprite: elSprite as Element, quantityFrames });
   frameSize = getFramePersentSize(quantityFrames);
 
   touchEvents({

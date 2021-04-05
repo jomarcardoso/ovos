@@ -14,11 +14,11 @@ import {
   IsOnGap as IsOnGapOfEl,
 } from './types/position.utilities';
 
-export const POSITION_DEFAULT: Position = {
-  bottom: null,
-  left: null,
-  right: null,
-  top: null,
+export const POSITION: Position = {
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0,
 };
 
 export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
@@ -28,19 +28,14 @@ export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
   return onBelowTheTop && onAboveTheBottom;
 };
 
-export const isOutOfLimit: IsOutOfLimit = ({
-  position,
-  limit = POSITION_DEFAULT,
-}) => {
-  if (isNumber(limit.top)) {
+export const isOutOfLimit: IsOutOfLimit = ({ position, limit = POSITION }) => {
+  if (limit.top) {
     const outOfTopLimit = position.y < limit.top;
 
     if (outOfTopLimit) return true;
   }
 
-  if (!isNil(limit.bottom)) {
-    if (limit.bottom === 0) return false;
-
+  if (limit.bottom) {
     const outOfBottomLimit = position.y > limit.bottom;
 
     if (outOfBottomLimit) return true;
@@ -52,9 +47,7 @@ export const isOutOfLimit: IsOutOfLimit = ({
     if (outOfLeftLimit) return true;
   }
 
-  if (!isNil(limit.right)) {
-    if (limit.right === 0) return false;
-
+  if (limit.right) {
     const outOfRightLimit = position.x > limit.right;
 
     if (outOfRightLimit) return true;
@@ -86,8 +79,10 @@ export const getRelativePosition: GetRelativePosition = ({
 };
 
 export const isSafe: IsSafe = ({ position, lastPosition, debounce }) => {
-  const beOnVerticalSafe = Math.abs(position.y - lastPosition.y) < debounce.y;
-  const beOnHorizontalSafe = Math.abs(position.x - lastPosition.x) < debounce.x;
+  const beOnVerticalSafe =
+    Math.abs(position.y - lastPosition.y) < (debounce.y ?? 0);
+  const beOnHorizontalSafe =
+    Math.abs(position.x - lastPosition.x) < (debounce.x ?? 0);
 
   if (beOnVerticalSafe && beOnHorizontalSafe) return true;
 
@@ -95,23 +90,21 @@ export const isSafe: IsSafe = ({ position, lastPosition, debounce }) => {
 };
 
 export const isOnGapOfEl: IsOnGapOfEl = ({ position, gap, el }) => {
-  // const hasGap = gap.bottom || gap.left || gap.right || gap.top;
-
-  // if (!hasGap) return true;
-
-  const beOnTopGap = position.y < gap.top;
+  const beOnTopGap = position.y < (gap.top ?? 0);
 
   if (!isNil(gap.top) && beOnTopGap) return true;
 
-  const beOnBottomGap = position.y > getMaxVerticalScroll(el) - gap.bottom;
+  const beOnBottomGap =
+    position.y > getMaxVerticalScroll(el) - (gap.bottom ?? 0);
 
   if (!isNil(gap.bottom) && beOnBottomGap) return true;
 
-  const beOnLeftGap = position.x < gap.left;
+  const beOnLeftGap = position.x < (gap.left ?? 0);
 
   if (!isNil(gap.left) && beOnLeftGap) return true;
 
-  const beOnRightGap = position.x > getMaxHorizontalScroll(el) - gap.right;
+  const beOnRightGap =
+    position.x > getMaxHorizontalScroll(el) - (gap.right ?? 0);
 
   if (!isNil(gap.right) && beOnRightGap) return true;
 

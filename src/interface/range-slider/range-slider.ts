@@ -1,10 +1,9 @@
-/* eslint-disable */
 import './range-slider.scss';
+import { Axis } from '@/types/types';
+import { getWidth } from '@/utilities/element/element.utilities';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
 import { Method, ScrollSpyItem } from '../scroll-spy/types/scroll-spy.type';
-import { Axis } from '@/types/types';
 import fitOnScreen from '../fit-on-screen/fit-on-screen';
-import { getWidth } from '@/utilities/element/element.utilities';
 
 interface RangeSliderArgs {
   el?: HTMLElement;
@@ -19,10 +18,7 @@ interface CreateRangeSliderArgs {
 
 type CreateRangeSliderItem = (args: CreateRangeSliderArgs) => ScrollSpyItem;
 
-const createRangeSliderItem: CreateRangeSliderItem = ({
-  el,
-  elResult
-}) => {
+const createRangeSliderItem: CreateRangeSliderItem = ({ el, elResult }) => {
   const { value } = el;
 
   function activate() {
@@ -34,22 +30,27 @@ const createRangeSliderItem: CreateRangeSliderItem = ({
     deActivate: () => {},
     content: el,
   };
-}
+};
 
 const rangeSlider: RangeSlider = ({
-  el = document.querySelector('[data-ovo-rs="root"]'),
+  el = document.querySelector('[data-ovo-rs="root"]') as HTMLElement,
 }) => {
-  const elSlider: HTMLElement = el.querySelector('[data-ovo-rs="slider"]');
-  const elRanges = Array.from(el.querySelectorAll('input'));
-  const elResult: HTMLElement = el.querySelector('[data-ovo-rs="result"]');
+  const elSlider = el.querySelector('[data-ovo-rs="slider"]') as HTMLElement;
+  const elRanges = Array.from(
+    el.querySelectorAll('input'),
+  ) as Array<HTMLInputElement>;
+  const elResult: HTMLElement = el.querySelector(
+    '[data-ovo-rs="result"]',
+  ) as HTMLElement;
 
-  console.log(elSlider)
+  console.log(elSlider);
 
-  const list = elRanges.map((elRange) => (
+  const list = elRanges.map((elRange) =>
     createRangeSliderItem({
       el: elRange,
       elResult,
-    })));
+    }),
+  );
 
   scrollSpy({
     list,
@@ -64,10 +65,9 @@ const rangeSlider: RangeSlider = ({
     elsToFit: elRanges,
     lazyTime: 100,
     proximityToFit: getWidth(elRanges[0]) / 2,
-  })
-}
+  });
+};
 
-rangeSlider({})
+rangeSlider({});
 
 export default rangeSlider;
-

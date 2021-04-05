@@ -6,23 +6,25 @@ import { Axis } from '../../../types/types';
 ScrollSpy({
   list: [
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-slide-1'),
-      elContent: document.querySelector('#slide-1'),
+      elMenu: document.querySelector('#to-slide-1') as HTMLElement,
+      elContent: document.querySelector('#slide-1') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-slide-2'),
-      elContent: document.querySelector('#slide-2'),
+      elMenu: document.querySelector('#to-slide-2') as HTMLElement,
+      elContent: document.querySelector('#slide-2') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-slide-3'),
-      elContent: document.querySelector('#slide-3'),
+      elMenu: document.querySelector('#to-slide-3') as HTMLElement,
+      elContent: document.querySelector('#slide-3') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-slide-4'),
-      elContent: document.querySelector('#slide-4'),
+      elMenu: document.querySelector('#to-slide-4') as HTMLElement,
+      elContent: document.querySelector('#slide-4') as HTMLElement,
     }),
   ],
-  elRelative: document.querySelector('#carousel ul') as HTMLElement,
+  elRelative: (document.querySelector(
+    '#carousel ul',
+  ) as HTMLElement) as HTMLElement,
   axis: Axis.X,
   method: Method.closest,
 });
@@ -30,20 +32,20 @@ ScrollSpy({
 ScrollSpy({
   list: [
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-article-1'),
-      elContent: document.querySelector('#article-1'),
+      elMenu: document.querySelector('#to-article-1') as HTMLElement,
+      elContent: document.querySelector('#article-1') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-article-2'),
-      elContent: document.querySelector('#article-2'),
+      elMenu: document.querySelector('#to-article-2') as HTMLElement,
+      elContent: document.querySelector('#article-2') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-article-3'),
-      elContent: document.querySelector('#article-3'),
+      elMenu: document.querySelector('#to-article-3') as HTMLElement,
+      elContent: document.querySelector('#article-3') as HTMLElement,
     }),
     createScrollSpyItem({
-      elMenu: document.querySelector('#to-article-4'),
-      elContent: document.querySelector('#article-4'),
+      elMenu: document.querySelector('#to-article-4') as HTMLElement,
+      elContent: document.querySelector('#article-4') as HTMLElement,
     }),
   ],
 });

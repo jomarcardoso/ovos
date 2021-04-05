@@ -11,20 +11,28 @@ function onTouchMove() {
   let contY = 0;
 
   function onXMove(fn: (i: number) => number) {
+    if (!elXAxis) return;
+
     contX = fn(contX);
     elXAxis.innerHTML = String(contX);
   }
 
   function onYMove(fn: (i: number) => number) {
+    if (!elYAxis) return;
+
     contY = fn(contY);
     elYAxis.innerHTML = String(contY);
   }
 
   function onGrab() {
+    if (!elStatus) return;
+
     elStatus.innerHTML = 'GRABBING';
   }
 
   function onDrop() {
+    if (!elStatus) return;
+
     onYMove(() => 0);
     onXMove(() => 0);
     elStatus.innerHTML = 'GRAB!';
@@ -35,15 +43,19 @@ function onTouchMove() {
   }
 
   function dropX(direction = '') {
+    if (!elDropX) return;
+
     elDropX.innerHTML = direction;
   }
 
   function dropY(direction = '') {
+    if (!elDropY) return;
+
     elDropY.innerHTML = direction;
   }
 
   OnGrab({
-    el: document.querySelector('#touch-pad-1'),
+    el: document.querySelector('#touch-pad-1') as HTMLElement,
     onDragLeft: () => onXMove((i) => i - 1),
     onDragRight: () => onXMove((i) => i + 1),
     onDragTop: () => onYMove((i) => i - 1),

@@ -536,10 +536,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
-          left: null,
-          right: null,
-          top: null,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
         },
         position: { x: 0, y: 0 },
       });
@@ -551,10 +551,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
-          left: null,
-          right: null,
-          top: null,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
         },
         position: { x: 100, y: 100 },
       });
@@ -626,10 +626,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
+          bottom: 0,
           left: 200,
           right: 10,
-          top: null,
+          top: 0,
         },
         position: { x: 100, y: 100 },
       });
@@ -641,10 +641,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
+          bottom: 0,
           left: 200,
           right: 10,
-          top: null,
+          top: 0,
         },
         position: { x: 210, y: 100 },
       });
@@ -656,10 +656,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
-          left: null,
+          bottom: 0,
+          left: 0,
           right: 200,
-          top: null,
+          top: 0,
         },
         position: { x: 600, y: 100 },
       });
@@ -671,10 +671,10 @@ describe('PositionService', () => {
       const onGap = isOnGapOfEl({
         el,
         gap: {
-          bottom: null,
-          left: null,
+          bottom: 0,
+          left: 0,
           right: 200,
-          top: null,
+          top: 0,
         },
         position: { x: 900, y: 100 },
       });

@@ -16,7 +16,7 @@
     "prepublishOnly": "yarn build && yarn bundle && yarn tsc",
     "tsc": "tsc",
     "test": "jest",
-    "lint": "eslint src/**/*.{js,ts,tsx}",
+    "lint": "eslint src/**/*.{js,ts,tsx} --fix",
     "test:watch": "jest --watch --watchAll",
     "duplicated": "jscpd ./src/**/*.ts"
   },

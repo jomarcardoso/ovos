@@ -18,14 +18,20 @@ interface GetOffsetArgs {
 type GetOffset = (args: GetOffsetArgs) => Direction;
 
 const anchor: Anchor = ({
-  elFloating = document.querySelector('[data-ovo-anchor="floating"]'),
-  elToAnchor = document.querySelector('[data-ovo-anchor="to-anchor"]'),
+  elFloating = document.querySelector(
+    '[data-ovo-anchor="floating"]',
+  ) as HTMLElement | null,
+  elToAnchor = document.querySelector(
+    '[data-ovo-anchor="to-anchor"]',
+  ) as HTMLElement | null,
 }) => {
+  if (!elFloating || !elToAnchor) return;
+
   const elScrolling = getScrollParent(elToAnchor);
 
-  let lastOffset: Direction = null;
+  let lastOffset: Direction = Direction.NONE;
   let floating = true;
-  let lastToAnchorPosition: Direction = null;
+  let lastToAnchorPosition: Direction = Direction.NONE;
 
   if (!elFloating || !elToAnchor) return;
 
@@ -33,6 +39,8 @@ const anchor: Anchor = ({
     if (floating && position === lastToAnchorPosition) return;
 
     lastToAnchorPosition = position;
+
+    if (!elFloating) return;
 
     // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anFixed = 'true';
@@ -50,7 +58,7 @@ const anchor: Anchor = ({
   }
 
   function toAnchor() {
-    if (!floating) return;
+    if (!floating || !elFloating) return;
 
     // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anFixed = 'false';
@@ -97,6 +105,8 @@ const anchor: Anchor = ({
   }
 
   function handleScroll() {
+    if (!elFloating || !elToAnchor) return;
+
     const floatingMiddle = getMiddleRelativeScreen(elFloating);
     const toAnchorMiddle = getMiddleRelativeScreen(elToAnchor);
     const offset = getOffset({ floatingMiddle, toAnchorMiddle });
