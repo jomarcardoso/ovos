@@ -1,13 +1,13 @@
 module.exports = {
   extends: ['airbnb-typescript-prettier'],
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: ['./tsconfig.json'],
-  },
-  parser: '@typescript-eslint/parser',
   env: {
     jest: true,
     browser: true,
+    es6: true,
+    es2017: true,
+    es2020: true,
+    es2021: true,
+    worker: true
   },
   rules: {
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
