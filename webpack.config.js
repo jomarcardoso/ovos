@@ -20,8 +20,8 @@ const generateConfig = ({
       './src/interface/page-progress/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
       './src/interface/fit-on-screen/sample/index.ts',
-    ['./src/interface/range-slider/sample/dist/index']:
-      './src/interface/range-slider/sample/index.ts',
+    // ['./src/interface/range-slider/sample/dist/index']:
+    //   './src/interface/range-slider/sample/index.ts',
     ['./src/interface/spin-images/sample/dist/index']:
       './src/interface/spin-images/sample/index.ts',
     ['./src/interface/sticky-header/sample/dist/index']:

@@ -2,8 +2,6 @@ import './spin-images.scss';
 import touchEvents from '../../api/touch-events/touch-events';
 import scrollEvents from '../../api/scroll-events/scroll-events';
 
-const COMPONENT_NAME = 'spin-images';
-
 function setSpriteSize({
   elSprite,
   quantityFrames = 0,
@@ -63,15 +61,6 @@ const spinImages: SpinImages = ({
   );
   let frameSize = 0;
   let rotated = 0;
-
-  if (!quantityFrames)
-    return console.error(
-      new Error(`${COMPONENT_NAME}: quantidade de frames não recebida`),
-    );
-  if (!el)
-    return console.error(
-      new Error(`${COMPONENT_NAME}: elemento inicial não recebido`),
-    );
 
   function onSpriteLoaded(cb: () => void) {
     cb();
@@ -142,11 +131,6 @@ const spinImages: SpinImages = ({
     onGrab: handleGrab,
     onDrop: handleDrop,
   });
-
-  return {
-    rotateClockwise,
-    rotateAnticlockwise: rotateCounterclockwise,
-  };
 };
 
 export default spinImages;
