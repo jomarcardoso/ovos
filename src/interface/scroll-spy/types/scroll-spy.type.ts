@@ -10,7 +10,7 @@ interface ScrollSpyItemArgs {
 export interface ScrollSpyItem {
   activate(): void;
   deActivate(): void;
-  content: HTMLElement;
+  content?: HTMLElement;
 }
 
 export type CreateScrollSpyItem = (args: ScrollSpyItemArgs) => ScrollSpyItem;

@@ -10,6 +10,8 @@ const y = document.querySelector('#y');
 // const ry = document.querySelector('#r-y');
 
 function handleScroll(args: OnScrollArgs) {
+  if (!direction || !x || !y || !element) return;
+
   direction.innerHTML = args.direction;
   x.innerHTML = String(args.scrollPosition.x);
   y.innerHTML = String(args.scrollPosition.y);

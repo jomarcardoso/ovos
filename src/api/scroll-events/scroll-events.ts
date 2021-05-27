@@ -7,7 +7,7 @@ import {
   isOnTheSameDirection,
 } from '../../utilities/direction/direction.utilities';
 import {
-  POSITION_DEFAULT,
+  POSITION,
   isOnTheRegion,
   isOutOfLimit,
   getRelativePosition,
@@ -20,23 +20,23 @@ const scrollEvents: ScrollEvents = ({
   el = document,
   onScroll,
   onlyOnChangedDirection = false,
-  onlyOnDirection = null,
+  onlyOnDirection = false,
   onlyOnWhenInOrOutTheRegion = {
-    bottom: null,
-    left: null,
-    right: null,
-    top: null,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
   },
   delay = {
     x: 0,
     y: 0,
   },
-  gap = POSITION_DEFAULT,
+  gap = POSITION,
   debounce = {
     x: 0,
     y: 0,
   },
-  limit = POSITION_DEFAULT,
+  limit = POSITION,
   lazyTime = 0,
 }) => {
   const scrollingElement = getScrollingEl(el as HTMLElement & HTMLDocument);
@@ -47,7 +47,7 @@ const scrollEvents: ScrollEvents = ({
   });
   let lastScrollPosition = lastScrolledPosition;
   let lastTimeout = 0;
-  let lastDirection: Partial<Direction> = null;
+  let lastDirection: Direction = Direction.NONE;
   let lastOnTheRegion = false;
 
   function handleScroll(event: UIEvent) {

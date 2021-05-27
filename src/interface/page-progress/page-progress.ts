@@ -12,9 +12,11 @@ interface PageProgressArgs {
 type PageProgress = (args: PageProgressArgs) => void;
 
 const pageProgress: PageProgress = ({
-  el = document.querySelector('[data-ovo-pp="bar"]'),
+  el = document.querySelector('[data-ovo-pp="bar"]') as HTMLElement,
 }) => {
   const elRelative = getScrollingEl(document);
+
+  if (!el) return;
 
   // eslint-disable-next-line no-param-reassign
   el.style.transformOrigin = 'left';

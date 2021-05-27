@@ -8,24 +8,16 @@ import scrollEvents from '../../api/scroll-events/scroll-events';
 export default function stickyHeader({
   el = document.querySelector('[data-ovo-hs="header"]'),
 }: {
-  el?: HTMLElement;
+  el?: Element | null;
 }): void {
-  // function isFullyVisible(hided) {
-  //   if (hided <= 0) return true;
+  if (!el) return;
 
-  //   return false;
-  // }
-
-  // function isFullyHidden(hidden) {
-  //   if (hidden > getHeight(el)) return true;
-
-  //   return false;
-  // }
+  const htmlEl = el as HTMLElement;
 
   function handleDocumentScroll({
     relativeScrollPosition: { y: position = 0 },
   }) {
-    translate({ el, position });
+    translate({ el: htmlEl, position });
   }
 
   function bindEvents() {
@@ -35,9 +27,9 @@ export default function stickyHeader({
       onScroll: handleDocumentScroll,
       limit: {
         top: 0,
-        bottom: getHeight(el),
-        left: null,
-        right: null,
+        bottom: getHeight(htmlEl),
+        left: 0,
+        right: 0,
       },
     });
   }

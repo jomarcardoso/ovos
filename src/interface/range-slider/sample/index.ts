@@ -1,4 +1,4 @@
-import './main.scss';
-import a from '../range-slider';
+// import './main.scss';
+// import a from '../range-slider';
 
-console.log(a);
+// console.log(a);

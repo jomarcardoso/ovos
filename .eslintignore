@@ -1,3 +1,4 @@
 scripts/
 webpack.*.js
-dist/
+dist
+node_modules

@@ -6,7 +6,7 @@ interface CallbackArgs {
 }
 
 interface TouchEventsArgs {
-  el?: HTMLElement;
+  el?: Element;
   safeX?: number;
   safeY?: number;
   onDragTop?(args: CallbackArgs): void;
