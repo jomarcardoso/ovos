@@ -62,6 +62,8 @@ const spinImages: SpinImages = ({
   let frameSize = 0;
   let rotated = 0;
 
+  if (!quantityFrames || !el) return;
+
   function onSpriteLoaded(cb: () => void) {
     cb();
   }
