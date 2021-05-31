@@ -22,9 +22,9 @@ ScrollSpy({
       elContent: document.querySelector('#slide-4') as HTMLElement,
     }),
   ],
-  elRelative: (document.querySelector(
+  elRelative: document.querySelector(
     '#carousel ul',
-  ) as HTMLElement) as HTMLElement,
+  ) as HTMLElement as HTMLElement,
   axis: Axis.X,
   method: Method.closest,
 });

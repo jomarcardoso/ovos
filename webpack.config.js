@@ -3,7 +3,6 @@ const { merge } = require('webpack-merge');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const a = require('webpack');
 
 const generateConfig = ({
   mode = 'production',
@@ -12,6 +11,8 @@ const generateConfig = ({
     ['./dist/ovos']: './src/ovos.ts',
     ['./src/api/scroll-events/sample/dist/index']:
       './src/api/scroll-events/sample/index.ts',
+    ['./src/v2/api/scroll-observer/sample/dist/index']:
+      './src/v2/api/scroll-observer/sample/index.ts',
     ['./src/api/touch-events/sample/dist/index']:
       './src/api/touch-events/sample/index.ts',
     ['./src/interface/scroll-spy/sample/dist/index']:
@@ -52,9 +53,14 @@ const generateConfig = ({
     module: {
       rules: [
         {
-          test: /\.([j|t]s)$/,
+          test: /\.ts$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          loader: 'ts-loader',
+        },
+        {
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
         },
         {
           test: /\.s[ac]ss$/i,
