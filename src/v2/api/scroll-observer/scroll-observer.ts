@@ -69,37 +69,40 @@ function Scroll$({ el = document, gap = AXES }: Args): Observable<Scroll$Next> {
     current: Scroll$Next;
   }
 
-  const scrollGap$ = scrollDirection$.pipe(
-    map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
-      return {
-        current: scrollObserver,
-        last: scrollObserver,
-      };
-    }),
-    scan<ScrollGapTemp$, ScrollGapTemp$>((acc, curr) => {
-      const onGap = isOnGap({
-        axes: acc.current.axes,
-        gap,
-        lastAxes: acc.last.axes,
-      });
+  let scrollGap$ = scrollDirection$;
 
-      return {
-        current: curr.current,
-        last: onGap ? acc.last : curr.current,
-      };
-    }),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    filter<ScrollGapTemp$>(({ current, last }) => {
-      return !isOnGap({
-        axes: current.axes,
-        gap,
-        lastAxes: last.axes,
-      });
-    }),
-    map<ScrollGapTemp$, Scroll$Next>((scrollObserver) => {
-      return scrollObserver.current;
-    }),
-  );
+  if (gap.x || gap.y) {
+    scrollGap$ = scrollDirection$.pipe(
+      map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
+        return {
+          current: scrollObserver,
+          last: scrollObserver,
+        };
+      }),
+      scan<ScrollGapTemp$, ScrollGapTemp$>((acc, curr) => {
+        const onGap = isOnGap({
+          axes: acc.current.axes,
+          gap,
+          lastAxes: acc.last.axes,
+        });
+
+        return {
+          current: curr.current,
+          last: onGap ? acc.last : curr.current,
+        };
+      }),
+      filter<ScrollGapTemp$>(({ current, last }) => {
+        return !isOnGap({
+          axes: current.axes,
+          gap,
+          lastAxes: last.axes,
+        });
+      }),
+      map<ScrollGapTemp$, Scroll$Next>((scrollObserver) => {
+        return scrollObserver.current;
+      }),
+    );
+  }
 
   return scrollGap$;
 }

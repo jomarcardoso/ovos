@@ -1,22 +1,49 @@
+/* eslint-disable */
 import './main.scss';
+// @ts-expect-error rxjs issue
+import { fromEvent } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Scroll$, Scroll$Next } from '..';
+import { Axes } from '@/v2/utilities/axis';
 
 const elDirection = document.querySelector('#direction');
 const elTag = document.querySelector('#element');
 const elX = document.querySelector('#x');
 const elY = document.querySelector('#y');
+const elGap: HTMLInputElement = document.querySelector(
+  '#gap',
+) as HTMLInputElement;
 // // const rx = document.querySelector('#r-x');
 // // const ry = document.querySelector('#r-y');
 
-const scroll$ = Scroll$({ gap: { x: 0, y: 100 } });
+function start(gap: Axes = { x: 0, y: 100 }) {
+  const scroll$ = Scroll$({ gap });
 
-scroll$.subscribe({
-  next: ({ axes, el, direction }: Scroll$Next) => {
-    if (elX) elX.innerHTML = String(axes.x);
-    if (elY) elY.innerHTML = String(axes.y);
-    if (elTag) elTag.innerHTML = el.tagName;
-    if (elDirection) elDirection.innerHTML = direction;
-  },
+  console.log('começou com gap', gap)
+
+  return scroll$.subscribe({
+    next: ({ axes, el, direction }: Scroll$Next) => {
+      if (elX) elX.innerHTML = String(axes.x);
+      if (elY) elY.innerHTML = String(axes.y);
+      if (elTag) elTag.innerHTML = el.tagName;
+      if (elDirection) elDirection.innerHTML = direction;
+    },
+  });
+}
+
+elGap.onchange;
+
+let subscriber = start();
+
+const gap$ = fromEvent<number>(elGap, 'change')
+  // @ts-expect-error to test
+  .pipe(map((event) => event.currentTarget.value));
+
+gap$.subscribe((value = 0) => {
+  console.log('recomeça', value);
+
+  subscriber.unsubscribe();
+  subscriber = start({ y: Number(value), x: 0 });
 });
 
 // scrollCreator
