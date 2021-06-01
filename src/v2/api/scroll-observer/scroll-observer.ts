@@ -3,7 +3,7 @@ import { fromEvent, Observable } from 'rxjs';
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
-import { filter, map, scan } from 'rxjs/operators';
+import { debounceTime, filter, map, scan } from 'rxjs/operators';
 import { ScrollableElement } from '../../utilities/scroll';
 import { getScrollingEl, getScrollPosition } from '../../utilities/element';
 import {
@@ -17,6 +17,7 @@ import {
 interface Args {
   el?: ScrollableElement;
   gap?: Axes;
+  debounce?: number;
 }
 
 export interface Scroll$Next {
@@ -26,7 +27,11 @@ export interface Scroll$Next {
   direction: Direction;
 }
 
-function Scroll$({ el = document, gap = AXES }: Args): Observable<Scroll$Next> {
+function Scroll$({
+  el = document,
+  gap = AXES,
+  debounce = 0,
+}: Args): Observable<Scroll$Next> {
   const scrollingEl = getScrollingEl(el as HTMLElement & HTMLDocument);
 
   const scroll$ = fromEvent(
@@ -46,7 +51,7 @@ function Scroll$({ el = document, gap = AXES }: Args): Observable<Scroll$Next> {
     }),
   );
 
-  const scrollDirection$ = scrollAxes$.pipe(
+  let scrollDirection$ = scrollAxes$.pipe(
     map<ScrollAxes$, Scroll$Next>((scrollAxesObserver) => {
       return {
         ...scrollAxesObserver,
@@ -69,10 +74,8 @@ function Scroll$({ el = document, gap = AXES }: Args): Observable<Scroll$Next> {
     current: Scroll$Next;
   }
 
-  let scrollGap$ = scrollDirection$;
-
   if (gap.x || gap.y) {
-    scrollGap$ = scrollDirection$.pipe(
+    scrollDirection$ = scrollDirection$.pipe(
       map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
         return {
           current: scrollObserver,
@@ -104,7 +107,11 @@ function Scroll$({ el = document, gap = AXES }: Args): Observable<Scroll$Next> {
     );
   }
 
-  return scrollGap$;
+  if (debounce) {
+    scrollDirection$ = scrollDirection$.pipe(debounceTime(debounce));
+  }
+
+  return scrollDirection$;
 }
 
 export default Scroll$;

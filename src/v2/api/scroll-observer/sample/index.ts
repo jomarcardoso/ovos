@@ -16,8 +16,8 @@ const elGap: HTMLInputElement = document.querySelector(
 // // const rx = document.querySelector('#r-x');
 // // const ry = document.querySelector('#r-y');
 
-function start(gap: Axes = { x: 0, y: 100 }) {
-  const scroll$ = Scroll$({ gap });
+function start(gap: Axes = { x: 0, y: 0 }, debounce = 1000) {
+  const scroll$ = Scroll$({ gap, debounce });
 
   console.log('começou com gap', gap)
 
@@ -31,8 +31,6 @@ function start(gap: Axes = { x: 0, y: 100 }) {
   });
 }
 
-elGap.onchange;
-
 let subscriber = start();
 
 const gap$ = fromEvent<number>(elGap, 'change')
@@ -40,8 +38,6 @@ const gap$ = fromEvent<number>(elGap, 'change')
   .pipe(map((event) => event.currentTarget.value));
 
 gap$.subscribe((value = 0) => {
-  console.log('recomeça', value);
-
   subscriber.unsubscribe();
   subscriber = start({ y: Number(value), x: 0 });
 });
