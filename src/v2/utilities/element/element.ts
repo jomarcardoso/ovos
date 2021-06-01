@@ -31,3 +31,11 @@ export const getScrollPosition: GetScrollPosition = ({
     y,
   };
 };
+
+export function getLeft(el: HTMLElement): number {
+  return el.offsetLeft;
+}
+
+export function getTop(el: HTMLElement): number {
+  return el.offsetTop;
+}
