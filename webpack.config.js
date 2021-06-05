@@ -17,6 +17,8 @@ const generateConfig = ({
       './src/api/touch-events/sample/index.ts',
     ['./src/interface/scroll-spy/sample/dist/index']:
       './src/interface/scroll-spy/sample/index.ts',
+    ['./src/v2/interface/scroll-spy/sample/dist/index']:
+      './src/v2/interface/scroll-spy/sample/index.ts',
     ['./src/interface/page-progress/sample/dist/index']:
       './src/interface/page-progress/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
