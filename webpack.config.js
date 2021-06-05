@@ -31,6 +31,8 @@ const generateConfig = ({
       './src/interface/sticky-header/sample/index.ts',
     ['./src/interface/parallax/sample/dist/index']:
       './src/interface/parallax/sample/index.ts',
+    ['./src/v2/interface/parallax/sample/dist/index']:
+      './src/v2/interface/parallax/sample/index.ts',
     ['./src/interface/carousel/sample/dist/index']:
       './src/interface/carousel/sample/index.ts',
     ['./src/interface/scrollable-sticky/sample/dist/index']:
