@@ -1,10 +1,7 @@
-import { Axis } from '../../utilities/axis';
+import { Axis, POSITIONS } from '../../utilities/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
-import {
-  scrollTopTo,
-  scrollLeftTo,
-} from '../../utilities/scroll';
+import { scrollTopTo, scrollLeftTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './types/fit-on-screen.types';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
@@ -20,12 +17,12 @@ function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
 }
 
 export default function fitOnScreen({
-  el = document,
+  elRelative = document,
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
   axis = Axis.Y,
   debounce = 1000,
-  gap,
+  limit = POSITIONS,
 }: FitOnScreenArgs): void {
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
     const offsetElToFit = getOffsetByAxis({ axis, el: elToFit });
@@ -44,11 +41,9 @@ export default function fitOnScreen({
     );
   }
 
-  function handleScroll({
-    el,
-  }: Scroll$Next) {
+  function handleScroll({ el }: Scroll$Next) {
     const nearElement = getNearElement({
-      scrolledPosition: getScrolledByAxis({ el: el, axis }),
+      scrolledPosition: getScrolledByAxis({ el, axis }),
     });
 
     if (!nearElement) return;
@@ -69,7 +64,11 @@ export default function fitOnScreen({
   }
 
   function bindEvents() {
-    const observable = Scroll$({ el, debounce });
+    const observable = Scroll$({
+      el: elRelative,
+      debounce,
+      limit,
+    });
 
     observable.subscribe(handleScroll);
   }

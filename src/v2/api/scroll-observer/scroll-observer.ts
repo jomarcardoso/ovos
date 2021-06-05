@@ -4,6 +4,7 @@ import { fromEvent, Observable } from 'rxjs';
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';
+import { isOnGapOfEl } from '../../../utilities/position/position.utilities';
 import { ScrollableElement } from '../../utilities/scroll';
 import { getScrollingEl, getScrollPosition } from '../../utilities/element';
 import {
@@ -12,12 +13,15 @@ import {
   Direction,
   isOnGap,
   AXES,
+  Positions,
+  POSITIONS,
 } from '../../utilities/axis';
 
 interface Args {
   el?: ScrollableElement;
   gap?: Axes;
   debounce?: number;
+  limit?: Positions;
 }
 
 export interface Scroll$Next {
@@ -31,6 +35,7 @@ function Scroll$({
   el = document,
   gap = AXES,
   debounce = 0,
+  limit = POSITIONS,
 }: Args): Observable<Scroll$Next> {
   const scrollingEl = getScrollingEl(el as HTMLElement & HTMLDocument);
 
@@ -109,6 +114,18 @@ function Scroll$({
 
   if (debounce) {
     scrollDirection$ = scrollDirection$.pipe(debounceTime(debounce));
+  }
+
+  if (limit.bottom || limit.left || limit.right || limit.top) {
+    scrollDirection$ = scrollDirection$.pipe(
+      filter<Scroll$Next>((scrollObserver) => {
+        return !isOnGapOfEl({
+          el: scrollObserver.el,
+          gap: limit,
+          position: scrollObserver.axes,
+        });
+      }),
+    );
   }
 
   return scrollDirection$;

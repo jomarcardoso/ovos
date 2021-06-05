@@ -24,3 +24,17 @@ export enum Direction {
   DOWN_RIGHT = 'down-right',
   NONE = '',
 }
+
+export interface Positions {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+}
+
+export const POSITIONS: Positions = {
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0,
+};

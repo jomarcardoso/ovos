@@ -21,6 +21,8 @@ const generateConfig = ({
       './src/interface/page-progress/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
       './src/interface/fit-on-screen/sample/index.ts',
+    ['./src/v2/interface/fit-on-screen/sample/dist/index']:
+      './src/v2/interface/fit-on-screen/sample/index.ts',
     ['./src/interface/sticky/sample/dist/index']:
       './src/interface/sticky/sample/index.ts',
     ['./src/interface/spin-images/sample/dist/index']:
