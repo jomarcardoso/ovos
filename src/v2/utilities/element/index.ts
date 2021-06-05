@@ -1,1 +1,7 @@
-export { getScrollingEl, getScrollPosition, getLeft, getTop } from './element';
+export {
+  getScrollingEl,
+  getScrollPosition,
+  getLeft,
+  getTop,
+  isOutOfLimit,
+} from './element';

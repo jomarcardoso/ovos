@@ -1,4 +1,4 @@
-import { Axes } from '../axis';
+import { Axes, Positions } from '../axis';
 
 export function getScrollingEl(
   target: HTMLElement | HTMLDocument,
@@ -39,3 +39,47 @@ export function getLeft(el: HTMLElement): number {
 export function getTop(el: HTMLElement): number {
   return el.offsetTop;
 }
+
+export function getMaxHorizontalScroll(el: HTMLElement): number {
+  return el.scrollWidth - el.clientWidth;
+}
+
+export function getMaxVerticalScroll(el: HTMLElement): number {
+  return el.scrollHeight - el.clientHeight;
+}
+
+interface IsOnGapArgs {
+  axes: Axes;
+  limit: Positions;
+  el: HTMLElement;
+}
+
+export type IsOnGap = (args: IsOnGapArgs) => boolean;
+
+export const isOutOfLimit: IsOnGap = ({ axes, limit, el }) => {
+  if (limit.top) {
+    const beOutOfTopLimit = axes.y < limit.top;
+
+    if (beOutOfTopLimit) return true;
+  }
+
+  if (limit.bottom) {
+    const beOutOfBottomLimit = axes.y > getMaxVerticalScroll(el) - limit.bottom;
+
+    if (beOutOfBottomLimit) return true;
+  }
+
+  if (limit.right) {
+    const beOutOfRightLimit = axes.y > getMaxHorizontalScroll(el) - limit.right;
+
+    if (beOutOfRightLimit) return true;
+  }
+
+  if (limit.top) {
+    const beOutOfLeftLimit = axes.x < limit.left;
+
+    if (beOutOfLeftLimit) return true;
+  }
+
+  return false;
+};

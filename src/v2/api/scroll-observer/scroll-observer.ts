@@ -4,9 +4,12 @@ import { fromEvent, Observable } from 'rxjs';
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';
-import { isOnGapOfEl } from '../../../utilities/position/position.utilities';
 import { ScrollableElement } from '../../utilities/scroll';
-import { getScrollingEl, getScrollPosition } from '../../utilities/element';
+import {
+  getScrollingEl,
+  getScrollPosition,
+  isOutOfLimit,
+} from '../../utilities/element';
 import {
   Axes,
   getDirection,
@@ -119,10 +122,10 @@ function Scroll$({
   if (limit.bottom || limit.left || limit.right || limit.top) {
     scrollDirection$ = scrollDirection$.pipe(
       filter<Scroll$Next>((scrollObserver) => {
-        return !isOnGapOfEl({
+        return !isOutOfLimit({
           el: scrollObserver.el,
-          gap: limit,
-          position: scrollObserver.axes,
+          limit,
+          axes: scrollObserver.axes,
         });
       }),
     );
