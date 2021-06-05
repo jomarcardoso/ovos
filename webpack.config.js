@@ -39,6 +39,8 @@ const generateConfig = ({
       './src/interface/carousel/sample/index.ts',
     ['./src/interface/scrollable-sticky/sample/dist/index']:
       './src/interface/scrollable-sticky/sample/index.ts',
+    ['./src/v2/interface/scrollable-sticky/sample/dist/index']:
+      './src/v2/interface/scrollable-sticky/sample/index.ts',
     ['./src/interface/anchor/sample/dist/index']:
       './src/interface/anchor/sample/index.ts',
     ['./src/utilities/element/sample/dist/index']:

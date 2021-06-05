@@ -1,4 +1,5 @@
 import { Axes, Positions } from '../axis';
+import { getViewportHeight } from '../view/view.utilities';
 
 export function getScrollingEl(
   target: HTMLElement | HTMLDocument,
@@ -83,3 +84,28 @@ export const isOutOfLimit: IsOnGap = ({ axes, limit, el }) => {
 
   return false;
 };
+
+export function getPositionRelativeScreen(el: HTMLElement): Positions {
+  const { bottom, left, top, right } = el.getBoundingClientRect();
+
+  return {
+    bottom,
+    left,
+    top,
+    right,
+  };
+}
+
+export function isTopOfElementAboveOfViewport(el: HTMLElement): boolean {
+  return getPositionRelativeScreen(el).top < 0;
+}
+
+export function isBottomOfElementBelowOfViewport(el: HTMLElement): boolean {
+  return getPositionRelativeScreen(el).bottom > getViewportHeight();
+}
+
+export function isAboveAndBelowScreen(el: HTMLElement): boolean {
+  return (
+    isTopOfElementAboveOfViewport(el) && isBottomOfElementBelowOfViewport(el)
+  );
+}
