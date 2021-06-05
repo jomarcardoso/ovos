@@ -21,6 +21,8 @@ const generateConfig = ({
       './src/v2/interface/scroll-spy/sample/index.ts',
     ['./src/interface/page-progress/sample/dist/index']:
       './src/interface/page-progress/sample/index.ts',
+    ['./src/v2/interface/page-progress/sample/dist/index']:
+      './src/v2/interface/page-progress/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
       './src/interface/fit-on-screen/sample/index.ts',
     ['./src/v2/interface/fit-on-screen/sample/dist/index']:

@@ -7,4 +7,7 @@ export {
   isAboveAndBelowScreen,
   isBottomOfElementBelowOfViewport,
   isTopOfElementAboveOfViewport,
+  getMaxHorizontalScroll,
+  getMaxVerticalScroll,
+  getPositionRelativeScreen,
 } from './element';
