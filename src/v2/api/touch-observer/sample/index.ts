@@ -11,6 +11,10 @@ const elDropY = document.querySelector('#touch-drop-1-y');
 
 const { grab$, drop$, drag$ } = Scroll$({
   el: document.querySelector('#touch-pad-1') as HTMLElement,
+  gap: {
+    x: 20,
+    y: 20,
+  },
 });
 
 grab$.subscribe(() => {
@@ -29,11 +33,11 @@ drop$.subscribe(({ relativeAxes }) => {
 });
 
 // @ts-expect-error rxjs issue
-drag$.subscribe(({ relativeAxes }) => {
+drag$.subscribe(({ breakpointAxes }) => {
   if (!elXAxis || !elYAxis) return;
 
-  elXAxis.innerHTML = String(relativeAxes.x);
-  elYAxis.innerHTML = String(relativeAxes.y);
+  elXAxis.innerHTML = String(breakpointAxes.x);
+  elYAxis.innerHTML = String(breakpointAxes.y);
 });
 
 // function onXMove(fn: (i: number) => number) {

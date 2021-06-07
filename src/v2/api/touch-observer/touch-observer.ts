@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { filter, map, scan } from 'rxjs/operators';
-import { AXES, Axes } from '../../utilities/axis';
+import { AXES, Axes, isOnGap } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
@@ -18,6 +18,7 @@ interface DropEvent extends GrabEvent {
 
 interface DragEvent extends DropEvent {
   startAxes: Axes;
+  breakpointAxes: Axes;
 }
 
 const GRAB_EVENT: GrabEvent = {
@@ -32,11 +33,13 @@ const DROP_EVENT: DropEvent = {
 
 const DRAG_EVENT: DragEvent = {
   ...DROP_EVENT,
+  breakpointAxes: AXES,
   startAxes: AXES,
 };
 
 interface Args {
   el?: ScrollableElement;
+  gap?: Axes;
 }
 
 interface Touch$Next {
@@ -47,80 +50,51 @@ interface Touch$Next {
 
 export default function Touch$({
   el = document,
-}: // safeX = 20,
-// safeY = 20,
-Args): Touch$Next {
-  const mouseDown$ = fromEvent(el, 'mousedown').pipe(
-    map<MouseEvent, GrabEvent>((event) => {
+  gap = AXES,
+}: Args): Touch$Next {
+  function grabMouseOperator(type: TouchEventType) {
+    return map<MouseEvent, GrabEvent>((event) => {
       return {
         axes: {
           x: event.screenX,
           y: event.screenY,
         },
-        type: 'START',
+        type,
       };
-    }),
+    });
+  }
+
+  function grabTouchOperator(type: TouchEventType) {
+    return map<TouchEvent, GrabEvent>((event) => {
+      return {
+        axes: {
+          x: event.changedTouches[0].screenX,
+          y: event.changedTouches[0].screenY,
+        },
+        type,
+      };
+    });
+  }
+
+  const mouseDown$ = fromEvent(el, 'mousedown').pipe(
+    grabMouseOperator('START'),
   );
 
   const touchStart$ = fromEvent(el, 'touchstart').pipe(
-    map<TouchEvent, GrabEvent>((event) => {
-      return {
-        axes: {
-          x: event.changedTouches[0].screenX,
-          y: event.changedTouches[0].screenY,
-        },
-        type: 'START',
-      };
-    }),
+    grabTouchOperator('START'),
   );
 
   const mouseUp$ = fromEvent(document, 'mouseup').pipe(
-    map<MouseEvent, GrabEvent>((event) => {
-      return {
-        axes: {
-          x: event.screenX,
-          y: event.screenY,
-        },
-        type: 'END',
-      };
-    }),
+    grabMouseOperator('END'),
   );
 
   const touchEnd$ = fromEvent(document, 'touchend').pipe(
-    map<TouchEvent, GrabEvent>((event) => {
-      return {
-        axes: {
-          x: event.changedTouches[0].screenX,
-          y: event.changedTouches[0].screenY,
-        },
-        type: 'END',
-      };
-    }),
+    grabTouchOperator('END'),
   );
 
-  const mouseMove$ = fromEvent(el, 'mousemove').pipe(
-    map<MouseEvent, GrabEvent>((event) => {
-      return {
-        axes: {
-          x: event.screenX,
-          y: event.screenY,
-        },
-        type: 'MOVE',
-      };
-    }),
-  );
+  const mouseMove$ = fromEvent(el, 'mousemove').pipe(grabMouseOperator('MOVE'));
 
-  const touchMove$ = fromEvent(el, 'touchmove').pipe(
-    map<TouchEvent, GrabEvent>((event) => {
-      return {
-        axes: {
-          x: event.changedTouches[0].screenX,
-          y: event.changedTouches[0].screenY,
-        },
-        type: 'MOVE',
-      };
-    }),
-  );
+  const touchMove$ = fromEvent(el, 'touchmove').pipe(grabTouchOperator('MOVE'));
 
   const grab$ = new Subject<GrabEvent>();
   const dropSubject$ = new Subject<DropEvent>();
@@ -161,15 +135,19 @@ Args): Touch$Next {
     filter<DragEvent>((newEvent) => newEvent.type === 'END'),
   );
 
-  const drag$ = dragSubject$.pipe(
+  let drag$ = dragSubject$.pipe(
     scan<GrabEvent, DragEvent>((grabbed, newEvent) => {
       if (newEvent.type === 'START') {
         return {
           ...newEvent,
           relativeAxes: AXES,
           startAxes: newEvent.axes,
+          breakpointAxes: AXES,
         };
       }
+
+      const relativeX = newEvent.axes.x - grabbed.startAxes.x;
+      const relativeY = newEvent.axes.y - grabbed.startAxes.y;
 
       return {
         ...newEvent,
@@ -178,8 +156,12 @@ Args): Touch$Next {
           y: grabbed.startAxes.y,
         },
         relativeAxes: {
-          x: newEvent.axes.x - grabbed.startAxes.x,
-          y: newEvent.axes.y - grabbed.startAxes.y,
+          x: relativeX,
+          y: relativeY,
+        },
+        breakpointAxes: {
+          x: Math.floor(relativeX / gap.x),
+          y: Math.floor(relativeY / gap.y),
         },
       };
     }, DRAG_EVENT),
@@ -188,152 +170,47 @@ Args): Touch$Next {
     ),
   );
 
+  if (gap.x || gap.y) {
+    interface DragEventLast {
+      last: DragEvent;
+      current: DragEvent;
+    }
+
+    drag$ = drag$.pipe(
+      map<DragEvent, DragEventLast>((scrollObserver) => {
+        return {
+          current: scrollObserver,
+          last: scrollObserver,
+        };
+      }),
+      scan<DragEventLast, DragEventLast>((acc, curr) => {
+        const onGap = isOnGap({
+          axes: acc.current.axes,
+          gap,
+          lastAxes: acc.last.axes,
+        });
+
+        return {
+          current: curr.current,
+          last: onGap ? acc.last : curr.current,
+        };
+      }),
+      filter<DragEventLast>(({ current, last }) => {
+        return !isOnGap({
+          axes: current.axes,
+          gap,
+          lastAxes: last.axes,
+        });
+      }),
+      map<DragEventLast, DragEvent>((scrollObserver) => {
+        return scrollObserver.current;
+      }),
+    );
+  }
+
   return {
     drop$,
     drag$,
     grab$,
   };
-
-  // let breakpointX = 0;
-  // let breakpointY = 0;
-  // let startX = 0;
-  // let endX = 0;
-  // let startY = 0;
-  // let endY = 0;
-  // const clicking = false;
-
-  // function handleGrab(event: Event, x = 0, y = 0) {
-  //   breakpointX = x;
-  //   breakpointY = y;
-  //   startX = breakpointX;
-  //   startY = breakpointY;
-  //   if (onGrab)
-  //     onGrab({
-  //       event,
-  //       position: {
-  //         x: startX,
-  //         y: startY,
-  //       },
-  //     });
-  // }
-
-  // function handleDrop(event: Event, x = 0, y = 0) {
-  //   endX = x;
-  //   endY = y;
-
-  //   if (safeX < endX - startX) {
-  //     if (onDropRight)
-  //       onDropRight({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //   }
-
-  //   if (safeX < startX - endX) {
-  //     if (onDropLeft)
-  //       onDropLeft({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //   }
-
-  //   if (safeY < endY - startY) {
-  //     if (onDropBottom)
-  //       onDropBottom({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //   }
-
-  //   if (safeY < startY - endY) {
-  //     if (onDropTop)
-  //       onDropTop({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //   }
-
-  //   if (onDrop)
-  //     onDrop({
-  //       event,
-  //       position: {
-  //         x: startX,
-  //         y: startY,
-  //       },
-  //     });
-  // }
-
-  // function handleDrag(event: Event, x = 0, y = 0) {
-  //   const positionX = x;
-  //   const positionY = y;
-
-  //   if (safeX < positionX - breakpointX) {
-  //     if (onDragRight)
-  //       onDragRight({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //     breakpointX = positionX;
-  //   }
-
-  //   if (safeX < breakpointX - positionX) {
-  //     if (onDragLeft)
-  //       onDragLeft({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //     breakpointX = positionX;
-  //   }
-
-  //   if (safeY < positionY - breakpointY) {
-  //     if (onDragTop)
-  //       onDragTop({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //     breakpointY = positionY;
-  //   }
-
-  //   if (safeY < breakpointY - positionY) {
-  //     if (onDragBottom)
-  //       onDragBottom({
-  //         event,
-  //         position: {
-  //           x: startX,
-  //           y: startY,
-  //         },
-  //       });
-  //     breakpointY = positionY;
-  //   }
-
-  //   if (onDrag)
-  //     onDrag({
-  //       event,
-  //       position: {
-  //         x: startX,
-  //         y: startY,
-  //       },
-  //     });
-  // }
 }

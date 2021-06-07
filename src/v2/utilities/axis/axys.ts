@@ -48,7 +48,7 @@ export const isOnGap: IsOnGap = ({ axes, lastAxes, gap }) => {
     ? Math.abs(axes.x - lastAxes.x) < (gap.x ?? 0)
     : false;
 
-  if (beOnVerticalGap || beOnHorizontalGap) return true;
+  if (beOnVerticalGap && beOnHorizontalGap) return true;
 
   return false;
 };
