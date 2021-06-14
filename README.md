@@ -29,7 +29,7 @@ import { fitOnScreen } from 'ovos';
 ### CDN
 
 ```html
-<script src="https://unpkg.com/ovos@0.5.0/dist/ovos.bundle.min.js"></script>
+<script src="https://unpkg.com/ovos@0.9.0/dist/ovos.bundle.min.js"></script>
 <script>window.ovos.fitOnScreen</script>
 ```
 
@@ -47,6 +47,7 @@ import { fitOnScreen } from 'ovos';
 - [Spin Images](/src/interface/spin-images)
 - [Sticky](/src/interface/sticky)
 - [Sticky Header](/src/interface/scrollable-sticky)
+- Drag and Drop (in progress)
 
 ### API
 

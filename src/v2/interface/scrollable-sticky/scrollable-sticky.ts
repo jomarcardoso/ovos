@@ -1,7 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
-import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
+import { ScrollableStickyArgs } from './scrollable-sticky.types';
 import { getViewportHeight } from '../../utilities/view/view.utilities';
 import {
   isBottomOfElementBelowOfViewport,

@@ -2,7 +2,7 @@ import { Axis, POSITIONS } from '../../utilities/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
 import { scrollTopTo, scrollLeftTo } from '../../utilities/scroll';
-import { FitOnScreenArgs, IsNearOfElement } from './types/fit-on-screen.types';
+import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
   if (axis === Axis.Y) return getTop(el);

@@ -2,7 +2,13 @@
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { filter, map, scan } from 'rxjs/operators';
-import { AXES, Axes, isOnGap } from '../../utilities/axis';
+import {
+  AXES,
+  Axes,
+  Direction,
+  getDirection,
+  isOnGap,
+} from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
@@ -14,6 +20,7 @@ interface GrabEvent {
 
 interface DropEvent extends GrabEvent {
   relativeAxes: Axes;
+  direction: Direction;
 }
 
 interface DragEvent extends DropEvent {
@@ -29,6 +36,7 @@ const GRAB_EVENT: GrabEvent = {
 const DROP_EVENT: DropEvent = {
   ...GRAB_EVENT,
   relativeAxes: AXES,
+  direction: Direction.NONE,
 };
 
 const DRAG_EVENT: DragEvent = {
@@ -121,18 +129,30 @@ export default function Touch$({
         return {
           ...newEvent,
           relativeAxes: AXES,
+          direction: Direction.NONE,
         };
       }
 
       return {
         ...newEvent,
+        direction: Direction.NONE,
         relativeAxes: {
           x: newEvent.axes.x - grabbed.axes.x,
           y: newEvent.axes.x - grabbed.axes.y,
         },
       };
     }, DROP_EVENT),
-    filter<DragEvent>((newEvent) => newEvent.type === 'END'),
+    // copiado do scroll observer
+    scan<DropEvent, DropEvent>((acc, curr) => {
+      return {
+        ...curr,
+        direction: getDirection({
+          axes: curr.axes,
+          lastAxes: acc.axes,
+        }),
+      };
+    }),
+    filter<DropEvent>((newEvent) => newEvent.type === 'END'),
   );
 
   let drag$ = dragSubject$.pipe(
@@ -140,6 +160,7 @@ export default function Touch$({
       if (newEvent.type === 'START') {
         return {
           ...newEvent,
+          direction: Direction.NONE,
           relativeAxes: AXES,
           startAxes: newEvent.axes,
           breakpointAxes: AXES,
@@ -151,6 +172,7 @@ export default function Touch$({
 
       return {
         ...newEvent,
+        direction: Direction.NONE,
         startAxes: {
           x: grabbed.startAxes.x,
           y: grabbed.startAxes.y,
@@ -165,11 +187,22 @@ export default function Touch$({
         },
       };
     }, DRAG_EVENT),
+    // copiado do scroll observer
+    scan<DragEvent, DragEvent>((acc, curr) => {
+      return {
+        ...curr,
+        direction: getDirection({
+          axes: curr.axes,
+          lastAxes: acc.axes,
+        }),
+      };
+    }),
     filter<DragEvent>(
       (newEvent) => newEvent.type === 'END' || newEvent.type === 'MOVE',
     ),
   );
 
+  // unificar código com scroll observer
   if (gap.x || gap.y) {
     interface DragEventLast {
       last: DragEvent;

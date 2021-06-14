@@ -1,7 +1,7 @@
 import './parallax.scss';
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
 import { Axis } from '../../utilities/axis';
-import { ParallaxArgs } from './types/parallax.types';
+import { ParallaxArgs } from './parallax.types';
 
 export default function parallax({
   el = document.querySelector('[data-ovo-parallax]') as HTMLElement,

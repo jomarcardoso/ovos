@@ -1,11 +1,7 @@
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
 import { Axes, Axis } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
-import {
-  CreateScrollSpyItem,
-  Method,
-  ScrollSpyItem,
-} from './types/scroll-spy.type';
+import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
 
 const ACTIVE_CLASS = 'is-active';
 
