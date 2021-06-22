@@ -31,6 +31,7 @@
   "homepage": "https://github.com/jomarcardoso/ovo#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.5",
+    "lit-element": "^2.5.1",
     "lodash": "^4.17.20",
     "rxjs": "^7.1.0"
   },

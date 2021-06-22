@@ -9,7 +9,8 @@
     "declarationDir": "./types",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    // "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
     "baseUrl": "./src",
@@ -17,9 +18,13 @@
       "@/*": ["*"]
     },
     "lib": [
+      "es2017",
       "es2019",
       "DOM"
-    ]
+    ],
+    "target": "es2017",
+    "module": "es2015",
+    "moduleResolution": "node",
   },
   "include": ["src"],
   "exclude": [

@@ -51,6 +51,8 @@ const generateConfig = ({
       './src/interface/anchor/sample/index.ts',
     ['./src/utilities/element/sample/dist/index']:
       './src/utilities/element/sample/index.ts',
+    ['./src/v2/web-components/teste/sample/dist/index']:
+      './src/v2/web-components/teste/sample/index.ts',
   },
 }) => {
   const config = {

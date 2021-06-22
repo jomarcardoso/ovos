@@ -142,6 +142,7 @@ export default function Touch$({
         },
       };
     }, DROP_EVENT),
+    filter<DropEvent>((newEvent) => newEvent.type === 'END'),
     // copiado do scroll observer
     scan<DropEvent, DropEvent>((acc, curr) => {
       return {
@@ -152,7 +153,6 @@ export default function Touch$({
         }),
       };
     }),
-    filter<DropEvent>((newEvent) => newEvent.type === 'END'),
   );
 
   let drag$ = dragSubject$.pipe(
@@ -187,6 +187,9 @@ export default function Touch$({
         },
       };
     }, DRAG_EVENT),
+    filter<DragEvent>(
+      (newEvent) => newEvent.type === 'END' || newEvent.type === 'MOVE',
+    ),
     // copiado do scroll observer
     scan<DragEvent, DragEvent>((acc, curr) => {
       return {
@@ -197,9 +200,6 @@ export default function Touch$({
         }),
       };
     }),
-    filter<DragEvent>(
-      (newEvent) => newEvent.type === 'END' || newEvent.type === 'MOVE',
-    ),
   );
 
   // unificar código com scroll observer
