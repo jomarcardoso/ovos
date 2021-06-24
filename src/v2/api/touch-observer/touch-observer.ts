@@ -1,6 +1,6 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { filter, map, scan } from 'rxjs/operators';
 import {
   AXES,
@@ -60,7 +60,7 @@ export default function Touch$({
   el = document,
   gap = AXES,
 }: Args): Touch$Next {
-  function grabMouseOperator(type: TouchEventType) {
+  function mouseOperator(type: TouchEventType) {
     return map<MouseEvent, GrabEvent>((event) => {
       return {
         axes: {
@@ -70,6 +70,38 @@ export default function Touch$({
         type,
       };
     });
+  }
+
+  interface LastGrabEvent extends GrabEvent {
+    isGrabing: boolean;
+  }
+
+  const LAST_GRAB_EVENT: LastGrabEvent = {
+    ...GRAB_EVENT,
+    isGrabing: false,
+  };
+
+  function grabMouseOperator(a: Observable<GrabEvent>) {
+    return a.pipe(
+      map<GrabEvent, LastGrabEvent>((grabEvent) => {
+        return {
+          ...grabEvent,
+          isGrabing: grabEvent.type === 'START',
+        };
+      }),
+      scan<LastGrabEvent, LastGrabEvent>((last, curr) => {
+        const isGrabing =
+          last.type === 'START' ||
+          (last.isGrabing === true && curr.type === 'MOVE');
+
+        return {
+          ...curr,
+          isGrabing,
+        };
+      }, LAST_GRAB_EVENT),
+      filter<LastGrabEvent>((lastGrabEvent) => lastGrabEvent.isGrabing),
+      map<LastGrabEvent, GrabEvent>(({ axes, type }) => ({ axes, type })),
+    );
   }
 
   function grabTouchOperator(type: TouchEventType) {
@@ -84,23 +116,25 @@ export default function Touch$({
     });
   }
 
-  const mouseDown$ = fromEvent(el, 'mousedown').pipe(
-    grabMouseOperator('START'),
-  );
+  const mouseDown$ = fromEvent(el, 'mousedown').pipe(mouseOperator('START'));
 
   const touchStart$ = fromEvent(el, 'touchstart').pipe(
     grabTouchOperator('START'),
   );
 
-  const mouseUp$ = fromEvent(document, 'mouseup').pipe(
-    grabMouseOperator('END'),
-  );
+  const mouseUp$ = fromEvent(document, 'mouseup').pipe(mouseOperator('END'));
 
   const touchEnd$ = fromEvent(document, 'touchend').pipe(
     grabTouchOperator('END'),
   );
 
-  const mouseMove$ = fromEvent(el, 'mousemove').pipe(grabMouseOperator('MOVE'));
+  let mouseMove$ = merge(
+    mouseDown$,
+    mouseUp$,
+    fromEvent(document, ['mousemove']).pipe(mouseOperator('MOVE')),
+  );
+
+  mouseMove$ = grabMouseOperator(mouseMove$);
 
   const touchMove$ = fromEvent(el, 'touchmove').pipe(grabTouchOperator('MOVE'));
 
