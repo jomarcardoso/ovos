@@ -13,17 +13,17 @@ import { ScrollableElement } from '../../utilities/scroll';
 
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
-interface GrabEvent {
+export interface GrabEvent {
   axes: Axes;
   type: TouchEventType;
 }
 
-interface DropEvent extends GrabEvent {
+export interface DropEvent extends GrabEvent {
   relativeAxes: Axes;
   direction: Direction;
 }
 
-interface DragEvent extends DropEvent {
+export interface DragEvent extends DropEvent {
   startAxes: Axes;
   breakpointAxes: Axes;
 }
