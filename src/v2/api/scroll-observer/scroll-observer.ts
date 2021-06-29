@@ -4,6 +4,7 @@ import { fromEvent, Observable } from 'rxjs';
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';
+import { isNil } from 'lodash';
 import { ScrollableElement } from '../../utilities/scroll';
 import {
   getScrollingEl,
@@ -25,11 +26,13 @@ interface Args {
   gap?: Axes;
   debounce?: number;
   limit?: Positions;
+  maxRelative?: Partial<Positions>;
 }
 
 export interface Scroll$Next {
   event: UIEvent;
   axes: Axes;
+  relativeAxes: Axes;
   el: HTMLElement;
   direction: Direction;
 }
@@ -39,6 +42,12 @@ function Scroll$({
   gap = AXES,
   debounce = 0,
   limit = POSITIONS,
+  maxRelative = {
+    bottom: undefined,
+    left: undefined,
+    right: undefined,
+    top: undefined,
+  },
 }: Args): Observable<Scroll$Next> {
   const scrollingEl = getScrollingEl(el as HTMLElement & HTMLDocument);
 
@@ -51,10 +60,13 @@ function Scroll$({
 
   const scrollAxes$ = scroll$.pipe(
     map<UIEvent, ScrollAxes$>((event) => {
+      const axes = getScrollPosition({ el: scrollingEl });
+
       return {
         el: scrollingEl,
         event,
-        axes: getScrollPosition({ el: scrollingEl }),
+        axes,
+        relativeAxes: AXES,
       };
     }),
   );
@@ -130,6 +142,39 @@ function Scroll$({
       }),
     );
   }
+
+  scrollDirection$ = scrollDirection$.pipe(
+    scan<Scroll$Next, Scroll$Next>((acc, curr) => {
+      const xRelative = acc.relativeAxes.x + curr.axes.x - acc.axes.x;
+      const yRelative = acc.relativeAxes.y + curr.axes.y - acc.axes.y;
+
+      let x =
+        !isNil(maxRelative.left) && xRelative < maxRelative.left
+          ? maxRelative.left
+          : xRelative;
+
+      if (!isNil(maxRelative.right) && xRelative > maxRelative.right) {
+        x = maxRelative.right;
+      }
+
+      let y =
+        !isNil(maxRelative.top) && yRelative < maxRelative.top
+          ? maxRelative.top
+          : yRelative;
+
+      if (!isNil(maxRelative.bottom) && yRelative > maxRelative.bottom) {
+        y = maxRelative.bottom;
+      }
+
+      return {
+        ...curr,
+        relativeAxes: {
+          x,
+          y,
+        },
+      };
+    }),
+  );
 
   return scrollDirection$;
 }
