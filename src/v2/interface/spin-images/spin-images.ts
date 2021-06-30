@@ -119,7 +119,7 @@ const spinImages: SpinImages = ({
     el,
     gap: {
       x: rotateOnScrollDebounce,
-      y: 0,
+      y: rotateOnScrollDebounce,
     },
   });
 
