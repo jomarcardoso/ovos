@@ -4,7 +4,7 @@ import './main.scss';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Scroll$, Scroll$Next } from '..';
-import { Axes } from '@/v2/utilities/axis';
+import { Axes } from '../../../utilities/axis';
 
 const elDirection = document.querySelector('#direction');
 const elTag = document.querySelector('#element');

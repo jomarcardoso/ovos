@@ -1,8 +1,5 @@
 import './sticky-header.scss';
-import {
-  getHeight,
-  translate,
-} from '../../../utilities/element/element.utilities';
+import { getHeight, translate } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll-observer';
 
 export default function stickyHeader({

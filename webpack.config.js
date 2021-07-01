@@ -9,12 +9,8 @@ const generateConfig = ({
   bundle = false,
   entry = {
     ['./dist/ovos']: './src/ovos.ts',
-    ['./src/api/scroll-events/sample/dist/index']:
-      './src/api/scroll-events/sample/index.ts',
     ['./src/v2/api/scroll-observer/sample/dist/index']:
       './src/v2/api/scroll-observer/sample/index.ts',
-    ['./src/api/touch-events/sample/dist/index']:
-      './src/api/touch-events/sample/index.ts',
     ['./src/v2/api/touch-observer/sample/dist/index']:
       './src/v2/api/touch-observer/sample/index.ts',
     ['./src/v2/interface/scroll-spy/sample/dist/index']:
@@ -35,8 +31,6 @@ const generateConfig = ({
       './src/v2/interface/scrollable-sticky/sample/index.ts',
     ['./src/v2/interface/anchor/sample/dist/index']:
       './src/v2/interface/anchor/sample/index.ts',
-    ['./src/utilities/element/sample/dist/index']:
-      './src/utilities/element/sample/index.ts',
     ['./src/v2/web-components/teste/sample/dist/index']:
       './src/v2/web-components/teste/sample/index.ts',
   },
@@ -80,9 +74,6 @@ const generateConfig = ({
     externalsPresets: !bundle ? { node: true } : {},
     externals: !bundle ? [nodeExternals()] : [],
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src'),
-      },
       extensions: ['.ts', '.tsx', '.js', '.json'],
     },
     // optimization: {

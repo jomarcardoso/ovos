@@ -1,12 +1,13 @@
-import { Axis, Element, Position } from '../../../types/types';
+import { ScrollableElement } from '../../utilities/scroll';
+import { Axis, Positions } from '../../utilities/axis';
 
 export interface FitOnScreenArgs {
-  elRelative?: Element;
+  elRelative?: ScrollableElement;
   elsToFit?: Array<HTMLElement>;
   proximityToFit?: number;
   axis?: Axis;
   debounce?: number;
-  limit?: Position;
+  limit?: Positions;
 }
 
 interface IsNearOfElementArgs {

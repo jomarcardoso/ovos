@@ -1,4 +1,5 @@
 import { Axes, Positions } from '../axis';
+import { ScrollableElement } from '../scroll';
 import { getViewportHeight } from '../view/view.utilities';
 
 export function getScrollingEl(
@@ -35,6 +36,14 @@ export function getLeft(el: HTMLElement): number {
 
 export function getTop(el: HTMLElement): number {
   return el.offsetTop;
+}
+
+export function getHeight(el: HTMLElement): number {
+  return el.offsetHeight;
+}
+
+export function getWidth(el: HTMLElement): number {
+  return el.offsetWidth;
 }
 
 export function getMaxHorizontalScroll(el: HTMLElement): number {
@@ -105,3 +114,84 @@ export function isAboveAndBelowScreen(el: HTMLElement): boolean {
     isTopOfElementAboveOfViewport(el) && isBottomOfElementBelowOfViewport(el)
   );
 }
+
+export function getScrollParent(el: HTMLElement): ScrollableElement {
+  if (el == null) {
+    return document;
+  }
+
+  const elHTML = el as HTMLElement;
+
+  if (elHTML.scrollHeight > elHTML.clientHeight) {
+    if (elHTML.tagName === 'BODY' || elHTML.tagName === 'HTML') {
+      return document;
+    }
+
+    return elHTML;
+  }
+
+  return getScrollParent(elHTML.parentNode as HTMLElement);
+}
+
+export function getMiddleRelativeScreen(el: HTMLElement): Axes {
+  const { left, top } = getPositionRelativeScreen(el);
+  const height = getHeight(el);
+  const width = getWidth(el);
+
+  return {
+    x: left + width / 2,
+    y: top + height / 2,
+  };
+}
+
+export function translate({
+  el,
+  position,
+}: {
+  el: HTMLElement;
+  position: number;
+}): void {
+  // eslint-disable-next-line no-param-reassign
+  el.style.transform = `translate3d(0, -${position}px, 0)`;
+}
+
+interface ToggleScrollDisabledArgs {
+  el?: HTMLElement;
+  toggle?: boolean;
+}
+
+export type ToggleScrollDisabled = (args: ToggleScrollDisabledArgs) => void;
+
+interface ToggleDocumentScrollArgs {
+  toggle?: boolean;
+}
+
+export type ToggleDocumentScroll = (args: ToggleDocumentScrollArgs) => void;
+
+export const toggleScrollDisabled: ToggleScrollDisabled = ({
+  el = document.documentElement,
+  toggle: provisionalToggle,
+}) => {
+  const hasDataDisabled = el.dataset?.ovoNonScrollable === 'true';
+  const toggle = provisionalToggle ?? !hasDataDisabled;
+
+  function handlePreventScroll(event: Event): void {
+    event.preventDefault();
+  }
+
+  if (toggle) {
+    el.setAttribute('data-ovo-non-scrollable', 'true');
+    el.addEventListener('touchmove', handlePreventScroll);
+  } else {
+    el.setAttribute('data-ovo-non-scrollable', 'false');
+    el.removeEventListener('touchmove', handlePreventScroll);
+  }
+
+  return toggle;
+};
+
+export const toggleDocumentScroll: ToggleDocumentScroll = ({ toggle }) => {
+  toggleScrollDisabled({ el: document.documentElement, toggle });
+
+  return toggleScrollDisabled({ el: document.body, toggle });
+};

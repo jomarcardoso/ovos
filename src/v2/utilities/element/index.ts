@@ -10,4 +10,9 @@ export {
   getMaxHorizontalScroll,
   getMaxVerticalScroll,
   getPositionRelativeScreen,
+  getScrollParent,
+  getHeight,
+  getMiddleRelativeScreen,
+  getWidth,
+  translate,
 } from './element';

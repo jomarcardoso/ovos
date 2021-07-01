@@ -1,3 +1,4 @@
+import { getViewportHeight } from '../view/view.utilities';
 import { Axes, Direction } from './axis.types';
 
 export function getDirection({
@@ -50,4 +51,12 @@ export function isOnGap({
   if (beOnVerticalGap && beOnHorizontalGap) return true;
 
   return false;
+}
+
+export function isAboveTheScreen(position: number): boolean {
+  return position < 0;
+}
+
+export function isBelowTheScreen(position: number): boolean {
+  return position > getViewportHeight();
 }

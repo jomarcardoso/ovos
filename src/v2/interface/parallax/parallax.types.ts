@@ -1,4 +1,5 @@
-import { Axis, Element } from '../../../types/types';
+import { Axis } from '../../utilities/axis';
+import { ScrollableElement } from '../../utilities/scroll';
 
 type Callback = (translateY: number) => void;
 
@@ -7,7 +8,7 @@ export interface ParallaxArgs {
   elContent?: HTMLElement;
   callback?: Callback;
   distance?: number;
-  elRelative?: Element;
+  elRelative?: ScrollableElement;
   gap?: number;
   axis?: Axis;
 }

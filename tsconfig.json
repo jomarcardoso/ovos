@@ -14,9 +14,6 @@
     "declaration": true,
     "declarationMap": true,
     "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    },
     "lib": [
       "es2017",
       "es2019",
