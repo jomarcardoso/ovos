@@ -1,7 +1,7 @@
 import './carousel.scss';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
-import { Method } from '../scroll-spy/types/scroll-spy.type';
-import { Axis } from '../../types/types';
+import { Method } from '../scroll-spy/scroll-spy.types';
+import { Axis } from '../../../types/types';
 import { CreateSlide, Carousel, CarouselFitType } from './types/carousel.type';
 
 interface CustomCSSStyleDeclaration extends CSSStyleDeclaration {
