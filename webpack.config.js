@@ -23,8 +23,6 @@ const generateConfig = ({
       './src/v2/interface/page-progress/sample/index.ts',
     ['./src/v2/interface/fit-on-screen/sample/dist/index']:
       './src/v2/interface/fit-on-screen/sample/index.ts',
-    ['./src/interface/sticky/sample/dist/index']:
-      './src/interface/sticky/sample/index.ts',
     ['./src/v2/interface/spin-images/sample/dist/index']:
       './src/v2/interface/spin-images/sample/index.ts',
     ['./src/v2/interface/sticky-header/sample/dist/index']:
@@ -35,8 +33,8 @@ const generateConfig = ({
       './src/v2/interface/carousel/sample/index.ts',
     ['./src/v2/interface/scrollable-sticky/sample/dist/index']:
       './src/v2/interface/scrollable-sticky/sample/index.ts',
-    ['./src/interface/anchor/sample/dist/index']:
-      './src/interface/anchor/sample/index.ts',
+    ['./src/v2/interface/anchor/sample/dist/index']:
+      './src/v2/interface/anchor/sample/index.ts',
     ['./src/utilities/element/sample/dist/index']:
       './src/utilities/element/sample/index.ts',
     ['./src/v2/web-components/teste/sample/dist/index']:

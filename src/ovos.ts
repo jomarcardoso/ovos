@@ -3,7 +3,7 @@ export { default as scrollEvents } from './api/scroll-events/scroll-events';
 export { default as touchEvents } from './api/touch-events/touch-events';
 
 // interface
-export { default as anchor } from './interface/anchor/anchor';
+export { default as anchor } from './v2/interface/anchor/anchor';
 export { default as carousel } from './v2/interface/carousel/carousel';
 
 // utilities
