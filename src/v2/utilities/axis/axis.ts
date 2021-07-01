@@ -1,13 +1,12 @@
 import { Axes, Direction } from './axis.types';
 
-interface GetDirectionArgs {
+export function getDirection({
+  lastAxes,
+  axes,
+}: {
   lastAxes: Axes;
   axes: Axes;
-}
-
-type GetDirection = (args: GetDirectionArgs) => Direction;
-
-export const getDirection: GetDirection = ({ lastAxes, axes }) => {
+}): Direction {
   const onTheRight = lastAxes.x < axes.x;
   const onTheLeft = lastAxes.x > axes.x;
   const onDown = lastAxes.y < axes.y;
@@ -30,17 +29,17 @@ export const getDirection: GetDirection = ({ lastAxes, axes }) => {
   if (onTheLeft) return Direction.LEFT;
 
   return Direction.NONE;
-};
+}
 
-interface IsOnGapArgs {
+export function isOnGap({
+  axes,
+  lastAxes,
+  gap,
+}: {
   axes: Axes;
   lastAxes: Axes;
   gap: Partial<Axes>;
-}
-
-type IsOnGap = (args: IsOnGapArgs) => boolean;
-
-export const isOnGap: IsOnGap = ({ axes, lastAxes, gap }) => {
+}): boolean {
   const beOnVerticalGap = gap.y
     ? Math.abs(axes.y - lastAxes.y) < (gap.y ?? 0)
     : false;
@@ -51,4 +50,4 @@ export const isOnGap: IsOnGap = ({ axes, lastAxes, gap }) => {
   if (beOnVerticalGap && beOnHorizontalGap) return true;
 
   return false;
-};
+}

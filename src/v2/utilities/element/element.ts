@@ -13,17 +13,13 @@ export function getScrollingEl(
   return target as HTMLElement;
 }
 
-interface GetScrollPositionArgs {
-  el: HTMLElement;
-  variation?: Axes;
-}
-
-type GetScrollPosition = (args: GetScrollPositionArgs) => Axes;
-
-export const getScrollPosition: GetScrollPosition = ({
+export function getScrollPosition({
   el,
   variation = { x: 0, y: 0 },
-}) => {
+}: {
+  el: HTMLElement;
+  variation?: Axes;
+}): Axes {
   const x = Math.max(0, el.scrollLeft - variation.x);
   const y = Math.max(0, el.scrollTop - variation.y);
 
@@ -31,7 +27,7 @@ export const getScrollPosition: GetScrollPosition = ({
     x,
     y,
   };
-};
+}
 
 export function getLeft(el: HTMLElement): number {
   return el.offsetLeft;
@@ -49,15 +45,15 @@ export function getMaxVerticalScroll(el: HTMLElement): number {
   return el.scrollHeight - el.clientHeight;
 }
 
-interface IsOnGapArgs {
+export function isOutOfLimit({
+  axes,
+  limit,
+  el,
+}: {
   axes: Axes;
-  limit: Positions;
+  limit: Partial<Positions>;
   el: HTMLElement;
-}
-
-export type IsOnGap = (args: IsOnGapArgs) => boolean;
-
-export const isOutOfLimit: IsOnGap = ({ axes, limit, el }) => {
+}): boolean {
   if (limit.top) {
     const beOutOfTopLimit = axes.y < limit.top;
 
@@ -76,14 +72,14 @@ export const isOutOfLimit: IsOnGap = ({ axes, limit, el }) => {
     if (beOutOfRightLimit) return true;
   }
 
-  if (limit.top) {
+  if (limit.left) {
     const beOutOfLeftLimit = axes.x < limit.left;
 
     if (beOutOfLeftLimit) return true;
   }
 
   return false;
-};
+}
 
 export function getPositionRelativeScreen(el: HTMLElement): Positions {
   const { bottom, left, top, right } = el.getBoundingClientRect();
