@@ -1,6 +1,6 @@
 import './main.scss';
 import { Direction } from '../../../utilities/axis';
-import TouchObservable from '../touch-observer';
+import TouchObservable from '../touch-observer-2';
 
 const elXAxis = document.querySelector('#touch-result-1-x');
 const elYAxis = document.querySelector('#touch-result-1-y');

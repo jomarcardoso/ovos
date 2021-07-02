@@ -13,7 +13,7 @@
     // "resolveJsonModule": true,
     "declaration": true,
     "declarationMap": true,
-    "baseUrl": "./src",
+    // "baseUrl": "./src",
     "lib": [
       "es2017",
       "es2019",
