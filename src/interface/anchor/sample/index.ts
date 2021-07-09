@@ -1,2 +1,2 @@
-import './main.scss';
-import '../anchor';
+// import './main.scss';
+// import '../anchor';

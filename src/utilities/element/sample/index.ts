@@ -1,8 +1,8 @@
-import './main.scss';
-import { toggleDocumentScroll } from '../element.utilities';
+// import './main.scss';
+// import { toggleDocumentScroll } from '../element.utilities';
 
-const elButton = document.querySelector('button');
+// const elButton = document.querySelector('button');
 
-if (elButton) {
-  elButton.addEventListener('click', () => toggleDocumentScroll({}));
-}
+// if (elButton) {
+//   elButton.addEventListener('click', () => toggleDocumentScroll({}));
+// }

@@ -2,14 +2,17 @@
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, merge, Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { AXES, Axes } from '../../utilities/axis';
+import {
+  AXES,
+  Axes,
+  filterByAttributeAndGapOperator,
+} from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 type EventWithType = { event: TouchEvent | MouseEvent; type: TouchEventType };
 type TouchEventWithType = { event: TouchEvent; type: TouchEventType };
 type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
 type AxesWithType = { type: TouchEventType; axes: Axes };
-
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
 interface TouchObservableReturn {
@@ -85,7 +88,13 @@ export default function TouchObservable({
 
   const grab$ = merge(mouseDownAxes$, touchStartAxes$);
   const drop$ = merge(mouseUpAxes$, touchEndAxes$);
-  const drag$ = merge(mouseDragAxes$, touchMoveAxes$);
+  let drag$ = merge(mouseDragAxes$, touchMoveAxes$);
+
+  if (gap.x || gap.y) {
+    drag$ = drag$.pipe(
+      filterByAttributeAndGapOperator<AxesWithType>('axes', gap),
+    );
+  }
 
   return {
     grab$,

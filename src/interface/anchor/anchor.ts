@@ -1,137 +1,137 @@
-import {
-  getMiddleRelativeScreen,
-  getScrollParent,
-} from '../../utilities/element/element.utilities';
-import {
-  isAboveTheScreen,
-  isBelowTheScreen,
-} from '../../utilities/position/position.utilities';
-import { Direction, Axes } from '../../types/types';
-import { Anchor } from './types/anchor.types';
-import './anchor.scss';
+// import {
+//   getMiddleRelativeScreen,
+//   getScrollParent,
+// } from '../../utilities/element/element.utilities';
+// import {
+//   isAboveTheScreen,
+//   isBelowTheScreen,
+// } from '../../utilities/position/position.utilities';
+// import { Direction, Axes } from '../../types/types';
+// import { Anchor } from './types/anchor.types';
+// import './anchor.scss';
 
-interface GetOffsetArgs {
-  floatingMiddle: Axes;
-  toAnchorMiddle: Axes;
-}
+// interface GetOffsetArgs {
+//   floatingMiddle: Axes;
+//   toAnchorMiddle: Axes;
+// }
 
-type GetOffset = (args: GetOffsetArgs) => Direction;
+// type GetOffset = (args: GetOffsetArgs) => Direction;
 
-const anchor: Anchor = ({
-  elFloating = document.querySelector(
-    '[data-ovo-anchor="floating"]',
-  ) as HTMLElement | null,
-  elToAnchor = document.querySelector(
-    '[data-ovo-anchor="to-anchor"]',
-  ) as HTMLElement | null,
-}) => {
-  if (!elFloating || !elToAnchor) return;
+// const anchor: Anchor = ({
+//   elFloating = document.querySelector(
+//     '[data-ovo-anchor="floating"]',
+//   ) as HTMLElement | null,
+//   elToAnchor = document.querySelector(
+//     '[data-ovo-anchor="to-anchor"]',
+//   ) as HTMLElement | null,
+// }) => {
+//   if (!elFloating || !elToAnchor) return;
 
-  const elScrolling = getScrollParent(elToAnchor);
+//   const elScrolling = getScrollParent(elToAnchor);
 
-  let lastOffset: Direction = Direction.NONE;
-  let floating = true;
-  let lastToAnchorPosition: Direction = Direction.NONE;
+//   let lastOffset: Direction = Direction.NONE;
+//   let floating = true;
+//   let lastToAnchorPosition: Direction = Direction.NONE;
 
-  if (!elFloating || !elToAnchor) return;
+//   if (!elFloating || !elToAnchor) return;
 
-  function toFloat(position: Direction) {
-    if (floating && position === lastToAnchorPosition) return;
+//   function toFloat(position: Direction) {
+//     if (floating && position === lastToAnchorPosition) return;
 
-    lastToAnchorPosition = position;
+//     lastToAnchorPosition = position;
 
-    if (!elFloating) return;
+//     if (!elFloating) return;
 
-    // eslint-disable-next-line no-param-reassign
-    elFloating.dataset.anFixed = 'true';
-    floating = true;
+//     // eslint-disable-next-line no-param-reassign
+//     elFloating.dataset.anFixed = 'true';
+//     floating = true;
 
-    if (position === Direction.UP) {
-      // eslint-disable-next-line no-param-reassign
-      elFloating.dataset.anPosition = 'top';
+//     if (position === Direction.UP) {
+//       // eslint-disable-next-line no-param-reassign
+//       elFloating.dataset.anPosition = 'top';
 
-      return;
-    }
+//       return;
+//     }
 
-    // eslint-disable-next-line no-param-reassign
-    elFloating.dataset.anPosition = 'bottom';
-  }
+//     // eslint-disable-next-line no-param-reassign
+//     elFloating.dataset.anPosition = 'bottom';
+//   }
 
-  function toAnchor() {
-    if (!floating || !elFloating) return;
+//   function toAnchor() {
+//     if (!floating || !elFloating) return;
 
-    // eslint-disable-next-line no-param-reassign
-    elFloating.dataset.anFixed = 'false';
-    floating = false;
-  }
+//     // eslint-disable-next-line no-param-reassign
+//     elFloating.dataset.anFixed = 'false';
+//     floating = false;
+//   }
 
-  const getOffset: GetOffset = ({ floatingMiddle, toAnchorMiddle }) => {
-    if (floatingMiddle.y < toAnchorMiddle.y) {
-      return Direction.UP;
-    }
+//   const getOffset: GetOffset = ({ floatingMiddle, toAnchorMiddle }) => {
+//     if (floatingMiddle.y < toAnchorMiddle.y) {
+//       return Direction.UP;
+//     }
 
-    return Direction.DOWN;
-  };
+//     return Direction.DOWN;
+//   };
 
-  const verifyAndToAnchor = (offset: Direction) => {
-    if (lastOffset !== offset) {
-      lastOffset = offset;
-      toAnchor();
-    }
-  };
+//   const verifyAndToAnchor = (offset: Direction) => {
+//     if (lastOffset !== offset) {
+//       lastOffset = offset;
+//       toAnchor();
+//     }
+//   };
 
-  function verifyAboveAndToFloat(toAnchorMiddle: Axes) {
-    const aboveTheScreen = isAboveTheScreen(toAnchorMiddle.y);
+//   function verifyAboveAndToFloat(toAnchorMiddle: Axes) {
+//     const aboveTheScreen = isAboveTheScreen(toAnchorMiddle.y);
 
-    if (aboveTheScreen) {
-      toFloat(Direction.UP);
+//     if (aboveTheScreen) {
+//       toFloat(Direction.UP);
 
-      return true;
-    }
+//       return true;
+//     }
 
-    return false;
-  }
+//     return false;
+//   }
 
-  function verifyBelowAndToFloat(toAnchorMiddle: Axes) {
-    const belowTheScreen = isBelowTheScreen(toAnchorMiddle.y);
+//   function verifyBelowAndToFloat(toAnchorMiddle: Axes) {
+//     const belowTheScreen = isBelowTheScreen(toAnchorMiddle.y);
 
-    if (belowTheScreen) {
-      toFloat(Direction.DOWN);
+//     if (belowTheScreen) {
+//       toFloat(Direction.DOWN);
 
-      return true;
-    }
+//       return true;
+//     }
 
-    return false;
-  }
+//     return false;
+//   }
 
-  function handleScroll() {
-    if (!elFloating || !elToAnchor) return;
+//   function handleScroll() {
+//     if (!elFloating || !elToAnchor) return;
 
-    const floatingMiddle = getMiddleRelativeScreen(elFloating);
-    const toAnchorMiddle = getMiddleRelativeScreen(elToAnchor);
-    const offset = getOffset({ floatingMiddle, toAnchorMiddle });
+//     const floatingMiddle = getMiddleRelativeScreen(elFloating);
+//     const toAnchorMiddle = getMiddleRelativeScreen(elToAnchor);
+//     const offset = getOffset({ floatingMiddle, toAnchorMiddle });
 
-    if (verifyAboveAndToFloat(toAnchorMiddle)) return;
-    if (verifyBelowAndToFloat(toAnchorMiddle)) return;
+//     if (verifyAboveAndToFloat(toAnchorMiddle)) return;
+//     if (verifyBelowAndToFloat(toAnchorMiddle)) return;
 
-    verifyAndToAnchor(offset);
-  }
+//     verifyAndToAnchor(offset);
+//   }
 
-  handleScroll();
+//   handleScroll();
 
-  elScrolling.addEventListener('scroll', handleScroll);
-};
+//   elScrolling.addEventListener('scroll', handleScroll);
+// };
 
-function autoStart() {
-  const flag = document.querySelector(
-    '[data-ovo-anchor="to-anchor"][data-ovo-auto]',
-  );
+// function autoStart() {
+//   const flag = document.querySelector(
+//     '[data-ovo-anchor="to-anchor"][data-ovo-auto]',
+//   );
 
-  if (!flag) return;
+//   if (!flag) return;
 
-  anchor({});
-}
+//   anchor({});
+// }
 
-autoStart();
+// autoStart();
 
-export default anchor;
+// export default anchor;

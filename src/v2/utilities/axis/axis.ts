@@ -1,5 +1,9 @@
+// @ts-expect-error rxjs issue
+// eslint-disable-next-line import/no-unresolved
+import { pipe, UnaryFunction, Observable } from 'rxjs';
+import { filter, map, scan } from 'rxjs/operators';
 import { getViewportHeight } from '../view/view.utilities';
-import { Axes, Direction } from './axis.types';
+import { AXES, Axes, Direction } from './axis.types';
 
 export function getDirection({
   lastAxes,
@@ -59,4 +63,51 @@ export function isAboveTheScreen(position: number): boolean {
 
 export function isBelowTheScreen(position: number): boolean {
   return position > getViewportHeight();
+}
+
+export function filterByAttributeAndGapOperator<T>(
+  k: keyof T,
+  gap = AXES,
+): UnaryFunction<Observable<T>, Observable<T>> {
+  interface TWithLast {
+    last: T;
+    current: T;
+  }
+
+  return pipe(
+    map<T, TWithLast>((scrollObserver) => {
+      return {
+        current: scrollObserver,
+        last: scrollObserver,
+      };
+    }),
+    scan<TWithLast, TWithLast>((acc, curr) => {
+      const axes = acc.current[k] as unknown as Axes;
+      const lastAxes = acc.last[k] as unknown as Axes;
+
+      const onGap = isOnGap({
+        axes,
+        gap,
+        lastAxes,
+      });
+
+      return {
+        current: curr.current,
+        last: onGap ? acc.last : curr.current,
+      };
+    }),
+    filter<TWithLast>(({ current, last }) => {
+      const axes = current[k] as unknown as Axes;
+      const lastAxes = last[k] as unknown as Axes;
+
+      return !isOnGap({
+        axes,
+        gap,
+        lastAxes,
+      });
+    }),
+    map<TWithLast, T>((scrollObserver) => {
+      return scrollObserver.current;
+    }),
+  );
 }
