@@ -1,24 +1,28 @@
+/* eslint-disable */
+
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
-import { fromEvent, merge, Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { fromEvent, merge, Observable, of, Subject } from 'rxjs';
+import { map, scan, switchMap, takeUntil } from 'rxjs/operators';
 import {
   AXES,
   Axes,
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
+import { putRelativeAxesOperator } from '../../utilities/axis/axis';
+// import { putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 type EventWithType = { event: TouchEvent | MouseEvent; type: TouchEventType };
 type TouchEventWithType = { event: TouchEvent; type: TouchEventType };
 type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
-type AxesWithType = { type: TouchEventType; axes: Axes };
+type DragObserver = { type: TouchEventType; axes: Axes; relativeAxes: Axes; startAxes: Axes };
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
 interface TouchObservableReturn {
-  grab$: Observable<AxesWithType>;
-  drop$: Observable<AxesWithType>;
-  drag$: Observable<AxesWithType>;
+  grab$: Observable<DragObserver>;
+  drop$: Observable<DragObserver>;
+  drag$: Observable<DragObserver>;
 }
 
 export default function TouchObservable({
@@ -35,11 +39,7 @@ export default function TouchObservable({
   const touchEnd$ = fromEvent(document, 'touchend');
   const touchMove$ = fromEvent(el, 'touchmove');
 
-  console.log(gap);
-
-  const mouseDrag$ = mouseDown$.pipe(
-    switchMap(() => mouseMove$.pipe(takeUntil(mouseUp$))),
-  );
+  const mouse$ = merge(mouseDown$, mouseMove$, mouseUp$);
 
   function typeOperator(type: TouchEventType) {
     return map<TouchEvent | MouseEvent, EventWithType>((event) => ({
@@ -52,29 +52,45 @@ export default function TouchObservable({
   const touchStartType$ = touchStart$.pipe(typeOperator('START'));
   const mouseUpType$ = mouseUp$.pipe(typeOperator('END'));
   const touchEndType$ = touchEnd$.pipe(typeOperator('END'));
-  const mouseDragType$ = mouseDrag$.pipe(typeOperator('MOVE'));
+  const mouseMoveType$ = mouseMove$.pipe(typeOperator('MOVE'));
   const touchMoveType$ = touchMove$.pipe(typeOperator('MOVE'));
 
+  const mouseDragType$ = mouseDownType$.pipe(
+    switchMap(() => mouseMoveType$.pipe(takeUntil(mouseUpType$))),
+  );
+
+  const touchDragType$ = touchStartType$.pipe(
+    switchMap(() => touchMoveType$.pipe(takeUntil(touchEndType$))),
+  );
+
   function mouseAxesOperator() {
-    return map<MouseEventWithType, AxesWithType>(({ event, ...args }) => {
+    return map<MouseEventWithType, DragObserver>(({ event, ...args }) => {
+      const axes = {
+        x: event.screenX,
+        y: event.screenY,
+      };
+
       return {
         ...args,
-        axes: {
-          x: event.screenX,
-          y: event.screenY,
-        },
+        axes,
+        relativeAxes: AXES,
+        startAxes: axes,
       };
     });
   }
 
   function touchAxesOperator() {
-    return map<TouchEventWithType, AxesWithType>(({ event, ...args }) => {
+    return map<TouchEventWithType, DragObserver>(({ event, ...args }) => {
+      const axes = {
+        x: event.changedTouches[0].screenX,
+        y: event.changedTouches[0].screenY,
+      };
+
       return {
         ...args,
-        axes: {
-          x: event.changedTouches[0].screenX,
-          y: event.changedTouches[0].screenY,
-        },
+        axes,
+        relativeAxes: AXES,
+        startAxes: axes,
       };
     });
   }
@@ -84,7 +100,7 @@ export default function TouchObservable({
   const mouseUpAxes$ = mouseUpType$.pipe(mouseAxesOperator());
   const touchEndAxes$ = touchEndType$.pipe(touchAxesOperator());
   const mouseDragAxes$ = mouseDragType$.pipe(mouseAxesOperator());
-  const touchMoveAxes$ = touchMoveType$.pipe(touchAxesOperator());
+  const touchMoveAxes$ = touchDragType$.pipe(touchAxesOperator());
 
   const grab$ = merge(mouseDownAxes$, touchStartAxes$);
   const drop$ = merge(mouseUpAxes$, touchEndAxes$);
@@ -92,9 +108,11 @@ export default function TouchObservable({
 
   if (gap.x || gap.y) {
     drag$ = drag$.pipe(
-      filterByAttributeAndGapOperator<AxesWithType>('axes', gap),
+      filterByAttributeAndGapOperator<DragObserver>('axes', gap),
     );
   }
+
+  drag$ = drag$.pipe(putRelativeAxesOperator<DragObserver>('axes', 'relativeAxes', 'startAxes'))
 
   return {
     grab$,

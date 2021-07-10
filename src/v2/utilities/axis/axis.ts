@@ -1,7 +1,7 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
-import { filter, map, scan } from 'rxjs/operators';
+import { filter, map, scan, switchMap } from 'rxjs/operators';
 import { getViewportHeight } from '../view/view.utilities';
 import { AXES, Axes, Direction } from './axis.types';
 
@@ -96,9 +96,12 @@ export function filterByAttributeAndGapOperator<T>(
         last: onGap ? acc.last : curr.current,
       };
     }),
-    filter<TWithLast>(({ current, last }) => {
+    filter<TWithLast>(({ current, last }, index) => {
       const axes = current[k] as unknown as Axes;
       const lastAxes = last[k] as unknown as Axes;
+      const firstEvent = !index;
+
+      if (firstEvent) return true;
 
       return !isOnGap({
         axes,
@@ -108,6 +111,38 @@ export function filterByAttributeAndGapOperator<T>(
     }),
     map<TWithLast, T>((scrollObserver) => {
       return scrollObserver.current;
+    }),
+  );
+}
+
+export function putRelativeAxesOperator<T>(
+  k: keyof T,
+  relativeK: keyof T,
+  startK: keyof T,
+) {
+  return pipe(
+    scan<T, T>((acc, curr, index) => {
+      const firstRun = index === 1;
+      let startAxes = acc[startK] as unknown as Axes;
+      const currAxes = acc[k] as unknown as Axes;
+
+      if (firstRun) {
+        startAxes = currAxes;
+      }
+
+      console.log('oi', curr);
+
+      const relativeX = currAxes.x - startAxes.x;
+      const relativeY = currAxes.y - startAxes.y;
+
+      return {
+        ...curr,
+        [startK]: startAxes,
+        [relativeK]: {
+          x: relativeX,
+          y: relativeY,
+        },
+      };
     }),
   );
 }

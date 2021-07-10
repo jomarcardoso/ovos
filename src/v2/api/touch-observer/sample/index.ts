@@ -2,8 +2,10 @@ import './main.scss';
 import { Direction } from '../../../utilities/axis';
 import TouchObservable from '../touch-observer-2';
 
-const elXAxis = document.querySelector('#touch-result-1-x');
-const elYAxis = document.querySelector('#touch-result-1-y');
+const elXAxis = document.querySelector('#drag-axis-x');
+const elYAxis = document.querySelector('#drag-axis-y');
+const elRelXAxis = document.querySelector('#drag-rel-axis-x');
+const elRelYAxis = document.querySelector('#drag-rel-axis-y');
 const elStatus = document.querySelector('#touch-status-1');
 const elDropX = document.querySelector('#touch-drop-1-x');
 const elDropY = document.querySelector('#touch-drop-1-y');
@@ -43,13 +45,16 @@ drop$.subscribe(({ relativeAxes, direction }) => {
 });
 
 // @ts-expect-error rxjs issue
-drag$.subscribe(({ breakpointAxes, direction }) => {
-  if (!elXAxis || !elYAxis) return;
+drag$.subscribe(({ axes, relativeAxes }) => {
+  if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
-  elXAxis.innerHTML = String(breakpointAxes.x);
-  elYAxis.innerHTML = String(breakpointAxes.y);
+  elXAxis.innerHTML = String(axes.x);
+  elYAxis.innerHTML = String(axes.y);
 
-  showDirection(direction);
+  elRelXAxis.innerHTML = String(relativeAxes.x);
+  elRelYAxis.innerHTML = String(relativeAxes.y);
+
+  // showDirection(direction);
 });
 
 // function onXMove(fn: (i: number) => number) {
