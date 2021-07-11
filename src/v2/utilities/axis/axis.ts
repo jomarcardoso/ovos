@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
@@ -68,6 +70,10 @@ export function isBelowTheScreen(position: number): boolean {
 export function filterByAttributeAndGapOperator<T>(
   k: keyof T,
   gap = AXES,
+  ignoreWhen: {
+    key: keyof T,
+    value: any,
+  }
 ): UnaryFunction<Observable<T>, Observable<T>> {
   interface TWithLast {
     last: T;
@@ -100,8 +106,9 @@ export function filterByAttributeAndGapOperator<T>(
       const axes = current[k] as unknown as Axes;
       const lastAxes = last[k] as unknown as Axes;
       const firstEvent = !index;
+      const isToIgnore = current[ignoreWhen.key] === ignoreWhen.value
 
-      if (firstEvent) return true;
+      if (firstEvent || isToIgnore) return true;
 
       return !isOnGap({
         axes,
@@ -119,18 +126,22 @@ export function putRelativeAxesOperator<T>(
   k: keyof T,
   relativeK: keyof T,
   startK: keyof T,
+  restartWhen: {
+    key: keyof T,
+    value: any,
+  }
 ) {
   return pipe(
     scan<T, T>((acc, curr, index) => {
       const firstRun = index === 1;
+      const toRestart = curr[restartWhen.key] === restartWhen.value;
       let startAxes = acc[startK] as unknown as Axes;
-      const currAxes = acc[k] as unknown as Axes;
+      const currAxes = curr[k] as unknown as Axes;
 
-      if (firstRun) {
+      if (firstRun || toRestart) {
         startAxes = currAxes;
       }
 
-      console.log('oi', curr);
 
       const relativeX = currAxes.x - startAxes.x;
       const relativeY = currAxes.y - startAxes.y;

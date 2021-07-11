@@ -45,8 +45,10 @@ drop$.subscribe(({ relativeAxes, direction }) => {
 });
 
 // @ts-expect-error rxjs issue
-drag$.subscribe(({ axes, relativeAxes }) => {
+drag$.subscribe(({ axes, relativeAxes, type }) => {
   if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
+
+  // console.log(type, axes);
 
   elXAxis.innerHTML = String(axes.x);
   elYAxis.innerHTML = String(axes.y);
