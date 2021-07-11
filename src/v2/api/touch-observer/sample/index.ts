@@ -6,6 +6,8 @@ const elXAxis = document.querySelector('#drag-axis-x');
 const elYAxis = document.querySelector('#drag-axis-y');
 const elRelXAxis = document.querySelector('#drag-rel-axis-x');
 const elRelYAxis = document.querySelector('#drag-rel-axis-y');
+const elRelBreakXAxis = document.querySelector('#drag-rel-break-axis-x');
+const elRelBreakYAxis = document.querySelector('#drag-rel-break-axis-y');
 const elStatus = document.querySelector('#touch-status-1');
 const elDropX = document.querySelector('#touch-drop-1-x');
 const elDropY = document.querySelector('#touch-drop-1-y');
@@ -45,7 +47,7 @@ drop$.subscribe(({ relativeAxes, direction }) => {
 });
 
 // @ts-expect-error rxjs issue
-drag$.subscribe(({ axes, relativeAxes, type }) => {
+drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes }) => {
   if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
   // console.log(type, axes);
@@ -55,6 +57,11 @@ drag$.subscribe(({ axes, relativeAxes, type }) => {
 
   elRelXAxis.innerHTML = String(relativeAxes.x);
   elRelYAxis.innerHTML = String(relativeAxes.y);
+
+  if (!elRelBreakXAxis || !elRelBreakYAxis) return;
+
+  elRelBreakXAxis.innerHTML = String(relativeBreakpointAxes.x);
+  elRelBreakYAxis.innerHTML = String(relativeBreakpointAxes.y);
 
   // showDirection(direction);
 });

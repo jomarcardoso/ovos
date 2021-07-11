@@ -9,7 +9,7 @@ import {
   Axes,
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
-import { putRelativeAxesOperator } from '../../utilities/axis/axis';
+import { putAxesBreakpointOperator, putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
 // import { putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { ScrollableElement } from '../../utilities/scroll';
@@ -22,6 +22,7 @@ type DragObserver = {
   axes: Axes;
   relativeAxes: Axes;
   startAxes: Axes;
+  relativeBreakpointAxes: Axes;
 };
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
@@ -63,14 +64,20 @@ export default function TouchObservable({
 
   const mouseDragType$ = merge(
     mouseDownType$,
-    mouseUpType$,
     mouseDownType$.pipe(
-      switchMap(() => mouseMoveType$.pipe(takeUntil(mouseUpType$))),
+      switchMap(() =>
+        merge(mouseUpType$, mouseMoveType$.pipe(takeUntil(mouseUpType$))),
+      ),
     ),
   );
 
-  const touchDragType$ = touchStartType$.pipe(
-    switchMap(() => touchMoveType$.pipe(takeUntil(touchEndType$))),
+  const touchDragType$ = merge(
+    touchStartType$,
+    touchStartType$.pipe(
+      switchMap(() =>
+        merge(touchMoveType$, touchMoveType$.pipe(takeUntil(touchEndType$))),
+      ),
+    ),
   );
 
   function mouseAxesOperator() {
@@ -87,6 +94,7 @@ export default function TouchObservable({
         ...args,
         axes,
         relativeAxes: AXES,
+        relativeBreakpointAxes: AXES,
         startAxes: axes,
       };
     });
@@ -103,6 +111,7 @@ export default function TouchObservable({
         ...args,
         axes,
         relativeAxes: AXES,
+        relativeBreakpointAxes: AXES,
         startAxes: axes,
       };
     });
@@ -123,7 +132,7 @@ export default function TouchObservable({
     drag$ = drag$.pipe(
       filterByAttributeAndGapOperator<DragObserver>('axes', gap, {
         key: 'type',
-        value: 'START'
+        value: 'START',
       }),
     );
   }
@@ -131,9 +140,13 @@ export default function TouchObservable({
   drag$ = drag$.pipe(
     putRelativeAxesOperator<DragObserver>('axes', 'relativeAxes', 'startAxes', {
       key: 'type',
-      value: 'START'
+      value: 'START',
     }),
   );
+
+  drag$ = drag$.pipe(
+    putAxesBreakpointOperator<DragObserver>(gap, 'relativeAxes', 'relativeBreakpointAxes')
+  )
 
   return {
     grab$,

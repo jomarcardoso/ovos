@@ -157,3 +157,22 @@ export function putRelativeAxesOperator<T>(
     }),
   );
 }
+
+export function putAxesBreakpointOperator<T>(gap = AXES, k: keyof T, relativeBreakpointK: keyof T) {
+  return pipe(
+    map<T, T>((value) => {
+      const axes = value[k] as unknown as Axes;
+
+      const x = Math.floor(axes.x / gap.x || 1) - 1;
+      const y = Math.floor(axes.y / gap.y || 1) - 1;
+
+      return {
+        ...value,
+        [relativeBreakpointK]: {
+          x,
+          y,
+        },
+      }
+    })
+  )
+}
