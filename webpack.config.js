@@ -9,6 +9,8 @@ const generateConfig = ({
   bundle = false,
   entry = {
     ['./dist/ovos']: './src/ovos.ts',
+    ['./src/v2/utilities/element/sample/dist/index']:
+      './src/v2/utilities/element/sample/index.ts',
     ['./src/v2/api/scroll-observer/sample/dist/index']:
       './src/v2/api/scroll-observer/sample/index.ts',
     ['./src/v2/api/touch-observer/sample/dist/index']:
