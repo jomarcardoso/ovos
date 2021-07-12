@@ -1,6 +1,8 @@
+import './element.scss';
 import { Axes, Positions } from '../axis';
 import { ScrollableElement } from '../scroll';
 import { getViewportHeight } from '../view/view.utilities';
+import { Position } from '../../../types/types';
 
 export function getScrollingEl(
   target: HTMLElement | HTMLDocument,
@@ -195,3 +197,17 @@ export const toggleDocumentScroll: ToggleDocumentScroll = ({ toggle }) => {
 
   return toggleScrollDisabled({ el: document.body, toggle });
 };
+
+export function getPositionRelativeOfTheDocument(el: HTMLElement): Position {
+  const top = getTop(el);
+  const left = getLeft(el);
+  const height = getHeight(el);
+  const width = getWidth(el);
+
+  return {
+    top,
+    left,
+    bottom: top + height,
+    right: left + width,
+  };
+}
