@@ -9,30 +9,30 @@ const generateConfig = ({
   bundle = false,
   entry = {
     ['./dist/ovos']: './src/ovos.ts',
-    ['./src/v2/utilities/element/sample/dist/index']:
-      './src/v2/utilities/element/sample/index.ts',
-    ['./src/v2/api/scroll-observer/sample/dist/index']:
-      './src/v2/api/scroll-observer/sample/index.ts',
-    ['./src/v2/api/touch-observer/sample/dist/index']:
-      './src/v2/api/touch-observer/sample/index.ts',
-    ['./src/v2/interface/scroll-spy/sample/dist/index']:
-      './src/v2/interface/scroll-spy/sample/index.ts',
-    ['./src/v2/interface/page-progress/sample/dist/index']:
-      './src/v2/interface/page-progress/sample/index.ts',
-    ['./src/v2/interface/fit-on-screen/sample/dist/index']:
-      './src/v2/interface/fit-on-screen/sample/index.ts',
-    ['./src/v2/interface/spin-images/sample/dist/index']:
-      './src/v2/interface/spin-images/sample/index.ts',
-    ['./src/v2/interface/sticky-header/sample/dist/index']:
-      './src/v2/interface/sticky-header/sample/index.ts',
-    ['./src/v2/interface/parallax/sample/dist/index']:
-      './src/v2/interface/parallax/sample/index.ts',
-    ['./src/v2/interface/carousel/sample/dist/index']:
-      './src/v2/interface/carousel/sample/index.ts',
-    ['./src/v2/interface/scrollable-sticky/sample/dist/index']:
-      './src/v2/interface/scrollable-sticky/sample/index.ts',
-    ['./src/v2/interface/anchor/sample/dist/index']:
-      './src/v2/interface/anchor/sample/index.ts',
+    ['./src/utilities/element/sample/dist/index']:
+      './src/utilities/element/sample/index.ts',
+    ['./src/api/scroll/sample/dist/index']:
+      './src/api/scroll/sample/index.ts',
+    ['./src/api/touch/sample/dist/index']:
+      './src/api/touch/sample/index.ts',
+    ['./src/interface/scroll-spy/sample/dist/index']:
+      './src/interface/scroll-spy/sample/index.ts',
+    ['./src/interface/page-progress/sample/dist/index']:
+      './src/interface/page-progress/sample/index.ts',
+    ['./src/interface/fit-on-screen/sample/dist/index']:
+      './src/interface/fit-on-screen/sample/index.ts',
+    ['./src/interface/spin-images/sample/dist/index']:
+      './src/interface/spin-images/sample/index.ts',
+    ['./src/interface/sticky-header/sample/dist/index']:
+      './src/interface/sticky-header/sample/index.ts',
+    ['./src/interface/parallax/sample/dist/index']:
+      './src/interface/parallax/sample/index.ts',
+    ['./src/interface/carousel/sample/dist/index']:
+      './src/interface/carousel/sample/index.ts',
+    ['./src/interface/scrollable-sticky/sample/dist/index']:
+      './src/interface/scrollable-sticky/sample/index.ts',
+    ['./src/interface/anchor/sample/dist/index']:
+      './src/interface/anchor/sample/index.ts',
   },
 }) => {
   const config = {
