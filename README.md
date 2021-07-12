@@ -1,6 +1,7 @@
 # ovos 🍳
 
 ![build-status](https://travis-ci.com/jomarcardoso/ovos.svg?branch=master)
+[![npm](https://shields.io/npm/v/ovos)](https://www.npmjs.com/package/ovos)
 
 A library for animations based on scroll and touch events.
 
