@@ -1,7 +1,7 @@
 import './element.scss';
 import { Axes, Positions } from '../axis';
 import { ScrollableElement } from '../scroll';
-import { getViewportHeight } from '../view/view.utilities';
+import { getViewportHeight } from '../view/view';
 
 export function getScrollingEl(
   target: HTMLElement | HTMLDocument,

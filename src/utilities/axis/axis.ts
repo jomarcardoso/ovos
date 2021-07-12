@@ -5,7 +5,7 @@ import { filter, map, pairwise, scan } from 'rxjs/operators';
 import intersection from 'lodash/intersection';
 import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
-import { getViewportHeight } from '../view/view.utilities';
+import { getViewportHeight } from '../view/view';
 import { AXES, Axes, Direction, Positions, POSITIONS } from './axis.types';
 import { getMaxHorizontalScroll, getMaxVerticalScroll } from '../element';
 
