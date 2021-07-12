@@ -98,6 +98,7 @@ export default function TouchObservable({
         relativeAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
+        direction: Direction.NONE,
       };
     });
   }
@@ -115,6 +116,7 @@ export default function TouchObservable({
         relativeAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
+        direction: Direction.NONE,
       };
     });
   }

@@ -36,12 +36,12 @@ function showDirection(direction = Direction.NONE) {
 }
 
 // @ts-expect-error rxjs issue
-drop$.subscribe(({ relativeAxes, direction }) => {
+drop$.subscribe(({ axes }) => {
   if (!elStatus || !elDropX || !elDropY) return;
 
   elStatus.innerHTML = 'DROPPED';
-  elDropX.innerHTML = String(relativeAxes.x);
-  elDropY.innerHTML = String(relativeAxes.y);
+  elDropX.innerHTML = String(axes.x);
+  elDropY.innerHTML = String(axes.y);
 
   // showDirection(direction);
 });
@@ -63,7 +63,7 @@ drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction }) => {
   elRelBreakXAxis.innerHTML = String(relativeBreakpointAxes.x);
   elRelBreakYAxis.innerHTML = String(relativeBreakpointAxes.y);
 
-  console.log(direction);
+  // console.log(direction);
 
   showDirection(direction);
 });
