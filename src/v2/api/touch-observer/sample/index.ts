@@ -43,11 +43,11 @@ drop$.subscribe(({ relativeAxes, direction }) => {
   elDropX.innerHTML = String(relativeAxes.x);
   elDropY.innerHTML = String(relativeAxes.y);
 
-  showDirection(direction);
+  // showDirection(direction);
 });
 
 // @ts-expect-error rxjs issue
-drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes }) => {
+drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction }) => {
   if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
   // console.log(type, axes);
@@ -63,7 +63,9 @@ drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes }) => {
   elRelBreakXAxis.innerHTML = String(relativeBreakpointAxes.x);
   elRelBreakYAxis.innerHTML = String(relativeBreakpointAxes.y);
 
-  // showDirection(direction);
+  console.log(direction);
+
+  showDirection(direction);
 });
 
 // function onXMove(fn: (i: number) => number) {
@@ -88,7 +90,6 @@ drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes }) => {
 
 // function onDrop() {
 //   if (!elStatus) return;
-
 //   onYMove(() => 0);
 //   onXMove(() => 0);
 //   elStatus.innerHTML = 'GRAB!';

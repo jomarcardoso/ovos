@@ -3,7 +3,7 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
-import { filter, map, scan, switchMap } from 'rxjs/operators';
+import { filter, map, pairwise, scan, switchMap } from 'rxjs/operators';
 import { getViewportHeight } from '../view/view.utilities';
 import { AXES, Axes, Direction } from './axis.types';
 
@@ -173,6 +173,33 @@ export function putAxesBreakpointOperator<T>(gap = AXES, k: keyof T, relativeBre
           y,
         },
       }
+    })
+  )
+}
+
+export function putDirectionOperator<T>(k: keyof T, directionK: keyof T, ignoreWhen: {
+  key: keyof T,
+  value: any,
+}) {
+  return pipe(
+    pairwise(),
+    map<T[], T>(([last, curr]) => {
+      const lastAxes = last[k] as unknown as Axes;
+      const currAxes = curr[k] as unknown as Axes;
+      let direction = last[directionK] || Direction.NONE as unknown as Direction;
+      const isToIgnore = curr[ignoreWhen.key] === ignoreWhen.value;
+
+      if (!isToIgnore) {
+        direction = getDirection({
+          axes: currAxes,
+          lastAxes: lastAxes,
+        });
+      }
+
+      return {
+        ...curr,
+        [directionK]: direction
+      };
     })
   )
 }

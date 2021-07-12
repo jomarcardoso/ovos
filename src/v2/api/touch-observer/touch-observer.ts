@@ -9,6 +9,7 @@ import {
   getDirection,
   isOnGap,
 } from '../../utilities/axis';
+import { putDirectionOperator } from '../../utilities/axis/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
@@ -274,6 +275,8 @@ export default function Touch$({
       }),
     );
   }
+
+  drag$ = drag$.pipe(putDirectionOperator('axes', 'direction'));
 
   return {
     drop$,

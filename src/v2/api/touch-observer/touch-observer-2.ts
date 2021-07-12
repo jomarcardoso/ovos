@@ -4,12 +4,13 @@
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, merge, Observable, of, Subject } from 'rxjs';
 import { map, mergeMap, scan, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { Direction } from '../../../types/types';
 import {
   AXES,
   Axes,
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
-import { putAxesBreakpointOperator, putRelativeAxesOperator } from '../../utilities/axis/axis';
+import { putAxesBreakpointOperator, putDirectionOperator, putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
 // import { putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { ScrollableElement } from '../../utilities/scroll';
@@ -23,6 +24,7 @@ type DragObserver = {
   relativeAxes: Axes;
   startAxes: Axes;
   relativeBreakpointAxes: Axes;
+  direction: Direction;
 };
 type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
@@ -147,6 +149,11 @@ export default function TouchObservable({
   drag$ = drag$.pipe(
     putAxesBreakpointOperator<DragObserver>(gap, 'relativeAxes', 'relativeBreakpointAxes')
   )
+
+  drag$ = drag$.pipe(putDirectionOperator<DragObserver>('axes', 'direction', {
+    key: 'type',
+    value: 'START',
+  }));
 
   return {
     grab$,
