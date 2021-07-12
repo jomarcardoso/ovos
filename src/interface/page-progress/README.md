@@ -15,7 +15,7 @@ On HTML just put the attribute `data-ovo-pp="bar"`
 ```
 
 ```js
-import { PageProgress } from '../page-progress';
+import { PageProgress } from 'ovos';
 
 PageProgress({});
 ```
