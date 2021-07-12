@@ -1,3 +1,5 @@
+import { getTop } from '../element';
+
 export function scrollTopTo({
   scrollingElement = window,
   top = 0,
@@ -22,4 +24,10 @@ export function scrollLeftTo({
     left,
     behavior: 'smooth',
   });
+}
+
+export function documentScrollToElement(element: HTMLElement): void {
+  const valueToScroll = getTop(element);
+
+  scrollTopTo({ top: valueToScroll });
 }
