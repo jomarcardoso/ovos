@@ -18,7 +18,7 @@ import { ScrollableElement } from '../../utilities/scroll';
 type EventWithType = { event: TouchEvent | MouseEvent; type: TouchEventType };
 type TouchEventWithType = { event: TouchEvent; type: TouchEventType };
 type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
-type DragObserver = {
+export type DragObserver = {
   type: TouchEventType;
   axes: Axes;
   relativeAxes: Axes;

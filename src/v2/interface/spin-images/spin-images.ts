@@ -1,6 +1,6 @@
 import './spin-images.scss';
 import { Direction } from '../../utilities/axis';
-import { DragEvent, TouchObservable } from '../../api/touch-observer';
+import { DragObserver, TouchObservable } from '../../api/touch-observer';
 
 function setSpriteSize({
   elSprite,
@@ -127,7 +127,7 @@ const spinImages: SpinImages = ({
 
   touch$.drop$.subscribe(handleDrop);
 
-  touch$.drag$.subscribe((dragEvent: DragEvent) => {
+  touch$.drag$.subscribe((dragEvent: DragObserver) => {
     if (
       dragEvent.direction === Direction.LEFT ||
       dragEvent.direction === Direction.DOWN_LEFT ||

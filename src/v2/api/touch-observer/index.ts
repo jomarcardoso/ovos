@@ -1,6 +1,1 @@
-export {
-  DragEvent,
-  GrabEvent,
-  DropEvent,
-  default as TouchObservable,
-} from './touch-observer';
+export { DragObserver, default as TouchObservable } from './touch-observer-2';
