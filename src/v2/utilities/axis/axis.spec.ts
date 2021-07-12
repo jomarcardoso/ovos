@@ -4,6 +4,7 @@ import {
   isOnGap,
   isAboveTheScreen,
   isBelowTheScreen,
+  isOnTheSameDirection,
 } from './axis';
 
 describe('DirectionService', () => {
@@ -147,6 +148,134 @@ describe('DirectionService', () => {
       const expected: Direction = Direction.DOWN_LEFT;
 
       expect(direction).toBe(expected);
+    });
+  });
+
+  describe('isOnTheSameDirection', () => {
+    it('both down: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.DOWN,
+        lastDirection: Direction.DOWN,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('both up: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP,
+        lastDirection: Direction.UP,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('both left: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.LEFT,
+        lastDirection: Direction.LEFT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('both right: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.RIGHT,
+        lastDirection: Direction.RIGHT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('right left: false', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.RIGHT,
+        lastDirection: Direction.LEFT,
+      });
+
+      expect(sameDirection).toBe(false);
+    });
+
+    it('up down: false', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP,
+        lastDirection: Direction.DOWN,
+      });
+
+      expect(sameDirection).toBe(false);
+    });
+
+    it('up left: false', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP,
+        lastDirection: Direction.LEFT,
+      });
+
+      expect(sameDirection).toBe(false);
+    });
+
+    it('up right: false', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP,
+        lastDirection: Direction.RIGHT,
+      });
+
+      expect(sameDirection).toBe(false);
+    });
+
+    it('down-right right: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.DOWN_RIGHT,
+        lastDirection: Direction.RIGHT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('up-right right: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP_RIGHT,
+        lastDirection: Direction.RIGHT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('up-left right: false', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP_LEFT,
+        lastDirection: Direction.RIGHT,
+      });
+
+      expect(sameDirection).toBe(false);
+    });
+
+    it('up-left up-left: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP_LEFT,
+        lastDirection: Direction.UP_LEFT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('up up-left: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.UP,
+        lastDirection: Direction.UP_LEFT,
+      });
+
+      expect(sameDirection).toBe(true);
+    });
+
+    it('left down-left: true', () => {
+      const sameDirection = isOnTheSameDirection({
+        direction: Direction.LEFT,
+        lastDirection: Direction.DOWN_LEFT,
+      });
+
+      expect(sameDirection).toBe(true);
     });
   });
 

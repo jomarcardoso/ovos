@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';
+import intersection from 'lodash/intersection';
 import { getViewportHeight } from '../view/view.utilities';
 import { AXES, Axes, Direction } from './axis.types';
 
@@ -35,6 +36,56 @@ export function getDirection({
 
   return Direction.NONE;
 }
+
+interface IsOnTheSameDirectionArgs {
+  lastDirection: Direction;
+  direction: Direction;
+}
+
+type IsOnTheSameDirection = (args: IsOnTheSameDirectionArgs) => boolean;
+
+export const isOnTheSameDirection: IsOnTheSameDirection = ({
+  direction,
+  lastDirection,
+}) => {
+  let lastDirections: Array<Direction> = [lastDirection];
+
+  if (lastDirection === Direction.DOWN_LEFT) {
+    lastDirections = [Direction.DOWN, Direction.LEFT];
+  }
+
+  if (lastDirection === Direction.DOWN_RIGHT) {
+    lastDirections = [Direction.DOWN, Direction.RIGHT];
+  }
+
+  if (lastDirection === Direction.UP_LEFT) {
+    lastDirections = [Direction.UP, Direction.LEFT];
+  }
+
+  if (lastDirection === Direction.UP_RIGHT) {
+    lastDirections = [Direction.UP, Direction.RIGHT];
+  }
+
+  let directions: Array<Direction> = [direction];
+
+  if (direction === Direction.DOWN_LEFT) {
+    directions = [Direction.DOWN, Direction.LEFT];
+  }
+
+  if (direction === Direction.DOWN_RIGHT) {
+    directions = [Direction.DOWN, Direction.RIGHT];
+  }
+
+  if (direction === Direction.UP_LEFT) {
+    directions = [Direction.UP, Direction.LEFT];
+  }
+
+  if (direction === Direction.UP_RIGHT) {
+    directions = [Direction.UP, Direction.RIGHT];
+  }
+
+  return Boolean(intersection(lastDirections, directions).length);
+};
 
 export function isOnGap({
   axes,
