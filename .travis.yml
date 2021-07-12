@@ -10,8 +10,14 @@ script:
   - yarn test
 deploy:
   - provider: surge
-    project: ./src/api/scroll-events/sample/
-    domain: ovo-scroll-events.surge.sh
+    project: ./src/api/scroll/sample/
+    domain: ovo-scroll.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
+    project: ./src/api/touch/sample/
+    domain: ovo-touch.surge.sh
     skip_cleanup: true
     on:
       branch: master
