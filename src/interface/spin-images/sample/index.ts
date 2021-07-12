@@ -5,5 +5,5 @@ spinImages({
   quantityFrames: 17,
   // onGrab: () => el.classList.add('is-active'),
   // onDrop: () => el.classList.remove('is-active'),
-  rotateOnScrollDebounce: 160,
+  rotateOnScrollDebounce: 20,
 });

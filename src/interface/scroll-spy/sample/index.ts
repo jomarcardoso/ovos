@@ -1,7 +1,7 @@
 import './main.scss';
 import ScrollSpy, { createScrollSpyItem } from '../scroll-spy';
-import { Method } from '../types/scroll-spy.type';
-import { Axis } from '../../../types/types';
+import { Method } from '../scroll-spy.types';
+import { Axis } from '../../../utilities/axis';
 
 ScrollSpy({
   list: [
@@ -22,9 +22,9 @@ ScrollSpy({
       elContent: document.querySelector('#slide-4') as HTMLElement,
     }),
   ],
-  elRelative: (document.querySelector(
+  elRelative: document.querySelector(
     '#carousel ul',
-  ) as HTMLElement) as HTMLElement,
+  ) as HTMLElement as HTMLElement,
   axis: Axis.X,
   method: Method.closest,
 });

@@ -30,4 +30,10 @@ module.exports = {
       },
     ],
   },
+  overrides: [{
+    files: ['index.ts'],
+    rules: {
+      'import/prefer-default-export': 'off'
+    }
+  }]
 };

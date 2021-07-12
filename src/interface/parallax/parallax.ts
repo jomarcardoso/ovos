@@ -1,7 +1,7 @@
 import './parallax.scss';
-import ScrollEvents from '../../api/scroll-events/scroll-events';
-import { Axis, OnScrollArgs } from '../../types/types';
-import { ParallaxArgs } from './types/parallax.types';
+import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { Axis } from '../../utilities/axis';
+import { ParallaxArgs } from './parallax.types';
 
 export default function parallax({
   el = document.querySelector('[data-ovo-parallax]') as HTMLElement,
@@ -31,11 +31,8 @@ export default function parallax({
     if (callback) callback(translateY);
   }
 
-  function handleScroll({ scrollingElement }: OnScrollArgs): void {
-    const position =
-      axis === Axis.X
-        ? scrollingElement.scrollLeft
-        : scrollingElement.scrollTop;
+  function handleScroll({ axes, el: elScrolled }: Scroll$Next): void {
+    const position = axis === Axis.X ? axes.x : axes.y;
 
     function calculateTranslateY(currentPosition = 0) {
       const perspective = distance / 500 || 1;
@@ -45,7 +42,7 @@ export default function parallax({
     }
 
     function isElOnScreen({ translateY = 0 }) {
-      const { bottom, top } = el.getBoundingClientRect();
+      const { bottom, top } = elScrolled.getBoundingClientRect();
       const visualBottom = bottom - translateY;
       const topOnScreen = top >= 0;
       const bottomOnScreen = visualBottom >= 0;
@@ -71,10 +68,11 @@ export default function parallax({
   }
 
   function bindScroll() {
-    ScrollEvents({
+    const observable = Scroll$({
       el: elRelative,
-      onScroll: handleScroll,
     });
+
+    observable.subscribe(handleScroll);
   }
 
   bindScroll();

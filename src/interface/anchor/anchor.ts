@@ -1,14 +1,15 @@
+import { Anchor } from './types/anchor.types';
+import './anchor.scss';
+import {
+  Axes,
+  Direction,
+  isAboveTheScreen,
+  isBelowTheScreen,
+} from '../../utilities/axis';
 import {
   getMiddleRelativeScreen,
   getScrollParent,
-} from '../../utilities/element/element.utilities';
-import {
-  isAboveTheScreen,
-  isBelowTheScreen,
-} from '../../utilities/position/position.utilities';
-import { Direction, Axes } from '../../types/types';
-import { Anchor } from './types/anchor.types';
-import './anchor.scss';
+} from '../../utilities/element';
 
 interface GetOffsetArgs {
   floatingMiddle: Axes;

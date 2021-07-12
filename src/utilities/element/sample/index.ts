@@ -1,5 +1,5 @@
 import './main.scss';
-import { toggleDocumentScroll } from '../element.utilities';
+import { toggleDocumentScroll } from '../element';
 
 const elButton = document.querySelector('button');
 

@@ -1,11 +1,7 @@
-import scrollEvents from '../../api/scroll-events/scroll-events';
-import { getScrollingEl } from '../../utilities/element/element.utilities';
-import { Axes, Axis, Element, OnScrollArgs } from '../../types/types';
-import {
-  CreateScrollSpyItem,
-  Method,
-  ScrollSpyItem,
-} from './types/scroll-spy.type';
+import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { Axes, Axis } from '../../utilities/axis';
+import { ScrollableElement } from '../../utilities/scroll';
+import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
 
 const ACTIVE_CLASS = 'is-active';
 
@@ -39,7 +35,7 @@ export const createScrollSpyItem: CreateScrollSpyItem = ({
 
 interface ScrollSpyArgs {
   list: Array<ScrollSpyItem>;
-  elRelative?: Element;
+  elRelative?: ScrollableElement;
   method?: Method;
   axis?: Axis;
 }
@@ -51,8 +47,10 @@ export default function scrollSpy({
   axis = Axis.Y,
 }: ScrollSpyArgs): void {
   let currentActive: ScrollSpyItem;
-  let getTheActive: (postion: Axes) => ScrollSpyItem;
-  const scrollingElement = getScrollingEl(elRelative);
+  let getTheActive: (
+    postion: Axes,
+    scrollingElement: HTMLElement,
+  ) => ScrollSpyItem;
 
   function getTheCurrent(position: Axes): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
@@ -69,7 +67,10 @@ export default function scrollSpy({
     });
   }
 
-  function getTheClosest(position: Axes): ScrollSpyItem {
+  function getTheClosest(
+    position: Axes,
+    scrollingElement: HTMLElement,
+  ): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
         axis === Axis.Y
@@ -124,8 +125,8 @@ export default function scrollSpy({
     getTheActive = getTheClosest;
   }
 
-  function handleScroll({ scrollPosition }: OnScrollArgs) {
-    const currentToActive = getTheActive(scrollPosition);
+  function handleScroll({ axes, el: scrollingElement }: Scroll$Next) {
+    const currentToActive = getTheActive(axes, scrollingElement);
 
     if (currentToActive !== currentActive) {
       if (currentToActive.activate) currentToActive.activate();
@@ -135,8 +136,9 @@ export default function scrollSpy({
     currentActive = currentToActive;
   }
 
-  scrollEvents({
+  const observable = Scroll$({
     el: elRelative,
-    onScroll: handleScroll,
   });
+
+  observable.subscribe(handleScroll);
 }

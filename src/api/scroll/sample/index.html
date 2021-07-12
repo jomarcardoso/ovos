@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OVO - Scroll Events</title>
+</head>
+<body>
+  <section>
+    <article>
+      Direction: <strong id="direction"></strong> <br><br>
+      Position: { <strong id="x"></strong> | <strong id="y"></strong> } <br><br>
+      Scrolling element: <strong id="element"></strong><br><br>
+      <input type="number" id="gap" placeholder="vão entre os eventos em px" title="o padrão é zero, significa que o evento será propagado a todo tempo.">
+      <br><br>
+      <input type="number" id="debounce" placeholder="tempo de reação depois de parar de rolar" title="debounce: enquanto ficar rolando a página será ignorado os eventos, aí quando parar e der o tempo aqui especificado é que ocorrerá a reação.">
+    </article>
+  </section>
+  <script src="./dist/index.js"></script>
+</body>
+</html>

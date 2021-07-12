@@ -1,6 +1,6 @@
 import './spin-images.scss';
-import touchEvents from '../../api/touch-events/touch-events';
-import scrollEvents from '../../api/scroll-events/scroll-events';
+import { Direction } from '../../utilities/axis';
+import { Touch$Next, Touch$ } from '../../api/touch';
 
 function setSpriteSize({
   elSprite,
@@ -47,7 +47,7 @@ type SpinImages = (args: SpinImagesArgs) => void;
 
 const spinImages: SpinImages = ({
   quantityFrames = 1,
-  el = document.querySelector('[data-jo="spinimages"]'),
+  el = document.querySelector('[data-jo="spinimages"]') as HTMLElement,
   autoRotateTime = 0,
   clockwise = true,
   onGrab,
@@ -88,15 +88,6 @@ const spinImages: SpinImages = ({
     }, autoRotateTime);
   }
 
-  function bindScrollEvent() {
-    scrollEvents({
-      debounce: {
-        x: rotateOnScrollDebounce,
-      },
-      onScroll: rotateClockwise,
-    });
-  }
-
   function handleGrab() {
     if (!el) return;
 
@@ -117,21 +108,41 @@ const spinImages: SpinImages = ({
     if (autoRotateTime) {
       autoRotate();
     }
-
-    if (rotateOnScrollDebounce) {
-      bindScrollEvent();
-    }
   });
 
   setSpriteSize({ elSprite: elSprite as Element, quantityFrames });
   frameSize = getFramePersentSize(quantityFrames);
 
-  touchEvents({
+  if (!el) return;
+
+  const touch$ = Touch$({
     el,
-    onDragLeft: rotateClockwise,
-    onDragRight: rotateCounterclockwise,
-    onGrab: handleGrab,
-    onDrop: handleDrop,
+    gap: {
+      x: rotateOnScrollDebounce,
+      y: rotateOnScrollDebounce,
+    },
+  });
+
+  touch$.grab$.subscribe(handleGrab);
+
+  touch$.drop$.subscribe(handleDrop);
+
+  touch$.drag$.subscribe((dragEvent: Touch$Next) => {
+    if (
+      dragEvent.direction === Direction.LEFT ||
+      dragEvent.direction === Direction.DOWN_LEFT ||
+      dragEvent.direction === Direction.UP_LEFT
+    ) {
+      rotateClockwise();
+    }
+
+    if (
+      dragEvent.direction === Direction.RIGHT ||
+      dragEvent.direction === Direction.DOWN_RIGHT ||
+      dragEvent.direction === Direction.UP_RIGHT
+    ) {
+      rotateCounterclockwise();
+    }
   });
 };
 

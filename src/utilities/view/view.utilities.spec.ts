@@ -1,4 +1,4 @@
-import { getTotalViewScrolled } from './view.utilities';
+import { getTotalViewScrolled } from './view';
 
 describe('ViewUtilities', () => {
   describe('getScrollViewPosition', () => {

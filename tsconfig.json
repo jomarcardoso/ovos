@@ -3,20 +3,31 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
-    "skipLibCheck": true,
-    "outDir": "./types/",
+    // "skipLibCheck": true,
+    // "skipDefaultLibCheck": true,
+    "outDir": "./dist",
+    "declarationDir": "./types",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "declaration": true,
     "declarationMap": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "lib": [
+      "es2017",
       "es2019",
       "DOM"
-    ]
+    ],
+    "target": "es2017",
+    "module": "es2015",
+    "moduleResolution": "node",
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "**/*.d.ts",
+    "node_modules",
+    "dist",
+    "types",
+    "coverage",
+    "reports"
+  ]
 }

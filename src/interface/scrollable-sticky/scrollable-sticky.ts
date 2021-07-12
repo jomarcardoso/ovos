@@ -1,13 +1,12 @@
 import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
-import scrollEvents from '../../api/scroll-events/scroll-events';
-import { OnScrollArgs } from '../../types/types';
-import { ScrollableStickyArgs } from './types/scrollable-sticky.types';
-import { getViewportHeight } from '../../utilities/view/view.utilities';
+import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { ScrollableStickyArgs } from './scrollable-sticky.types';
+import { getViewportHeight } from '../../utilities/view/view';
 import {
   isBottomOfElementBelowOfViewport,
   isAboveAndBelowScreen,
-} from '../../utilities/element/element.utilities';
+} from '../../utilities/element';
 
 export default function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
@@ -82,11 +81,11 @@ export default function scrollableSticky({
     unpinOnBottom();
   }
 
-  const handleScroll = ((): ((args: OnScrollArgs) => void) => {
+  const handleScroll = ((): ((args: Scroll$Next) => void) => {
     let toScroll = 0;
     let lastPositionScroll = 0;
 
-    return ({ scrollPosition: { y: scrollPosition } }) => {
+    return ({ axes: { y: scrollPosition } }) => {
       pinAndFix();
 
       if (!fixed) return;
@@ -112,11 +111,7 @@ export default function scrollableSticky({
     };
   })();
 
-  function bindEvents() {
-    scrollEvents({
-      onScroll: handleScroll,
-    });
-  }
+  const observable = Scroll$({});
 
-  bindEvents();
+  observable.subscribe(handleScroll);
 }

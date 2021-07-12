@@ -1,9 +1,5 @@
-import scrollEvents from '../../api/scroll-events/scroll-events';
-import { OnScrollArgs } from '../../types/types';
-import {
-  getMaxVerticalScroll,
-  getScrollingEl,
-} from '../../utilities/element/element.utilities';
+import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { getMaxVerticalScroll, getScrollingEl } from '../../utilities/element';
 
 interface PageProgressArgs {
   el?: HTMLElement;
@@ -21,14 +17,14 @@ const pageProgress: PageProgress = ({
   // eslint-disable-next-line no-param-reassign
   el.style.transformOrigin = 'left';
 
-  function handleScroll({ scrollPosition: { y } }: OnScrollArgs) {
+  function handleScroll({ axes: { y } }: Scroll$Next) {
     const percent = y / getMaxVerticalScroll(elRelative);
 
     // eslint-disable-next-line no-param-reassign
     el.style.transform = `scaleX(${percent})`;
   }
 
-  scrollEvents({ onScroll: handleScroll });
+  Scroll$({}).subscribe(handleScroll);
 };
 
 export default pageProgress;

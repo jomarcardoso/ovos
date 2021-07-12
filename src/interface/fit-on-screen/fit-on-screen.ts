@@ -1,11 +1,8 @@
-import { Axis } from '../../types/types';
-import { getLeft, getTop } from '../../utilities/element/element.utilities';
-import scrollEvents from '../../api/scroll-events/scroll-events';
-import {
-  scrollTopTo,
-  scrollLeftTo,
-} from '../../utilities/scroll/scroll.utilities';
-import { FitOnScreenArgs, IsNearOfElement } from './types/fit-on-screen.types';
+import { Axis, POSITIONS } from '../../utilities/axis';
+import { getLeft, getTop } from '../../utilities/element';
+import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scrollTopTo, scrollLeftTo } from '../../utilities/scroll';
+import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
   if (axis === Axis.Y) return getTop(el);
@@ -24,8 +21,8 @@ export default function fitOnScreen({
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
   axis = Axis.Y,
-  lazyTime = 1000,
-  gap,
+  debounce = 1000,
+  limit = POSITIONS,
 }: FitOnScreenArgs): void {
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
     const offsetElToFit = getOffsetByAxis({ axis, el: elToFit });
@@ -44,13 +41,9 @@ export default function fitOnScreen({
     );
   }
 
-  function handleScroll({
-    scrollingElement,
-  }: {
-    scrollingElement: HTMLElement;
-  }) {
+  function handleScroll({ el }: Scroll$Next) {
     const nearElement = getNearElement({
-      scrolledPosition: getScrolledByAxis({ el: scrollingElement, axis }),
+      scrolledPosition: getScrolledByAxis({ el, axis }),
     });
 
     if (!nearElement) return;
@@ -58,7 +51,7 @@ export default function fitOnScreen({
     if (axis === Axis.Y) {
       scrollTopTo({
         top: getOffsetByAxis({ axis, el: nearElement }),
-        scrollingElement,
+        scrollingElement: el,
       });
 
       return;
@@ -66,17 +59,18 @@ export default function fitOnScreen({
 
     scrollLeftTo({
       left: getOffsetByAxis({ axis, el: nearElement }),
-      scrollingElement,
+      scrollingElement: el,
     });
   }
 
   function bindEvents() {
-    scrollEvents({
+    const observable = Scroll$({
       el: elRelative,
-      onScroll: handleScroll,
-      lazyTime,
-      gap,
+      debounce,
+      limit,
     });
+
+    observable.subscribe(handleScroll);
   }
 
   bindEvents();
