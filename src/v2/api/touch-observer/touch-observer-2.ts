@@ -2,10 +2,10 @@
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, merge, Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Direction } from '../../../types/types';
 import {
   AXES,
   Axes,
+  Direction,
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
 import {

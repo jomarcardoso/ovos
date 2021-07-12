@@ -6,8 +6,7 @@ import intersection from 'lodash/intersection';
 import isNil from 'lodash/isNil';
 import isNumber from 'lodash/isNumber';
 import { getViewportHeight } from '../view/view.utilities';
-import { AXES, Axes, Direction, POSITIONS } from './axis.types';
-import { Position } from '../../../types/types';
+import { AXES, Axes, Direction, Positions, POSITIONS } from './axis.types';
 import { getMaxHorizontalScroll, getMaxVerticalScroll } from '../element';
 
 export function getDirection({
@@ -268,7 +267,7 @@ export interface GetRelativeScrollPositionArgs {
   position: Axes;
   lastRelativePosition?: Axes;
   lastPosition?: Axes;
-  limit?: Partial<Position>;
+  limit?: Partial<Positions>;
 }
 
 export type GetRelativePosition = (args: GetRelativeScrollPositionArgs) => Axes;
@@ -296,7 +295,7 @@ export const getRelativePosition: GetRelativePosition = ({
 };
 
 export interface IsOnTheRegionArgs {
-  region: Position;
+  region: Positions;
   position: Axes;
 }
 
@@ -310,7 +309,7 @@ export const isOnTheRegion: IsOnTheRegion = ({ region, position }) => {
 };
 
 export interface IsOutOfLimitArgs {
-  limit?: Partial<Position>;
+  limit?: Partial<Positions>;
   position: Axes;
 }
 
@@ -365,7 +364,7 @@ export const isSafe: IsSafe = ({ position, lastPosition, debounce }) => {
 
 interface IsOnGapArgs {
   position: Axes;
-  gap: Partial<Position>;
+  gap: Partial<Positions>;
   el: HTMLElement;
 }
 

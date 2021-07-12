@@ -1,4 +1,4 @@
-import { Position } from '../../../types/types';
+import { Positions } from '../axis';
 import {
   getScrollingEl,
   getScrollPosition,
@@ -287,7 +287,7 @@ describe('element utilities', () => {
 
     it('middle of the document', () => {
       const position = getPositionRelativeOfTheDocument(el);
-      const expected: Position = {
+      const expected: Positions = {
         bottom: 200,
         left: 50,
         right: 150,
