@@ -1,16 +1,18 @@
-/* eslint-disable */
-
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
-import { fromEvent, merge, Observable, of, Subject } from 'rxjs';
-import { map, mergeMap, scan, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { fromEvent, merge, Observable } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Direction } from '../../../types/types';
 import {
   AXES,
   Axes,
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
-import { putAxesBreakpointOperator, putDirectionOperator, putRelativeAxesOperator } from '../../utilities/axis/axis';
+import {
+  putAxesBreakpointOperator,
+  putDirectionOperator,
+  putRelativeAxesOperator,
+} from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
 // import { putRelativeAxesOperator } from '../../utilities/axis/axis';
 import { ScrollableElement } from '../../utilities/scroll';
@@ -47,8 +49,6 @@ export default function TouchObservable({
   const touchStart$ = fromEvent(el, 'touchstart');
   const touchEnd$ = fromEvent(document, 'touchend');
   const touchMove$ = fromEvent(el, 'touchmove');
-
-  const mouse$ = merge(mouseDown$, mouseMove$, mouseUp$);
 
   function typeOperator(type: TouchEventType) {
     return map<TouchEvent | MouseEvent, EventWithType>((event) => ({
@@ -149,13 +149,19 @@ export default function TouchObservable({
   );
 
   drag$ = drag$.pipe(
-    putAxesBreakpointOperator<DragObserver>(gap, 'relativeAxes', 'relativeBreakpointAxes')
-  )
+    putAxesBreakpointOperator<DragObserver>(
+      gap,
+      'relativeAxes',
+      'relativeBreakpointAxes',
+    ),
+  );
 
-  drag$ = drag$.pipe(putDirectionOperator<DragObserver>('axes', 'direction', {
-    key: 'type',
-    value: 'START',
-  }));
+  drag$ = drag$.pipe(
+    putDirectionOperator<DragObserver>('axes', 'direction', {
+      key: 'type',
+      value: 'START',
+    }),
+  );
 
   return {
     grab$,

@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
-import { filter, map, pairwise, scan, switchMap } from 'rxjs/operators';
+import { filter, map, pairwise, scan } from 'rxjs/operators';
 import { getViewportHeight } from '../view/view.utilities';
 import { AXES, Axes, Direction } from './axis.types';
 
@@ -71,9 +69,9 @@ export function filterByAttributeAndGapOperator<T>(
   k: keyof T,
   gap = AXES,
   ignoreWhen: {
-    key: keyof T,
-    value: any,
-  }
+    key: keyof T;
+    value: T[typeof k];
+  },
 ): UnaryFunction<Observable<T>, Observable<T>> {
   interface TWithLast {
     last: T;
@@ -106,7 +104,7 @@ export function filterByAttributeAndGapOperator<T>(
       const axes = current[k] as unknown as Axes;
       const lastAxes = last[k] as unknown as Axes;
       const firstEvent = !index;
-      const isToIgnore = current[ignoreWhen.key] === ignoreWhen.value
+      const isToIgnore = current[ignoreWhen.key] === ignoreWhen.value;
 
       if (firstEvent || isToIgnore) return true;
 
@@ -127,10 +125,10 @@ export function putRelativeAxesOperator<T>(
   relativeK: keyof T,
   startK: keyof T,
   restartWhen: {
-    key: keyof T,
-    value: any,
-  }
-) {
+    key: keyof T;
+    value: T[typeof k];
+  },
+): UnaryFunction<Observable<T>, Observable<T>> {
   return pipe(
     scan<T, T>((acc, curr, index) => {
       const firstRun = index === 1;
@@ -141,8 +139,6 @@ export function putRelativeAxesOperator<T>(
       if (firstRun || toRestart) {
         startAxes = currAxes;
       }
-
-
       const relativeX = currAxes.x - startAxes.x;
       const relativeY = currAxes.y - startAxes.y;
 
@@ -158,7 +154,11 @@ export function putRelativeAxesOperator<T>(
   );
 }
 
-export function putAxesBreakpointOperator<T>(gap = AXES, k: keyof T, relativeBreakpointK: keyof T) {
+export function putAxesBreakpointOperator<T>(
+  gap = AXES,
+  k: keyof T,
+  relativeBreakpointK: keyof T,
+): UnaryFunction<Observable<T>, Observable<T>> {
   return pipe(
     map<T, T>((value) => {
       const axes = value[k] as unknown as Axes;
@@ -172,34 +172,39 @@ export function putAxesBreakpointOperator<T>(gap = AXES, k: keyof T, relativeBre
           x,
           y,
         },
-      }
-    })
-  )
+      };
+    }),
+  );
 }
 
-export function putDirectionOperator<T>(k: keyof T, directionK: keyof T, ignoreWhen: {
-  key: keyof T,
-  value: any,
-}) {
+export function putDirectionOperator<T>(
+  k: keyof T,
+  directionK: keyof T,
+  ignoreWhen: {
+    key: keyof T;
+    value: T[typeof k];
+  },
+): UnaryFunction<Observable<T>, Observable<T>> {
   return pipe(
     pairwise(),
     map<T[], T>(([last, curr]) => {
       const lastAxes = last[k] as unknown as Axes;
       const currAxes = curr[k] as unknown as Axes;
-      let direction = last[directionK] || Direction.NONE as unknown as Direction;
+      let direction =
+        last[directionK] || (Direction.NONE as unknown as Direction);
       const isToIgnore = curr[ignoreWhen.key] === ignoreWhen.value;
 
       if (!isToIgnore) {
         direction = getDirection({
           axes: currAxes,
-          lastAxes: lastAxes,
+          lastAxes,
         });
       }
 
       return {
         ...curr,
-        [directionK]: direction
+        [directionK]: direction,
       };
-    })
-  )
+    }),
+  );
 }
