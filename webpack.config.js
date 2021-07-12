@@ -33,8 +33,6 @@ const generateConfig = ({
       './src/v2/interface/scrollable-sticky/sample/index.ts',
     ['./src/v2/interface/anchor/sample/dist/index']:
       './src/v2/interface/anchor/sample/index.ts',
-    ['./src/v2/web-components/teste/sample/dist/index']:
-      './src/v2/web-components/teste/sample/index.ts',
   },
 }) => {
   const config = {
