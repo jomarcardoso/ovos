@@ -45,19 +45,19 @@ import { fitOnScreen } from 'ovos';
 - [Scroll Spy](/src/interface/scroll-spy)
 - [Scrollable Sticky](/src/interface/scrollable-sticky)
 - [Spin Images](/src/interface/spin-images)
-- [Sticky](/src/interface/sticky)
+- Sticky (to do)
 - [Sticky Header](/src/interface/scrollable-sticky)
 - Drag and Drop (in progress)
+- Drawer (to do)
 
 ### API
 
-- [Scroll Events](/src/api/scroll-events)
-- [Touch Events](/src/api/touch-events)
+- [Scroll](/src/api/scroll)
+- [Touch](/src/api/touch)
 
 ### Utilities
 
-- [Direction](/src/utilities/direction)
+- [Axis](/src/utilities/axis)
 - [Element](/src/utilities/element)
-- [Position](/src/utilities/position)
 - [Scroll](/src/utilities/scroll)
 - [View](/src/utilities/view)
