@@ -1,12 +1,30 @@
 # 🥚 Scroll Spy
 
+The Scroll Spy observe the page or element scroll and based. The content scrolled have some "breakpoints" like triggers to do something like show the current element on the screen.
+
 Sample in https://ovo-scroll-spy.surge.sh
 
 ## Usage
 
-### HTML + JS
+### HTML + CSS + JS
+
+In the HTML code below, the article tags are the main content and the anchor tags are the elements to show which is the current.
+
+The class `is-active` will be placed on the current element, so it need a CSS to differentiate.
+
+```css
+.is-active {
+  font-weight: bold;
+}
+```
 
 ```html
+<nav>
+  <a id="to-article-1" href="#article-1">1</a>
+  <a id="to-article-2" href="#article-2">2</a>
+  <a id="to-article-3" href="#article-3">3</a>
+  <a id="to-article-4" href="#article-4">4</a>
+</nav>
 <section>
   <article id="article-1"></article>
   <article id="article-2"></article>
@@ -15,7 +33,7 @@ Sample in https://ovo-scroll-spy.surge.sh
 </section>
 ```
 
-```js
+```ts
 import { ScrollSpy, createScrollSpyItem } from 'ovos';
 
 ScrollSpy({
