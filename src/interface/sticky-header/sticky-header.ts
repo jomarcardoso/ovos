@@ -2,7 +2,7 @@ import './sticky-header.scss';
 import { getHeight, translate } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
 
-export default function stickyHeader({
+export default function StickyHeader({
   el = document.querySelector('[data-ovo-hs="header"]'),
 }: {
   el?: Element | null;
@@ -32,3 +32,13 @@ export default function stickyHeader({
 
   bindEvents();
 }
+
+function autoStart() {
+  const flag = document.querySelector('[data-ovo-hs="header"][data-ovo-auto]');
+
+  if (!flag) return;
+
+  StickyHeader({});
+}
+
+autoStart();

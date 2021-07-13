@@ -56,4 +56,5 @@ export {
   ScrollableSticky,
   SpinImages,
   createScrollSpyItem,
+  StickyHeader,
 } from './interface';
