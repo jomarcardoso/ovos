@@ -6,11 +6,11 @@ import { getViewportHeight } from '../../utilities/view/view';
 import {
   isBottomOfElementBelowOfViewport,
   isAboveAndBelowScreen,
+  getHeight,
 } from '../../utilities/element';
 
 export default function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
-  elWrapper = document.querySelector('[data-ovo_ss="wrapper"]') as HTMLElement,
   elContainer = document.querySelector(
     '[data-ovo_ss="container"]',
   ) as HTMLElement,
@@ -21,6 +21,15 @@ export default function scrollableSticky({
 }: ScrollableStickyArgs): void {
   let fixed = false;
   let pinnedOnBottom = false;
+
+  function applyMinHeightToScrollableElement() {
+    const parentEl = elContainer.parentNode as HTMLElement;
+
+    // parentEl.setAttribute('data-ovo_ss', 'wrapper');
+    parentEl.style.minHeight = String(getHeight(elContainer));
+  }
+
+  applyMinHeightToScrollableElement();
 
   function pinAndFix() {
     function pinOnBottom() {
@@ -63,7 +72,7 @@ export default function scrollableSticky({
       if (isFunction(onUnfix)) onUnfix();
     }
 
-    if (isAboveAndBelowScreen(elWrapper)) {
+    if (isAboveAndBelowScreen(elContainer)) {
       fix();
       unpinOnBottom();
 
@@ -72,7 +81,7 @@ export default function scrollableSticky({
 
     unfix();
 
-    if (!isBottomOfElementBelowOfViewport(elWrapper)) {
+    if (!isBottomOfElementBelowOfViewport(elContainer)) {
       pinOnBottom();
 
       return;
@@ -92,7 +101,7 @@ export default function scrollableSticky({
 
       const minToScroll = 0;
       const maxToScroll = el.offsetHeight - getViewportHeight();
-      const positionScroll = scrollPosition - elWrapper.offsetTop;
+      const positionScroll = scrollPosition - elContainer.offsetTop;
       const difference = positionScroll - lastPositionScroll;
 
       lastPositionScroll = positionScroll;
