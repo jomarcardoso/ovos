@@ -14,7 +14,7 @@ The class `is-active` will be placed on the current element, so it need a CSS to
 
 ```css
 .is-active {
-  font-weight: bold;
+  /* any effect here */
 }
 ```
 
