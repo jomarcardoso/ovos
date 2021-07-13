@@ -109,14 +109,20 @@ The 🍳 Ovos library is putted to the global object (window) and can be used ev
   <title>OVO - Sticky Header</title>
   <style>
     body {
+      font-size: 30px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
       margin: 0;
       min-height: 300vh;
-      background-color: lightblue;
+      background-color: lightblue;    }
+
+    main,
+    header {
+      padding: 40px;
     }
 
     header {
-      min-height: 100px;
       background: black;
+      color: white;
     }
   </style>
 </head>
@@ -124,7 +130,9 @@ The 🍳 Ovos library is putted to the global object (window) and can be used ev
   <header data-ovo-hs="header" data-ovo-auto>
     HEADER
   </header>
-  content
+  <main>
+    content
+  </main>
   <script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script>
 </body>
 </html>
