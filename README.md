@@ -32,7 +32,7 @@ import { fitOnScreen } from 'ovos';
 ### CDN
 
 ```html
-<script src="https://unpkg.com/ovos@0.9.0/dist/ovos.bundle.min.js"></script>
+<script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script>
 <script>window.ovos.fitOnScreen</script>
 ```
 
@@ -64,3 +64,68 @@ import { fitOnScreen } from 'ovos';
 - [Element](/src/utilities/element)
 - [Scroll](/src/utilities/scroll)
 - [View](/src/utilities/view)
+
+## Patterns and concepts
+
+### Less JavaScript
+
+All config can be putted to the HTML. For example:
+
+```html
+<section
+  data-carousel="carousel"
+  data-carousel-visible-slides="3"
+  data-carousel-autoplay="2000"
+  data-ovo-auto
+>
+```
+
+### 🥚 attribute name
+
+Every 🥚 has its own root HTML attribute. The name follows the following pattern:
+
+| default   | 🥚    name in kebab case | attribute in kebab case  |
+|-----------|--------------------------|--------------------------|
+| data-ovo- | spin-images              |                          |
+| data-ovo- | spin-images              | -debounce="NUMBER"       |
+| data-ovo- | spin-images              | -quantity="NUMBER"       |
+| data-ovo- | scrollable-sticky        |                          |
+| data-ovo- | carousel                 |                          |
+| data-ovo- | carousel                 | -visible-slides="NUMBER" |
+
+### Auto play
+
+The attribute `data-ovo-auto` starts automatically any 🥚. Just put this HTML attribute to the respective the tag that you want the effect, for example: `<div data-ovo-anchor="to-anchor" data-ovo-auto>`.
+
+### Global module
+
+The 🍳 Ovos library is putted to the global object (window) and can be used everywhere. Below an example of the 🥚 Sticky Header made only on HTML.
+
+```html
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OVO - Sticky Header</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 300vh;
+      background-color: lightblue;
+    }
+
+    header {
+      min-height: 100px;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <header data-ovo-hs="header" data-ovo-auto>
+    HEADER
+  </header>
+  content
+  <script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script>
+</body>
+</html>
+```
