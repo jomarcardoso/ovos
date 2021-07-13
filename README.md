@@ -131,7 +131,8 @@ The 🍳 Ovos library is putted to the global object (window) and can be used ev
     HEADER
   </header>
   <main>
-    content
+    <p>You can scroll down and the header will scroll together.</p>
+    <p>Emmediately when you scroll up the header will appear again.</p>
   </main>
   <script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script>
 </body>
