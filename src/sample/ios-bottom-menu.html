@@ -38,6 +38,11 @@
       right: 0;
       height: 30vh;
       padding: 40px 20px 20px;
+      transition: .5s;
+    }
+
+    .menu--up {
+      height: 60vh;
     }
 
     .menu__body {
@@ -66,7 +71,7 @@
       <div data-carousel="slide"></div>
     </div>
   </div>
-  <div class="menu">
+  <div class="menu" id="menu">
     <div>
       <div class="menu__body">
         <div class="list">
@@ -78,6 +83,23 @@
       </div>
     </div>
   </div>
-  <script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script>
+  <!-- <script src="https://unpkg.com/ovos@0.9.1/dist/ovos.bundle.min.js"></script> -->
+  <!-- <script src="./ovos.bundle.min.js"></script> -->
+  <script src="http://127.0.0.1:5500/dist/ovos.bundle.min.js"></script>
+  <script> // menu up
+    (() => {
+      const el = document.querySelector('#menu');
+      const { drag$ } = ovos.Touch$({
+        el,
+        onlyDirections: ['up', 'up-left', 'up-right'],
+        takeLimit: 1,
+        gap: { y: 20 },
+      });
+
+      drag$.subscribe((event) => {
+        el.classList.add('menu--up')
+      });
+    })();
+  </script>
 </body>
 </html>
