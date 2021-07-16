@@ -109,6 +109,8 @@ const carousel: Carousel = ({
   }
 
   function changeArrowsLink(index = 0) {
+    if (!elArrowLeft || !elArrowRight) return;
+
     const slideAtLeft =
       elSlides[(((index - 1) % quantity) + quantity) % quantity];
     const slideAtRight = elSlides[getIndexSlideAtRight(index)];
