@@ -1,7 +1,14 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { fromEvent, merge, Observable } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  pairwise,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs/operators';
 import {
   AXES,
   Axes,
@@ -9,6 +16,7 @@ import {
   filterByAttributeAndGapOperator,
 } from '../../utilities/axis';
 import {
+  isOnTheSameDirection,
   putAxesBreakpointOperator,
   putDirectionOperator,
   putRelativeAxesOperator,
@@ -39,9 +47,15 @@ interface TouchObservableReturn {
 export default function Touch$({
   el = document,
   gap = AXES,
+  onlyDirections = [],
+  takeLimit = 0,
+  onlyOnChangeDirection = false,
 }: {
   el?: ScrollableElement;
   gap?: Axes;
+  onlyDirections?: Array<Direction>;
+  takeLimit?: number;
+  onlyOnChangeDirection?: boolean;
 }): TouchObservableReturn {
   const mouseDown$ = fromEvent(el, 'mousedown');
   const mouseMove$ = fromEvent(document, 'mousemove');
@@ -162,6 +176,35 @@ export default function Touch$({
       value: 'START',
     }),
   );
+
+  if (onlyDirections.length) {
+    drag$ = drag$.pipe(
+      filter<Touch$Next>((item) => {
+        const isTheSameDirection = onlyDirections.some(
+          (direction) => direction === item.direction,
+        );
+
+        return isTheSameDirection;
+      }),
+    );
+  }
+
+  if (takeLimit) {
+    drag$ = drag$.pipe(take(takeLimit));
+  }
+
+  if (onlyOnChangeDirection) {
+    drag$ = drag$.pipe(
+      pairwise<Touch$Next>(),
+      filter(([last, current]) => {
+        return isOnTheSameDirection({
+          direction: current.direction,
+          lastDirection: last.direction,
+        });
+      }),
+      map<Touch$Next[], Touch$Next>(([, current]) => current),
+    );
+  }
 
   return {
     grab$,

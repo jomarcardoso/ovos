@@ -9,6 +9,7 @@ const generateConfig = ({
   bundle = false,
   entry = {
     ['./dist/ovos']: './src/ovos.ts',
+    ['./samples/scripts/ovos']: './src/ovos.ts',
     ['./src/utilities/element/sample/dist/index']:
       './src/utilities/element/sample/index.ts',
     ['./src/api/scroll/sample/dist/index']:
@@ -27,8 +28,6 @@ const generateConfig = ({
       './src/interface/sticky-header/sample/index.ts',
     ['./src/interface/parallax/sample/dist/index']:
       './src/interface/parallax/sample/index.ts',
-    ['./src/interface/carousel/sample/dist/index']:
-      './src/interface/carousel/sample/index.ts',
     ['./src/interface/scrollable-sticky/sample/dist/index']:
       './src/interface/scrollable-sticky/sample/index.ts',
     ['./src/interface/anchor/sample/dist/index']:

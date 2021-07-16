@@ -106,7 +106,7 @@ export function isOnGap({
     ? Math.abs(axes.x - lastAxes.x) < (gap.x ?? 0)
     : false;
 
-  if (beOnVerticalGap && beOnHorizontalGap) return true;
+  if (beOnVerticalGap || beOnHorizontalGap) return true;
 
   return false;
 }
@@ -159,6 +159,16 @@ export function filterByAttributeAndGapOperator<T>(
       const lastAxes = last[k] as unknown as Axes;
       const firstEvent = !index;
       const isToIgnore = current[ignoreWhen.key] === ignoreWhen.value;
+
+      // console.log(
+      //   firstEvent,
+      //   isToIgnore,
+      //   !isOnGap({
+      //     axes,
+      //     gap,
+      //     lastAxes,
+      //   }),
+      // );
 
       if (firstEvent || isToIgnore) return true;
 

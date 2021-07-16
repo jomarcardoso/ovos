@@ -28,8 +28,8 @@ deploy:
     on:
       branch: master
   - provider: surge
-    project: ./src/interface/carousel/sample/
-    domain: ovo-carousel.surge.sh
+    project: ./samples
+    domain: ovos.surge.sh
     skip_cleanup: true
     on:
       branch: master

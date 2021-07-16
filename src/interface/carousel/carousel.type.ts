@@ -1,4 +1,4 @@
-import { ScrollSpyItem } from '../../scroll-spy/scroll-spy.types';
+import { ScrollSpyItem } from '../scroll-spy/scroll-spy.types';
 
 interface SlideArgs {
   elSlide?: HTMLElement;
