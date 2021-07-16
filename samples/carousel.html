@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <link rel="stylesheet" href="./styles/sanitize.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <title>OVO - Carousel</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .container {
+      flex: 1;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .carousel-body {
+      display: flex;
+      position: relative;
+      width: 100%;
+    }
+
+    .carousel-body a {
+      width: 24px;
+      height: 24px;
+      background: black;
+      align-self: center;
+    }
+
+    .carousel-body a:first-child {
+      left: 10px;
+    }
+
+    .carousel-body a:last-child {
+      right: 10px;
+    }
+
+    article {
+      padding: 0 20px;
+    }
+
+    article::before {
+      content: '';
+      display: block;
+      border: 4px solid black;
+      min-height: 200px;
+      background-color: white;
+    }
+
+    ul {
+      padding-left: 0;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      list-style: none;
+    }
+
+    li a {
+      padding: 5px;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    li a::before {
+      content: '';
+      display: block;
+      border: 2px solid black;
+      box-sizing: initial;
+      padding: 5px;
+    }
+
+    li a.is-active::before {
+      background-color: black;
+    }
+
+    header {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      HEADER
+    </div>
+  </header>
+  <main>
+
+    <div class="container">
+      <section
+        data-carousel="carousel"
+        data-carousel-visible-slides="3"
+        data-carousel-autoplay="2000"
+        data-ovo-auto
+      >
+        <div class="carousel-body">
+          <a data-carousel="arrow" href="#">
+
+          </a>
+          <section data-carousel="slider">
+            <article id="slide-1" data-carousel="slide"></article>
+            <article id="slide-2" data-carousel="slide"></article>
+            <article id="slide-3" data-carousel="slide"></article>
+            <article id="slide-4" data-carousel="slide"></article>
+            <article id="slide-5" data-carousel="slide"></article>
+            <article id="slide-6" data-carousel="slide"></article>
+          </section>
+          <a data-carousel="arrow" href="#">
+
+          </a>
+        </div>
+        <ul>
+          <li>
+            <a href="#slide-1" data-carousel="dot"></a>
+          </li>
+          <li>
+            <a href="#slide-2" data-carousel="dot"></a>
+          </li>
+          <li>
+            <a href="#slide-3" data-carousel="dot"></a>
+          </li>
+          <li>
+            <a href="#slide-4" data-carousel="dot"></a>
+          </li>
+          <li>
+            <a href="#slide-5" data-carousel="dot"></a>
+          </li>
+          <li>
+            <a href="#slide-6" data-carousel="dot"></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      FOOTER
+    </div>
+  </footer>
+  <script src="./scripts/ovos.bundle.min.js"></script>
+</body>
+</html>

@@ -47,6 +47,10 @@ typings/
 *.d.ts
 *.d.ts.map
 
+# dist
+# *.min.js
+# *.bundle.min.js
+
 # TypeScript cache
 *.tsbuildinfo
 
