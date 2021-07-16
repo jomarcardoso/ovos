@@ -2,7 +2,7 @@ import './carousel.scss';
 import { Axis } from '../../utilities/axis';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
 import { Method } from '../scroll-spy/scroll-spy.types';
-import { CreateSlide, Carousel, CarouselFitType } from './types/carousel.type';
+import { CreateSlide, Carousel, CarouselFitType } from './carousel.type';
 
 interface CustomCSSStyleDeclaration extends CSSStyleDeclaration {
   scrollSnapAlign: string;
