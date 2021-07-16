@@ -48,8 +48,10 @@ typings/
 *.d.ts.map
 
 # dist
-# *.min.js
-# *.bundle.min.js
+*.min.js
+*.bundle.min.js
+*.bundle.min.js.map
+*.bundle.min.js.LICENSE.txt
 
 # TypeScript cache
 *.tsbuildinfo
