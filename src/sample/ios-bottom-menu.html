@@ -41,14 +41,18 @@
       transition: .5s;
     }
 
-    .menu--up {
-      height: 60vh;
+    .menu__body {
+      overflow-y: hidden;
+      padding-bottom: 20px;
+      height: 100%;
     }
 
-    .menu__body {
+    .menu--up {
+      height: 80vh;
+    }
+
+    .menu--up .menu__body {
       overflow-y: scroll;
-      padding-bottom: 20px;
-    height: 100%;
     }
 
     .list {
@@ -79,6 +83,10 @@
           <div class="item">teste</div>
           <div class="item">teste</div>
           <div class="item">teste</div>
+          <div class="item">teste</div>
+          <div class="item">teste</div>
+          <div class="item">teste</div>
+          <div class="item">teste</div>
         </div>
       </div>
     </div>
@@ -91,13 +99,22 @@
       const el = document.querySelector('#menu');
       const { drag$ } = ovos.Touch$({
         el,
-        onlyDirections: ['up', 'up-left', 'up-right'],
-        takeLimit: 1,
+        // onlyDirections: ['up', 'up-left', 'up-right'],
+        // takeLimit: 1,
         gap: { y: 20 },
+        onlyOnChangeDirection: true,
       });
 
       drag$.subscribe((event) => {
-        el.classList.add('menu--up')
+        if (
+          event.direction === 'up'
+          || event.direction === 'up-left'
+          || event.direction === 'up-right'
+        ) {
+          el.classList.add('menu--up')
+        } else {
+          el.classList.remove('menu--up');
+        }
       });
     })();
   </script>

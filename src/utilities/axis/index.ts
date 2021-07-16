@@ -13,4 +13,5 @@ export {
   isAboveTheScreen,
   isBelowTheScreen,
   filterByAttributeAndGapOperator,
+  isOnTheSameDirection,
 } from './axis';
