@@ -1,6 +1,6 @@
 # 🥚 Parallax
 
-Sample in https://ovo-parallax.surge.sh
+Sample in https://ovos.surge.sh/parallax.html
 
 ## Usage
 
