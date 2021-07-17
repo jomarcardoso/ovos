@@ -24,8 +24,6 @@ const generateConfig = ({
       './src/interface/spin-images/sample/index.ts',
     ['./src/interface/sticky-header/sample/dist/index']:
       './src/interface/sticky-header/sample/index.ts',
-    ['./src/interface/parallax/sample/dist/index']:
-      './src/interface/parallax/sample/index.ts',
     ['./src/interface/scrollable-sticky/sample/dist/index']:
       './src/interface/scrollable-sticky/sample/index.ts',
   },
