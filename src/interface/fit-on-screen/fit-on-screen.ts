@@ -17,7 +17,8 @@ function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
 }
 
 export default function fitOnScreen({
-  elRelative = document,
+  elRelative = (document.querySelector('[data-ovo-fs="el"]') as HTMLElement) ||
+    document,
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
   axis = Axis.Y,
@@ -75,3 +76,13 @@ export default function fitOnScreen({
 
   bindEvents();
 }
+
+function autoStart() {
+  const flag = document.querySelector('[data-ovo-fs][data-ovo-auto]');
+
+  if (!flag) return;
+
+  fitOnScreen({});
+}
+
+autoStart();
