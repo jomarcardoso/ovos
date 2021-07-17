@@ -2,7 +2,7 @@
 
 Like a Scrollbar, but can be putted everywhere. Useful for show mobile scroll position or the reading progress of a document.
 
-Sample in https://ovo-page-progress.surge.sh
+Sample in https://ovos.surge.sh/page-progress.html
 
 ## Usage
 

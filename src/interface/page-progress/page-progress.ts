@@ -27,4 +27,14 @@ const pageProgress: PageProgress = ({
   Scroll$({}).subscribe(handleScroll);
 };
 
+function autoStart() {
+  const flag = document.querySelector('[data-ovo-pp="bar"][data-ovo-auto]');
+
+  if (!flag) return;
+
+  pageProgress({});
+}
+
+autoStart();
+
 export default pageProgress;
