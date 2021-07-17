@@ -3,7 +3,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <link rel="stylesheet" href="./styles/sanitize.css">
+  <link rel="stylesheet" href="./styles/base.css">
   <title>OVO - Parallax</title>
+  <style>
+    body {
+      height: 100vh;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    header,
+    footer {
+      padding: 30px 15px;
+      color: white;
+      background-color: black;
+      position: relative;
+    }
+
+    .container {
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    main {
+      padding: 30px 15px;
+      position: relative;
+      text-align: center;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    img {
+      filter: hue-rotate(490deg)
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -11,9 +49,15 @@
       HEADER
     </div>
   </header>
-  <div class="container" data-ovo-parallax>
+  <div
+    class="container"
+    data-ovo-parallax
+    data-ovo-parallax-distance="2000"
+    data-ovo-parallax-gap="78"
+    data-ovo-auto
+  >
     <div class="Parallax">
-      <img src="./img/gallery.jpg" alt="">
+      <img src="./imgs/gallery.jpg" alt="">
     </div>
   </div>
   <main>
@@ -34,6 +78,6 @@
       FOOTER
     </div>
   </footer>
-  <script src="./dist/index.js"></script>
+  <script src="./scripts/ovos.bundle.min.js"></script>
 </body>
 </html>

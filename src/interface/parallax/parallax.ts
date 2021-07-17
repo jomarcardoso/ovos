@@ -7,12 +7,16 @@ export default function parallax({
   el = document.querySelector('[data-ovo-parallax]') as HTMLElement,
   elContent: externalElContent,
   callback,
-  distance = 1000,
+  distance: externalDistance = 0,
   elRelative = document,
-  gap = 0,
+  gap: externalGap = 0,
   axis = Axis.Y,
 }: ParallaxArgs): void {
   let elContent = externalElContent;
+
+  const distance =
+    externalDistance || Number(el.dataset.ovoParallaxDistance) || 1000;
+  const gap = externalGap || Number(el.dataset.ovoParallaxGap) || 0;
 
   if (!elContent) {
     elContent =
@@ -77,3 +81,13 @@ export default function parallax({
 
   bindScroll();
 }
+
+function autoStart() {
+  const flag = document.querySelector('[data-ovo-parallax][data-ovo-auto]');
+
+  if (!flag) return;
+
+  parallax({});
+}
+
+autoStart();
