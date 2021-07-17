@@ -1,4 +1,4 @@
-import { Anchor } from './types/anchor.types';
+import { Anchor } from './anchor.types';
 import './anchor.scss';
 import {
   Axes,

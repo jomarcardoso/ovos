@@ -3,7 +3,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <link rel="stylesheet" href="./styles/sanitize.css">
+  <link rel="stylesheet" href="./styles/base.css">
   <title>OVO - FitOnScreen</title>
+  <style>
+    article {
+      background-color: lightblue;
+      border: 8px solid black;
+      min-height: 100vh;
+      border-radius: 20px;
+    }
+
+    header,
+    footer {
+      background-color: black;
+      min-height: 100px;
+    }
+
+    main {
+      background-color: black;
+    }
+  </style>
 </head>
 <body data-ovo-fs data-ovo-auto>
   <header></header>
@@ -16,6 +38,6 @@
     <article data-ovo-fs="content"></article>
   </main>
   <footer></footer>
-  <script src="./dist/index.js"></script>
+  <script src="./scripts/ovos.bundle.min.js"></script>
 </body>
 </html>
