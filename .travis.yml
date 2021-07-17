@@ -31,12 +31,6 @@ deploy:
     on:
       branch: master
   - provider: surge
-    project: ./src/interface/page-progress/sample/
-    domain: ovo-page-progress.surge.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: surge
     project: ./src/interface/parallax/sample/
     domain: ovo-parallax.surge.sh
     skip_cleanup: true
