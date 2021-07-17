@@ -1,13 +1,16 @@
 if: branch = master
 language: node_js
 node_js:
-  - 10
+  - 16
 before_script:
   - yarn
 script:
-  - yarn start
+  - yarn tsc
   - yarn lint
   - yarn test
+  - yarn start
+  - yarn build
+  - yarn bundle
 deploy:
   - provider: surge
     project: ./src/api/scroll/sample/

@@ -30,8 +30,6 @@ const generateConfig = ({
       './src/interface/parallax/sample/index.ts',
     ['./src/interface/scrollable-sticky/sample/dist/index']:
       './src/interface/scrollable-sticky/sample/index.ts',
-    ['./src/interface/anchor/sample/dist/index']:
-      './src/interface/anchor/sample/index.ts',
   },
 }) => {
   const config = {
