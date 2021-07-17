@@ -25,20 +25,8 @@ deploy:
     on:
       branch: master
   - provider: surge
-    project: ./src/interface/anchor/sample/
-    domain: ovo-anchor.surge.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: surge
     project: ./samples
     domain: ovos.surge.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: surge
-    project: ./src/interface/fit-on-screen/sample/
-    domain: ovo-fit-on-screen.surge.sh
     skip_cleanup: true
     on:
       branch: master
