@@ -31,12 +31,6 @@ deploy:
     on:
       branch: master
   - provider: surge
-    project: ./src/interface/scroll-spy/sample/
-    domain: ovo-scroll-spy.surge.sh
-    skip_cleanup: true
-    on:
-      branch: master
-  - provider: surge
     project: ./src/interface/scrollable-sticky/sample/
     domain: ovo-scrollable-sticky.surge.sh
     skip_cleanup: true

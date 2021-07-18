@@ -16,8 +16,6 @@ const generateConfig = ({
       './src/api/scroll/sample/index.ts',
     ['./src/api/touch/sample/dist/index']:
       './src/api/touch/sample/index.ts',
-    ['./src/interface/scroll-spy/sample/dist/index']:
-      './src/interface/scroll-spy/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
       './src/interface/fit-on-screen/sample/index.ts',
     ['./src/interface/spin-images/sample/dist/index']:
