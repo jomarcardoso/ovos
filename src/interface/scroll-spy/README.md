@@ -2,7 +2,7 @@
 
 The Scroll Spy observe the page or element scroll and based. The content scrolled have some "breakpoints" like triggers to do something like show the current element on the screen.
 
-Sample in https://ovo-scroll-spy.surge.sh
+Sample in https://ovos.surge.sh/scroll-spy.html
 
 ## Usage
 

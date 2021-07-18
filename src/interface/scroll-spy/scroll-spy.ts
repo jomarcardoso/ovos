@@ -142,3 +142,27 @@ export default function scrollSpy({
 
   observable.subscribe(handleScroll);
 }
+
+function autoStart() {
+  const el = document.querySelector('[data-ovo-scroll-spy][data-ovo-auto]');
+
+  if (!el) return;
+
+  const elMenus = Array.from(
+    el.querySelectorAll('[data-ovo-scroll-spy-menu]'),
+  ) as Array<HTMLElement>;
+  const elContents = Array.from(
+    el.querySelectorAll('[data-ovo-scroll-spy-content]'),
+  ) as Array<HTMLElement>;
+
+  const list = elContents.map((elContent, index) => {
+    return createScrollSpyItem({
+      elContent,
+      elMenu: elMenus[index],
+    });
+  });
+
+  scrollSpy({ list });
+}
+
+autoStart();
