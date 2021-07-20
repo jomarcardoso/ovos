@@ -124,3 +124,15 @@ export default function scrollableSticky({
 
   observable.subscribe(handleScroll);
 }
+
+function autoStart() {
+  const elContainer = document.querySelector(
+    '[data-ovo_ss="container"][data-ovo-auto]',
+  ) as HTMLElement;
+
+  if (elContainer) {
+    scrollableSticky({ elContainer });
+  }
+}
+
+autoStart();

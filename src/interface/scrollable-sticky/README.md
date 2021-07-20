@@ -2,7 +2,7 @@
 
 Scroll a sticky or fixed content for us. This effect is very useful to build sidebars higher than the screen.
 
-Sample in https://ovo-scrollable-sticky.surge.sh
+Sample in https://ovos.surge.sh/scrollable-sticky.html
 
 ## Usage
 

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack",
     "bundle": "webpack --env bundle",
-    "start": "webpack --env mode=development --env bundle",
+    "start": "webpack --env development --env bundle",
     "dev": "yarn start -w",
     "tsc": "tsc",
     "test": "jest",
