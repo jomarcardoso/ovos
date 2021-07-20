@@ -43,7 +43,7 @@ interface ScrollSpyArgs {
 export default function scrollSpy({
   list,
   elRelative = document,
-  method = Method.current,
+  method = 'CURRENT',
   axis = Axis.Y,
 }: ScrollSpyArgs): void {
   let currentActive: ScrollSpyItem;
@@ -121,7 +121,7 @@ export default function scrollSpy({
   }
 
   getTheActive = getTheCurrent;
-  if (method === Method.closest) {
+  if (method === 'CLOSEST') {
     getTheActive = getTheClosest;
   }
 
