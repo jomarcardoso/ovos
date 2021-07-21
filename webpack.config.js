@@ -18,8 +18,6 @@ const generateConfig = ({
       './src/api/touch/sample/index.ts',
     ['./src/interface/fit-on-screen/sample/dist/index']:
       './src/interface/fit-on-screen/sample/index.ts',
-    ['./src/interface/spin-images/sample/dist/index']:
-      './src/interface/spin-images/sample/index.ts',
     ['./src/interface/sticky-header/sample/dist/index']:
       './src/interface/sticky-header/sample/index.ts',
   },

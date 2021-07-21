@@ -2,15 +2,15 @@
 
 This component simulate to ratate and object. First you need to make your sprite to simulate the 360º effect.
 
-Sample in https://ovo-spin-images.surge.sh
+Sample in https://ovos.surge.sh/spin-images.html
 
 ## Usage
 
 ### HTML + JS
 
 ```html
-<section data-jo="spinimages">
-  <div data-jo="spinimages-sprite">
+<section data-ovo-spin-images>
+  <div data-ovo-spin-images="sprite">
     <!-- one big image or -->
     <div>
       <img src="./img/sprites/1.jpg">

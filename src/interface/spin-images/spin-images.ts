@@ -34,11 +34,11 @@ function rotate({
 }
 
 interface SpinImagesArgs {
-  quantityFrames: number;
+  quantityFrames?: number;
   el?: HTMLElement;
   autoRotateTime?: number;
   clockwise?: boolean;
-  rotateOnScrollDebounce: number;
+  debounce?: number;
   onGrab?(): void;
   onDrop?(): void;
 }
@@ -46,19 +46,27 @@ interface SpinImagesArgs {
 type SpinImages = (args: SpinImagesArgs) => void;
 
 const spinImages: SpinImages = ({
-  quantityFrames = 1,
-  el = document.querySelector('[data-jo="spinimages"]') as HTMLElement,
+  quantityFrames: externalQuantityFrames = 0,
+  el = document.querySelector('[data-ovo-spin-images]') as HTMLElement,
   autoRotateTime = 0,
   clockwise = true,
   onGrab,
   onDrop,
-  rotateOnScrollDebounce = 0,
+  debounce: externalDebounce = 0,
 }) => {
   if (!el) return;
 
   const elSprite: Element | null = el.querySelector(
-    '[data-jo="spinimages-sprite"]',
+    '[data-ovo-spin-images="sprite"]',
   );
+
+  if (!elSprite) return;
+
+  const quantityFrames =
+    externalQuantityFrames || Number(elSprite.childElementCount) || 1;
+
+  const debounce = externalDebounce || Number(el.dataset.ovoDebounce) || 0;
+
   let frameSize = 0;
   let rotated = 0;
 
@@ -110,7 +118,10 @@ const spinImages: SpinImages = ({
     }
   });
 
-  setSpriteSize({ elSprite: elSprite as Element, quantityFrames });
+  setSpriteSize({
+    elSprite: elSprite as Element,
+    quantityFrames,
+  });
   frameSize = getFramePersentSize(quantityFrames);
 
   if (!el) return;
@@ -118,8 +129,8 @@ const spinImages: SpinImages = ({
   const touch$ = Touch$({
     el,
     gap: {
-      x: rotateOnScrollDebounce,
-      y: rotateOnScrollDebounce,
+      x: debounce,
+      y: debounce,
     },
   });
 
@@ -145,5 +156,15 @@ const spinImages: SpinImages = ({
     }
   });
 };
+
+function autoStart() {
+  const el = document.querySelector('[data-ovo-spin-images][data-ovo-auto]');
+
+  if (el) {
+    spinImages({});
+  }
+}
+
+autoStart();
 
 export default spinImages;
