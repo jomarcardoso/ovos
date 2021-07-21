@@ -3,7 +3,7 @@ import { getHeight, translate } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
 
 export default function StickyHeader({
-  el = document.querySelector('[data-ovo-hs="header"]'),
+  el = document.querySelector('[data-ovo-sticky-header]'),
 }: {
   el?: Element | null;
 }): void {
@@ -14,6 +14,7 @@ export default function StickyHeader({
   function handleDocumentScroll({
     relativeAxes: { y: position = 0 },
   }: Scroll$Next) {
+    console.log(position);
     translate({ el: htmlEl, position });
   }
 
@@ -34,7 +35,9 @@ export default function StickyHeader({
 }
 
 function autoStart() {
-  const flag = document.querySelector('[data-ovo-hs="header"][data-ovo-auto]');
+  const flag = document.querySelector(
+    '[data-ovo-sticky-header][data-ovo-auto]',
+  );
 
   if (!flag) return;
 
