@@ -30,12 +30,6 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
-  - provider: surge
-    project: ./src/interface/sticky-header/sample/
-    domain: ovo-sticky-header.surge.sh
-    skip_cleanup: true
-    on:
-      branch: master
   - provider: npm
     email: antonionetocardoso@hotmail.com
     api_key: $NPM_AUTH_TOKEN
