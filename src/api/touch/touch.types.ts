@@ -1,7 +1,8 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { Observable } from 'rxjs';
-import { Axes, Direction } from '../../utilities/axis';
+import { Axes, Axis, Direction } from '../../utilities/axis';
+import { ScrollableElement } from '../../utilities/scroll';
 
 export type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
 
@@ -20,6 +21,15 @@ export type Touch$Next = {
   relativeBreakpointAxes: Axes;
   direction: Direction;
 };
+
+export interface TouchArgs {
+  el?: ScrollableElement;
+  gap?: Axes;
+  onlyDirections?: Array<Direction>;
+  takeLimit?: number;
+  onlyOnChangeDirection?: boolean;
+  onlyAxis?: Axis;
+}
 
 export interface TouchObservableReturn {
   grab$: Observable<Touch$Next>;

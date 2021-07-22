@@ -1,6 +1,5 @@
 import './parallax.scss';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
-import { Axis } from '../../utilities/axis';
 import { ParallaxArgs } from './parallax.types';
 
 export default function parallax({
@@ -10,7 +9,7 @@ export default function parallax({
   distance: externalDistance = 0,
   elRelative = document,
   gap: externalGap = 0,
-  axis = Axis.Y,
+  axis = 'y',
 }: ParallaxArgs): void {
   let elContent = externalElContent;
 
@@ -36,7 +35,7 @@ export default function parallax({
   }
 
   function handleScroll({ axes, el: elScrolled }: Scroll$Next): void {
-    const position = axis === Axis.X ? axes.x : axes.y;
+    const position = axis === 'x' ? axes.x : axes.y;
 
     function calculateTranslateY(currentPosition = 0) {
       const perspective = distance / 500 || 1;

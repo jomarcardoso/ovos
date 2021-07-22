@@ -15,10 +15,9 @@ import {
   putDirectionOperator,
   putRelativeAxesOperator,
 } from '../../operators/axis';
-import { AXES, Axes, Direction } from '../../utilities/axis';
+import { AXES, Direction } from '../../utilities/axis';
 import { isOnTheSameDirection } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
-import { ScrollableElement } from '../../utilities/scroll';
 import type {
   EventWithType,
   MouseEventWithType,
@@ -26,6 +25,7 @@ import type {
   TouchEventWithType,
   TouchObservableReturn,
   TouchEventType,
+  TouchArgs,
 } from './touch.types';
 
 export default function Touch$({
@@ -34,13 +34,7 @@ export default function Touch$({
   onlyDirections = [],
   takeLimit = 0,
   onlyOnChangeDirection = false,
-}: {
-  el?: ScrollableElement;
-  gap?: Axes;
-  onlyDirections?: Array<Direction>;
-  takeLimit?: number;
-  onlyOnChangeDirection?: boolean;
-}): TouchObservableReturn {
+}: TouchArgs): TouchObservableReturn {
   const mouseDown$ = fromEvent(el, 'mousedown');
   const mouseMove$ = fromEvent(document, 'mousemove');
   const mouseUp$ = fromEvent(document, 'mouseup');

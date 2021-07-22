@@ -44,7 +44,7 @@ export default function scrollSpy({
   list,
   elRelative = document,
   method = 'CURRENT',
-  axis = Axis.Y,
+  axis = 'y',
 }: ScrollSpyArgs): void {
   let currentActive: ScrollSpyItem;
   let getTheActive: (
@@ -55,7 +55,7 @@ export default function scrollSpy({
   function getTheCurrent(position: Axes): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
-        axis === Axis.Y
+        axis === 'y'
           ? currentValue?.content?.offsetTop ?? 0
           : currentValue?.content?.offsetLeft ?? 0;
 
@@ -73,19 +73,19 @@ export default function scrollSpy({
   ): ScrollSpyItem {
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
-        axis === Axis.Y
+        axis === 'y'
           ? previousValue?.content?.offsetTop ?? 0 - 1
           : previousValue?.content?.offsetLeft ?? 0 - 1;
       const previousEnd =
-        axis === Axis.Y
+        axis === 'y'
           ? previousValue?.content?.offsetHeight ?? 0 + previousStart - 1
           : previousValue?.content?.offsetWidth ?? 0 + previousStart - 1;
       const currentStart =
-        axis === Axis.Y
+        axis === 'y'
           ? currentValue?.content?.offsetTop ?? 0 + 1
           : currentValue?.content?.offsetLeft ?? 0 + 1;
       const currentEnd =
-        axis === Axis.Y
+        axis === 'y'
           ? currentValue?.content?.offsetHeight ?? 0 + currentStart + 1
           : currentValue?.content?.offsetWidth ?? 0 + currentStart + 1;
 
