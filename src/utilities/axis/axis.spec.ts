@@ -284,7 +284,7 @@ describe('DirectionService', () => {
   });
 
   describe('isOnGap', () => {
-    it('no debounce to be false', () => {
+    it('no gap to be false', () => {
       const safe = isOnGap({
         gap: { x: 0, y: 0 },
         lastAxes: { x: 0, y: 0 },
@@ -294,7 +294,7 @@ describe('DirectionService', () => {
       expect(safe).toBe(false);
     });
 
-    it('debounce 10 and moved 20 from 0 to be false', () => {
+    it('gap 10 and moved 20 from 0 to be false', () => {
       const safe = isOnGap({
         gap: { x: 10, y: 10 },
         lastAxes: { x: 0, y: 0 },
@@ -319,6 +319,16 @@ describe('DirectionService', () => {
         gap: { x: 10, y: 10 },
         lastAxes: { x: 10, y: 10 },
         axes: { x: 20, y: 20 },
+      });
+
+      expect(safe).toBe(false);
+    });
+
+    it('debounce 10 and moved 20 from -10 to be false', () => {
+      const safe = isOnGap({
+        gap: { x: 10, y: 10 },
+        lastAxes: { x: 10, y: 10 },
+        axes: { x: -10, y: -10 },
       });
 
       expect(safe).toBe(false);

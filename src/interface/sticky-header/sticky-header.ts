@@ -14,7 +14,6 @@ export default function StickyHeader({
   function handleDocumentScroll({
     relativeAxes: { y: position = 0 },
   }: Scroll$Next) {
-    console.log(position);
     translate({ el: htmlEl, position });
   }
 
