@@ -1,53 +1,66 @@
 import './parallax.scss';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
-import { Axis } from '../../utilities/axis';
 import { ParallaxArgs } from './parallax.types';
+import { ScrollableElement } from '../../utilities/scroll';
 
 export default function parallax({
   el = document.querySelector('[data-ovo-parallax]') as HTMLElement,
   elContent: externalElContent,
   callback,
   distance: externalDistance = 0,
-  elRelative = document,
+  elRelative: externalElRelative,
   gap: externalGap = 0,
-  axis = Axis.Y,
+  axis: externalAxis,
 }: ParallaxArgs): void {
-  let elContent = externalElContent;
+  const axis = el.dataset.ovoParallaxAxis || externalAxis || 'y';
 
   const distance =
     externalDistance || Number(el.dataset.ovoParallaxDistance) || 1000;
   const gap = externalGap || Number(el.dataset.ovoParallaxGap) || 0;
 
-  if (!elContent) {
-    elContent =
-      (el.querySelector('[data-ovo-parallax="content"]') as HTMLElement) ??
-      (el.firstElementChild as HTMLElement);
-  }
+  console.log(el.dataset.ovoParallaxElRelative);
+
+  const elRelative =
+    externalElRelative ??
+    (el.dataset.ovoParallaxElRelative &&
+      (document.querySelector(
+        el.dataset.ovoParallaxElRelative ?? '',
+      ) as ScrollableElement)) ??
+    document;
+
+  const elContent =
+    externalElContent ??
+    (el.querySelector('[data-ovo-parallax="content"]') as HTMLElement) ??
+    (el.firstElementChild as HTMLElement);
 
   if (!elContent) return;
 
   elContent.style.willChange = 'transform';
 
-  function doParallax(translateY = 0) {
+  function doParallax(translate = 0) {
     if (!elContent) return;
 
-    elContent.style.transform = `translate3d(0, ${translateY}px, 0)`;
-    if (callback) callback(translateY);
+    if (axis === 'y') {
+      elContent.style.transform = `translate3d(0, ${translate}px, 0)`;
+    } else {
+      elContent.style.transform = `translate3d(${translate}px, 0, 0)`;
+    }
+    if (callback) callback(translate);
   }
 
   function handleScroll({ axes, el: elScrolled }: Scroll$Next): void {
-    const position = axis === Axis.X ? axes.x : axes.y;
+    const position = axis === 'x' ? axes.x : axes.y;
 
-    function calculateTranslateY(currentPosition = 0) {
+    function calculateTranslate(currentPosition = 0) {
       const perspective = distance / 500 || 1;
       const start = currentPosition - gap > 0 ? currentPosition - gap : 0;
 
       return start / perspective;
     }
 
-    function isElOnScreen({ translateY = 0 }) {
+    function isElOnScreen({ translate = 0 }) {
       const { bottom, top } = elScrolled.getBoundingClientRect();
-      const visualBottom = bottom - translateY;
+      const visualBottom = bottom - translate;
       const topOnScreen = top >= 0;
       const bottomOnScreen = visualBottom >= 0;
       const onScreen = topOnScreen || bottomOnScreen;
@@ -55,25 +68,24 @@ export default function parallax({
       return onScreen;
     }
 
-    function getTranslateY() {
+    function getTranslate() {
       if (position < gap) {
-        return calculateTranslateY(0);
+        return calculateTranslate(0);
       }
 
-      return calculateTranslateY(position);
+      return calculateTranslate(position);
     }
 
-    // lastPosition = position;
-    const translateY = getTranslateY();
+    const translate = getTranslate();
 
-    if (!isElOnScreen({ translateY })) return;
+    if (!isElOnScreen({ translate })) return;
 
-    doParallax(translateY);
+    doParallax(translate);
   }
 
   function bindScroll() {
     const observable = Scroll$({
-      el: elRelative,
+      el: elRelative as ScrollableElement,
     });
 
     observable.subscribe(handleScroll);

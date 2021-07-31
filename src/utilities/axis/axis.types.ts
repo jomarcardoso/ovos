@@ -1,7 +1,4 @@
-export enum Axis {
-  X = 'x',
-  Y = 'y',
-}
+export type Axis = 'x' | 'y';
 
 export interface Axes {
   x: number;

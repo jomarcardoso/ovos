@@ -8,7 +8,6 @@ export {
   Direction,
   POSITIONS,
   Positions,
-  filterByAttributeAndGapOperator,
   getDirection,
   isAboveTheScreen,
   isBelowTheScreen,

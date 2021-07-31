@@ -12,6 +12,5 @@ export {
   isOnGap,
   isAboveTheScreen,
   isBelowTheScreen,
-  filterByAttributeAndGapOperator,
   isOnTheSameDirection,
 } from './axis';

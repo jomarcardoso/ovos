@@ -5,13 +5,13 @@ import { scrollTopTo, scrollLeftTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
-  if (axis === Axis.Y) return getTop(el);
+  if (axis === 'y') return getTop(el);
 
   return getLeft(el);
 }
 
 function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
-  if (axis === Axis.Y) return el.scrollTop;
+  if (axis === 'y') return el.scrollTop;
 
   return el.scrollLeft;
 }
@@ -21,7 +21,7 @@ export default function fitOnScreen({
     document,
   elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
   proximityToFit = 240,
-  axis = Axis.Y,
+  axis = 'y',
   debounce = 1000,
   limit = POSITIONS,
 }: FitOnScreenArgs): void {
@@ -49,7 +49,7 @@ export default function fitOnScreen({
 
     if (!nearElement) return;
 
-    if (axis === Axis.Y) {
+    if (axis === 'y') {
       scrollTopTo({
         top: getOffsetByAxis({ axis, el: nearElement }),
         scrollingElement: el,

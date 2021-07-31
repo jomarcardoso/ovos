@@ -1,5 +1,4 @@
 import './carousel.scss';
-import { Axis } from '../../utilities/axis';
 import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
 import { CreateSlide, Carousel, CarouselFitType } from './carousel.type';
 
@@ -212,7 +211,7 @@ const carousel: Carousel = ({
     scrollSpy({
       list: slides,
       elRelative: elSlider,
-      axis: Axis.X,
+      axis: 'x',
       method: type === CarouselFitType.BOX ? 'CURRENT' : 'CLOSEST',
     });
   }

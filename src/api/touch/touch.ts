@@ -1,6 +1,6 @@
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
-import { fromEvent, merge, Observable } from 'rxjs';
+import { fromEvent, merge } from 'rxjs';
 import {
   filter,
   map,
@@ -10,39 +10,23 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import {
-  AXES,
-  Axes,
-  Direction,
   filterByAttributeAndGapOperator,
-} from '../../utilities/axis';
-import {
-  isOnTheSameDirection,
   putAxesBreakpointOperator,
   putDirectionOperator,
   putRelativeAxesOperator,
-} from '../../utilities/axis/axis';
+} from '../../operators/axis';
+import { AXES, Direction } from '../../utilities/axis';
+import { isOnTheSameDirection } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
-// import { putRelativeAxesOperator } from '../../utilities/axis/axis';
-import { ScrollableElement } from '../../utilities/scroll';
-
-type EventWithType = { event: TouchEvent | MouseEvent; type: TouchEventType };
-type TouchEventWithType = { event: TouchEvent; type: TouchEventType };
-type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
-export type Touch$Next = {
-  type: TouchEventType;
-  axes: Axes;
-  relativeAxes: Axes;
-  startAxes: Axes;
-  relativeBreakpointAxes: Axes;
-  direction: Direction;
-};
-type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
-
-interface TouchObservableReturn {
-  grab$: Observable<Touch$Next>;
-  drop$: Observable<Touch$Next>;
-  drag$: Observable<Touch$Next>;
-}
+import type {
+  EventWithType,
+  MouseEventWithType,
+  Touch$Next,
+  TouchEventWithType,
+  TouchObservableReturn,
+  TouchEventType,
+  TouchArgs,
+} from './touch.types';
 
 export default function Touch$({
   el = document,
@@ -50,13 +34,7 @@ export default function Touch$({
   onlyDirections = [],
   takeLimit = 0,
   onlyOnChangeDirection = false,
-}: {
-  el?: ScrollableElement;
-  gap?: Axes;
-  onlyDirections?: Array<Direction>;
-  takeLimit?: number;
-  onlyOnChangeDirection?: boolean;
-}): TouchObservableReturn {
+}: TouchArgs): TouchObservableReturn {
   const mouseDown$ = fromEvent(el, 'mousedown');
   const mouseMove$ = fromEvent(document, 'mousemove');
   const mouseUp$ = fromEvent(document, 'mouseup');
