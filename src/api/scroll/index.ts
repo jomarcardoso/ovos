@@ -1,1 +1,2 @@
-export { default as Scroll$, Scroll$Next } from './scroll-observer';
+export { default as Scroll$ } from './scroll-observer';
+export { Scroll$Next } from './scroll-observer.types';

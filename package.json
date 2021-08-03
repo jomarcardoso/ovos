@@ -40,7 +40,6 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
     "@types/lodash": "^4.14.168",
-    "@types/rx": "^4.1.2",
     "@types/webpack": "^4.41.26",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",

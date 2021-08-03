@@ -34,6 +34,7 @@ export default function Touch$({
   onlyDirections = [],
   takeLimit = 0,
   onlyOnChangeDirection = false,
+  onlyAxis,
 }: TouchArgs): TouchObservableReturn {
   const mouseDown$ = fromEvent(el, 'mousedown');
   const mouseMove$ = fromEvent(document, 'mousemove');
@@ -80,8 +81,8 @@ export default function Touch$({
       const left = getLeft(el as HTMLElement);
 
       const axes = {
-        x: event.clientX - left,
-        y: event.clientY - top,
+        x: onlyAxis === 'y' ? 0 : event.clientX - left,
+        y: onlyAxis === 'x' ? 0 : event.clientY - top,
       };
 
       return {
@@ -98,8 +99,8 @@ export default function Touch$({
   function touchAxesOperator() {
     return map<TouchEventWithType, Touch$Next>(({ event, ...args }) => {
       const axes = {
-        x: event.changedTouches[0].screenX,
-        y: event.changedTouches[0].screenY,
+        x: onlyAxis === 'y' ? 0 : event.changedTouches[0].screenX,
+        y: onlyAxis === 'x' ? 0 : event.changedTouches[0].screenY,
       };
 
       return {

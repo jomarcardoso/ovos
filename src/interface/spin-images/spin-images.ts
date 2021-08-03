@@ -132,6 +132,7 @@ const spinImages: SpinImages = ({
       x: debounce,
       y: debounce,
     },
+    onlyAxis: 'x',
   });
 
   touch$.grab$.subscribe(handleGrab);
