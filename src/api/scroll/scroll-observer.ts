@@ -1,40 +1,60 @@
 // @ts-expect-error rxjs issue
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, pipe } from 'rxjs';
 // @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';
 import { isNil } from 'lodash';
-import { ScrollableElement } from '../../utilities/scroll';
 import {
   getScrollingEl,
   getScrollPosition,
   isOutOfLimit,
 } from '../../utilities/element';
 import {
-  Axes,
   getDirection,
   Direction,
   isOnGap,
   AXES,
-  Positions,
   POSITIONS,
 } from '../../utilities/axis';
+import { Scroll$Next, ScrollObserverArgs } from './scroll-observer.types';
 
-interface Args {
-  el?: ScrollableElement;
-  gap?: Axes;
-  debounce?: number;
-  limit?: Positions;
-  maxRelative?: Partial<Positions>;
-}
+function gapOperator(gap = AXES) {
+  interface ScrollGapTemp$ {
+    last: Scroll$Next;
+    current: Scroll$Next;
+  }
 
-export interface Scroll$Next {
-  event: UIEvent;
-  axes: Axes;
-  relativeAxes: Axes;
-  el: HTMLElement;
-  direction: Direction;
+  return pipe(
+    map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
+      return {
+        current: scrollObserver,
+        last: scrollObserver,
+      };
+    }),
+    scan<ScrollGapTemp$, ScrollGapTemp$>((acc, curr) => {
+      const onGap = isOnGap({
+        axes: acc.current.axes,
+        gap,
+        lastAxes: acc.last.axes,
+      });
+
+      return {
+        current: curr.current,
+        last: onGap ? acc.last : curr.current,
+      };
+    }),
+    filter<ScrollGapTemp$>(({ current, last }) => {
+      return !isOnGap({
+        axes: current.axes,
+        gap,
+        lastAxes: last.axes,
+      });
+    }),
+    map<ScrollGapTemp$, Scroll$Next>((scrollObserver) => {
+      return scrollObserver.current;
+    }),
+  );
 }
 
 function Scroll$({
@@ -48,7 +68,7 @@ function Scroll$({
     right: undefined,
     top: undefined,
   },
-}: Args): Observable<Scroll$Next> {
+}: ScrollObserverArgs): Observable<Scroll$Next> {
   const scrollingEl = getScrollingEl(el as HTMLElement & HTMLDocument);
 
   const scroll$ = fromEvent(
@@ -89,42 +109,8 @@ function Scroll$({
     }),
   );
 
-  interface ScrollGapTemp$ {
-    last: Scroll$Next;
-    current: Scroll$Next;
-  }
-
   if (gap.x || gap.y) {
-    scrollDirection$ = scrollDirection$.pipe(
-      map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
-        return {
-          current: scrollObserver,
-          last: scrollObserver,
-        };
-      }),
-      scan<ScrollGapTemp$, ScrollGapTemp$>((acc, curr) => {
-        const onGap = isOnGap({
-          axes: acc.current.axes,
-          gap,
-          lastAxes: acc.last.axes,
-        });
-
-        return {
-          current: curr.current,
-          last: onGap ? acc.last : curr.current,
-        };
-      }),
-      filter<ScrollGapTemp$>(({ current, last }) => {
-        return !isOnGap({
-          axes: current.axes,
-          gap,
-          lastAxes: last.axes,
-        });
-      }),
-      map<ScrollGapTemp$, Scroll$Next>((scrollObserver) => {
-        return scrollObserver.current;
-      }),
-    );
+    scrollDirection$ = scrollDirection$.pipe(gapOperator(gap));
   }
 
   if (debounce) {

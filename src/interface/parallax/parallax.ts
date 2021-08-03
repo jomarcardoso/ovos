@@ -18,8 +18,6 @@ export default function parallax({
     externalDistance || Number(el.dataset.ovoParallaxDistance) || 1000;
   const gap = externalGap || Number(el.dataset.ovoParallaxGap) || 0;
 
-  console.log(el.dataset.ovoParallaxElRelative);
-
   const elRelative =
     externalElRelative ??
     (el.dataset.ovoParallaxElRelative &&
