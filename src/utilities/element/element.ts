@@ -1,6 +1,6 @@
 import './element.scss';
-import { Axes, Positions } from '../axis';
-import { ScrollableElement } from '../scroll';
+import { AXES, Axes, Positions } from '../axis';
+import { ScrollableElement, scrollTo } from '../scroll';
 import { getViewportHeight } from '../view/view';
 
 export function getScrollingEl(
@@ -209,4 +209,22 @@ export function getPositionRelativeOfTheDocument(el: HTMLElement): Positions {
     bottom: top + height,
     right: left + width,
   };
+}
+
+export function scrollToEl({
+  el,
+  difference = AXES,
+}: {
+  el: HTMLElement;
+  difference: Axes;
+}): void {
+  const left = el.offsetLeft;
+  const top = el.offsetTop;
+  const scrollingElement = getScrollParent(el) as HTMLElement;
+
+  scrollTo({
+    left: left - difference.x,
+    top: top - difference.y,
+    scrollingElement,
+  });
 }
