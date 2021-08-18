@@ -1,27 +1,19 @@
 import { getTop } from '../element';
 
-export function scrollTopTo({
+export function scrollTo({
   scrollingElement = window,
   top = 0,
-}: {
-  scrollingElement?: HTMLElement | Window;
-  top?: number;
-}): void {
-  scrollingElement.scrollTo({
-    top,
-    behavior: 'smooth',
-  });
-}
-
-export function scrollLeftTo({
-  scrollingElement = window,
   left = 0,
 }: {
   scrollingElement?: HTMLElement | Window;
+  top?: number;
   left?: number;
 }): void {
-  scrollingElement.scrollTo({
+  const el = scrollingElement instanceof Document ? window : scrollingElement;
+
+  el.scrollTo({
     left,
+    top,
     behavior: 'smooth',
   });
 }
@@ -29,5 +21,5 @@ export function scrollLeftTo({
 export function documentScrollToElement(element: HTMLElement): void {
   const valueToScroll = getTop(element);
 
-  scrollTopTo({ top: valueToScroll });
+  scrollTo({ top: valueToScroll });
 }

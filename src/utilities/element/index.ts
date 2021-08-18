@@ -15,4 +15,5 @@ export {
   getMiddleRelativeScreen,
   getWidth,
   translate,
+  scrollToEl,
 } from './element';

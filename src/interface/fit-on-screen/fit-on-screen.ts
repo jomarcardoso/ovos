@@ -1,7 +1,7 @@
 import { Axis, POSITIONS } from '../../utilities/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
-import { scrollTopTo, scrollLeftTo } from '../../utilities/scroll';
+import { scrollTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
@@ -49,16 +49,8 @@ export default function fitOnScreen({
 
     if (!nearElement) return;
 
-    if (axis === 'y') {
-      scrollTopTo({
-        top: getOffsetByAxis({ axis, el: nearElement }),
-        scrollingElement: el,
-      });
-
-      return;
-    }
-
-    scrollLeftTo({
+    scrollTo({
+      top: getOffsetByAxis({ axis, el: nearElement }),
       left: getOffsetByAxis({ axis, el: nearElement }),
       scrollingElement: el,
     });

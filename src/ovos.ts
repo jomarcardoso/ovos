@@ -31,13 +31,10 @@ export {
   isOutOfLimit,
   isTopOfElementAboveOfViewport,
   translate,
+  scrollToEl,
 } from './utilities/element';
 
-export {
-  ScrollableElement,
-  scrollLeftTo,
-  scrollTopTo,
-} from './utilities/scroll';
+export { ScrollableElement, scrollTo } from './utilities/scroll';
 
 export {
   getTotalViewScrolled,
