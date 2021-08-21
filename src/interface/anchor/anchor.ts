@@ -124,6 +124,8 @@ const anchor: Anchor = ({
 };
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const flag = document.querySelector(
     '[data-ovo-anchor="to-anchor"][data-ovo-auto]',
   );

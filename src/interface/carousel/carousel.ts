@@ -265,6 +265,8 @@ const carousel: Carousel = ({
 };
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const flag = document.querySelector(
     '[data-carousel="carousel"][data-ovo-auto]',
   );

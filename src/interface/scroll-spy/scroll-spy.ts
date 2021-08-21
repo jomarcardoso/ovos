@@ -144,6 +144,8 @@ export default function scrollSpy({
 }
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const el = document.querySelector('[data-ovo-scroll-spy][data-ovo-auto]');
 
   if (!el) return;
