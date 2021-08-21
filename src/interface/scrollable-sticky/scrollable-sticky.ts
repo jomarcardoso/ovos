@@ -126,6 +126,8 @@ export default function scrollableSticky({
 }
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const elContainer = document.querySelector(
     '[data-ovo_ss="container"][data-ovo-auto]',
   ) as HTMLElement;

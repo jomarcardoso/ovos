@@ -34,6 +34,8 @@ export default function StickyHeader({
 }
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const flag = document.querySelector(
     '[data-ovo-sticky-header][data-ovo-auto]',
   );

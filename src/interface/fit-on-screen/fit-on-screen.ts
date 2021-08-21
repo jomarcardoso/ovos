@@ -70,6 +70,8 @@ export default function fitOnScreen({
 }
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const flag = document.querySelector('[data-ovo-fs][data-ovo-auto]');
 
   if (!flag) return;

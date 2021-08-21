@@ -159,6 +159,8 @@ const spinImages: SpinImages = ({
 };
 
 function autoStart() {
+  if (typeof document === 'undefined') return;
+
   const el = document.querySelector('[data-ovo-spin-images][data-ovo-auto]');
 
   if (el) {
