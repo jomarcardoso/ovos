@@ -27,7 +27,7 @@ const generateConfig = ({
       path: path.resolve(__dirname),
       libraryTarget: 'umd',
       library: 'ovos',
-      globalObject: 'window',
+      globalObject: bundle ? 'window' : 'this',
     },
     module: {
       rules: [

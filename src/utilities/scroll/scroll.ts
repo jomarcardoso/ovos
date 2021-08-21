@@ -9,8 +9,6 @@ export function scrollTo({
   top?: number;
   left?: number;
 }): void {
-  if (typeof window === 'undefined') return;
-
   const el = scrollingElement instanceof Document ? window : scrollingElement;
 
   el.scrollTo({
