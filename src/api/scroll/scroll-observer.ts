@@ -1,6 +1,4 @@
-// @ts-expect-error rxjs issue
 import { fromEvent, Observable, pipe } from 'rxjs';
-// @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';

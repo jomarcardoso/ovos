@@ -1,4 +1,3 @@
-// @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';

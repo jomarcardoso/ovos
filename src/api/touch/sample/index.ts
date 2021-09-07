@@ -35,18 +35,14 @@ function showDirection(direction = Direction.NONE) {
   elDirection.innerHTML = direction;
 }
 
-// @ts-expect-error rxjs issue
 drop$.subscribe(({ axes }) => {
   if (!elStatus || !elDropX || !elDropY) return;
 
   elStatus.innerHTML = 'DROPPED';
   elDropX.innerHTML = String(axes.x);
   elDropY.innerHTML = String(axes.y);
-
-  // showDirection(direction);
 });
 
-// @ts-expect-error rxjs issue
 drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction }) => {
   if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 

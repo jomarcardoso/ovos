@@ -1,6 +1,5 @@
 /* eslint-disable */
 import './main.scss';
-// @ts-expect-error rxjs issue
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Scroll$, Scroll$Next } from '..';
