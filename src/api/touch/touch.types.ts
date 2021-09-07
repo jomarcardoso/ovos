@@ -1,4 +1,3 @@
-// @ts-expect-error rxjs issue
 // eslint-disable-next-line import/no-unresolved
 import { Observable } from 'rxjs';
 import { Axes, Axis, Direction } from '../../utilities/axis';
