@@ -216,7 +216,7 @@ export function scrollToEl({
   difference = AXES,
 }: {
   el: HTMLElement;
-  difference: Axes;
+  difference?: Axes;
 }): void {
   const left = el.offsetLeft;
   const top = el.offsetTop;
