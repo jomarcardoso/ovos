@@ -131,6 +131,14 @@ export function getScrollParent(el: HTMLElement): ScrollableElement {
     return elHTML;
   }
 
+  if (elHTML.scrollWidth > elHTML.clientWidth) {
+    if (elHTML.tagName === 'BODY' || elHTML.tagName === 'HTML') {
+      return document;
+    }
+
+    return elHTML;
+  }
+
   return getScrollParent(elHTML.parentNode as HTMLElement);
 }
 
@@ -220,7 +228,9 @@ export function scrollToEl({
 }): void {
   const left = el.offsetLeft;
   const top = el.offsetTop;
-  const scrollingElement = getScrollParent(el) as HTMLElement;
+  const scrollingElement = getScrollParent(
+    el.parentNode as HTMLElement,
+  ) as HTMLElement;
 
   scrollTo({
     left: left - difference.x,
