@@ -38,6 +38,7 @@ interface ScrollSpyArgs {
   elRelative?: ScrollableElement;
   method?: Method;
   axis?: Axis;
+  debounce?: number;
 }
 
 export default function scrollSpy({
@@ -45,6 +46,7 @@ export default function scrollSpy({
   elRelative = document,
   method = 'CURRENT',
   axis = 'y',
+  debounce = 0,
 }: ScrollSpyArgs): void {
   let currentActive: ScrollSpyItem;
   let getTheActive: (
@@ -138,6 +140,7 @@ export default function scrollSpy({
 
   const observable = Scroll$({
     el: elRelative,
+    debounce,
   });
 
   observable.subscribe(handleScroll);
