@@ -15,4 +15,4 @@ export interface ScrollSpyItem {
 
 export type CreateScrollSpyItem = (args: ScrollSpyItemArgs) => ScrollSpyItem;
 
-export type Method = 'CURRENT' | 'CLOSEST';
+export type Method = 'CURRENT' | 'CLOSEST' | 'EXACT';
