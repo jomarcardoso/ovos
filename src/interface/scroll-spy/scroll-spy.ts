@@ -61,7 +61,7 @@ export default function scrollSpy({
           ? currentValue?.content?.offsetTop ?? 0
           : currentValue?.content?.offsetLeft ?? 0;
 
-      if (position[axis] >= currentStart - 1) {
+      if (Math.round(position[axis]) >= Math.round(currentStart)) {
         return currentValue;
       }
 
@@ -127,6 +127,25 @@ export default function scrollSpy({
     getTheActive = getTheClosest;
   }
 
+  if (method === 'EXACT') {
+    getTheActive = (position: Axes) => {
+      const oi = list.reduce((previousValue, currentValue) => {
+        const currentStart =
+          axis === 'y'
+            ? currentValue?.content?.offsetTop ?? 0
+            : currentValue?.content?.offsetLeft ?? 0;
+
+        if (Math.round(position[axis]) === Math.round(currentStart)) {
+          return currentValue;
+        }
+
+        return previousValue;
+      }, currentActive);
+
+      return oi;
+    };
+  }
+
   function handleScroll({ axes, el: scrollingElement }: Scroll$Next) {
     const currentToActive = getTheActive(axes, scrollingElement);
 
@@ -144,6 +163,7 @@ export default function scrollSpy({
   });
 
   observable.subscribe(handleScroll);
+  elRelative.dispatchEvent(new Event('scroll'));
 }
 
 function autoStart() {
@@ -167,7 +187,19 @@ function autoStart() {
     });
   });
 
-  scrollSpy({ list });
+  const debounce = Number(el.getAttribute('data-ovo-scroll-spy-debounce')) || 0;
+
+  const elRelative =
+    (el.hasAttribute('data-ovo-scroll-spy-relative')
+      ? (el as ScrollableElement)
+      : (el.querySelector(
+          '[data-ovo-scroll-spy-relative]',
+        ) as ScrollableElement)) ?? undefined;
+
+  const method =
+    (el.getAttribute('data-ovo-scroll-spy-method') as Method) || undefined;
+
+  scrollSpy({ list, elRelative, debounce, method });
 }
 
 autoStart();
