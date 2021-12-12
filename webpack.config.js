@@ -45,7 +45,30 @@ const generateConfig = ({
           test: /\.s[ac]ss$/i,
           use: [
             // Creates `style` nodes from JS strings
-            'style-loader',
+            {
+              loader: "style-loader",
+              options: {
+                insert: function insertAtTop(element) {
+                  if (typeof document === 'undefined') return;
+
+                  var parent = document.querySelector("head");
+                  // eslint-disable-next-line no-underscore-dangle
+                  var lastInsertedElement =
+                    window._lastElementInsertedByStyleLoader;
+
+                  if (!lastInsertedElement) {
+                    parent.insertBefore(element, parent.firstChild);
+                  } else if (lastInsertedElement.nextSibling) {
+                    parent.insertBefore(element, lastInsertedElement.nextSibling);
+                  } else {
+                    parent.appendChild(element);
+                  }
+
+                  // eslint-disable-next-line no-underscore-dangle
+                  window._lastElementInsertedByStyleLoader = element;
+                },
+              },
+            },
             // Translates CSS into CommonJS
             'css-loader',
             // Compiles Sass to CSS
