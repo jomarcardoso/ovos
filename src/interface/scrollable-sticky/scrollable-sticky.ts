@@ -9,20 +9,28 @@ import {
   getHeight,
 } from '../../utilities/element';
 
+const isNodeJS = typeof window === 'undefined';
+
 export default function scrollableSticky({
-  el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
-  elContainer = document.querySelector(
-    '[data-ovo_ss="container"]',
-  ) as HTMLElement,
+  el = !isNodeJS
+    ? (document.querySelector('[data-ovo_ss="content"]') as HTMLElement)
+    : undefined,
+  elContainer = !isNodeJS
+    ? (document.querySelector('[data-ovo_ss="container"]') as HTMLElement)
+    : undefined,
   onUnpin,
   onPin,
   onUnfix,
   onFix,
 }: ScrollableStickyArgs): void {
+  if (!el || !elContainer) return;
+
   let fixed = false;
   let pinnedOnBottom = false;
 
   function applyMinHeightToScrollableElement() {
+    if (!elContainer) return;
+
     const parentEl = elContainer.parentNode as HTMLElement;
 
     // parentEl.setAttribute('data-ovo_ss', 'wrapper');
@@ -32,8 +40,10 @@ export default function scrollableSticky({
   applyMinHeightToScrollableElement();
 
   function pinAndFix() {
+    if (!el || !elContainer) return;
+
     function pinOnBottom() {
-      if (pinnedOnBottom) return;
+      if (!elContainer || pinnedOnBottom) return;
 
       // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_pinned = 'bottom';
@@ -42,7 +52,7 @@ export default function scrollableSticky({
     }
 
     function unpinOnBottom() {
-      if (!pinnedOnBottom) return;
+      if (!elContainer || !pinnedOnBottom) return;
 
       // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_pinned = '';
@@ -51,7 +61,7 @@ export default function scrollableSticky({
     }
 
     function fix() {
-      if (fixed) return;
+      if (fixed || !el || !elContainer) return;
 
       fixed = true;
       // eslint-disable-next-line no-param-reassign
@@ -63,6 +73,7 @@ export default function scrollableSticky({
 
     function unfix() {
       if (!fixed) return;
+      if (!el || !elContainer) return;
 
       fixed = false;
       // eslint-disable-next-line no-param-reassign

@@ -4,6 +4,8 @@ import { Scroll$, Scroll$Next } from '../../api/scroll';
 import { scrollTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
 
+const isNodeJS = typeof window === 'undefined';
+
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
   if (axis === 'y') return getTop(el);
 
@@ -17,14 +19,21 @@ function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
 }
 
 export default function fitOnScreen({
-  elRelative = (document.querySelector('[data-ovo-fs="el"]') as HTMLElement) ||
-    document,
-  elsToFit = Array.from(document.querySelectorAll('[data-ovo-fs="content"]')),
+  elRelative = !isNodeJS
+    ? (document.querySelector('[data-ovo-fs="el"]') as HTMLElement) || document
+    : undefined,
+  elsToFit: externalElsToFit,
   proximityToFit = 240,
   axis = 'y',
   debounce = 1000,
   limit = POSITIONS,
 }: FitOnScreenArgs): void {
+  if (!elRelative) return;
+
+  const elsToFit =
+    externalElsToFit ||
+    Array.from(document.querySelectorAll('[data-ovo-fs="content"]'));
+
   const isNearOfElement: IsNearOfElement = ({ elToFit, scrolledPosition }) => {
     const offsetElToFit = getOffsetByAxis({ axis, el: elToFit });
     const highOffsetElToFit = offsetElToFit - proximityToFit;
@@ -70,7 +79,7 @@ export default function fitOnScreen({
 }
 
 function autoStart() {
-  if (typeof document === 'undefined') return;
+  if (isNodeJS) return;
 
   const flag = document.querySelector('[data-ovo-fs][data-ovo-auto]');
 
