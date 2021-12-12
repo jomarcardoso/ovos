@@ -1,6 +1,8 @@
 import { Scroll$, Scroll$Next } from '../../api/scroll';
 import { getMaxVerticalScroll, getScrollingEl } from '../../utilities/element';
 
+const isNodeJS = typeof window === 'undefined';
+
 interface PageProgressArgs {
   el?: HTMLElement;
 }
@@ -8,7 +10,9 @@ interface PageProgressArgs {
 type PageProgress = (args: PageProgressArgs) => void;
 
 const pageProgress: PageProgress = ({
-  el = document.querySelector('[data-ovo-pp="bar"]') as HTMLElement,
+  el = !isNodeJS
+    ? (document.querySelector('[data-ovo-pp="bar"]') as HTMLElement)
+    : undefined,
 }) => {
   const elRelative = getScrollingEl(document);
 
@@ -19,6 +23,8 @@ const pageProgress: PageProgress = ({
 
   function handleScroll({ axes: { y } }: Scroll$Next) {
     const percent = y / getMaxVerticalScroll(elRelative);
+
+    if (!el) return;
 
     // eslint-disable-next-line no-param-reassign
     el.style.transform = `scaleX(${percent})`;

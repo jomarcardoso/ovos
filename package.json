@@ -1,6 +1,6 @@
 {
   "name": "ovos",
-  "version": "0.12.1",
+  "version": "0.12.2",
   "description": "A library for animations based on scroll and touch events.",
   "main": "dist/ovos.min.js",
   "types": "types/ovos.d.ts",
@@ -31,8 +31,7 @@
   "dependencies": {
     "@babel/runtime": "^7.16.3",
     "@types/jsdom-global": "^3.0.2",
-    "jsdom": "^19.0.0",
-    "jsdom-global": "^3.0.2",
+    "canvas": "^2.8.0",
     "lodash": "^4.17.21",
     "rxjs": "^7.4.0"
   },

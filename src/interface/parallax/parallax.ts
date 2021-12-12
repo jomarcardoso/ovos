@@ -3,8 +3,12 @@ import { Scroll$, Scroll$Next } from '../../api/scroll';
 import { ParallaxArgs } from './parallax.types';
 import { ScrollableElement } from '../../utilities/scroll';
 
+const isNodeJS = typeof window === 'undefined';
+
 export default function parallax({
-  el = document.querySelector('[data-ovo-parallax]') as HTMLElement,
+  el = !isNodeJS
+    ? (document.querySelector('[data-ovo-parallax]') as HTMLElement)
+    : undefined,
   elContent: externalElContent,
   callback,
   distance: externalDistance = 0,
@@ -12,6 +16,8 @@ export default function parallax({
   gap: externalGap = 0,
   axis: externalAxis,
 }: ParallaxArgs): void {
+  if (!el) return;
+
   const axis = el.dataset.ovoParallaxAxis || externalAxis || 'y';
 
   const distance =

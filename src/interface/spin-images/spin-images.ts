@@ -2,6 +2,8 @@ import './spin-images.scss';
 import { Direction } from '../../utilities/axis';
 import { Touch$Next, Touch$ } from '../../api/touch';
 
+const isNodeJS = typeof window === 'undefined';
+
 function setSpriteSize({
   elSprite,
   quantityFrames = 0,
@@ -47,7 +49,9 @@ type SpinImages = (args: SpinImagesArgs) => void;
 
 const spinImages: SpinImages = ({
   quantityFrames: externalQuantityFrames = 0,
-  el = document.querySelector('[data-ovo-spin-images]') as HTMLElement,
+  el = !isNodeJS
+    ? (document.querySelector('[data-ovo-spin-images]') as HTMLElement)
+    : undefined,
   autoRotateTime = 0,
   clockwise = true,
   onGrab,

@@ -1,1 +1,1 @@
-export type ScrollableElement = HTMLElement | HTMLDocument;
+export type ScrollableElement = HTMLElement | Document;

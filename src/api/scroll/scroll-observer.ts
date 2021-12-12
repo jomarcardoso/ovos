@@ -56,7 +56,7 @@ function gapOperator(gap = AXES) {
 }
 
 function Scroll$({
-  el = document,
+  el: externalEl,
   gap = AXES,
   debounce = 0,
   limit = POSITIONS,
@@ -67,7 +67,8 @@ function Scroll$({
     top: undefined,
   },
 }: ScrollObserverArgs): Observable<Scroll$Next> {
-  const scrollingEl = getScrollingEl(el as HTMLElement & HTMLDocument);
+  const el = externalEl || document;
+  const scrollingEl = getScrollingEl(el as HTMLElement & Document);
 
   const scroll$ = fromEvent(
     el as unknown as JQueryStyleEventEmitter<UIEvent, UIEvent>,

@@ -3,6 +3,7 @@ import { Axes, Axis } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
 
+const isNodeJS = typeof window === 'undefined';
 const ACTIVE_CLASS = 'is-active';
 
 export const createScrollSpyItem: CreateScrollSpyItem = ({
@@ -43,11 +44,13 @@ interface ScrollSpyArgs {
 
 export default function scrollSpy({
   list,
-  elRelative = document,
+  elRelative = !isNodeJS ? document : undefined,
   method = 'CURRENT',
   axis = 'y',
   debounce = 0,
 }: ScrollSpyArgs): void {
+  if (!elRelative) return;
+
   let currentActive: ScrollSpyItem;
   let getTheActive: (
     postion: Axes,

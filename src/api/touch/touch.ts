@@ -28,13 +28,14 @@ import type {
 } from './touch.types';
 
 export default function Touch$({
-  el = document,
+  el: externalEl,
   gap = AXES,
   onlyDirections = [],
   takeLimit = 0,
   onlyOnChangeDirection = false,
   onlyAxis,
 }: TouchArgs): TouchObservableReturn {
+  const el = externalEl || document;
   const mouseDown$ = fromEvent(el, 'mousedown');
   const mouseMove$ = fromEvent(document, 'mousemove');
   const mouseUp$ = fromEvent(document, 'mouseup');
