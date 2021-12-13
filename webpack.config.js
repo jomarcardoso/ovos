@@ -1,8 +1,7 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const generateConfig = ({
   mode = 'production',
@@ -42,33 +41,9 @@ const generateConfig = ({
           loader: 'eslint-loader',
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.scss$/i,
           use: [
-            // Creates `style` nodes from JS strings
-            {
-              loader: "style-loader",
-              options: {
-                insert: function insertAtTop(element) {
-                  if (typeof document === 'undefined') return;
-
-                  var parent = document.querySelector("head");
-                  // eslint-disable-next-line no-underscore-dangle
-                  var lastInsertedElement =
-                    window._lastElementInsertedByStyleLoader;
-
-                  if (!lastInsertedElement) {
-                    parent.insertBefore(element, parent.firstChild);
-                  } else if (lastInsertedElement.nextSibling) {
-                    parent.insertBefore(element, lastInsertedElement.nextSibling);
-                  } else {
-                    parent.appendChild(element);
-                  }
-
-                  // eslint-disable-next-line no-underscore-dangle
-                  window._lastElementInsertedByStyleLoader = element;
-                },
-              },
-            },
+            MiniCssExtractPlugin.loader,
             // Translates CSS into CommonJS
             'css-loader',
             // Compiles Sass to CSS
@@ -87,7 +62,7 @@ const generateConfig = ({
     //     chunks: 'all',
     //   },
     // },
-    plugins: [],
+    plugins: [new MiniCssExtractPlugin()],
   };
 
   if (mode === 'production') {
