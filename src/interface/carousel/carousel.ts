@@ -32,14 +32,10 @@ const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
 };
 
 const carousel: Carousel = ({
-  el: externalEl,
+  el = document.querySelector('[data-carousel="carousel"]') as HTMLElement,
   autoplayTime: extAutoplayTime = 0,
   currentSlide: extCurrentSlide = 0,
 }) => {
-  const el =
-    externalEl ||
-    (document.querySelector('[data-carousel="carousel"]') as HTMLElement);
-
   if (!el) return;
 
   function getAutoPlayTime() {

@@ -2,12 +2,8 @@ import './sticky-header.scss';
 import { getHeight, translate } from '../../utilities/element';
 import { Scroll$, Scroll$Next } from '../../api/scroll';
 
-const isNodeJS = typeof window === 'undefined';
-
 export default function StickyHeader({
-  el = !isNodeJS
-    ? document.querySelector('[data-ovo-sticky-header]')
-    : undefined,
+  el = document.querySelector('[data-ovo-sticky-header]'),
 }: {
   el?: Element | null;
 }): void {

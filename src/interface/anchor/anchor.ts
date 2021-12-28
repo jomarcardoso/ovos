@@ -19,21 +19,13 @@ interface GetOffsetArgs {
 type GetOffset = (args: GetOffsetArgs) => Direction;
 
 const anchor: Anchor = ({
-  elFloating: externalElFloating,
-  elToAnchor: externalElToAnchor,
+  elFloating = document.querySelector(
+    '[data-ovo-anchor="floating"]',
+  ) as HTMLElement | null,
+  elToAnchor = document.querySelector(
+    '[data-ovo-anchor="to-anchor"]',
+  ) as HTMLElement | null,
 }) => {
-  const elFloating =
-    externalElFloating ||
-    (document.querySelector(
-      '[data-ovo-anchor="floating"]',
-    ) as HTMLElement | null);
-
-  const elToAnchor =
-    externalElToAnchor ||
-    (document.querySelector(
-      '[data-ovo-anchor="to-anchor"]',
-    ) as HTMLElement | null);
-
   if (!elFloating || !elToAnchor) return;
 
   const elScrolling = getScrollParent(elToAnchor);
