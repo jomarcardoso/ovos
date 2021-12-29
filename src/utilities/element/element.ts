@@ -3,10 +3,10 @@ import { AXES, Axes, Positions } from '../axis';
 import { ScrollableElement, scrollTo } from '../scroll';
 import { getViewportHeight } from '../view/view';
 
-const isNodeJS = typeof window === 'undefined';
-
-export function getScrollingEl(target: HTMLElement | Document): HTMLElement {
-  const documentTarget = target as Document;
+export function getScrollingEl(
+  target: HTMLElement | HTMLDocument,
+): HTMLElement {
+  const documentTarget = target as HTMLDocument;
 
   if (documentTarget.scrollingElement) {
     return documentTarget.scrollingElement as HTMLElement;
@@ -178,11 +178,9 @@ interface ToggleDocumentScrollArgs {
 export type ToggleDocumentScroll = (args: ToggleDocumentScrollArgs) => void;
 
 export const toggleScrollDisabled: ToggleScrollDisabled = ({
-  el = !isNodeJS ? document.documentElement : undefined,
+  el = document.documentElement,
   toggle: provisionalToggle,
 }) => {
-  if (!el) return false;
-
   const hasDataDisabled = el.dataset?.ovoNonScrollable === 'true';
   const toggle = provisionalToggle ?? !hasDataDisabled;
 
@@ -233,6 +231,8 @@ export function scrollToEl({
   const scrollingElement = getScrollParent(
     el.parentNode as HTMLElement,
   ) as HTMLElement;
+
+  scrollingElement.scrollIntoView(true);
 
   scrollTo({
     left: left - difference.x,

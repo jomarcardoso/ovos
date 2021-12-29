@@ -20,5 +20,5 @@ The `data-ovo_ss="container"` works like a sticky element and the `data-ovo_ss="
 import { ScrollableSticky } from 'ovos';
 
 ScrollableSticky({});
-
+```
 
