@@ -7,3 +7,4 @@ export { ScrollSpy, createScrollSpyItem } from './scroll-spy';
 export { ScrollableSticky } from './scrollable-sticky';
 export { SpinImages } from './spin-images';
 export { StickyHeader } from './sticky-header';
+export { ScrollableTabs } from './scrollable-tabs';

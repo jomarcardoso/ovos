@@ -53,4 +53,5 @@ export {
   SpinImages,
   createScrollSpyItem,
   StickyHeader,
+  ScrollableTabs,
 } from './interface';
