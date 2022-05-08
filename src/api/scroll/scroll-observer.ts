@@ -8,13 +8,7 @@ import {
   getScrollPosition,
   isOutOfLimit,
 } from '../../utilities/element';
-import {
-  getDirection,
-  Direction,
-  isOnGap,
-  AXES,
-  POSITIONS,
-} from '../../utilities/axis';
+import { getDirection, isOnGap, AXES, POSITIONS } from '../../utilities/axis';
 import { Scroll$Next, ScrollObserverArgs } from './scroll-observer.types';
 
 function gapOperator(gap = AXES) {
@@ -94,7 +88,7 @@ function Scroll$({
     map<ScrollAxes$, Scroll$Next>((scrollAxesObserver) => {
       return {
         ...scrollAxesObserver,
-        direction: Direction.NONE,
+        direction: '',
       };
     }),
     scan<Scroll$Next, Scroll$Next>((acc, curr) => {

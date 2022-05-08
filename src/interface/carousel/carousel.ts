@@ -65,10 +65,10 @@ const carousel: Carousel = ({
       firstSlideWidth <= halfSliderWidth + 1;
 
     if (firstSlideSmallerThanHalfSlider) {
-      return CarouselFitType.BOX;
+      return 'BOX';
     }
 
-    return CarouselFitType.CENTER;
+    return 'CENTER';
   }
 
   const type = detectType();
@@ -86,7 +86,7 @@ const carousel: Carousel = ({
   }
 
   function removeNotUsedSlides() {
-    if (type !== CarouselFitType.BOX) return;
+    if (type !== 'BOX') return;
 
     const firstSlideWidth = elSlides[0].offsetWidth;
     const sliderWidth = elSlider.offsetWidth;
@@ -146,7 +146,7 @@ const carousel: Carousel = ({
     const position = elTarget.offsetLeft;
     let scrollLeft = position;
 
-    if (type === CarouselFitType.CENTER) {
+    if (type === 'CENTER') {
       const slideWidth = elTarget.offsetWidth;
       const sliderWidth = elSlider.offsetWidth;
 
@@ -212,7 +212,7 @@ const carousel: Carousel = ({
       list: slides,
       elRelative: elSlider,
       axis: 'x',
-      method: type === CarouselFitType.BOX ? 'CURRENT' : 'CLOSEST',
+      method: type === 'BOX' ? 'CURRENT' : 'CLOSEST',
     });
   }
 
@@ -237,7 +237,7 @@ const carousel: Carousel = ({
   }
 
   function startOnCurrentSlide() {
-    if (type === CarouselFitType.BOX) {
+    if (type === 'BOX') {
       elSlides.forEach((elSlide) => {
         const style = elSlide.style as CustomCSSStyleDeclaration;
 

@@ -17,23 +17,23 @@ export function getDirection({
   const onDown = lastAxes.y < axes.y;
   const onUp = lastAxes.y > axes.y;
 
-  if (onUp && onTheLeft) return Direction.UP_LEFT;
+  if (onUp && onTheLeft) return 'up-left';
 
-  if (onUp && onTheRight) return Direction.UP_RIGHT;
+  if (onUp && onTheRight) return 'up-right';
 
-  if (onUp) return Direction.UP;
+  if (onUp) return 'up';
 
-  if (onDown && onTheLeft) return Direction.DOWN_LEFT;
+  if (onDown && onTheLeft) return 'down-left';
 
-  if (onDown && onTheRight) return Direction.DOWN_RIGHT;
+  if (onDown && onTheRight) return 'down-right';
 
-  if (onDown) return Direction.DOWN;
+  if (onDown) return 'down';
 
-  if (onTheRight) return Direction.RIGHT;
+  if (onTheRight) return 'right';
 
-  if (onTheLeft) return Direction.LEFT;
+  if (onTheLeft) return 'left';
 
-  return Direction.NONE;
+  return '';
 }
 
 interface IsOnTheSameDirectionArgs {
@@ -49,38 +49,38 @@ export const isOnTheSameDirection: IsOnTheSameDirection = ({
 }) => {
   let lastDirections: Array<Direction> = [lastDirection];
 
-  if (lastDirection === Direction.DOWN_LEFT) {
-    lastDirections = [Direction.DOWN, Direction.LEFT];
+  if (lastDirection === 'down-left') {
+    lastDirections = ['down', 'left'];
   }
 
-  if (lastDirection === Direction.DOWN_RIGHT) {
-    lastDirections = [Direction.DOWN, Direction.RIGHT];
+  if (lastDirection === 'down-right') {
+    lastDirections = ['down', 'right'];
   }
 
-  if (lastDirection === Direction.UP_LEFT) {
-    lastDirections = [Direction.UP, Direction.LEFT];
+  if (lastDirection === 'up-left') {
+    lastDirections = ['up', 'left'];
   }
 
-  if (lastDirection === Direction.UP_RIGHT) {
-    lastDirections = [Direction.UP, Direction.RIGHT];
+  if (lastDirection === 'up-right') {
+    lastDirections = ['up', 'right'];
   }
 
   let directions: Array<Direction> = [direction];
 
-  if (direction === Direction.DOWN_LEFT) {
-    directions = [Direction.DOWN, Direction.LEFT];
+  if (direction === 'down-left') {
+    directions = ['down', 'left'];
   }
 
-  if (direction === Direction.DOWN_RIGHT) {
-    directions = [Direction.DOWN, Direction.RIGHT];
+  if (direction === 'down-right') {
+    directions = ['down', 'right'];
   }
 
-  if (direction === Direction.UP_LEFT) {
-    directions = [Direction.UP, Direction.LEFT];
+  if (direction === 'up-left') {
+    directions = ['up', 'left'];
   }
 
-  if (direction === Direction.UP_RIGHT) {
-    directions = [Direction.UP, Direction.RIGHT];
+  if (direction === 'up-right') {
+    directions = ['up', 'right'];
   }
 
   return Boolean(intersection(lastDirections, directions).length);

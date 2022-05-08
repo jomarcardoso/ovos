@@ -9,14 +9,23 @@ import {
   isOnGap,
 } from '../../utilities/axis';
 
-export function filterByAttributeAndGapOperator<T>(
-  k: keyof T,
-  gap = AXES,
+interface FilterByAttributeAndGapOperatorArgs<T> {
   ignoreWhen: {
     key: keyof T;
-    value: T[typeof k];
-  },
-): UnaryFunction<Observable<T>, Observable<T>> {
+    value: T[keyof T];
+  };
+  k: keyof T;
+  gap: Axes;
+}
+
+export function filterByAttributeAndGapOperator<T>({
+  ignoreWhen,
+  k,
+  gap = AXES,
+}: FilterByAttributeAndGapOperatorArgs<T>): UnaryFunction<
+  Observable<T>,
+  Observable<T>
+> {
   interface TWithLast {
     last: T;
     current: T;
@@ -98,11 +107,20 @@ export function putRelativeAxesOperator<T>(
   );
 }
 
-export function putAxesBreakpointOperator<T>(
+interface PutAxesBreakpointOperatorArgs<T> {
+  k: keyof T;
+  relativeBreakpointK: keyof T;
+  gap: Axes;
+}
+
+export function putAxesBreakpointOperator<T>({
+  k,
+  relativeBreakpointK,
   gap = AXES,
-  k: keyof T,
-  relativeBreakpointK: keyof T,
-): UnaryFunction<Observable<T>, Observable<T>> {
+}: PutAxesBreakpointOperatorArgs<T>): UnaryFunction<
+  Observable<T>,
+  Observable<T>
+> {
   return pipe(
     map<T, T>((value) => {
       const axes = value[k] as unknown as Axes;
@@ -134,8 +152,7 @@ export function putDirectionOperator<T>(
     map<T[], T>(([last, curr]) => {
       const lastAxes = last[k] as unknown as Axes;
       const currAxes = curr[k] as unknown as Axes;
-      let direction =
-        last[directionK] || (Direction.NONE as unknown as Direction);
+      let direction = last[directionK] || ('' as unknown as Direction);
       const isToIgnore = curr[ignoreWhen.key] === ignoreWhen.value;
 
       if (!isToIgnore) {

@@ -1,5 +1,4 @@
 import './spin-images.scss';
-import { Direction } from '../../utilities/axis';
 import { Touch$Next, Touch$ } from '../../api/touch';
 
 function setSpriteSize({
@@ -141,17 +140,17 @@ const spinImages: SpinImages = ({
 
   touch$.drag$.subscribe((dragEvent: Touch$Next) => {
     if (
-      dragEvent.direction === Direction.LEFT ||
-      dragEvent.direction === Direction.DOWN_LEFT ||
-      dragEvent.direction === Direction.UP_LEFT
+      dragEvent.direction === 'left' ||
+      dragEvent.direction === 'down-left' ||
+      dragEvent.direction === 'up-left'
     ) {
       rotateClockwise();
     }
 
     if (
-      dragEvent.direction === Direction.RIGHT ||
-      dragEvent.direction === Direction.DOWN_RIGHT ||
-      dragEvent.direction === Direction.UP_RIGHT
+      dragEvent.direction === 'right' ||
+      dragEvent.direction === 'down-right' ||
+      dragEvent.direction === 'up-right'
     ) {
       rotateCounterclockwise();
     }

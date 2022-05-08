@@ -10,17 +10,16 @@ export const AXES: Axes = {
   y: 0,
 };
 
-export enum Direction {
-  UP = 'up',
-  DOWN = 'down',
-  LEFT = 'left',
-  RIGHT = 'right',
-  UP_LEFT = 'up-left',
-  UP_RIGHT = 'up-right',
-  DOWN_LEFT = 'down-left',
-  DOWN_RIGHT = 'down-right',
-  NONE = '',
-}
+export type Direction =
+  | 'up'
+  | 'down'
+  | 'left'
+  | 'right'
+  | 'up-left'
+  | 'up-right'
+  | 'down-left'
+  | 'down-right'
+  | '';
 
 export interface Positions {
   top: number;

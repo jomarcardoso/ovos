@@ -1,5 +1,4 @@
 import './main.scss';
-import { Direction } from '../../../utilities/axis';
 import Touch$ from '../touch';
 
 const elXAxis = document.querySelector('#drag-axis-x');
@@ -29,7 +28,7 @@ grab$.subscribe(() => {
   elStatus.innerHTML = 'GRABBING';
 });
 
-function showDirection(direction = Direction.NONE) {
+function showDirection(direction = '') {
   if (!elDirection) return;
 
   elDirection.innerHTML = direction;

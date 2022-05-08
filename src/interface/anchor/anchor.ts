@@ -30,9 +30,9 @@ const anchor: Anchor = ({
 
   const elScrolling = getScrollParent(elToAnchor);
 
-  let lastOffset: Direction = Direction.NONE;
+  let lastOffset: Direction = '';
   let floating = true;
-  let lastToAnchorPosition: Direction = Direction.NONE;
+  let lastToAnchorPosition: Direction = '';
 
   if (!elFloating || !elToAnchor) return;
 
@@ -47,7 +47,7 @@ const anchor: Anchor = ({
     elFloating.dataset.anFixed = 'true';
     floating = true;
 
-    if (position === Direction.UP) {
+    if (position === 'up') {
       // eslint-disable-next-line no-param-reassign
       elFloating.dataset.anPosition = 'top';
 
@@ -68,10 +68,10 @@ const anchor: Anchor = ({
 
   const getOffset: GetOffset = ({ floatingMiddle, toAnchorMiddle }) => {
     if (floatingMiddle.y < toAnchorMiddle.y) {
-      return Direction.UP;
+      return 'up';
     }
 
-    return Direction.DOWN;
+    return 'down';
   };
 
   const verifyAndToAnchor = (offset: Direction) => {
@@ -85,7 +85,7 @@ const anchor: Anchor = ({
     const aboveTheScreen = isAboveTheScreen(toAnchorMiddle.y);
 
     if (aboveTheScreen) {
-      toFloat(Direction.UP);
+      toFloat('up');
 
       return true;
     }
@@ -97,7 +97,7 @@ const anchor: Anchor = ({
     const belowTheScreen = isBelowTheScreen(toAnchorMiddle.y);
 
     if (belowTheScreen) {
-      toFloat(Direction.DOWN);
+      toFloat('down');
 
       return true;
     }

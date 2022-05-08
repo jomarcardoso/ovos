@@ -1,4 +1,5 @@
 const path = require('path');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -36,11 +37,6 @@ const generateConfig = ({
           loader: 'ts-loader',
         },
         {
-          test: /\.ts$/,
-          exclude: /node_modules/,
-          loader: 'eslint-loader',
-        },
-        {
           test: /\.scss$/i,
           use: [
             MiniCssExtractPlugin.loader,
@@ -62,7 +58,7 @@ const generateConfig = ({
     //     chunks: 'all',
     //   },
     // },
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [new MiniCssExtractPlugin(), new ESLintPlugin()],
   };
 
   if (mode === 'production') {

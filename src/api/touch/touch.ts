@@ -14,7 +14,7 @@ import {
   putDirectionOperator,
   putRelativeAxesOperator,
 } from '../../operators/axis';
-import { AXES, Direction } from '../../utilities/axis';
+import { AXES } from '../../utilities/axis';
 import { isOnTheSameDirection } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import type {
@@ -91,7 +91,7 @@ export default function Touch$({
         relativeAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
-        direction: Direction.NONE,
+        direction: '',
       };
     });
   }
@@ -109,7 +109,7 @@ export default function Touch$({
         relativeAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
-        direction: Direction.NONE,
+        direction: '',
       };
     });
   }
@@ -127,9 +127,13 @@ export default function Touch$({
 
   if (gap.x || gap.y) {
     drag$ = drag$.pipe(
-      filterByAttributeAndGapOperator<Touch$Next>('axes', gap, {
-        key: 'type',
-        value: 'START',
+      filterByAttributeAndGapOperator<Touch$Next>({
+        k: 'axes',
+        gap,
+        ignoreWhen: {
+          key: 'type',
+          value: 'START',
+        },
       }),
     );
   }
@@ -142,11 +146,11 @@ export default function Touch$({
   );
 
   drag$ = drag$.pipe(
-    putAxesBreakpointOperator<Touch$Next>(
+    putAxesBreakpointOperator<Touch$Next>({
       gap,
-      'relativeAxes',
-      'relativeBreakpointAxes',
-    ),
+      k: 'relativeAxes',
+      relativeBreakpointK: 'relativeBreakpointAxes',
+    }),
   );
 
   drag$ = drag$.pipe(

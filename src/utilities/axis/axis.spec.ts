@@ -16,7 +16,7 @@ describe('DirectionService', () => {
     it('same position {4,6}: none', () => {
       const axes: Axes = { x: 4, y: 6 };
       const direction = getDirection({ lastAxes: axes, axes });
-      const expected: Direction = Direction.NONE;
+      const expected: Direction = '';
 
       expect(direction).toBe(expected);
     });
@@ -24,7 +24,7 @@ describe('DirectionService', () => {
     it('same position{0,0}: none', () => {
       const axes: Axes = { x: 0, y: 0 };
       const direction = getDirection({ lastAxes: axes, axes });
-      const expected: Direction = Direction.NONE;
+      const expected: Direction = '';
 
       expect(direction).toBe(expected);
     });
@@ -32,7 +32,7 @@ describe('DirectionService', () => {
     it('same position{1,1}: none', () => {
       const axes: Axes = { x: 1, y: 1 };
       const direction = getDirection({ lastAxes: axes, axes });
-      const expected: Direction = Direction.NONE;
+      const expected: Direction = '';
 
       expect(direction).toBe(expected);
     });
@@ -41,7 +41,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 1, y: 1 };
       const axes: Axes = { x: 2, y: 1 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.RIGHT;
+      const expected: Direction = 'right';
 
       expect(direction).toBe(expected);
     });
@@ -50,7 +50,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 3, y: 1 };
       const axes: Axes = { x: 6, y: 1 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.RIGHT;
+      const expected: Direction = 'right';
 
       expect(direction).toBe(expected);
     });
@@ -59,7 +59,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 0, y: 0 };
       const axes: Axes = { x: 6, y: 0 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.RIGHT;
+      const expected: Direction = 'right';
 
       expect(direction).toBe(expected);
     });
@@ -68,7 +68,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: -4, y: 0 };
       const axes: Axes = { x: 0, y: 0 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.RIGHT;
+      const expected: Direction = 'right';
 
       expect(direction).toBe(expected);
     });
@@ -77,7 +77,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 1, y: 0 };
       const axes: Axes = { x: 0, y: 0 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.LEFT;
+      const expected: Direction = 'left';
 
       expect(direction).toBe(expected);
     });
@@ -86,7 +86,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 4, y: 0 };
       const axes: Axes = { x: 1, y: 0 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.LEFT;
+      const expected: Direction = 'left';
 
       expect(direction).toBe(expected);
     });
@@ -95,7 +95,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 0, y: 2 };
       const axes: Axes = { x: 0, y: 10 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.DOWN;
+      const expected: Direction = 'down';
 
       expect(direction).toBe(expected);
     });
@@ -104,7 +104,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 8, y: 2 };
       const axes: Axes = { x: 8, y: 10 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.DOWN;
+      const expected: Direction = 'down';
 
       expect(direction).toBe(expected);
     });
@@ -113,7 +113,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 8, y: 2 };
       const axes: Axes = { x: 8, y: -10 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.UP;
+      const expected: Direction = 'up';
 
       expect(direction).toBe(expected);
     });
@@ -122,7 +122,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 0, y: 0 };
       const axes: Axes = { x: 2, y: 2 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.DOWN_RIGHT;
+      const expected: Direction = 'down-right';
 
       expect(direction).toBe(expected);
     });
@@ -131,7 +131,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 5, y: 5 };
       const axes: Axes = { x: 2, y: 2 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.UP_LEFT;
+      const expected: Direction = 'up-left';
 
       expect(direction).toBe(expected);
     });
@@ -140,7 +140,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: 0, y: 5 };
       const axes: Axes = { x: 2, y: 2 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.UP_RIGHT;
+      const expected: Direction = 'up-right';
 
       expect(direction).toBe(expected);
     });
@@ -149,7 +149,7 @@ describe('DirectionService', () => {
       const lastAxes: Axes = { x: -2, y: 12 };
       const axes: Axes = { x: -7, y: 13 };
       const direction = getDirection({ lastAxes, axes });
-      const expected: Direction = Direction.DOWN_LEFT;
+      const expected: Direction = 'down-left';
 
       expect(direction).toBe(expected);
     });
@@ -158,8 +158,8 @@ describe('DirectionService', () => {
   describe('isOnTheSameDirection', () => {
     it('both down: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.DOWN,
-        lastDirection: Direction.DOWN,
+        direction: 'down',
+        lastDirection: 'down',
       });
 
       expect(sameDirection).toBe(true);
@@ -167,8 +167,8 @@ describe('DirectionService', () => {
 
     it('both up: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP,
-        lastDirection: Direction.UP,
+        direction: 'up',
+        lastDirection: 'up',
       });
 
       expect(sameDirection).toBe(true);
@@ -176,8 +176,8 @@ describe('DirectionService', () => {
 
     it('both left: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.LEFT,
-        lastDirection: Direction.LEFT,
+        direction: 'left',
+        lastDirection: 'left',
       });
 
       expect(sameDirection).toBe(true);
@@ -185,8 +185,8 @@ describe('DirectionService', () => {
 
     it('both right: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.RIGHT,
-        lastDirection: Direction.RIGHT,
+        direction: 'right',
+        lastDirection: 'right',
       });
 
       expect(sameDirection).toBe(true);
@@ -194,8 +194,8 @@ describe('DirectionService', () => {
 
     it('right left: false', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.RIGHT,
-        lastDirection: Direction.LEFT,
+        direction: 'right',
+        lastDirection: 'left',
       });
 
       expect(sameDirection).toBe(false);
@@ -203,8 +203,8 @@ describe('DirectionService', () => {
 
     it('up down: false', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP,
-        lastDirection: Direction.DOWN,
+        direction: 'up',
+        lastDirection: 'down',
       });
 
       expect(sameDirection).toBe(false);
@@ -212,8 +212,8 @@ describe('DirectionService', () => {
 
     it('up left: false', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP,
-        lastDirection: Direction.LEFT,
+        direction: 'up',
+        lastDirection: 'left',
       });
 
       expect(sameDirection).toBe(false);
@@ -221,8 +221,8 @@ describe('DirectionService', () => {
 
     it('up right: false', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP,
-        lastDirection: Direction.RIGHT,
+        direction: 'up',
+        lastDirection: 'right',
       });
 
       expect(sameDirection).toBe(false);
@@ -230,8 +230,8 @@ describe('DirectionService', () => {
 
     it('down-right right: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.DOWN_RIGHT,
-        lastDirection: Direction.RIGHT,
+        direction: 'down-right',
+        lastDirection: 'right',
       });
 
       expect(sameDirection).toBe(true);
@@ -239,8 +239,8 @@ describe('DirectionService', () => {
 
     it('up-right right: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP_RIGHT,
-        lastDirection: Direction.RIGHT,
+        direction: 'up-right',
+        lastDirection: 'right',
       });
 
       expect(sameDirection).toBe(true);
@@ -248,8 +248,8 @@ describe('DirectionService', () => {
 
     it('up-left right: false', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP_LEFT,
-        lastDirection: Direction.RIGHT,
+        direction: 'up-left',
+        lastDirection: 'right',
       });
 
       expect(sameDirection).toBe(false);
@@ -257,8 +257,8 @@ describe('DirectionService', () => {
 
     it('up-left up-left: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP_LEFT,
-        lastDirection: Direction.UP_LEFT,
+        direction: 'up-left',
+        lastDirection: 'up-left',
       });
 
       expect(sameDirection).toBe(true);
@@ -266,8 +266,8 @@ describe('DirectionService', () => {
 
     it('up up-left: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.UP,
-        lastDirection: Direction.UP_LEFT,
+        direction: 'up',
+        lastDirection: 'up-left',
       });
 
       expect(sameDirection).toBe(true);
@@ -275,8 +275,8 @@ describe('DirectionService', () => {
 
     it('left down-left: true', () => {
       const sameDirection = isOnTheSameDirection({
-        direction: Direction.LEFT,
-        lastDirection: Direction.DOWN_LEFT,
+        direction: 'left',
+        lastDirection: 'down-left',
       });
 
       expect(sameDirection).toBe(true);

@@ -8,10 +8,7 @@ interface SlideArgs {
 
 export type CreateSlide = (args: SlideArgs) => ScrollSpyItem;
 
-export enum CarouselFitType {
-  BOX,
-  CENTER,
-}
+export type CarouselFitType = 'BOX' | 'CENTER';
 
 interface CarouselArgs {
   el?: HTMLElement;
