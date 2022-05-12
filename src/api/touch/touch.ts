@@ -31,9 +31,10 @@ export default function Touch$({
   el: externalEl,
   gap = AXES,
   onlyDirections = [],
-  takeLimit = 0,
+  takeLimit,
   onlyOnChangeDirection = false,
   onlyAxis,
+  stopGrowingAt,
 }: TouchArgs): TouchObservableReturn {
   const el = externalEl || document;
   const mouseDown$ = fromEvent(el, 'mousedown');
@@ -89,8 +90,10 @@ export default function Touch$({
         ...args,
         axes,
         relativeAxes: AXES,
+        relativeRadixAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
+        relativeStartAxes: AXES,
         direction: '',
       };
     });
@@ -107,8 +110,10 @@ export default function Touch$({
         ...args,
         axes,
         relativeAxes: AXES,
+        relativeRadixAxes: AXES,
         relativeBreakpointAxes: AXES,
         startAxes: axes,
+        relativeStartAxes: AXES,
         direction: '',
       };
     });
@@ -139,9 +144,17 @@ export default function Touch$({
   }
 
   drag$ = drag$.pipe(
-    putRelativeAxesOperator<Touch$Next>('axes', 'relativeAxes', 'startAxes', {
-      key: 'type',
-      value: 'START',
+    putRelativeAxesOperator<Touch$Next>({
+      k: 'axes',
+      relativeK: 'relativeAxes',
+      relativeRadixK: 'relativeRadixAxes',
+      startK: 'startAxes',
+      relativeStartK: 'relativeStartAxes',
+      restartWhen: {
+        key: 'type',
+        value: 'START',
+      },
+      stopGrowingAt,
     }),
   );
 

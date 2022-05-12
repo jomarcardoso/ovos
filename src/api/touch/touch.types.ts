@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { Observable } from 'rxjs';
-import { Axes, Axis, Direction } from '../../utilities/axis';
+import { Axes, Axis, Direction, Positions } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 
 export type TouchEventType = 'START' | 'MOVE' | 'END' | 'NONE';
@@ -15,8 +15,10 @@ export type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
 export type Touch$Next = {
   type: TouchEventType;
   axes: Axes;
-  relativeAxes: Axes;
   startAxes: Axes;
+  relativeAxes: Axes;
+  relativeRadixAxes: Axes;
+  relativeStartAxes: Axes;
   relativeBreakpointAxes: Axes;
   direction: Direction;
 };
@@ -28,6 +30,7 @@ export interface TouchArgs {
   takeLimit?: number;
   onlyOnChangeDirection?: boolean;
   onlyAxis?: Axis;
+  stopGrowingAt?: Positions | number;
 }
 
 export interface TouchObservableReturn {

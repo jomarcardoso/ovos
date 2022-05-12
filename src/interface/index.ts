@@ -1,6 +1,7 @@
 export { Anchor } from './anchor';
 export { Carousel } from './carousel';
 export { FitOnScreen } from './fit-on-screen';
+export { joyPad } from './joypad';
 export { PageProgress } from './page-progress';
 export { Parallax } from './parallax';
 export { ScrollSpy, createScrollSpyItem } from './scroll-spy';
