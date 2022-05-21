@@ -42,7 +42,7 @@ drop$.subscribe(({ axes }) => {
   elDropY.innerHTML = String(axes.y);
 });
 
-drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction }) => {
+drag$.subscribe(({ axes, relatives, direction }) => {
   if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
   // console.log(type, axes);
@@ -50,13 +50,13 @@ drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction }) => {
   elXAxis.innerHTML = String(axes.x);
   elYAxis.innerHTML = String(axes.y);
 
-  elRelXAxis.innerHTML = String(relativeAxes.x);
-  elRelYAxis.innerHTML = String(relativeAxes.y);
+  elRelXAxis.innerHTML = String(relatives.axes.x);
+  elRelYAxis.innerHTML = String(relatives.axes.y);
 
   if (!elRelBreakXAxis || !elRelBreakYAxis) return;
 
-  elRelBreakXAxis.innerHTML = String(relativeBreakpointAxes.x);
-  elRelBreakYAxis.innerHTML = String(relativeBreakpointAxes.y);
+  elRelBreakXAxis.innerHTML = String(relatives.breakpointAxes.x);
+  elRelBreakYAxis.innerHTML = String(relatives.breakpointAxes.y);
 
   // console.log(direction);
 

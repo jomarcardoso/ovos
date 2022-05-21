@@ -149,21 +149,21 @@
       elDropY.innerHTML = axes.y.toFixed(2);
     });
 
-    drag$.subscribe(({ axes, relativeAxes, relativeBreakpointAxes, direction, relativeRadixAxes }) => {
+    drag$.subscribe(({ axes, relatives, direction }) => {
       if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
-      elRadixBall.style.transform = `translate(calc(-50% + ${relativeRadixAxes.x}px), calc(-50% + ${relativeRadixAxes.y}px))`;
+      elRadixBall.style.transform = `translate(calc(-50% + ${relatives.radixAxes.x}px), calc(-50% + ${relatives.radixAxes.y}px))`;
 
       elXAxis.innerHTML = axes.x.toFixed(2);
       elYAxis.innerHTML = axes.y.toFixed(2);
 
-      elRelXAxis.innerHTML = relativeAxes.x.toFixed(2);
-      elRelYAxis.innerHTML = relativeAxes.y.toFixed(2);
+      elRelXAxis.innerHTML = relatives.axes.x.toFixed(2);
+      elRelYAxis.innerHTML = relatives.axes.y.toFixed(2);
 
       if (!elRelBreakXAxis || !elRelBreakYAxis) return;
 
-      elRelBreakXAxis.innerHTML = relativeBreakpointAxes.x.toFixed(2);
-      elRelBreakYAxis.innerHTML = relativeBreakpointAxes.y.toFixed(2);
+      elRelBreakXAxis.innerHTML = relatives.breakpointAxes.x.toFixed(2);
+      elRelBreakYAxis.innerHTML = relatives.breakpointAxes.y.toFixed(2);
 
       // console.log(direction);
 

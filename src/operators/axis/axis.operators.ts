@@ -2,6 +2,7 @@
 import { isNumber } from 'lodash';
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';
+import { Touch$Next } from '../../ovos';
 import {
   AXES,
   Axes,
@@ -75,38 +76,18 @@ export function filterByAttributeAndGapOperator<T>({
   );
 }
 
-export interface PutRelativeAxesOperatorArgs<T> {
-  k: keyof T;
-  relativeK: keyof T;
-  relativeRadixK: keyof T;
-  startK: keyof T;
-  relativeStartK: keyof T;
-  restartWhen: {
-    key: keyof T;
-    value: T[keyof T];
-  };
+export function putRelativeAxesOperator({
+  stopGrowingAt = 0,
+}: {
   stopGrowingAt?: Positions | number;
-}
-
-export function putRelativeAxesOperator<T>({
-  k,
-  relativeK,
-  relativeRadixK,
-  startK,
-  relativeStartK,
-  restartWhen,
-  stopGrowingAt,
-}: PutRelativeAxesOperatorArgs<T>): UnaryFunction<
-  Observable<T>,
-  Observable<T>
-> {
+}): UnaryFunction<Observable<Touch$Next>, Observable<Touch$Next>> {
   return pipe(
-    scan<T, T>((acc, curr, index) => {
+    scan<Touch$Next, Touch$Next>((acc, curr, index) => {
       const firstRun = index === 1;
-      const toRestart = curr[restartWhen.key] === restartWhen.value;
-      let startAxes = acc[startK] as unknown as Axes;
-      let relativeStartAxes = acc[relativeStartK] as unknown as Axes;
-      const currAxes = curr[k] as unknown as Axes;
+      const toRestart = curr.type === 'START';
+      let startAxes = acc.startAxes as unknown as Axes;
+      let relativeStartAxes = acc.relatives.startAxes as unknown as Axes;
+      const currAxes = curr.axes as unknown as Axes;
 
       if (firstRun || toRestart) {
         startAxes = currAxes;
@@ -169,47 +150,49 @@ export function putRelativeAxesOperator<T>({
 
       return {
         ...curr,
-        [startK]: startAxes,
-        [relativeK]: {
-          x: relativeX,
-          y: relativeY,
-        },
-        [relativeStartK]: relativeStartAxes,
-        [relativeRadixK]: {
-          x: relativeRadixAxesX,
-          y: relativeRadixAxesY,
+        startAxes,
+        relatives: {
+          ...curr.relatives,
+          axes: {
+            x: relativeX,
+            y: relativeY,
+          },
+          startAxes: relativeStartAxes,
+          radixAxes: {
+            x: relativeRadixAxesX,
+            y: relativeRadixAxesY,
+          },
         },
       };
     }),
   );
 }
 
-interface PutAxesBreakpointOperatorArgs<T> {
-  k: keyof T;
-  relativeBreakpointK: keyof T;
+interface PutAxesBreakpointOperatorArgs {
   gap: Axes;
 }
 
-export function putAxesBreakpointOperator<T>({
-  k,
-  relativeBreakpointK,
+export function putAxesBreakpointOperator({
   gap = AXES,
-}: PutAxesBreakpointOperatorArgs<T>): UnaryFunction<
-  Observable<T>,
-  Observable<T>
+}: PutAxesBreakpointOperatorArgs): UnaryFunction<
+  Observable<Touch$Next>,
+  Observable<Touch$Next>
 > {
   return pipe(
-    map<T, T>((value) => {
-      const axes = value[k] as unknown as Axes;
+    map<Touch$Next, Touch$Next>((value) => {
+      const axes = value.relatives.axes as unknown as Axes;
 
       const x = Math.floor(axes.x / gap.x || 1) - 1;
       const y = Math.floor(axes.y / gap.y || 1) - 1;
 
       return {
         ...value,
-        [relativeBreakpointK]: {
-          x,
-          y,
+        relatives: {
+          ...value.relatives,
+          breakpointAxes: {
+            x,
+            y,
+          },
         },
       };
     }),

@@ -12,14 +12,19 @@ export type EventWithType = {
 export type TouchEventWithType = { event: TouchEvent; type: TouchEventType };
 export type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
 
+export interface TouchRelatives$ {
+  axes: Axes;
+  radixAxes: Axes;
+  startAxes: Axes;
+  breakpointAxes: Axes;
+  angle: number;
+}
+
 export type Touch$Next = {
   type: TouchEventType;
   axes: Axes;
   startAxes: Axes;
-  relativeAxes: Axes;
-  relativeRadixAxes: Axes;
-  relativeStartAxes: Axes;
-  relativeBreakpointAxes: Axes;
+  relatives: TouchRelatives$;
   direction: Direction;
 };
 

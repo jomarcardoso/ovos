@@ -89,12 +89,15 @@ export default function Touch$({
       return {
         ...args,
         axes,
-        relativeAxes: AXES,
-        relativeRadixAxes: AXES,
-        relativeBreakpointAxes: AXES,
-        startAxes: axes,
-        relativeStartAxes: AXES,
         direction: '',
+        relatives: {
+          angle: 0,
+          axes: AXES,
+          breakpointAxes: AXES,
+          radixAxes: AXES,
+          startAxes: AXES,
+        },
+        startAxes: axes,
       };
     });
   }
@@ -109,12 +112,15 @@ export default function Touch$({
       return {
         ...args,
         axes,
-        relativeAxes: AXES,
-        relativeRadixAxes: AXES,
-        relativeBreakpointAxes: AXES,
-        startAxes: axes,
-        relativeStartAxes: AXES,
+        relatives: {
+          angle: 0,
+          axes: AXES,
+          breakpointAxes: AXES,
+          radixAxes: AXES,
+          startAxes: AXES,
+        },
         direction: '',
+        startAxes: axes,
       };
     });
   }
@@ -144,25 +150,14 @@ export default function Touch$({
   }
 
   drag$ = drag$.pipe(
-    putRelativeAxesOperator<Touch$Next>({
-      k: 'axes',
-      relativeK: 'relativeAxes',
-      relativeRadixK: 'relativeRadixAxes',
-      startK: 'startAxes',
-      relativeStartK: 'relativeStartAxes',
-      restartWhen: {
-        key: 'type',
-        value: 'START',
-      },
+    putRelativeAxesOperator({
       stopGrowingAt,
     }),
   );
 
   drag$ = drag$.pipe(
-    putAxesBreakpointOperator<Touch$Next>({
+    putAxesBreakpointOperator({
       gap,
-      k: 'relativeAxes',
-      relativeBreakpointK: 'relativeBreakpointAxes',
     }),
   );
 
