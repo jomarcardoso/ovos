@@ -14,7 +14,6 @@ export type MouseEventWithType = { event: MouseEvent; type: TouchEventType };
 
 export interface TouchRelatives$ {
   axes: Axes;
-  radixAxes: Axes;
   startAxes: Axes;
   breakpointAxes: Axes;
   angle: number;

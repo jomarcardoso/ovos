@@ -84,6 +84,7 @@ export function putRelativeAxesOperator({
   return pipe(
     scan<Touch$Next, Touch$Next>((acc, curr, index) => {
       const firstRun = index === 1;
+      const stopGrowingAtAsPositions = stopGrowingAt as Positions;
       const toRestart = curr.type === 'START';
       let { startAxes } = acc;
       let relativeStartAxes = acc.relatives.startAxes;
@@ -95,63 +96,56 @@ export function putRelativeAxesOperator({
       }
 
       if (
-        (stopGrowingAt as Positions).bottom &&
-        (stopGrowingAt as Positions).left &&
-        (stopGrowingAt as Positions).top &&
-        (stopGrowingAt as Positions).right
+        stopGrowingAtAsPositions.bottom &&
+        stopGrowingAtAsPositions.left &&
+        stopGrowingAtAsPositions.top &&
+        stopGrowingAtAsPositions.right
       ) {
-        if (
-          currAxes.x <
-          relativeStartAxes.x - (stopGrowingAt as Positions).left
-        ) {
-          relativeStartAxes.x = currAxes.x + (stopGrowingAt as Positions).left;
+        if (currAxes.x < relativeStartAxes.x - stopGrowingAtAsPositions.left) {
+          relativeStartAxes.x = currAxes.x + stopGrowingAtAsPositions.left;
         }
 
-        if (
-          currAxes.y <
-          relativeStartAxes.y - (stopGrowingAt as Positions).top
-        ) {
-          relativeStartAxes.y = currAxes.y + (stopGrowingAt as Positions).top;
+        if (currAxes.y < relativeStartAxes.y - stopGrowingAtAsPositions.top) {
+          relativeStartAxes.y = currAxes.y + stopGrowingAtAsPositions.top;
         }
 
-        if (
-          currAxes.x >
-          relativeStartAxes.x + (stopGrowingAt as Positions).right
-        ) {
-          relativeStartAxes.x = currAxes.x - (stopGrowingAt as Positions).right;
+        if (currAxes.x > relativeStartAxes.x + stopGrowingAtAsPositions.right) {
+          relativeStartAxes.x = currAxes.x - stopGrowingAtAsPositions.right;
         }
 
         if (
           currAxes.y >
-          relativeStartAxes.y + (stopGrowingAt as Positions).bottom
+          relativeStartAxes.y + stopGrowingAtAsPositions.bottom
         ) {
-          relativeStartAxes.y =
-            currAxes.y - (stopGrowingAt as Positions).bottom;
+          relativeStartAxes.y = currAxes.y - stopGrowingAtAsPositions.bottom;
         }
       }
 
-      const relativeX = currAxes.x - relativeStartAxes.x;
-      const relativeY = currAxes.y - relativeStartAxes.y;
+      let relativeX = currAxes.x - relativeStartAxes.x;
+      let relativeY = currAxes.y - relativeStartAxes.y;
 
-      let relativeRadixAxesX = relativeX;
-      let relativeRadixAxesY = relativeY;
       const hypotenuse = Math.hypot(relativeX, relativeY);
-      const isOutOfRadix = isNumber(stopGrowingAt)
-        ? hypotenuse > stopGrowingAt
-        : false;
 
-      if (isOutOfRadix) {
-        const sin = relativeRadixAxesY / hypotenuse;
-        const cos = relativeRadixAxesX / hypotenuse;
+      if (isNumber(stopGrowingAt)) {
+        const isOutOfRadix = hypotenuse > stopGrowingAt;
 
-        relativeRadixAxesX = cos * (stopGrowingAt as number);
-        relativeRadixAxesY = sin * (stopGrowingAt as number);
+        if (isOutOfRadix) {
+          const sin = relativeY / hypotenuse;
+          const cos = relativeX / hypotenuse;
+
+          relativeStartAxes.x =
+            cos * (hypotenuse - (stopGrowingAt as number)) +
+            relativeStartAxes.x;
+          relativeStartAxes.y =
+            sin * (hypotenuse - (stopGrowingAt as number)) +
+            relativeStartAxes.y;
+          relativeX = cos * (stopGrowingAt as number);
+          relativeY = sin * (stopGrowingAt as number);
+        }
       }
 
       const angle =
-        ((Math.atan2(-relativeRadixAxesY, relativeRadixAxesX) * 180) / Math.PI +
-          360) %
-        360;
+        ((Math.atan2(-relativeY, relativeX) * 180) / Math.PI + 360) % 360;
 
       return {
         ...curr,
@@ -163,10 +157,6 @@ export function putRelativeAxesOperator({
             y: relativeY,
           },
           startAxes: relativeStartAxes,
-          radixAxes: {
-            x: relativeRadixAxesX,
-            y: relativeRadixAxesY,
-          },
           angle,
         },
       };

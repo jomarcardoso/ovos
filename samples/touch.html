@@ -152,7 +152,7 @@
     drag$.subscribe(({ axes, relatives, direction }) => {
       if (!elXAxis || !elYAxis || !elRelXAxis || !elRelYAxis) return;
 
-      elRadixBall.style.transform = `translate(calc(-50% + ${relatives.radixAxes.x}px), calc(-50% + ${relatives.radixAxes.y}px))`;
+      elRadixBall.style.transform = `translate(calc(-50% + ${relatives.axes.x}px), calc(-50% + ${relatives.axes.y}px))`;
 
       elXAxis.innerHTML = axes.x.toFixed(2);
       elYAxis.innerHTML = axes.y.toFixed(2);
