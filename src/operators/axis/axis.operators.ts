@@ -85,9 +85,9 @@ export function putRelativeAxesOperator({
     scan<Touch$Next, Touch$Next>((acc, curr, index) => {
       const firstRun = index === 1;
       const toRestart = curr.type === 'START';
-      let startAxes = acc.startAxes as unknown as Axes;
-      let relativeStartAxes = acc.relatives.startAxes as unknown as Axes;
-      const currAxes = curr.axes as unknown as Axes;
+      let { startAxes } = acc;
+      let relativeStartAxes = acc.relatives.startAxes;
+      const currAxes = curr.axes;
 
       if (firstRun || toRestart) {
         startAxes = currAxes;
@@ -148,6 +148,11 @@ export function putRelativeAxesOperator({
         relativeRadixAxesY = sin * (stopGrowingAt as number);
       }
 
+      const angle =
+        ((Math.atan2(-relativeRadixAxesY, relativeRadixAxesX) * 180) / Math.PI +
+          360) %
+        360;
+
       return {
         ...curr,
         startAxes,
@@ -162,6 +167,7 @@ export function putRelativeAxesOperator({
             x: relativeRadixAxesX,
             y: relativeRadixAxesY,
           },
+          angle,
         },
       };
     }),
@@ -180,7 +186,7 @@ export function putAxesBreakpointOperator({
 > {
   return pipe(
     map<Touch$Next, Touch$Next>((value) => {
-      const axes = value.relatives.axes as unknown as Axes;
+      const { axes } = value.relatives;
 
       const x = Math.floor(axes.x / gap.x || 1) - 1;
       const y = Math.floor(axes.y / gap.y || 1) - 1;
