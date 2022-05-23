@@ -1,8 +1,8 @@
 import './sticky-header.scss';
 import { getHeight, translate } from '../../utilities/element';
-import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scroll, Scroll$ } from '../../api/scroll';
 
-export default function StickyHeader({
+export function StickyHeader({
   el = document.querySelector('[data-ovo-sticky-header]'),
 }: {
   el?: Element | null;
@@ -13,14 +13,14 @@ export default function StickyHeader({
 
   function handleDocumentScroll({
     relativeAxes: { y: position = 0 },
-  }: Scroll$Next) {
+  }: Scroll$) {
     translate({ el: htmlEl, position });
   }
 
   function bindEvents() {
     if (!el) return;
 
-    Scroll$({
+    scroll({
       maxRelative: {
         top: 0,
         bottom: getHeight(htmlEl),

@@ -19,7 +19,7 @@ export interface TouchRelatives$ {
   angle: number;
 }
 
-export type Touch$Next = {
+export type Touch$ = {
   type: TouchEventType;
   axes: Axes;
   startAxes: Axes;
@@ -38,7 +38,7 @@ export interface TouchArgs {
 }
 
 export interface TouchObservableReturn {
-  grab$: Observable<Touch$Next>;
-  drop$: Observable<Touch$Next>;
-  drag$: Observable<Touch$Next>;
+  grab$: Observable<Touch$>;
+  drop$: Observable<Touch$>;
+  drag$: Observable<Touch$>;
 }

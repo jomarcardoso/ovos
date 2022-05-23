@@ -2,7 +2,7 @@
 import { isNumber } from 'lodash';
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';
-import { Touch$Next } from '../../ovos';
+import type { Touch$ } from '../../api/touch/touch.types';
 import {
   AXES,
   Axes,
@@ -12,38 +12,31 @@ import {
   Positions,
 } from '../../utilities/axis';
 
-interface FilterByAttributeAndGapOperatorArgs<T> {
-  ignoreWhen: {
-    key: keyof T;
-    value: T[keyof T];
-  };
-  k: keyof T;
+interface FilterByAttributeAndGapOperatorArgs {
   gap: Axes;
 }
 
-export function filterByAttributeAndGapOperator<T>({
-  ignoreWhen,
-  k,
+export function filterByAttributeAndGapOperator({
   gap = AXES,
-}: FilterByAttributeAndGapOperatorArgs<T>): UnaryFunction<
-  Observable<T>,
-  Observable<T>
+}: FilterByAttributeAndGapOperatorArgs): UnaryFunction<
+  Observable<Touch$>,
+  Observable<Touch$>
 > {
   interface TWithLast {
-    last: T;
-    current: T;
+    last: Touch$;
+    current: Touch$;
   }
 
   return pipe(
-    map<T, TWithLast>((scrollObserver) => {
+    map<Touch$, TWithLast>((scrollObserver) => {
       return {
         current: scrollObserver,
         last: scrollObserver,
       };
     }),
     scan<TWithLast, TWithLast>((acc, curr) => {
-      const axes = acc.current[k] as unknown as Axes;
-      const lastAxes = acc.last[k] as unknown as Axes;
+      const axes = acc.current.axes as unknown as Axes;
+      const lastAxes = acc.last.axes as unknown as Axes;
 
       const onGap = isOnGap({
         axes,
@@ -57,10 +50,10 @@ export function filterByAttributeAndGapOperator<T>({
       };
     }),
     filter<TWithLast>(({ current, last }, index) => {
-      const axes = current[k] as unknown as Axes;
-      const lastAxes = last[k] as unknown as Axes;
+      const axes = current.axes as unknown as Axes;
+      const lastAxes = last.axes as unknown as Axes;
       const firstEvent = !index;
-      const isToIgnore = current[ignoreWhen.key] === ignoreWhen.value;
+      const isToIgnore = current.type === 'START';
 
       if (firstEvent || isToIgnore) return true;
 
@@ -70,7 +63,7 @@ export function filterByAttributeAndGapOperator<T>({
         lastAxes,
       });
     }),
-    map<TWithLast, T>((scrollObserver) => {
+    map<TWithLast, Touch$>((scrollObserver) => {
       return scrollObserver.current;
     }),
   );
@@ -80,9 +73,9 @@ export function putRelativeAxesOperator({
   stopGrowingAt = 0,
 }: {
   stopGrowingAt?: Positions | number;
-}): UnaryFunction<Observable<Touch$Next>, Observable<Touch$Next>> {
+}): UnaryFunction<Observable<Touch$>, Observable<Touch$>> {
   return pipe(
-    scan<Touch$Next, Touch$Next>((acc, curr, index) => {
+    scan<Touch$, Touch$>((acc, curr, index) => {
       const firstRun = index === 1;
       const stopGrowingAtAsPositions = stopGrowingAt as Positions;
       const toRestart = curr.type === 'START';
@@ -171,11 +164,11 @@ interface PutAxesBreakpointOperatorArgs {
 export function putAxesBreakpointOperator({
   gap = AXES,
 }: PutAxesBreakpointOperatorArgs): UnaryFunction<
-  Observable<Touch$Next>,
-  Observable<Touch$Next>
+  Observable<Touch$>,
+  Observable<Touch$>
 > {
   return pipe(
-    map<Touch$Next, Touch$Next>((value) => {
+    map<Touch$, Touch$>((value) => {
       const { axes } = value.relatives;
 
       const x = Math.floor(axes.x / gap.x || 1) - 1;

@@ -1,1 +1,1 @@
-export { default as StickyHeader } from './sticky-header';
+export * from './sticky-header';

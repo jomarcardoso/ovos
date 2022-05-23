@@ -20,14 +20,14 @@ import { getLeft, getTop } from '../../utilities/element';
 import type {
   EventWithType,
   MouseEventWithType,
-  Touch$Next,
+  Touch$,
   TouchEventWithType,
   TouchObservableReturn,
   TouchEventType,
   TouchArgs,
 } from './touch.types';
 
-export default function Touch$({
+export function touch({
   el: externalEl,
   gap = AXES,
   onlyDirections = [],
@@ -43,6 +43,8 @@ export default function Touch$({
   const touchStart$ = fromEvent(el, 'touchstart');
   const touchEnd$ = fromEvent(document, 'touchend');
   const touchMove$ = fromEvent(el, 'touchmove');
+
+  (el as HTMLElement).setAttribute('draggable', 'false');
 
   function typeOperator(type: TouchEventType) {
     return map<TouchEvent | MouseEvent, EventWithType>((event) => ({
@@ -77,7 +79,7 @@ export default function Touch$({
   );
 
   function mouseAxesOperator() {
-    return map<MouseEventWithType, Touch$Next>(({ event, ...args }) => {
+    return map<MouseEventWithType, Touch$>(({ event, ...args }) => {
       const top = getTop(el as HTMLElement);
       const left = getLeft(el as HTMLElement);
 
@@ -102,7 +104,7 @@ export default function Touch$({
   }
 
   function touchAxesOperator() {
-    return map<TouchEventWithType, Touch$Next>(({ event, ...args }) => {
+    return map<TouchEventWithType, Touch$>(({ event, ...args }) => {
       const axes = {
         x: onlyAxis === 'y' ? 0 : event.changedTouches[0].screenX,
         y: onlyAxis === 'x' ? 0 : event.changedTouches[0].screenY,
@@ -136,13 +138,8 @@ export default function Touch$({
 
   if (gap.x || gap.y) {
     drag$ = drag$.pipe(
-      filterByAttributeAndGapOperator<Touch$Next>({
-        k: 'axes',
+      filterByAttributeAndGapOperator({
         gap,
-        ignoreWhen: {
-          key: 'type',
-          value: 'START',
-        },
       }),
     );
   }
@@ -160,7 +157,7 @@ export default function Touch$({
   );
 
   drag$ = drag$.pipe(
-    putDirectionOperator<Touch$Next>('axes', 'direction', {
+    putDirectionOperator<Touch$>('axes', 'direction', {
       key: 'type',
       value: 'START',
     }),
@@ -168,7 +165,7 @@ export default function Touch$({
 
   if (onlyDirections.length) {
     drag$ = drag$.pipe(
-      filter<Touch$Next>((item) => {
+      filter<Touch$>((item) => {
         const isTheSameDirection = onlyDirections.some(
           (direction) => direction === item.direction,
         );
@@ -184,14 +181,14 @@ export default function Touch$({
 
   if (onlyOnChangeDirection) {
     drag$ = drag$.pipe(
-      pairwise<Touch$Next>(),
+      pairwise<Touch$>(),
       filter(([last, current]) => {
         return isOnTheSameDirection({
           direction: current.direction,
           lastDirection: last.direction,
         });
       }),
-      map<Touch$Next[], Touch$Next>(([, current]) => current),
+      map<Touch$[], Touch$>(([, current]) => current),
     );
   }
 

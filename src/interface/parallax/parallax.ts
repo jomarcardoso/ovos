@@ -1,9 +1,9 @@
 import './parallax.scss';
-import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scroll, Scroll$ } from '../../api/scroll';
 import { ParallaxArgs } from './parallax.types';
 import { ScrollableElement } from '../../utilities/scroll';
 
-export default function parallax({
+export function parallax({
   el = document.querySelector('[data-ovo-parallax]') as HTMLElement,
   elContent: externalElContent,
   callback,
@@ -46,7 +46,7 @@ export default function parallax({
     if (callback) callback(translate);
   }
 
-  function handleScroll({ axes, el: elScrolled }: Scroll$Next): void {
+  function handleScroll({ axes, el: elScrolled }: Scroll$): void {
     const position = axis === 'x' ? axes.x : axes.y;
 
     function calculateTranslate(currentPosition = 0) {
@@ -82,7 +82,7 @@ export default function parallax({
   }
 
   function bindScroll() {
-    const observable = Scroll$({
+    const observable = scroll({
       el: elRelative as ScrollableElement,
     });
 

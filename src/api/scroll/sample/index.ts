@@ -2,7 +2,7 @@
 import './main.scss';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Scroll$, Scroll$Next } from '..';
+import { scroll, Scroll$ } from '..';
 import { Axes } from '../../../utilities/axis';
 
 const elDirection = document.querySelector('#direction');
@@ -16,12 +16,12 @@ const elGap: HTMLInputElement = document.querySelector(
 // // const ry = document.querySelector('#r-y');
 
 function start(gap: Axes = { x: 0, y: 0 }, debounce = 1000) {
-  const scroll$ = Scroll$({ gap, debounce });
+  const scroll$ = scroll({ gap, debounce });
 
-  console.log('começou com gap', gap)
+  console.log('começou com gap', gap);
 
   return scroll$.subscribe({
-    next: ({ axes, el, direction }: Scroll$Next) => {
+    next: ({ axes, el, direction }: Scroll$) => {
       if (elX) elX.innerHTML = String(axes.x);
       if (elY) elY.innerHTML = String(axes.y);
       if (elTag) elTag.innerHTML = el.tagName;

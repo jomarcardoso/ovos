@@ -1,1 +1,1 @@
-export { default as SpinImages } from './spin-images';
+export * from './spin-images';

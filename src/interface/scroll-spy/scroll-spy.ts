@@ -1,4 +1,4 @@
-import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scroll, Scroll$ } from '../../api/scroll';
 import { Axes, Axis } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
 import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
@@ -42,7 +42,7 @@ interface ScrollSpyArgs {
   debounce?: number;
 }
 
-export default function scrollSpy({
+export function scrollSpy({
   list,
   elRelative = !isNodeJS ? document : undefined,
   method = 'CURRENT',
@@ -149,7 +149,7 @@ export default function scrollSpy({
     };
   }
 
-  function handleScroll({ axes, el: scrollingElement }: Scroll$Next) {
+  function handleScroll({ axes, el: scrollingElement }: Scroll$) {
     const currentToActive = getTheActive(axes, scrollingElement);
 
     if (currentToActive !== currentActive) {
@@ -160,7 +160,7 @@ export default function scrollSpy({
     currentActive = currentToActive;
   }
 
-  const observable = Scroll$({
+  const observable = scroll({
     el: elRelative,
     debounce,
   });

@@ -1,1 +1,1 @@
-export { createScrollSpyItem, default as ScrollSpy } from './scroll-spy';
+export * from './scroll-spy';

@@ -9,16 +9,16 @@ import {
   isOutOfLimit,
 } from '../../utilities/element';
 import { getDirection, isOnGap, AXES, POSITIONS } from '../../utilities/axis';
-import { Scroll$Next, ScrollObserverArgs } from './scroll-observer.types';
+import { Scroll$, ScrollObserverArgs } from './scroll-observer.types';
 
 function gapOperator(gap = AXES) {
   interface ScrollGapTemp$ {
-    last: Scroll$Next;
-    current: Scroll$Next;
+    last: Scroll$;
+    current: Scroll$;
   }
 
   return pipe(
-    map<Scroll$Next, ScrollGapTemp$>((scrollObserver) => {
+    map<Scroll$, ScrollGapTemp$>((scrollObserver) => {
       return {
         current: scrollObserver,
         last: scrollObserver,
@@ -43,13 +43,13 @@ function gapOperator(gap = AXES) {
         lastAxes: last.axes,
       });
     }),
-    map<ScrollGapTemp$, Scroll$Next>((scrollObserver) => {
+    map<ScrollGapTemp$, Scroll$>((scrollObserver) => {
       return scrollObserver.current;
     }),
   );
 }
 
-function Scroll$({
+export function scroll({
   el: externalEl,
   gap = AXES,
   debounce = 0,
@@ -60,7 +60,7 @@ function Scroll$({
     right: undefined,
     top: undefined,
   },
-}: ScrollObserverArgs): Observable<Scroll$Next> {
+}: ScrollObserverArgs): Observable<Scroll$> {
   const el = externalEl || document;
   const scrollingEl = getScrollingEl(el as HTMLElement & Document);
 
@@ -69,7 +69,7 @@ function Scroll$({
     'scroll',
   );
 
-  type ScrollAxes$ = Omit<Scroll$Next, 'direction'>;
+  type ScrollAxes$ = Omit<Scroll$, 'direction'>;
 
   const scrollAxes$ = scroll$.pipe(
     map<UIEvent, ScrollAxes$>((event) => {
@@ -85,13 +85,13 @@ function Scroll$({
   );
 
   let scrollDirection$ = scrollAxes$.pipe(
-    map<ScrollAxes$, Scroll$Next>((scrollAxesObserver) => {
+    map<ScrollAxes$, Scroll$>((scrollAxesObserver) => {
       return {
         ...scrollAxesObserver,
         direction: '',
       };
     }),
-    scan<Scroll$Next, Scroll$Next>((acc, curr) => {
+    scan<Scroll$, Scroll$>((acc, curr) => {
       return {
         ...curr,
         direction: getDirection({
@@ -112,7 +112,7 @@ function Scroll$({
 
   if (limit.bottom || limit.left || limit.right || limit.top) {
     scrollDirection$ = scrollDirection$.pipe(
-      filter<Scroll$Next>((scrollObserver) => {
+      filter<Scroll$>((scrollObserver) => {
         return !isOutOfLimit({
           el: scrollObserver.el,
           limit,
@@ -123,7 +123,7 @@ function Scroll$({
   }
 
   scrollDirection$ = scrollDirection$.pipe(
-    scan<Scroll$Next, Scroll$Next>((acc, curr) => {
+    scan<Scroll$, Scroll$>((acc, curr) => {
       const xRelative = acc.relativeAxes.x + curr.axes.x - acc.axes.x;
       const yRelative = acc.relativeAxes.y + curr.axes.y - acc.axes.y;
 
@@ -157,5 +157,3 @@ function Scroll$({
 
   return scrollDirection$;
 }
-
-export default Scroll$;

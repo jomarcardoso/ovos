@@ -1,6 +1,6 @@
 import isFunction from 'lodash/isFunction';
 import './scrollable-sticky.scss';
-import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scroll, Scroll$ } from '../../api/scroll';
 import { ScrollableStickyArgs } from './scrollable-sticky.types';
 import { getViewportHeight } from '../../utilities/view/view';
 import {
@@ -9,7 +9,7 @@ import {
   getHeight,
 } from '../../utilities/element';
 
-export default function scrollableSticky({
+export function scrollableSticky({
   el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
   elContainer = document.querySelector(
     '[data-ovo_ss="container"]',
@@ -90,7 +90,7 @@ export default function scrollableSticky({
     unpinOnBottom();
   }
 
-  const handleScroll = ((): ((args: Scroll$Next) => void) => {
+  const handleScroll = ((): ((args: Scroll$) => void) => {
     let toScroll = 0;
     let lastPositionScroll = 0;
 
@@ -120,7 +120,7 @@ export default function scrollableSticky({
     };
   })();
 
-  const observable = Scroll$({});
+  const observable = scroll({});
 
   observable.subscribe(handleScroll);
 }

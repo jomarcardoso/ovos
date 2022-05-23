@@ -7,7 +7,7 @@ module.exports = {
     es2017: true,
     es2020: true,
     es2021: true,
-    worker: true
+    worker: true,
   },
   rules: {
     'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
@@ -30,10 +30,13 @@ module.exports = {
       },
     ],
   },
-  overrides: [{
-    files: ['index.ts'],
-    rules: {
-      'import/prefer-default-export': 'off'
-    }
-  }]
+  overrides: [
+    {
+      files: ['*.ts'],
+      rules: {
+        'import/prefer-default-export': 'off',
+        'import/no-default-export': 'error',
+      },
+    },
+  ],
 };

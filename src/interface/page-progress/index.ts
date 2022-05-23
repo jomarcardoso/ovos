@@ -1,1 +1,1 @@
-export { default as PageProgress } from './page-progress';
+export * from './page-progress';

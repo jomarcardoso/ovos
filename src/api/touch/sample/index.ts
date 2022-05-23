@@ -1,5 +1,5 @@
 import './main.scss';
-import Touch$ from '../touch';
+import { touch } from '../touch';
 
 const elXAxis = document.querySelector('#drag-axis-x');
 const elYAxis = document.querySelector('#drag-axis-y');
@@ -14,7 +14,7 @@ const elDirection = document.querySelector('#touch-direction');
 // const contX = 0;
 // const contY = 0;
 
-const { grab$, drop$, drag$ } = Touch$({
+const { grab$, drop$, drag$ } = touch({
   el: document.querySelector('#touch-pad-1') as HTMLElement,
   gap: {
     x: 20,

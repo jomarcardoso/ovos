@@ -1,4 +1,4 @@
-import { Scroll$, Scroll$Next } from '../../api/scroll';
+import { scroll, Scroll$ } from '../../api/scroll';
 import { getMaxVerticalScroll, getScrollingEl } from '../../utilities/element';
 
 const isNodeJS = typeof window === 'undefined';
@@ -9,7 +9,7 @@ interface PageProgressArgs {
 
 type PageProgress = (args: PageProgressArgs) => void;
 
-const pageProgress: PageProgress = ({
+export const pageProgress: PageProgress = ({
   el = !isNodeJS
     ? (document.querySelector('[data-ovo-pp="bar"]') as HTMLElement)
     : undefined,
@@ -21,7 +21,7 @@ const pageProgress: PageProgress = ({
   // eslint-disable-next-line no-param-reassign
   el.style.transformOrigin = 'left';
 
-  function handleScroll({ axes: { y } }: Scroll$Next) {
+  function handleScroll({ axes: { y } }: Scroll$) {
     const percent = y / getMaxVerticalScroll(elRelative);
 
     if (!el) return;
@@ -30,7 +30,7 @@ const pageProgress: PageProgress = ({
     el.style.transform = `scaleX(${percent})`;
   }
 
-  Scroll$({}).subscribe(handleScroll);
+  scroll({}).subscribe(handleScroll);
 };
 
 function autoStart() {
@@ -44,5 +44,3 @@ function autoStart() {
 }
 
 autoStart();
-
-export default pageProgress;

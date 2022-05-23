@@ -1,1 +1,1 @@
-export { default as ScrollableTabs } from './scrollable-tabs';
+export * from './scrollable-tabs';

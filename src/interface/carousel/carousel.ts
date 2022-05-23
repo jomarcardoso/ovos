@@ -1,5 +1,5 @@
 import './carousel.scss';
-import scrollSpy, { createScrollSpyItem } from '../scroll-spy/scroll-spy';
+import { createScrollSpyItem, scrollSpy } from '../scroll-spy/scroll-spy';
 import { CreateSlide, Carousel, CarouselFitType } from './carousel.type';
 
 interface CustomCSSStyleDeclaration extends CSSStyleDeclaration {
@@ -31,7 +31,7 @@ const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
   };
 };
 
-const carousel: Carousel = ({
+export const carousel: Carousel = ({
   el = document.querySelector('[data-carousel="carousel"]') as HTMLElement,
   autoplayTime: extAutoplayTime = 0,
   currentSlide: extCurrentSlide = 0,
@@ -277,5 +277,3 @@ function autoStart() {
 }
 
 autoStart();
-
-export default carousel;

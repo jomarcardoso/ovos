@@ -10,7 +10,7 @@ export interface ScrollObserverArgs {
   onlyAxis?: Axis;
 }
 
-export interface Scroll$Next {
+export interface Scroll$ {
   event: UIEvent;
   axes: Axes;
   relativeAxes: Axes;

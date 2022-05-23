@@ -18,7 +18,7 @@ interface GetOffsetArgs {
 
 type GetOffset = (args: GetOffsetArgs) => Direction;
 
-const anchor: Anchor = ({
+export const anchor: Anchor = ({
   elFloating = document.querySelector(
     '[data-ovo-anchor="floating"]',
   ) as HTMLElement | null,
@@ -136,5 +136,3 @@ function autoStart() {
 }
 
 autoStart();
-
-export default anchor;

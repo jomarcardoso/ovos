@@ -1,5 +1,5 @@
 import './spin-images.scss';
-import { Touch$Next, Touch$ } from '../../api/touch';
+import { touch, Touch$ } from '../../api/touch';
 
 function setSpriteSize({
   elSprite,
@@ -44,7 +44,7 @@ interface SpinImagesArgs {
 
 type SpinImages = (args: SpinImagesArgs) => void;
 
-const spinImages: SpinImages = ({
+export const spinImages: SpinImages = ({
   quantityFrames: externalQuantityFrames = 0,
   el = document.querySelector('[data-ovo-spin-images]') as HTMLElement,
   autoRotateTime = 0,
@@ -125,7 +125,7 @@ const spinImages: SpinImages = ({
 
   if (!el) return;
 
-  const touch$ = Touch$({
+  const touch$ = touch({
     el,
     gap: {
       x: debounce,
@@ -138,7 +138,7 @@ const spinImages: SpinImages = ({
 
   touch$.drop$.subscribe(handleDrop);
 
-  touch$.drag$.subscribe((dragEvent: Touch$Next) => {
+  touch$.drag$.subscribe((dragEvent: Touch$) => {
     if (
       dragEvent.direction === 'left' ||
       dragEvent.direction === 'down-left' ||
@@ -168,5 +168,3 @@ function autoStart() {
 }
 
 autoStart();
-
-export default spinImages;

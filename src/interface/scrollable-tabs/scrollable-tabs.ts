@@ -1,7 +1,7 @@
+import type { ScrollableElement } from '../../utilities/scroll';
 import './scrollable-tabs.scss';
-import { ScrollableElement } from '../../ovos';
 
-export default function ScrollableTabs({
+export function ScrollableTabs({
   el = document,
 }: {
   el?: ScrollableElement;
