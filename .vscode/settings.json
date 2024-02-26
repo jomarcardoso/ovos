@@ -28,7 +28,7 @@
 
   // Code action kinds to be run on save.
   "editor.codeActionsOnSave": {
-    "source.fixAll": true // faz as correções pedidas por plugins como o eslint ao salvar
+    "source.fixAll": "explicit"
   },
 
   // Controls how lines should wrap.

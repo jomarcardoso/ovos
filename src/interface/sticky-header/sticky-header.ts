@@ -1,5 +1,5 @@
 import './sticky-header.scss';
-import { getHeight, translate } from '../../utilities/element';
+import { getHeight, getScrollParent, translate } from '../../utilities/element';
 import { scroll, Scroll$ } from '../../api/scroll';
 
 export function StickyHeader({
@@ -21,6 +21,7 @@ export function StickyHeader({
     if (!el) return;
 
     scroll({
+      el: getScrollParent(htmlEl),
       maxRelative: {
         top: 0,
         bottom: getHeight(htmlEl),
