@@ -50,7 +50,7 @@ import { fitOnScreen } from 'ovos';
 - [Scrollable Tabs](/src/interface/scrollable-tabs)
 - [Spin Images](/src/interface/spin-images)
 - Sticky (to do)
-- [Sticky Header](/src/interface/scrollable-sticky)
+- [Sticky Header](/src/interface/sticky-header)
 - Drag and Drop (in progress)
 - Drawer (to do)
 
