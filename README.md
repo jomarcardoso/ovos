@@ -32,7 +32,7 @@ import { fitOnScreen } from 'ovos';
 ### CDN
 
 ```html
-<script src="https://unpkg.com/ovos@0.13.1/dist/ovos.bundle.min.js"></script>
+<script src="https://unpkg.com/ovos@0.13.3/dist/ovos.bundle.min.js"></script>
 <script>window.ovos.fitOnScreen</script>
 ```
 
@@ -135,7 +135,7 @@ The 🍳 Ovos library is putted to the global object (window) and can be used ev
     <p>You can scroll down and the header will scroll together.</p>
     <p>Emmediately when you scroll up the header will appear again.</p>
   </main>
-  <script src="https://unpkg.com/ovos@0.13.1/dist/ovos.bundle.min.js"></script>
+  <script src="https://unpkg.com/ovos@0.13.3/dist/ovos.bundle.min.js"></script>
 </body>
 </html>
 ```

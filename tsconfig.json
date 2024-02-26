@@ -3,7 +3,7 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "strictNullChecks": true,
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     // "skipDefaultLibCheck": true,
     "outDir": "./dist",
     "declarationDir": "./types",

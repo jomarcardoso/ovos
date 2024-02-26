@@ -122,8 +122,20 @@ export function getScrollParent(el: HTMLElement): ScrollableElement {
   }
 
   const elHTML = el as HTMLElement;
+  const { overflow, overflowX, overflowY } = getComputedStyle(elHTML);
+  const isOverflowY =
+    overflow === 'auto' ||
+    overflow === 'scroll' ||
+    overflowY === 'auto' ||
+    overflowY === 'scroll';
 
-  if (elHTML.scrollHeight > elHTML.clientHeight) {
+  const isOverflowX =
+    overflow === 'auto' ||
+    overflow === 'scroll' ||
+    overflowX === 'auto' ||
+    overflowX === 'scroll';
+
+  if (isOverflowY && elHTML.scrollHeight > elHTML.clientHeight) {
     if (elHTML.tagName === 'BODY' || elHTML.tagName === 'HTML') {
       return document;
     }
@@ -131,7 +143,7 @@ export function getScrollParent(el: HTMLElement): ScrollableElement {
     return elHTML;
   }
 
-  if (elHTML.scrollWidth > elHTML.clientWidth) {
+  if (isOverflowX && elHTML.scrollWidth > elHTML.clientWidth) {
     if (elHTML.tagName === 'BODY' || elHTML.tagName === 'HTML') {
       return document;
     }
