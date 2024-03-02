@@ -102,7 +102,7 @@
   </section>
   <script src="./scripts/ovos.bundle.min.js"></script>
   <script>
-    const { Touch$ } = ovos;
+    const { touch } = ovos;
 
     const elXAxis = document.querySelector('#drag-axis-x');
     const elYAxis = document.querySelector('#drag-axis-y');
@@ -118,7 +118,7 @@
     // const contX = 0;
     // const contY = 0;
 
-    const { grab$, drop$, drag$ } = Touch$({
+    const { grab$, drop$, drag$ } = touch({
       el: document.querySelector('#touch-pad-1'),
       gap: {
         x: 20,
@@ -170,63 +170,63 @@
       showDirection(direction);
     });
 
-// function onXMove(fn: (i: number) => number) {
-//   if (!elXAxis) return;
+    // function onXMove(fn: (i: number) => number) {
+    //   if (!elXAxis) return;
 
-//   contX = fn(contX);
-//   elXAxis.innerHTML = contX.toFixed(2);
-// }
+    //   contX = fn(contX);
+    //   elXAxis.innerHTML = contX.toFixed(2);
+    // }
 
-// function onYMove(fn: (i: number) => number) {
-//   if (!elYAxis) return;
+    // function onYMove(fn: (i: number) => number) {
+    //   if (!elYAxis) return;
 
-//   contY = fn(contY);
-//   elYAxis.innerHTML = contY.toFixed(2);
-// }
+    //   contY = fn(contY);
+    //   elYAxis.innerHTML = contY.toFixed(2);
+    // }
 
-// function onGrab() {
-//   if (!elStatus) return;
+    // function onGrab() {
+    //   if (!elStatus) return;
 
-//   elStatus.innerHTML = 'GRABBING';
-// }
+    //   elStatus.innerHTML = 'GRABBING';
+    // }
 
-// function onDrop() {
-//   if (!elStatus) return;
-//   onYMove(() => 0);
-//   onXMove(() => 0);
-//   elStatus.innerHTML = 'GRAB!';
-// }
+    // function onDrop() {
+    //   if (!elStatus) return;
+    //   onYMove(() => 0);
+    //   onXMove(() => 0);
+    //   elStatus.innerHTML = 'GRAB!';
+    // }
 
-// function onDrag() {
-//   // console.log(axes);
-// }
+    // function onDrag() {
+    //   // console.log(axes);
+    // }
 
-// function dropX(direction = '') {
-//   if (!elDropX) return;
+    // function dropX(direction = '') {
+    //   if (!elDropX) return;
 
-//   elDropX.innerHTML = direction;
-// }
+    //   elDropX.innerHTML = direction;
+    // }
 
-// function dropY(direction = '') {
-//   if (!elDropY) return;
+    // function dropY(direction = '') {
+    //   if (!elDropY) return;
 
-//   elDropY.innerHTML = direction;
-// }
+    //   elDropY.innerHTML = direction;
+    // }
 
-// OnGrab({
-//   el: document.querySelector('#touch-pad-1') as HTMLElement,
-//   onDragLeft: () => onXMove((i) => i - 1),
-//   onDragRight: () => onXMove((i) => i + 1),
-//   onDragTop: () => onYMove((i) => i - 1),
-//   onDragBottom: () => onYMove((i) => i + 1),
-//   onGrab,
-//   onDrop,
-//   onDrag,
-//   onDropTop: () => dropY('top'),
-//   onDropBottom: () => dropY('bottom'),
-//   onDropLeft: () => dropX('left'),
-//   onDropRight: () => dropX('right'),
-// });
+    // OnGrab({
+    //   el: document.querySelector('#touch-pad-1') as HTMLElement,
+    //   onDragLeft: () => onXMove((i) => i - 1),
+    //   onDragRight: () => onXMove((i) => i + 1),
+    //   onDragTop: () => onYMove((i) => i - 1),
+    //   onDragBottom: () => onYMove((i) => i + 1),
+    //   onGrab,
+    //   onDrop,
+    //   onDrag,
+    //   onDropTop: () => dropY('top'),
+    //   onDropBottom: () => dropY('bottom'),
+    //   onDropLeft: () => dropX('left'),
+    //   onDropRight: () => dropX('right'),
+    // });
 
   </script>
 </body>

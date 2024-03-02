@@ -100,7 +100,7 @@
   <script> // menu up
     (() => {
       const el = document.querySelector('#menu');
-      const { drag$ } = ovos.Touch$({
+      const { drag$ } = ovos.touch({
         el,
         // onlyDirections: ['up', 'up-left', 'up-right'],
         // takeLimit: 1,
@@ -114,7 +114,7 @@
           || event.direction === 'up-left'
           || event.direction === 'up-right'
         ) {
-          el.classList.add('menu--up')
+          el.classList.add('menu--up');
         } else {
           el.classList.remove('menu--up');
         }
