@@ -39,13 +39,24 @@ const generateConfig = ({
         {
           test: /\.scss$/i,
           use: [
-            MiniCssExtractPlugin.loader,
+            'style-loader',
+            // MiniCssExtractPlugin.loader,
             // Translates CSS into CommonJS
             'css-loader',
             // Compiles Sass to CSS
             'sass-loader',
           ],
         },
+        // {
+        //   test: /\.scss$/i,
+        //   use: [
+        //     MiniCssExtractPlugin.loader,
+        //     // Translates CSS into CommonJS
+        //     'css-loader',
+        //     // Compiles Sass to CSS
+        //     'sass-loader',
+        //   ],
+        // },
       ],
     },
     externalsPresets: !bundle ? { node: true } : {},

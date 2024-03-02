@@ -117,7 +117,7 @@ export function isAboveAndBelowScreen(el: HTMLElement): boolean {
 }
 
 export function getScrollParent(el: HTMLElement): ScrollableElement {
-  if (el == null) {
+  if (el == null || el instanceof Document) {
     return document;
   }
 

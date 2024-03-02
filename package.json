@@ -1,6 +1,6 @@
 {
   "name": "ovos",
-  "version": "0.13.3",
+  "version": "0.13.5",
   "description": "A library for animations based on scroll and touch events.",
   "main": "dist/ovos.min.js",
   "types": "types/ovos.d.ts",
@@ -18,9 +18,9 @@
     "lint": "eslint src/**/*.{js,ts,tsx} --fix",
     "test:watch": "jest --watch --watchAll",
     "duplicated": "jscpd ./src/**/*.ts",
-    "verify": "npm run tsc && npm run lint && npm run test && npm start && npm run build && npm run bundle",
+    "prepublish": "rm -rf idst && npm run tsc && npm run lint && npm run test && npm run build && npm run bundle",
     "surge": "surge",
-    "deploy": "npm run verify && npm publish && npm run surge:deploy",
+    "deploy": "npm publish && npm run surge:deploy",
     "surge:deploy": "surge -p ./samples -d ovos.surge.sh"
   },
   "repository": {

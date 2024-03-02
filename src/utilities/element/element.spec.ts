@@ -11,6 +11,12 @@ import {
 describe('element utilities', () => {
   describe('getScrollingElement', () => {
     it('document', () => {
+      const scrollingElement = getScrollingEl(window.document);
+
+      expect(scrollingElement).toBe(window.document);
+    });
+
+    it('fake document', () => {
       const copyDocument = {
         ...document,
         scrollingElement: document.documentElement,
