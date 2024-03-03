@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import { isNumber } from 'lodash';
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';

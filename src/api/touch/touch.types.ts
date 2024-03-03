@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import { Observable } from 'rxjs';
 import { Axes, Axis, Direction, Positions } from '../../utilities/axis';
 import { ScrollableElement } from '../../utilities/scroll';
