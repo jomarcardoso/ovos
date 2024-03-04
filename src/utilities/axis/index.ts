@@ -6,7 +6,6 @@ export {
   Positions,
   POSITIONS,
 } from './axis.types';
-// eslint-disable-next-line import/no-cycle
 export {
   getDirection,
   isOnGap,

@@ -153,7 +153,6 @@ export const carousel: Carousel = ({
       scrollLeft = position - (sliderWidth / 2 - slideWidth / 2);
     }
 
-    // eslint-disable-next-line no-param-reassign
     elSlider.scrollLeft = scrollLeft;
     currentSlide = index;
   }
@@ -241,14 +240,12 @@ export const carousel: Carousel = ({
       elSlides.forEach((elSlide) => {
         const style = elSlide.style as CustomCSSStyleDeclaration;
 
-        // eslint-disable-next-line no-param-reassign
         style.scrollSnapAlign = 'start';
       });
     } else {
       elSlides.forEach((elSlide) => {
         const style = elSlide.style as CustomCSSStyleDeclaration;
 
-        // eslint-disable-next-line no-param-reassign
         style.scrollSnapAlign = 'center';
       });
     }

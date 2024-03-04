@@ -18,7 +18,6 @@ export const pageProgress: PageProgress = ({
 
   if (!el) return;
 
-  // eslint-disable-next-line no-param-reassign
   el.style.transformOrigin = 'left';
 
   function handleScroll({ axes: { y } }: Scroll$) {
@@ -26,7 +25,6 @@ export const pageProgress: PageProgress = ({
 
     if (!el) return;
 
-    // eslint-disable-next-line no-param-reassign
     el.style.transform = `scaleX(${percent})`;
   }
 

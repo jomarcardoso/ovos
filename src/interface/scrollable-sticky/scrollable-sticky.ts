@@ -35,7 +35,6 @@ export function scrollableSticky({
     function pinOnBottom() {
       if (pinnedOnBottom) return;
 
-      // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_pinned = 'bottom';
       pinnedOnBottom = true;
       if (isFunction(onPin)) onPin();
@@ -44,7 +43,6 @@ export function scrollableSticky({
     function unpinOnBottom() {
       if (!pinnedOnBottom) return;
 
-      // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_pinned = '';
       pinnedOnBottom = false;
       if (isFunction(onUnpin)) onUnpin();
@@ -54,9 +52,7 @@ export function scrollableSticky({
       if (fixed) return;
 
       fixed = true;
-      // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_fixed = 'true';
-      // eslint-disable-next-line no-param-reassign
       el.style.width = String(elContainer.offsetWidth);
       if (isFunction(onFix)) onFix();
     }
@@ -65,9 +61,7 @@ export function scrollableSticky({
       if (!fixed) return;
 
       fixed = false;
-      // eslint-disable-next-line no-param-reassign
       elContainer.dataset.ovo_ss_fixed = 'false';
-      // eslint-disable-next-line no-param-reassign
       el.style.transform = `translateY(0)`;
       if (isFunction(onUnfix)) onUnfix();
     }
@@ -115,7 +109,6 @@ export function scrollableSticky({
         toScroll = minToScroll;
       }
 
-      // eslint-disable-next-line no-param-reassign
       el.style.transform = `translateY(-${toScroll}px)`;
     };
   })();

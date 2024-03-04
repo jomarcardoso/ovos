@@ -10,7 +10,6 @@ function setSpriteSize({
 }) {
   const htmlSprite = elSprite as HTMLElement;
 
-  // eslint-disable-next-line no-param-reassign
   htmlSprite.style.width = `${100 * quantityFrames}%`;
 }
 
@@ -29,7 +28,7 @@ function rotate({
   elSprite: HTMLElement;
   rotated: number;
 }) {
-  elSprite.style.transform = `translateX(${(-100 + rotated) % 100}%)`; // eslint-disable-line no-param-reassign
+  elSprite.style.transform = `translateX(${(-100 + rotated) % 100}%)`;
 }
 
 interface SpinImagesArgs {

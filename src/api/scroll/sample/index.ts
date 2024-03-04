@@ -1,4 +1,3 @@
-/* eslint-disable */
 import './main.scss';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';

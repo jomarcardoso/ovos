@@ -88,9 +88,9 @@ export function putRelativeAxesOperator({
       }
 
       if (
-        stopGrowingAtAsPositions.bottom &&
-        stopGrowingAtAsPositions.left &&
-        stopGrowingAtAsPositions.top &&
+        stopGrowingAtAsPositions.bottom ||
+        stopGrowingAtAsPositions.left ||
+        stopGrowingAtAsPositions.top ||
         stopGrowingAtAsPositions.right
       ) {
         if (currAxes.x < relativeStartAxes.x - stopGrowingAtAsPositions.left) {
@@ -118,7 +118,7 @@ export function putRelativeAxesOperator({
 
       const hypotenuse = Math.hypot(relativeX, relativeY);
 
-      if (isNumber(stopGrowingAt)) {
+      if (stopGrowingAt && isNumber(stopGrowingAt)) {
         const isOutOfRadix = hypotenuse > stopGrowingAt;
 
         if (isOutOfRadix) {

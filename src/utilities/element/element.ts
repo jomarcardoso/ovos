@@ -172,7 +172,6 @@ export function translate({
   el: HTMLElement;
   position: number;
 }): void {
-  // eslint-disable-next-line no-param-reassign
   el.style.transform = `translate3d(0, -${position}px, 0)`;
 }
 

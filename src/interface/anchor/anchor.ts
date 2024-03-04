@@ -43,25 +43,21 @@ export const anchor: Anchor = ({
 
     if (!elFloating) return;
 
-    // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anFixed = 'true';
     floating = true;
 
     if (position === 'up') {
-      // eslint-disable-next-line no-param-reassign
       elFloating.dataset.anPosition = 'top';
 
       return;
     }
 
-    // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anPosition = 'bottom';
   }
 
   function toAnchor() {
     if (!floating || !elFloating) return;
 
-    // eslint-disable-next-line no-param-reassign
     elFloating.dataset.anFixed = 'false';
     floating = false;
   }
