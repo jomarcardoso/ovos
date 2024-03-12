@@ -47,13 +47,6 @@ typings/
 *.d.ts
 *.d.ts.map
 
-# dist
-*.min.js
-*.bundle.min.js
-*.bundle.min.js.map
-*.bundle.min.js.LICENSE.txt
-ovos.js
-
 # TypeScript cache
 *.tsbuildinfo
 

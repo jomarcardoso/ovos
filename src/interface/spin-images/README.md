@@ -2,7 +2,7 @@
 
 This component simulate to ratate and object. First you need to make your sprite to simulate the 360º effect.
 
-Sample in https://ovos.surge.sh/spin-images.html
+Sample in https://jomarcardoso.github.io/ovos/samples/spin-images.html
 
 ## Usage
 

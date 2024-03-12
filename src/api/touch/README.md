@@ -4,8 +4,8 @@ It's watching every touch and click interaction, since grab, drag and drop. Rega
 
 Sample in:
 
-- https://ovos.surge.sh/anchor.html
-- https://ovos.surge.sh/joystick.html
+- https://jomarcardoso.github.io/ovos/samples/anchor.html
+- https://jomarcardoso.github.io/ovos/samples/joystick.html
 
 ## Usage
 
