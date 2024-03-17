@@ -15,6 +15,14 @@ export function StickyHeader({
     relativeAxes: { y: position = 0 },
   }: Scroll$) {
     translate({ el: htmlEl, position });
+
+    if (getHeight(htmlEl) === position) {
+      htmlEl.style.opacity = '0';
+
+      return;
+    }
+
+    htmlEl.style.removeProperty('opacity');
   }
 
   function bindEvents() {
@@ -28,7 +36,9 @@ export function StickyHeader({
         left: 0,
         right: 0,
       },
-    }).subscribe(handleDocumentScroll);
+    })
+      .pipe()
+      .subscribe(handleDocumentScroll);
   }
 
   bindEvents();
