@@ -1,0 +1,126 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <link rel="stylesheet" href="./styles/sanitize.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./scripts/ovos.css">
+  <title>OVO - ScrollingSticky</title>
+  <style>
+    .wrapper {
+      display: flex;
+    }
+
+    .filter__content {
+      height: 1200px;
+      flex: 1;
+    }
+
+    body {
+      margin: 0;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      background-color: black;
+    }
+
+    footer,
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      background-color: black;
+    }
+
+    header {
+      min-height: 70px;
+      border-bottom: 2px solid black;
+    }
+
+    footer {
+      min-height: 120px;
+      border-top: 2px solid black;
+    }
+
+    nav {
+      border-radius: 10px;
+      background:
+        linear-gradient(135deg, white 35%, transparent 35%) -20px 0,
+        linear-gradient(225deg, white 35%, transparent 35%) -20px 0,
+        linear-gradient(315deg, white 35%, transparent 35%),
+        linear-gradient(45deg, white 35%, transparent 35%);
+      background-size: 40px 40px;
+      background-color: #000;
+      border: 2px solid black;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      width: 75%;
+      background: lightblue;
+      border: 2px solid black;
+      border-radius: 10px;
+    }
+
+    article {
+      min-height: 40vh;
+      border-radius: 30px;
+      background-color: white;
+      margin: 30px;
+      padding: 30px;
+    }
+
+    article::before,
+    article::after {
+      content: '';
+      margin-bottom: 10px;
+      min-height: 20px;
+      max-width: 55%;
+      display: block;
+      background-color: #dddddd;
+    }
+
+    article:after {
+      max-width: 30%;
+    }
+
+    aside {
+      width: 25%;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    HEADER
+  </header>
+  <div class="wrapper">
+    <aside class="filter" data-ovo_ss="container" data-ovo-auto>
+      <nav class="filter__content" data-ovo_ss="content"></nav>
+    </aside>
+    <main>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+      <article></article>
+    </main>
+  </div>
+  <footer>
+    FOOTER
+  </footer>
+  <script src="./scripts/ovos.bundle.min.js"></script>
+</body>
+
+</html>

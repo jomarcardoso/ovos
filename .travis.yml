@@ -1,0 +1,38 @@
+if: branch = master
+language: node_js
+node_js:
+  - 16
+before_script:
+  - yarn
+script:
+  - yarn tsc
+  - yarn lint
+  - yarn test
+  - yarn start
+  - yarn build
+  - yarn bundle
+deploy:
+  - provider: surge
+    project: ./src/api/scroll/sample/
+    domain: ovo-scroll.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
+    project: ./src/api/touch/sample/
+    domain: ovo-touch.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: surge
+    project: ./samples
+    domain: ovos.surge.sh
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: npm
+    email: antonionetocardoso@hotmail.com
+    api_key: $NPM_AUTH_TOKEN
+    skip_cleanup: true
+    on:
+      branch: master

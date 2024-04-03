@@ -1,0 +1,9 @@
+[data-ovo-scrollable-tabs] {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+
+  > * {
+    flex-shrink: 0;
+  }
+}

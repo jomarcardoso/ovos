@@ -19,6 +19,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
+reports
 coverage
 *.lcov
 
@@ -43,6 +44,8 @@ jspm_packages/
 
 # TypeScript v1 declaration files
 typings/
+*.d.ts
+*.d.ts.map
 
 # TypeScript cache
 *.tsbuildinfo

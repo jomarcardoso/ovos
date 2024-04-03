@@ -1,0 +1,135 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="./favicon/favicon.ico" />
+  <link rel="manifest" href="./favicon/site.webmanifest">
+  <link rel="stylesheet" href="./styles/sanitize.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./scripts/ovos.css">
+  <title>OVO - ScrollSpy</title>
+  <style>
+    body {
+      background-color: black;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 20px;
+    }
+
+    li {
+      background-color: black;
+      display: flex;
+    }
+
+    li::before {
+      content: '';
+      background-color: lightblue;
+      border: 2px solid black;
+      border-radius: 10px;
+      flex: 1;
+    }
+
+    main {
+      display: flex;
+    }
+
+    section {
+      background-color: lightblue;
+      flex: 1;
+      border: 2px solid black;
+      border-radius: 10px;
+    }
+
+    nav {
+      top: 0;
+      position: sticky;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: black;
+      min-width: 120px;
+    }
+
+    nav a {
+      color: black;
+      flex: 1;
+      border: 2px solid black;
+      background-color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      transition: .2s;
+      justify-content: center;
+    }
+
+    nav a.is-active {
+      font-weight: bold;
+      font-size: 28px;
+    }
+
+    article {
+      min-height: 100vh;
+      background-color: white;
+      margin: 30px;
+      padding: 30px;
+      border-radius: 20px;
+    }
+
+    article::before,
+    article::after {
+      content: '';
+      margin-bottom: 10px;
+      min-height: 20px;
+      max-width: 55%;
+      display: block;
+      background-color: #dddddd;
+    }
+
+    article:after {
+      max-width: 30%;
+    }
+
+    header,
+    footer {
+      background-color: black;
+      padding: 30px;
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Header</h1>
+  </header>
+  <main data-ovo-scroll-spy data-ovo-auto>
+    <nav>
+      <a data-ovo-scroll-spy-menu="1" id="to-article-1" href="#article-1">1</a>
+      <a data-ovo-scroll-spy-menu="2" id="to-article-2" href="#article-2">2</a>
+      <a data-ovo-scroll-spy-menu="3" id="to-article-3" href="#article-3">3</a>
+      <a data-ovo-scroll-spy-menu="4" id="to-article-4" href="#article-4">4</a>
+    </nav>
+    <section>
+      <article data-ovo-scroll-spy-content="1" id="article-1">
+
+      </article>
+      <article data-ovo-scroll-spy-content="2" id="article-2">
+
+      </article>
+      <article data-ovo-scroll-spy-content="3" id="article-3">
+
+      </article>
+      <article data-ovo-scroll-spy-content="4" id="article-4">
+
+      </article>
+    </section>
+  </main>
+  <footer>
+    <h1>Footer</h1>
+  </footer>
+  <script src="./scripts/ovos.bundle.min.js"></script>
+</body>
+
+</html>
