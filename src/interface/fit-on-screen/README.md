@@ -13,7 +13,16 @@ Sample in https://jomarcardoso.github.io/ovos/samples/fit-on-screen.html
 On HTML put the attribute `data-ovo-fs="content"`.
 
 ```html
-<article data-ovo-fs="content"></article>
+<body data-ovo-fs data-ovo-auto>
+  <article data-ovo-fs="content"></article>
+  <article data-ovo-fs="content"></article>
+  <article data-ovo-fs="content"></article>
+  <article data-ovo-fs="content"></article>
+  <article data-ovo-fs="content"></article>
+  <article data-ovo-fs="content"></article>
+
+  <script src="https://unpkg.com/ovos@1.1.0/dist/ovos.bundle.min.js"></script>
+</body>
 ```
 
 On JS just call the method.

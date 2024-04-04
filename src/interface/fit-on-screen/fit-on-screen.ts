@@ -1,10 +1,10 @@
-import { Axis, POSITIONS } from '../../utilities/axis';
+import { Axis } from '../../utilities/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import { scroll, Scroll$ } from '../../api/scroll';
 import { scrollTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
-
-const isNodeJS = typeof window === 'undefined';
+import { IS_NODE_JS } from '../../utilities/platform';
+import { Subject, takeUntil } from 'rxjs';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
   if (axis === 'y') return getTop(el);
@@ -19,16 +19,27 @@ function getScrolledByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {
 }
 
 export function fitOnScreen({
-  elRelative = !isNodeJS
+  elRelative = !IS_NODE_JS
     ? (document.querySelector('[data-ovo-fs="el"]') as HTMLElement) || document
     : undefined,
   elsToFit: externalElsToFit,
   proximityToFit = 240,
   axis = 'y',
   debounce = 1000,
-  limit = POSITIONS,
-}: FitOnScreenArgs): void {
-  if (!elRelative) return;
+  limit,
+}: FitOnScreenArgs): {
+  destroy(): void;
+} {
+  const destroy$ = new Subject();
+
+  function destroy() {
+    destroy$.next(true);
+    destroy$.complete();
+  }
+
+  if (!elRelative) {
+    destroy;
+  }
 
   const elsToFit =
     externalElsToFit ||
@@ -70,16 +81,20 @@ export function fitOnScreen({
       el: elRelative,
       debounce,
       limit,
-    });
+    }).pipe(takeUntil(destroy$));
 
     observable.subscribe(handleScroll);
   }
 
   bindEvents();
+
+  return {
+    destroy,
+  };
 }
 
 function autoStart() {
-  if (isNodeJS) return;
+  if (IS_NODE_JS) return;
 
   const flag = document.querySelector('[data-ovo-fs][data-ovo-auto]');
 

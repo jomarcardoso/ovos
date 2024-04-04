@@ -1,7 +1,6 @@
 import { scroll, Scroll$ } from '../../api/scroll';
 import { getMaxVerticalScroll, getScrollingEl } from '../../utilities/element';
-
-const isNodeJS = typeof window === 'undefined';
+import { IS_NODE_JS } from '../../utilities/platform';
 
 interface PageProgressArgs {
   el?: HTMLElement;
@@ -10,7 +9,7 @@ interface PageProgressArgs {
 type PageProgress = (args: PageProgressArgs) => void;
 
 export const pageProgress: PageProgress = ({
-  el = !isNodeJS
+  el = !IS_NODE_JS
     ? (document.querySelector('[data-ovo-pp="bar"]') as HTMLElement)
     : undefined,
 }) => {

@@ -8,6 +8,7 @@ export interface FitOnScreenArgs {
   axis?: Axis;
   debounce?: number;
   limit?: Positions;
+  doNotFitIfAbove?: boolean;
 }
 
 interface IsNearOfElementArgs {

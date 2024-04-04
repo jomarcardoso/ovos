@@ -1,9 +1,9 @@
 import { scroll, Scroll$ } from '../../api/scroll';
 import { Axes, Axis } from '../../utilities/axis';
+import { IS_NODE_JS } from '../../utilities/platform';
 import { ScrollableElement } from '../../utilities/scroll';
 import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
 
-const isNodeJS = typeof window === 'undefined';
 const ACTIVE_CLASS = 'is-active';
 
 export const createScrollSpyItem: CreateScrollSpyItem = ({
@@ -44,7 +44,7 @@ interface ScrollSpyArgs {
 
 export function scrollSpy({
   list,
-  elRelative = !isNodeJS ? document : undefined,
+  elRelative = !IS_NODE_JS ? document : undefined,
   method = 'CURRENT',
   axis = 'y',
   debounce = 0,
