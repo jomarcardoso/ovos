@@ -1,5 +1,9 @@
 import { Axis } from '../../utilities/axis';
-import { getLeft, getTop } from '../../utilities/element';
+import {
+  getLeft,
+  getTop,
+  isTopOfElementAboveOfViewport,
+} from '../../utilities/element';
 import { scroll, Scroll$ } from '../../api/scroll';
 import { scrollTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
@@ -27,6 +31,8 @@ export function fitOnScreen({
   axis = 'y',
   debounce = 1000,
   limit,
+  doNotFitIfAbove = true,
+  doNotFitIfBellow = true,
 }: FitOnScreenArgs): {
   destroy(): void;
 } {
@@ -63,6 +69,17 @@ export function fitOnScreen({
   }
 
   function handleScroll({ el }: Scroll$) {
+    if (doNotFitIfAbove && !isTopOfElementAboveOfViewport(elsToFit[0])) {
+      return;
+    }
+
+    if (
+      doNotFitIfBellow &&
+      isTopOfElementAboveOfViewport(elsToFit[elsToFit.length - 1])
+    ) {
+      return;
+    }
+
     const nearElement = getNearElement({
       scrolledPosition: getScrolledByAxis({ el, axis }),
     });
