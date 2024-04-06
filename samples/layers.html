@@ -1,0 +1,159 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OVO - Layers</title>
+  <style>
+    .layer {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: 100px;
+    }
+
+    .layer__body {
+      flex: 1;
+      overflow-y: auto;
+      /* scroll-snap-type: y mandatory; */
+      margin-top: auto;
+      scroll-behavior: smooth;
+    }
+
+    .layer__bg {
+      position: fixed;
+      height: 100vh;
+      width: 100vw;
+      left: 0;
+      top: 0;
+    }
+
+    .layer__menu {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      transition: 300ms ease;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+
+    .layer__menu:target {
+      border-radius: 0;
+    }
+
+    .layer__menu--out {
+      height: 70%;
+      pointer-events: none;
+    }
+
+    .layer__menu--hidden {
+      height: 100%;
+    }
+
+    .layer__menu--in {
+      height: 100%;
+    }
+
+    /* to test */
+    body {
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .bg1 {
+      background-color: gray;
+    }
+
+    .bg2 {
+      background-color: gold;
+    }
+
+    .bg3 {
+      background-color: chartreuse;
+    }
+
+    .bg4 {
+      background-color: dodgerblue;
+    }
+
+    .layer__menu--in {
+      border: 5px solid black;
+      padding: 20px;
+      font-size: 30px;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: space-between;
+      width: 100vw;
+    }
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
+
+    #layer-2 {
+      padding-top: 200px;
+    }
+
+    #layer-3 {
+      padding-top: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="layer-3" class="layer">
+    <div class="layer__body">
+      <div class="layer__bg bg1">
+
+        <!-- start layer -->
+        <div id="layer-2" class="layer">
+          <div class="layer__body">
+            <div class="layer__bg">
+
+              <!-- start layer -->
+              <div id="layer-1" class="layer">
+                <div id="body-1" class="layer__body">
+                  <div class="layer__bg"></div>
+                  <div id="close-menu-1" class="layer__menu layer__menu--out">
+                  </div>
+                  <div
+                    id="layer-menu-1"
+                    class="layer__menu layer__menu--in bg4">
+                    <a href="#layer-menu-2">➕</a>
+                    <a href="#layer-menu-1">🔝</a>
+                    <a href="#close-menu-1">❌</a>
+                  </div>
+                </div>
+              </div>
+              <!-- end layer -->
+
+            </div>
+            <div id="close-menu-2"
+              class="layer__menu layer__menu--out layer__menu--hidden"></div>
+            <div id="layer-menu-2" class="layer__menu layer__menu--in bg3">
+              <a href="#layer-menu-3">➕</a>
+              <a href="#close-menu-2">❌</a>
+            </div>
+          </div>
+        </div>
+        <!-- end layer -->
+
+      </div>
+      <div id="close-menu-3"
+        class="layer__menu layer__menu--out layer__menu--hidden"></div>
+      <div id="layer-menu-3" class="layer__menu layer__menu--in bg2">
+        <span></span>
+        <a href="#close-menu-3">❌</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

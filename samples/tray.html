@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OVO - Tray</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* [data-ovo-tray] {
+      --ovo-tray-max-height: 80vh;
+
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: calc(100vh - var(--ovo-tray-max-height));
+    } */
+
+    /* body {
+      position: relative;
+    } */
+
+    [data-ovo='tray'] {
+      --ovo-tray-min-height: 44px;
+      /* flex: 1; */
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      height: 100dvh;
+    }
+
+    [data-ovo="tray"]::before {
+      content: "";
+      display: block;
+      height: calc(100% - var(--ovo-tray-min-height));
+      pointer-events: none;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    [data-ovo='tray-body'] {
+      height: calc(100% - var(--ovo-tray-min-height));
+      left: 0;
+      overflow: scroll;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    [data-ovo='tray-menu'] {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+    }
+
+    footer {
+      padding: 44px 24px;
+      background-color: darkslateblue;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div data-ovo="tray">
+    <div data-ovo="tray-body" style="padding: 24px;">
+      <h1>
+        OVO - Tray
+      </h1>
+
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+        mollitia
+        magni autem, excepturi rerum soluta asperiores dolor dolorem non quos
+        nulla tempora deleniti quod, similique sequi cum qui nemo quaerat?</p>
+    </div>
+
+    <footer data-ovo="tray-menu">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum
+      blanditiis
+      dolorum velit molestiae sequi laudantium at harum ut aliquam quidem
+      dignissimos laborum, ullam, vel quisquam unde est eveniet incidunt
+      dolorem.
+    </footer>
+  </div>
+</body>
+
+</html>

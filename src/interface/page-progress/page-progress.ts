@@ -19,13 +19,20 @@ export const pageProgress: PageProgress = ({
 
   el.style.transformOrigin = 'left';
 
-  function handleScroll({ axes: { y } }: Scroll$) {
+  function handleScroll({ axes: { y } }: Pick<Scroll$, 'axes'>) {
     const percent = y / getMaxVerticalScroll(elRelative);
 
     if (!el) return;
 
     el.style.transform = `scaleX(${percent})`;
   }
+
+  handleScroll({
+    axes: {
+      y: 0,
+      x: 0,
+    },
+  });
 
   scroll({}).subscribe(handleScroll);
 };
