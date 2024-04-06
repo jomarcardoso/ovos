@@ -1,0 +1,10 @@
+name: Build status
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  call-workflow:
+    uses: jomarcardoso/ovos/.github/workflows/validate.yml@develop
+

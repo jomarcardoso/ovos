@@ -1,5 +1,9 @@
 # ovos 🍳
 
+![build](https://github.com/jomarcardoso/ovos/actions/workflows/build_status.yml/badge.svg?branch=master)
+[![npm version](https://badge.fury.io/js/ovos.svg)](https://www.npmjs.com/package/ovos)
+![semantic-release: typescript](https://img.shields.io/badge/semantic--release-typescript-e10079?logo=semantic-release)
+
 <!-- ![build-status](https://travis-ci.com/jomarcardoso/ovos.svg?branch=master)
 [![npm](https://shields.io/npm/v/ovos)](https://www.npmjs.com/package/ovos)
 ![downloads](https://img.shields.io/npm/dm/ovos) -->

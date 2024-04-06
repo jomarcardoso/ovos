@@ -1,0 +1,33 @@
+name: Validate
+on:
+  workflow_call
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: npm clean-install
+      - name: Lint
+        run: npm run lint
+      - name: Typing
+        run: npm run tsc
+      - name: Test
+        run: npm t
+      - name: Build
+        run: npm run build
+      - name: Bundle
+        run: npm run bundle
+
