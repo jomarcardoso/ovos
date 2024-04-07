@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   validate:
-    name: Validate pull request
+    name: Validate build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
