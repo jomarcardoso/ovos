@@ -1,6 +1,6 @@
 # ovos 🍳
 
-![build](https://github.com/jomarcardoso/ovos/actions/workflows/build_status.yml/badge.svg?branch=master)
+![build](https://github.com/jomarcardoso/ovos/actions/workflows/release.yml/badge.svg?branch=master)
 [![npm version](https://badge.fury.io/js/ovos.svg)](https://www.npmjs.com/package/ovos)
 ![semantic-release: typescript](https://img.shields.io/badge/semantic--release-typescript-e10079?logo=semantic-release)
 
