@@ -239,15 +239,14 @@ export function scrollToEl({
 }): void {
   const left = el.offsetLeft;
   const top = el.offsetTop;
-  const scrollingElement = getScrollParent(
-    el.parentNode as HTMLElement,
-  ) as HTMLElement;
+  const scrollingElement = getScrollParent(el.parentNode as HTMLElement);
+  const elementToScroll = getScrollingEl(scrollingElement);
 
-  scrollingElement.scrollIntoView(true);
+  elementToScroll.scrollIntoView(true);
 
   scrollTo({
     left: left - difference.x,
     top: top - difference.y,
-    scrollingElement,
+    scrollingElement: elementToScroll,
   });
 }

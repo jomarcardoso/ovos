@@ -16,7 +16,7 @@
     "tsc": "tsc",
     "lint": "eslint --ext .ts src/",
     "lint:fix": "eslint --ext .ts src/ --fix",
-    "test": "jest --env=jsdom",
+    "test": "jest --env=jsdom --coverage --coverageReporters json-summary",
     "test:watch": "jest --watch --watchAll",
     "duplicated": "jscpd ./src/**/*.ts",
     "prepublishOnly": "rm -rf dist && npm run lint && npm run tsc && npm run test && npm run build && npm run bundle"
