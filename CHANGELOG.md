@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/jomarcardoso/ovos/compare/v1.2.2...v1.2.3) (2024-04-17)
+
+
+### Bug Fixes
+
+* **scroll-spy:** change selector to ovo-scrollspy ([c84f6c7](https://github.com/jomarcardoso/ovos/commit/c84f6c70451325f3441042f713c50dc93fa67330))
+
 ## [1.2.2](https://github.com/jomarcardoso/ovos/compare/v1.2.1...v1.2.2) (2024-04-08)
 
 
