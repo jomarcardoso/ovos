@@ -2,7 +2,7 @@
 
 Scroll a sticky or fixed content for us. This effect is very useful to build sidebars higher than the screen.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/scrollable-sticky.html
+Sample in https://jomarcardoso.github.io/ovos/www/scrollable-sticky.html
 
 ## Usage
 

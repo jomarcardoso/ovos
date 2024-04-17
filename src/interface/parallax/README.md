@@ -1,6 +1,6 @@
 # 🥚 Parallax
 
-Sample in https://jomarcardoso.github.io/ovos/samples/parallax.html
+Sample in https://jomarcardoso.github.io/ovos/www/parallax.html
 
 ## Usage
 

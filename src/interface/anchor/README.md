@@ -2,7 +2,7 @@
 
 It defines a floating element and a to anchor element. When the floating element passes over the To Achor, it follows it until go out the screen.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/anchor.html
+Sample in https://jomarcardoso.github.io/ovos/www/anchor.html
 
 ## Usage
 

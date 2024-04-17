@@ -7,7 +7,7 @@ import {
 import { scroll, Scroll$ } from '../../api/scroll';
 import { scrollTo } from '../../utilities/scroll';
 import { FitOnScreenArgs, IsNearOfElement } from './fit-on-screen.types';
-import { IS_NODE_JS } from '../../utilities/platform';
+import { IS_NODE_JS } from '../../utilities/document';
 import { Subject, takeUntil } from 'rxjs';
 
 function getOffsetByAxis({ el, axis }: { el: HTMLElement; axis: Axis }) {

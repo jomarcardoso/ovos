@@ -4,7 +4,7 @@ When you want to show a full screen content but allows the user to scroll the pa
 
 When the user stop scrolling and wait a moment the page will scroll for him to fit on the screen.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/fit-on-screen.html
+Sample in https://jomarcardoso.github.io/ovos/www/fit-on-screen.html
 
 ## Usage
 

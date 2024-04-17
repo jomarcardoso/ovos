@@ -2,7 +2,7 @@
 
 When the tab list has many items and it need a scroll... and you press tab to focus the next item but half of him be hired... Use Scrollable Tabs to fix it, to both directions.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/scrollable-tabs.html
+Sample in https://jomarcardoso.github.io/ovos/www/scrollable-tabs.html
 
 ## Usage
 

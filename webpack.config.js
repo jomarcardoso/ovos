@@ -1,14 +1,14 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const generateConfig = ({
   mode = 'production',
   bundle = false,
   entry = {
-    ['./dist/ovos']: './src/ovos.ts',
-    ['./samples/scripts/ovos']: './src/ovos.ts',
+    ['./dist/ovos']: bundle ? './src/ovos.bundle.ts' : './src/ovos.ts',
+    ['./www/scripts/ovos']: bundle ? './src/ovos.bundle.ts' : './src/ovos.ts',
     ['./src/utilities/element/sample/dist/index']:
       './src/utilities/element/sample/index.ts',
     ['./src/api/scroll/sample/dist/index']:
