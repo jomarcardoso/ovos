@@ -1,6 +1,6 @@
 import { scroll, Scroll$ } from '../../api/scroll';
 import { getMaxVerticalScroll, getScrollingEl } from '../../utilities/element';
-import { IS_NODE_JS } from '../../utilities/platform';
+import { IS_NODE_JS } from '../../utilities/document';
 
 interface PageProgressArgs {
   el?: HTMLElement;

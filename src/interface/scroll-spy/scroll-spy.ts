@@ -1,6 +1,6 @@
 import { scroll, Scroll$ } from '../../api/scroll';
 import { Axes, Axis } from '../../utilities/axis';
-import { IS_NODE_JS } from '../../utilities/platform';
+import { IS_NODE_JS } from '../../utilities/document';
 import { ScrollableElement } from '../../utilities/scroll';
 import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
 
@@ -168,41 +168,3 @@ export function scrollSpy({
   observable.subscribe(handleScroll);
   elRelative.dispatchEvent(new Event('scroll'));
 }
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const el = document.querySelector('[data-ovo-scroll-spy][data-ovo-auto]');
-
-  if (!el) return;
-
-  const elMenus = Array.from(
-    el.querySelectorAll('[data-ovo-scroll-spy-menu]'),
-  ) as Array<HTMLElement>;
-  const elContents = Array.from(
-    el.querySelectorAll('[data-ovo-scroll-spy-content]'),
-  ) as Array<HTMLElement>;
-
-  const list = elContents.map((elContent, index) => {
-    return createScrollSpyItem({
-      elContent,
-      elMenu: elMenus[index],
-    });
-  });
-
-  const debounce = Number(el.getAttribute('data-ovo-scroll-spy-debounce')) || 0;
-
-  const elRelative =
-    (el.hasAttribute('data-ovo-scroll-spy-relative')
-      ? (el as ScrollableElement)
-      : (el.querySelector(
-          '[data-ovo-scroll-spy-relative]',
-        ) as ScrollableElement)) ?? undefined;
-
-  const method =
-    (el.getAttribute('data-ovo-scroll-spy-method') as Method) || undefined;
-
-  scrollSpy({ list, elRelative, debounce, method });
-}
-
-autoStart();

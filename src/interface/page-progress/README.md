@@ -2,7 +2,7 @@
 
 Like a Scrollbar, but can be putted everywhere. Useful for show mobile scroll position or the reading progress of a document.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/page-progress.html
+Sample in https://jomarcardoso.github.io/ovos/www/page-progress.html
 
 ## Usage
 

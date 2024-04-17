@@ -2,9 +2,28 @@
 
 The Scroll Spy observe the page or element scroll and based. The content scrolled have some "breakpoints" like triggers to do something like show the current element on the screen.
 
-Sample in https://jomarcardoso.github.io/ovos/samples/scroll-spy.html
+Sample in https://jomarcardoso.github.io/ovos/www/scroll-spy.html
 
 ## Usage
+
+### Only HTML
+
+```html
+<div ovo-scrollspy>
+  <nav>
+    <a ovo-scrollspy-menu="1" href="#article-1">1</a>
+    <a ovo-scrollspy-menu="2" href="#article-2">2</a>
+    <a ovo-scrollspy-menu="3" href="#article-3">3</a>
+    <a ovo-scrollspy-menu="4" href="#article-4">4</a>
+  </nav>
+
+  <article ovo-scrollspy-content="1" id="article-1"></article>
+  <article ovo-scrollspy-content="2" id="article-2"></article>
+  <article ovo-scrollspy-content="3" id="article-3"></article>
+  <article ovo-scrollspy-content="4" id="article-4"></article>
+</div>
+<script src="https://unpkg.com/ovos@1.2.0/dist/ovos.bundle.min.js"></script>
+```
 
 ### HTML + CSS + JS
 
