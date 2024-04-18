@@ -1,5 +1,4 @@
 import { ScrollableElement } from '../../ovos';
-import { ready } from '../../utilities/document';
 import { createScrollSpyItem, scrollSpy } from './scroll-spy';
 import { Method } from './scroll-spy.types';
 
@@ -45,10 +44,8 @@ function start(el: HTMLElement) {
   scrollSpy({ list, elRelative, debounce, method });
 }
 
-function autoStart() {
+export function htmxScrollspy() {
   const els = Array.from(document.querySelectorAll('[ovo-scrollspy]'));
 
   els.forEach(start);
 }
-
-ready(autoStart);
