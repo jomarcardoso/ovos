@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/jomarcardoso/ovos/compare/v1.2.3...v1.2.4) (2024-04-18)
+
+
+### Bug Fixes
+
+* **scroll-spy:** export htmxScrollspy ([1f0bcb6](https://github.com/jomarcardoso/ovos/commit/1f0bcb6161257570064b689f50b1b3836b878800))
+
 ## [1.2.3](https://github.com/jomarcardoso/ovos/compare/v1.2.2...v1.2.3) (2024-04-17)
 
 
