@@ -1,0 +1,15 @@
+# docs
+src/*.md
+src/**/*.md
+
+# configs
+*.yml
+**/*.yml
+*.json
+**/*.json
+
+# examples
+*.html
+**/*.html
+www
+**/www

@@ -13,13 +13,13 @@ script:
   - yarn bundle
 deploy:
   - provider: surge
-    project: ./src/api/scroll/sample/
+    project: ./src/api/scroll/www/
     domain: ovo-scroll.surge.sh
     skip_cleanup: true
     on:
       branch: master
   - provider: surge
-    project: ./src/api/touch/sample/
+    project: ./src/api/touch/www/
     domain: ovo-touch.surge.sh
     skip_cleanup: true
     on:
