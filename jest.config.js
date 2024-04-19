@@ -4,7 +4,7 @@ module.exports = {
     '!**/node_modules/**',
     '!**/dist/**',
     '!**/types/**',
-    '!**/sample/**',
+    '!**/www/**',
   ],
   collectCoverage: true,
   coverageThreshold: {

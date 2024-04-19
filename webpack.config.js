@@ -9,12 +9,12 @@ const generateConfig = ({
   entry = {
     ['./dist/ovos']: bundle ? './src/ovos.bundle.ts' : './src/ovos.ts',
     ['./www/scripts/ovos']: bundle ? './src/ovos.bundle.ts' : './src/ovos.ts',
-    ['./src/utilities/element/sample/dist/index']:
-      './src/utilities/element/sample/index.ts',
-    ['./src/api/scroll/sample/dist/index']:
-      './src/api/scroll/sample/index.ts',
-    ['./src/api/touch/sample/dist/index']:
-      './src/api/touch/sample/index.ts',
+    ['./src/utilities/element/www/dist/index']:
+      './src/utilities/element/www/index.ts',
+    ['./src/api/scroll/www/dist/index']:
+      './src/api/scroll/www/index.ts',
+    ['./src/api/touch/www/dist/index']:
+      './src/api/touch/www/index.ts',
   },
 }) => {
   const config = {
