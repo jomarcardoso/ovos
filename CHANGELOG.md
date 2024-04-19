@@ -1,3 +1,10 @@
+## [1.2.5](https://github.com/jomarcardoso/ovos/compare/v1.2.4...v1.2.5) (2024-04-19)
+
+
+### Bug Fixes
+
+* **ovos:** exports scrollspy in package.json ([87db435](https://github.com/jomarcardoso/ovos/commit/87db435ce985d75ccdf0b7db4fdae221645bfc4e))
+
 ## [1.2.4](https://github.com/jomarcardoso/ovos/compare/v1.2.3...v1.2.4) (2024-04-18)
 
 
