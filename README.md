@@ -48,7 +48,7 @@ import { fitOnScreen } from 'ovos';
 - [Fit On Screen](/src/interface/fit-on-screen)
 - [Page Progress](/src/interface/page-progress)
 - [Parallax](/src/interface/parallax)
-- [Scroll Spy](/src/interface/scroll-spy)
+- [Scroll Spy](/src/interface/scrollspy)
 - [Scrollable Sticky](/src/interface/scrollable-sticky)
 - [Scrollable Tabs](/src/interface/scrollable-tabs)
 - [Spin Images](/src/interface/spin-images)

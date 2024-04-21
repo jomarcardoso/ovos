@@ -1,12 +1,13 @@
 import { scroll, Scroll$ } from '../../api/scroll';
+import { getScrollParent } from '../../utilities/element';
 import { Axes, Axis } from '../../utilities/axis';
 import { IS_NODE_JS } from '../../utilities/document';
 import { ScrollableElement } from '../../utilities/scroll';
-import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scroll-spy.types';
+import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scrollspy.types';
 
-const ACTIVE_CLASS = 'is-active';
+const ACTIVE_CLASS = 'ovo-active';
 
-export const createScrollSpyItem: CreateScrollSpyItem = ({
+export const createScrollspyItem: CreateScrollSpyItem = ({
   elMenu,
   elContent,
   callback,
@@ -34,7 +35,7 @@ export const createScrollSpyItem: CreateScrollSpyItem = ({
   };
 };
 
-interface ScrollSpyArgs {
+interface ScrollspyArgs {
   list: Array<ScrollSpyItem>;
   elRelative?: ScrollableElement;
   method?: Method;
@@ -42,14 +43,20 @@ interface ScrollSpyArgs {
   debounce?: number;
 }
 
-export function scrollSpy({
+export function scrollspy({
   list,
   elRelative = !IS_NODE_JS ? document : undefined,
   method = 'CURRENT',
   axis = 'y',
   debounce = 0,
-}: ScrollSpyArgs): void {
-  if (!elRelative) return;
+}: ScrollspyArgs): void {
+  if (!elRelative || !list.length) return;
+
+  let scrollingElement = elRelative;
+
+  if (elRelative instanceof Document && list[0].content) {
+    scrollingElement = getScrollParent(list[0].content) || document;
+  }
 
   let currentActive: ScrollSpyItem;
   let getTheActive: (
@@ -161,10 +168,19 @@ export function scrollSpy({
   }
 
   const observable = scroll({
-    el: elRelative,
+    el: scrollingElement,
     debounce,
   });
 
   observable.subscribe(handleScroll);
-  elRelative.dispatchEvent(new Event('scroll'));
+  scrollingElement.dispatchEvent(new Event('scroll'));
 }
+
+/** @deprecated use ScrollspyArgs instead. */
+export type ScrollSpyArgs = ScrollspyArgs;
+
+/** @deprecated use createScrollspyItem instead. */
+export const createScrollSpyItem = createScrollspyItem;
+
+/** @deprecated use scrollspy instead. */
+export const scrollSpy = scrollspy;

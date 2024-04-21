@@ -1,6 +1,6 @@
 import { ScrollableElement } from '../../ovos';
-import { createScrollSpyItem, scrollSpy } from './scroll-spy';
-import { Method } from './scroll-spy.types';
+import { createScrollSpyItem, scrollSpy } from './scrollspy';
+import { Method } from './scrollspy.types';
 
 function start(el: HTMLElement) {
   const elMenus = Array.from(
@@ -39,7 +39,7 @@ function start(el: HTMLElement) {
     undefined;
 
   const method =
-    (el.getAttribute('ovo-scrollspy-method') as Method) || undefined;
+    (el.getAttribute('ovo-scrollspy_method') as Method) || undefined;
 
   scrollSpy({ list, elRelative, debounce, method });
 }
