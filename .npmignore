@@ -13,3 +13,5 @@ src/**/*.md
 **/*.html
 www
 **/www
+**/www/**
+**/www/**/*

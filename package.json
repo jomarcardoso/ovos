@@ -5,8 +5,20 @@
   "main": "dist/ovos.min.js",
   "types": "types/ovos.d.ts",
   "exports": {
-    ".": "./dist/ovos.min.js",
-    "./scrollspy": "./src/interface/scroll-spy/index.ts"
+    ".": {
+      "default": "./dist/ovos.min.js",
+      "types": "./types/ovos.d.ts",
+      "import": "./src/ovos.ts"
+    },
+    "./anchor": "./src/interface/anchor/index.ts",
+    "./carousel": "./src/interface/carousel/index.ts",
+    "./fit-on-screen": "./src/interface/fit-on-screen/index.ts",
+    "./page-progress": "./src/interface/page-progress/index.ts",
+    "./scrollable-sticky": "./src/interface/scrollable-sticky/index.ts",
+    "./scrollable-tabs": "./src/interface/scrollable-tabs/index.ts",
+    "./scrollspy": "./src/interface/scrollspy/index.ts",
+    "./spin-images": "./src/interface/spin-images/index.ts",
+    "./sticky-header": "./src/interface/sticky-header/index.ts"
   },
   "files": [
     "dist",
