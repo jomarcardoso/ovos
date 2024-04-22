@@ -10,9 +10,9 @@ import {
 } from '../../utilities/element';
 
 export function scrollableSticky({
-  el = document.querySelector('[data-ovo_ss="content"]') as HTMLElement,
+  el = document.querySelector('[ovo-scrollable-sticky_content]') as HTMLElement,
   elContainer = document.querySelector(
-    '[data-ovo_ss="container"]',
+    '[ovo-scrollable-sticky]',
   ) as HTMLElement,
   onUnpin,
   onPin,
@@ -35,7 +35,7 @@ export function scrollableSticky({
     function pinOnBottom() {
       if (pinnedOnBottom) return;
 
-      elContainer.dataset.ovo_ss_pinned = 'bottom';
+      elContainer.dataset.ovo_scrollable_sticky_pinned = 'bottom';
       pinnedOnBottom = true;
       if (isFunction(onPin)) onPin();
     }
@@ -43,7 +43,7 @@ export function scrollableSticky({
     function unpinOnBottom() {
       if (!pinnedOnBottom) return;
 
-      elContainer.dataset.ovo_ss_pinned = '';
+      elContainer.dataset.ovo_scrollable_sticky_pinned = '';
       pinnedOnBottom = false;
       if (isFunction(onUnpin)) onUnpin();
     }
@@ -52,7 +52,7 @@ export function scrollableSticky({
       if (fixed) return;
 
       fixed = true;
-      elContainer.dataset.ovo_ss_fixed = 'true';
+      elContainer.dataset.ovo_scrollable_sticky_fixed = 'true';
       el.style.width = String(elContainer.offsetWidth);
       if (isFunction(onFix)) onFix();
     }
@@ -61,7 +61,7 @@ export function scrollableSticky({
       if (!fixed) return;
 
       fixed = false;
-      elContainer.dataset.ovo_ss_fixed = 'false';
+      elContainer.dataset.ovo_scrollable_sticky_fixed = 'false';
       el.style.transform = 'translateY(0)';
       if (isFunction(onUnfix)) onUnfix();
     }
@@ -117,17 +117,3 @@ export function scrollableSticky({
 
   observable.subscribe(handleScroll);
 }
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const elContainer = document.querySelector(
-    '[data-ovo_ss="container"][data-ovo-auto]',
-  ) as HTMLElement;
-
-  if (elContainer) {
-    scrollableSticky({ elContainer });
-  }
-}
-
-autoStart();

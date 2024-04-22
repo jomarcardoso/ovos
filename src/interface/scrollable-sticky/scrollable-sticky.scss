@@ -1,16 +1,16 @@
-[data-ovo_ss='container'] {
+[ovo-scrollable-sticky] {
   display: flex;
   min-height: 100vh;
   position: relative;
 
-  &[data-ovo_ss_pinned='bottom'] {
-    [data-ovo_ss='content'] {
+  &[data-ovo_scrollable_sticky_pinned='bottom'] {
+    [ovo-scrollable-sticky_content] {
       align-self: flex-end;
     }
   }
 
-  &[data-ovo_ss_fixed='true'] {
-    [data-ovo_ss='content'] {
+  &[data-ovo_scrollable_sticky_fixed='true'] {
+    [ovo-scrollable-sticky_content] {
       position: fixed;
       top: 0;
     }
