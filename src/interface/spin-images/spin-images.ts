@@ -97,14 +97,14 @@ export const spinImages: SpinImages = ({
   function handleGrab() {
     if (!el) return;
 
-    el.classList.add('is-active');
+    el.classList.add('ovo-active');
     if (onGrab) onGrab();
   }
 
   function handleDrop() {
     if (!el) return;
 
-    el.classList.remove('is-active');
+    el.classList.remove('ovo-active');
     if (onDrop) onDrop();
   }
 
@@ -155,15 +155,3 @@ export const spinImages: SpinImages = ({
     }
   });
 };
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const el = document.querySelector('[data-ovo-spin-images][data-ovo-auto]');
-
-  if (el) {
-    spinImages({});
-  }
-}
-
-autoStart();
