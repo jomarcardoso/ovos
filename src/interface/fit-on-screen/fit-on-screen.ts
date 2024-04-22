@@ -109,15 +109,3 @@ export function fitOnScreen({
     destroy,
   };
 }
-
-function autoStart() {
-  if (IS_NODE_JS) return;
-
-  const flag = document.querySelector('[data-ovo-fs][data-ovo-auto]');
-
-  if (!flag) return;
-
-  fitOnScreen({});
-}
-
-autoStart();

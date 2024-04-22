@@ -19,17 +19,3 @@ export function ScrollableTabs({
     });
   });
 }
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const el = document.querySelector(
-    '[data-ovo-scrollable-tabs][data-ovo-auto]',
-  ) as HTMLElement;
-
-  if (!el) return;
-
-  ScrollableTabs({ el });
-}
-
-autoStart();

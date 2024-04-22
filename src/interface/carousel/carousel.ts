@@ -1,13 +1,13 @@
 import './carousel.scss';
-import { createScrollSpyItem, scrollSpy } from '../scroll-spy/scroll-spy';
-import { CreateSlide, Carousel, CarouselFitType } from './carousel.type';
+import { createScrollspyItem, scrollspy } from '../scrollspy/scrollspy';
+import { CreateSlide, Carousel, CarouselFitType } from './carousel.types';
 
 interface CustomCSSStyleDeclaration extends CSSStyleDeclaration {
   scrollSnapAlign: string;
 }
 
 const createSlide: CreateSlide = ({ elSlide, elDot, onActivate }) => {
-  const scrollSpyItem = createScrollSpyItem({
+  const scrollSpyItem = createScrollspyItem({
     elMenu: elDot,
     elContent: elSlide,
   });
@@ -207,7 +207,7 @@ export const carousel: Carousel = ({
 
     showArrows();
 
-    scrollSpy({
+    scrollspy({
       list: slides,
       elRelative: elSlider,
       axis: 'x',
@@ -260,17 +260,3 @@ export const carousel: Carousel = ({
 
   elSlider.dispatchEvent(new Event('scroll'));
 };
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const flag = document.querySelector(
-    '[data-carousel="carousel"][data-ovo-auto]',
-  );
-
-  if (!flag) return;
-
-  carousel({});
-}
-
-autoStart();
