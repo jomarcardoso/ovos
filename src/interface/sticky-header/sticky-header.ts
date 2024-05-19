@@ -43,17 +43,3 @@ export function StickyHeader({
 
   bindEvents();
 }
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const flag = document.querySelector(
-    '[data-ovo-sticky-header][data-ovo-auto]',
-  );
-
-  if (!flag) return;
-
-  StickyHeader({});
-}
-
-autoStart();

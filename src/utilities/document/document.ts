@@ -21,9 +21,11 @@ if (IS_NODE_JS) {
 export function ready(fn: Function) {
   // Checking readyState here is a failsafe in case the htmx script tag entered the DOM by
   // some means other than the initial page load.
-  if (isReady || document.readyState === 'complete') {
+  if (IS_NODE_JS && (isReady || document.readyState === 'complete')) {
     fn();
   } else {
-    document.addEventListener('DOMContentLoaded', () => fn());
+    if (IS_NODE_JS) {
+      document.addEventListener('DOMContentLoaded', () => fn());
+    }
   }
 }

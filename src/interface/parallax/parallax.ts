@@ -91,15 +91,3 @@ export function parallax({
 
   bindScroll();
 }
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const flag = document.querySelector('[data-ovo-parallax][data-ovo-auto]');
-
-  if (!flag) return;
-
-  parallax({});
-}
-
-autoStart();

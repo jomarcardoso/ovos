@@ -2,7 +2,7 @@
 
 The Scroll Spy observe the page or element scroll and based. The content scrolled have some "breakpoints" like triggers to do something like show the current element on the screen.
 
-Sample in https://jomarcardoso.github.io/ovos/www/scroll-spy.html
+Sample in https://jomarcardoso.github.io/ovos/www/scrollspy.html
 
 ## Usage
 
@@ -29,10 +29,10 @@ Sample in https://jomarcardoso.github.io/ovos/www/scroll-spy.html
 
 In the HTML code below, the article tags are the main content and the anchor tags are the elements to show which is the current.
 
-The class `is-active` will be placed on the current element, so it need a CSS to differentiate.
+The class `ovo-active` will be placed on the current element, so it need a CSS to differentiate.
 
 ```css
-.is-active {
+.ovo-active {
   /* any effect here */
 }
 ```

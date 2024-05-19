@@ -118,17 +118,3 @@ export const anchor: Anchor = ({
 
   elScrolling.addEventListener('scroll', handleScroll);
 };
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const flag = document.querySelector(
-    '[data-ovo-anchor="to-anchor"][data-ovo-auto]',
-  );
-
-  if (!flag) return;
-
-  anchor({});
-}
-
-autoStart();

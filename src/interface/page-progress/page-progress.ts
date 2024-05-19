@@ -36,15 +36,3 @@ export const pageProgress: PageProgress = ({
 
   scroll({}).subscribe(handleScroll);
 };
-
-function autoStart() {
-  if (typeof document === 'undefined') return;
-
-  const flag = document.querySelector('[data-ovo-pp="bar"][data-ovo-auto]');
-
-  if (!flag) return;
-
-  pageProgress({});
-}
-
-autoStart();

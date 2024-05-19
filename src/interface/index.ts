@@ -4,7 +4,7 @@ export * from './fit-on-screen';
 export * from './joypad';
 export * from './page-progress';
 export * from './parallax';
-export * from './scroll-spy';
+export * from './scrollspy';
 export * from './scrollable-sticky';
 export * from './spin-images';
 export * from './sticky-header';
