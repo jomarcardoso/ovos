@@ -1,3 +1,18 @@
+# [1.3.0](https://github.com/jomarcardoso/ovos/compare/v1.2.5...v1.3.0) (2024-05-19)
+
+
+### Bug Fixes
+
+* **document:** check is node before is ready ([e46ccea](https://github.com/jomarcardoso/ovos/commit/e46cceaf35a80fa1b30f54b61e97ec44aac26fc2))
+* rename to scrollspy ([de0a8b4](https://github.com/jomarcardoso/ovos/commit/de0a8b4edfedeab7e645a09fe2feb977e0981b8c))
+* **scrollable-sticky:** rename attributes to ovo- pattern ([bae1e1d](https://github.com/jomarcardoso/ovos/commit/bae1e1d8e8f981bd057ee91ed4d53ec4ccf8afa4))
+* **spin-images:** rename css class is-active to ovo-ative ([c97788f](https://github.com/jomarcardoso/ovos/commit/c97788f2c8156f8b582ce17e1cd3de52524b4912))
+
+
+### Features
+
+* create htmx and start it all in .bundle.ts ([9d9a583](https://github.com/jomarcardoso/ovos/commit/9d9a583ed90389a3d15ecc08e6d3753b7ec8342c))
+
 ## [1.2.5](https://github.com/jomarcardoso/ovos/compare/v1.2.4...v1.2.5) (2024-04-19)
 
 
