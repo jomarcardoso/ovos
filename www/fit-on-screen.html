@@ -8,7 +8,6 @@
   <link rel="manifest" href="./favicon/site.webmanifest">
   <link rel="stylesheet" href="./styles/sanitize.css">
   <link rel="stylesheet" href="./styles/base.css">
-  <link rel="stylesheet" href="./scripts/ovos.css">
   <title>OVO - FitOnScreen</title>
   <style>
     article {
@@ -41,7 +40,12 @@
     <article data-ovo-fs="content"></article>
   </main>
   <footer></footer>
-  <script src="./scripts/ovos.bundle.min.js"></script>
+  <!-- <script src="./scripts/ovos.js"></script> -->
+  <script type="module">
+    import { htmxFitOnScreen } from './scripts/ovos.mjs';
+
+    htmxFitOnScreen();
+  </script>
 </body>
 
 </html>

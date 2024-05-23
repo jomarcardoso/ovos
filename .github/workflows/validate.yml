@@ -28,6 +28,3 @@ jobs:
         run: npm t
       - name: Build
         run: npm run build
-      - name: Bundle
-        run: npm run bundle
-

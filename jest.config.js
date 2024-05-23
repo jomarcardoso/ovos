@@ -1,3 +1,5 @@
+const { TestEnvironment } = require('jest-environment-jsdom');
+
 module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx,js,jsx}',
@@ -21,4 +23,5 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
   },
+  testEnvironment: 'jsdom'
 };
