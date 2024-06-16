@@ -22,7 +22,7 @@ Sample in https://jomarcardoso.github.io/ovos/www/scrollspy.html
   <article ovo-scrollspy-content="3" id="article-3"></article>
   <article ovo-scrollspy-content="4" id="article-4"></article>
 </div>
-<script src="https://unpkg.com/ovos@1.2.4/dist/ovos.js"></script>
+<script src="https://unpkg.com/ovos@1.3.1/dist/ovos.js"></script>
 ```
 
 ### HTML + CSS + JS
