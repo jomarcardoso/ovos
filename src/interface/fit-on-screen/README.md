@@ -21,7 +21,7 @@ On HTML put the attribute `data-ovo-fs="content"`.
   <article data-ovo-fs="content"></article>
   <article data-ovo-fs="content"></article>
 
-  <script src="https://unpkg.com/ovos@1.2.4/dist/ovos.bundle.min.js"></script>
+  <script src="https://unpkg.com/ovos@1.2.4/dist/ovos.js"></script>
 </body>
 ```
 

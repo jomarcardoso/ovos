@@ -1,4 +1,4 @@
-import { isNumber } from 'lodash';
+import isNumber from 'lodash/isNumber';
 import { pipe, UnaryFunction, Observable } from 'rxjs';
 import { filter, map, pairwise, scan } from 'rxjs/operators';
 import type { Touch$ } from '../../api/touch/touch.types';

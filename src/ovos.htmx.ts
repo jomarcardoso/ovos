@@ -1,6 +1,7 @@
 import {
   htmxAnchor,
   htmxCarousel,
+  htmxFitOnScreen,
   htmxPageProgress,
   htmxParallax,
   htmxScrollableSticky,
@@ -14,6 +15,7 @@ import { ready } from './utilities/document';
 export * from './ovos';
 
 ready(htmxScrollspy);
+ready(htmxFitOnScreen);
 ready(htmxScrollableSticky);
 ready(htmxAnchor);
 ready(htmxCarousel);

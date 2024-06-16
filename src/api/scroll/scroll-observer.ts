@@ -1,7 +1,7 @@
 import { fromEvent, Observable, pipe } from 'rxjs';
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 import { debounceTime, filter, map, scan } from 'rxjs/operators';
-import { isNil } from 'lodash';
+import isNil from 'lodash/isNil';
 import {
   getScrollingEl,
   getScrollPosition,

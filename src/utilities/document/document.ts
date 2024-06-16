@@ -2,7 +2,7 @@ export const IS_NODE_JS = typeof window === 'undefined';
 
 let isReady = false;
 
-if (IS_NODE_JS) {
+if (!IS_NODE_JS) {
   document.addEventListener('DOMContentLoaded', function () {
     isReady = true;
   });
@@ -21,10 +21,10 @@ if (IS_NODE_JS) {
 export function ready(fn: Function) {
   // Checking readyState here is a failsafe in case the htmx script tag entered the DOM by
   // some means other than the initial page load.
-  if (IS_NODE_JS && (isReady || document.readyState === 'complete')) {
+  if (!IS_NODE_JS && (isReady || document.readyState === 'complete')) {
     fn();
   } else {
-    if (IS_NODE_JS) {
+    if (!IS_NODE_JS) {
       document.addEventListener('DOMContentLoaded', () => fn());
     }
   }
