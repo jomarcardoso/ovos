@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/jomarcardoso/ovos/compare/v1.3.0...v1.3.1) (2024-06-16)
+
+
+### Bug Fixes
+
+* **build:** compile for 3 formats ([18db7b4](https://github.com/jomarcardoso/ovos/commit/18db7b441d1e62bed3ed2a6c1efc02021ed57e75))
+
 # [1.3.0](https://github.com/jomarcardoso/ovos/compare/v1.2.5...v1.3.0) (2024-05-19)
 
 
