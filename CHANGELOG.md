@@ -1,3 +1,12 @@
+## [1.3.2](https://github.com/jomarcardoso/ovos/compare/v1.3.1...v1.3.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* **build:** update dependencies ([761ec77](https://github.com/jomarcardoso/ovos/commit/761ec779643d376baab84b90d7379a5f87e07629))
+* **build:** update package-lock ([09ee962](https://github.com/jomarcardoso/ovos/commit/09ee962f6b629f3b4bd5eaa2cee986e9b9878f39))
+* **scrollspy:** allow receive ItemArgs ([31c7386](https://github.com/jomarcardoso/ovos/commit/31c738665d041a586809c58fcf9c792c9a1791ce))
+
 ## [1.3.1](https://github.com/jomarcardoso/ovos/compare/v1.3.0...v1.3.1) (2024-06-16)
 
 
