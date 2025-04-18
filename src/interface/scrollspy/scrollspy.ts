@@ -3,7 +3,12 @@ import { getScrollParent } from '../../utilities/element';
 import { Axes, Axis } from '../../utilities/axis';
 import { IS_NODE_JS } from '../../utilities/document';
 import { ScrollableElement } from '../../utilities/scroll';
-import { CreateScrollSpyItem, Method, ScrollSpyItem } from './scrollspy.types';
+import {
+  CreateScrollSpyItem,
+  Method,
+  ScrollSpyItem,
+  ScrollSpyItemArgs,
+} from './scrollspy.types';
 
 const ACTIVE_CLASS = 'ovo-active';
 
@@ -36,7 +41,7 @@ export const createScrollspyItem: CreateScrollSpyItem = ({
 };
 
 interface ScrollspyArgs {
-  list: Array<ScrollSpyItem>;
+  list: Array<ScrollSpyItem> | Array<ScrollSpyItemArgs>;
   elRelative?: ScrollableElement;
   method?: Method;
   axis?: Axis;
@@ -44,15 +49,20 @@ interface ScrollspyArgs {
 }
 
 export function scrollspy({
-  list,
+  list: rawList,
   elRelative = !IS_NODE_JS ? document : undefined,
   method = 'CURRENT',
   axis = 'y',
   debounce = 0,
 }: ScrollspyArgs): void {
-  if (!elRelative || !list.length) return;
+  if (!elRelative || !rawList.length) return;
 
   let scrollingElement = elRelative;
+  const list = rawList.map<ScrollSpyItem>((item) =>
+    typeof item !== 'function'
+      ? createScrollspyItem(item as ScrollSpyItemArgs)
+      : (item as unknown as ScrollSpyItem),
+  );
 
   if (elRelative instanceof Document && list[0].content) {
     scrollingElement = getScrollParent(list[0].content) || document;
@@ -68,8 +78,8 @@ export function scrollspy({
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
         axis === 'y'
-          ? currentValue?.content?.offsetTop ?? 0
-          : currentValue?.content?.offsetLeft ?? 0;
+          ? (currentValue?.content?.offsetTop ?? 0)
+          : (currentValue?.content?.offsetLeft ?? 0);
 
       if (Math.round(position[axis]) >= Math.round(currentStart)) {
         return currentValue;
@@ -86,20 +96,20 @@ export function scrollspy({
     return list.reduce((previousValue, currentValue) => {
       const previousStart =
         axis === 'y'
-          ? previousValue?.content?.offsetTop ?? 0 - 1
-          : previousValue?.content?.offsetLeft ?? 0 - 1;
+          ? (previousValue?.content?.offsetTop ?? 0 - 1)
+          : (previousValue?.content?.offsetLeft ?? 0 - 1);
       const previousEnd =
         axis === 'y'
-          ? previousValue?.content?.offsetHeight ?? 0 + previousStart - 1
-          : previousValue?.content?.offsetWidth ?? 0 + previousStart - 1;
+          ? (previousValue?.content?.offsetHeight ?? 0 + previousStart - 1)
+          : (previousValue?.content?.offsetWidth ?? 0 + previousStart - 1);
       const currentStart =
         axis === 'y'
-          ? currentValue?.content?.offsetTop ?? 0 + 1
-          : currentValue?.content?.offsetLeft ?? 0 + 1;
+          ? (currentValue?.content?.offsetTop ?? 0 + 1)
+          : (currentValue?.content?.offsetLeft ?? 0 + 1);
       const currentEnd =
         axis === 'y'
-          ? currentValue?.content?.offsetHeight ?? 0 + currentStart + 1
-          : currentValue?.content?.offsetWidth ?? 0 + currentStart + 1;
+          ? (currentValue?.content?.offsetHeight ?? 0 + currentStart + 1)
+          : (currentValue?.content?.offsetWidth ?? 0 + currentStart + 1);
 
       const middleScrolled = Math.abs(
         position[axis] + scrollingElement.offsetWidth / 2,
@@ -142,8 +152,8 @@ export function scrollspy({
       const oi = list.reduce((previousValue, currentValue) => {
         const currentStart =
           axis === 'y'
-            ? currentValue?.content?.offsetTop ?? 0
-            : currentValue?.content?.offsetLeft ?? 0;
+            ? (currentValue?.content?.offsetTop ?? 0)
+            : (currentValue?.content?.offsetLeft ?? 0);
 
         if (Math.round(position[axis]) === Math.round(currentStart)) {
           return currentValue;
