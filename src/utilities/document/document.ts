@@ -17,7 +17,6 @@ if (!IS_NODE_JS) {
  *
  * @author htmx <https://github.com/bigskysoftware/htmx/blob/master/src/htmx.js>
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function ready(fn: Function) {
   // Checking readyState here is a failsafe in case the htmx script tag entered the DOM by
   // some means other than the initial page load.

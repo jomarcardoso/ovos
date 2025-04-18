@@ -20,8 +20,6 @@ jobs:
           node-version: "lts/*"
       - name: Install dependencies
         run: npm clean-install
-      - name: Lint
-        run: npm run lint
       - name: Typing
         run: npm run tsc
       - name: Test

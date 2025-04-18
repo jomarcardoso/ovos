@@ -1,9 +1,4 @@
 {
-  // colocar o prettier como formatador
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
   // Format a file on save. A formatter must be available, the file must not be saved after delay, and the editor must not be shutting down.
   "editor.formatOnSave": true,
   // The number of spaces a tab is equal to. This setting is overridden based on the file contents when `editor.detectIndentation` is on.
