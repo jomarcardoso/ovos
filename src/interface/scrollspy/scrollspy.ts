@@ -54,15 +54,29 @@ export function scrollspy({
   method = 'CURRENT',
   axis = 'y',
   debounce = 0,
-}: ScrollspyArgs): void {
-  if (!elRelative || !rawList.length) return;
+}: ScrollspyArgs): {
+  destroy(): void;
+} {
+  if (!elRelative || !rawList.length)
+    return {
+      destroy() {
+        return;
+      },
+    };
 
   let scrollingElement = elRelative;
-  const list = rawList.map<ScrollSpyItem>((item) =>
-    typeof item !== 'function'
-      ? createScrollspyItem(item as ScrollSpyItemArgs)
-      : (item as unknown as ScrollSpyItem),
-  );
+  const list = rawList
+    .filter(
+      (a) =>
+        (a as ScrollSpyItem)?.content ||
+        ((a as ScrollSpyItemArgs)?.elContent &&
+          (a as ScrollSpyItemArgs)?.elMenu),
+    )
+    .map<ScrollSpyItem>((item) =>
+      typeof item !== 'function'
+        ? createScrollspyItem(item as ScrollSpyItemArgs)
+        : (item as unknown as ScrollSpyItem),
+    );
 
   if (elRelative instanceof Document && list[0].content) {
     scrollingElement = getScrollParent(list[0].content) || document;
@@ -177,13 +191,19 @@ export function scrollspy({
     currentActive = currentToActive;
   }
 
-  const observable = scroll({
+  const scroll$ = scroll({
     el: scrollingElement,
     debounce,
   });
 
-  observable.subscribe(handleScroll);
+  const subject = scroll$.subscribe(handleScroll);
   scrollingElement.dispatchEvent(new Event('scroll'));
+
+  return {
+    destroy() {
+      subject.unsubscribe();
+    },
+  };
 }
 
 /** @deprecated use ScrollspyArgs instead. */
