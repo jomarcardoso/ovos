@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/jomarcardoso/ovo#readme",
   "dependencies": {
-    "@babel/runtime": "7.24.7",
+    "@babel/runtime": "7.27.0",
     "lodash-es": "^4.17.21",
     "rxjs": "7.8.1"
   },
