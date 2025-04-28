@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/jomarcardoso/ovos/compare/v1.3.2...v1.3.3) (2025-04-28)
+
+
+### Bug Fixes
+
+* **scrollspy:** allow destroy ([5f4671f](https://github.com/jomarcardoso/ovos/commit/5f4671f728bcc2660b2312ca6c75e59324237526))
+
 ## [1.3.2](https://github.com/jomarcardoso/ovos/compare/v1.3.1...v1.3.2) (2025-04-18)
 
 
