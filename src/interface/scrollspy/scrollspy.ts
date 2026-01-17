@@ -73,10 +73,17 @@ export function scrollspy({
           (a as ScrollSpyItemArgs)?.elMenu),
     )
     .map<ScrollSpyItem>((item) =>
-      typeof item !== 'function'
+      (item as ScrollSpyItemArgs).elContent
         ? createScrollspyItem(item as ScrollSpyItemArgs)
         : (item as unknown as ScrollSpyItem),
     );
+
+  if (!list.length) {
+    console.warn(
+      'No valid items to create the scrollspy. It is missing menu or content',
+    );
+    return { destroy() {} };
+  }
 
   if (elRelative instanceof Document && list[0].content) {
     scrollingElement = getScrollParent(list[0].content) || document;
