@@ -1,2 +1,2 @@
 export { scroll } from './scroll-observer';
-export { Scroll$ } from './scroll-observer.types';
+export type { Scroll$ } from './scroll-observer.types';

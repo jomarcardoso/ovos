@@ -10,6 +10,7 @@
   }
 
   &[data-ovo_scrollable_sticky_fixed='true'] {
+    [data-ovo-scrollable-sticky_content],
     [ovo-scrollable-sticky_content] {
       position: fixed;
       top: 0;

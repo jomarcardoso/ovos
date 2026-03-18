@@ -17,7 +17,6 @@ import { AXES } from '../../utilities/axis';
 import { isOnTheSameDirection } from '../../utilities/axis/axis';
 import { getLeft, getTop } from '../../utilities/element';
 import type {
-  EventWithType,
   MouseEventWithType,
   Touch$,
   TouchEventWithType,
@@ -36,28 +35,35 @@ export function touch({
   stopGrowingAt,
 }: TouchArgs): TouchObservableReturn {
   const el = externalEl || document;
-  const mouseDown$ = fromEvent(el, 'mousedown');
-  const mouseMove$ = fromEvent(document, 'mousemove');
-  const mouseUp$ = fromEvent(document, 'mouseup');
-  const touchStart$ = fromEvent(el, 'touchstart');
-  const touchEnd$ = fromEvent(document, 'touchend');
-  const touchMove$ = fromEvent(el, 'touchmove');
+  const mouseDown$ = fromEvent<MouseEvent>(el, 'mousedown');
+  const mouseMove$ = fromEvent<MouseEvent>(document, 'mousemove');
+  const mouseUp$ = fromEvent<MouseEvent>(document, 'mouseup');
+  const touchStart$ = fromEvent<TouchEvent>(el, 'touchstart');
+  const touchEnd$ = fromEvent<TouchEvent>(document, 'touchend');
+  const touchMove$ = fromEvent<TouchEvent>(el, 'touchmove');
 
   (el as HTMLElement).setAttribute('draggable', 'false');
 
-  function typeOperator(type: TouchEventType) {
-    return map<TouchEvent | MouseEvent, EventWithType>((event) => ({
+  function mouseTypeOperator(type: TouchEventType) {
+    return map<MouseEvent, MouseEventWithType>((event) => ({
       event,
       type,
     }));
   }
 
-  const mouseDownType$ = mouseDown$.pipe(typeOperator('START'));
-  const touchStartType$ = touchStart$.pipe(typeOperator('START'));
-  const mouseUpType$ = mouseUp$.pipe(typeOperator('END'));
-  const touchEndType$ = touchEnd$.pipe(typeOperator('END'));
-  const mouseMoveType$ = mouseMove$.pipe(typeOperator('MOVE'));
-  const touchMoveType$ = touchMove$.pipe(typeOperator('MOVE'));
+  function touchTypeOperator(type: TouchEventType) {
+    return map<TouchEvent, TouchEventWithType>((event) => ({
+      event,
+      type,
+    }));
+  }
+
+  const mouseDownType$ = mouseDown$.pipe(mouseTypeOperator('START'));
+  const touchStartType$ = touchStart$.pipe(touchTypeOperator('START'));
+  const mouseUpType$ = mouseUp$.pipe(mouseTypeOperator('END'));
+  const touchEndType$ = touchEnd$.pipe(touchTypeOperator('END'));
+  const mouseMoveType$ = mouseMove$.pipe(mouseTypeOperator('MOVE'));
+  const touchMoveType$ = touchMove$.pipe(touchTypeOperator('MOVE'));
 
   const mouseDragType$ = merge(
     mouseDownType$,

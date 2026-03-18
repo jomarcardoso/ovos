@@ -45,7 +45,7 @@ function start(el: HTMLElement) {
 }
 
 export function htmxScrollspy() {
-  const els = Array.from(document.querySelectorAll('[ovo-scrollspy]'));
+  const els = Array.from(document.querySelectorAll('[ovo-scrollspy]')) as Array<HTMLElement>;
 
   els.forEach(start);
 }
