@@ -1,4 +1,7 @@
-import type { ScrollableElement } from '../../utilities/scroll';
+import {
+  preferredScrollBehavior,
+  type ScrollableElement,
+} from '../../utilities/scroll';
 import './scrollable-tabs.scss';
 
 export function ScrollableTabs({
@@ -13,7 +16,7 @@ export function ScrollableTabs({
 
     item.addEventListener('focus', () => {
       item.scrollIntoView({
-        behavior: 'smooth',
+        behavior: preferredScrollBehavior(),
         inline: 'nearest',
       });
     });

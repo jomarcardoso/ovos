@@ -1,4 +1,5 @@
 import { getTop } from '../element';
+import { preferredScrollBehavior } from './scroll-behavior';
 
 export function scrollTo({
   scrollingElement = window,
@@ -14,7 +15,7 @@ export function scrollTo({
   el.scrollTo({
     left,
     top,
-    behavior: 'smooth',
+    behavior: preferredScrollBehavior(),
   });
 }
 
