@@ -46,7 +46,7 @@
   "homepage": "https://github.com/jomarcardoso/ovo#readme",
   "dependencies": {
     "@babel/runtime": "7.24.7",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.18.1",
     "rxjs": "7.8.1"
   },
   "devDependencies": {
@@ -63,7 +63,6 @@
     "@types/lodash": "4.17.16",
     "@types/webpack": "5.28.5",
     "babel-loader": "10.0.0",
-    "canvas": "3.1.0",
     "clean-webpack-plugin": "4.0.0",
     "css-loader": "7.1.2",
     "fork-ts-checker-webpack-plugin": "9.1.0",
