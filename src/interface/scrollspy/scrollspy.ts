@@ -95,7 +95,21 @@ export function scrollspy({
     scrollingElement: HTMLElement,
   ) => ScrollSpyItem;
 
-  function getTheCurrent(position: Axes): ScrollSpyItem {
+  function isAtTheEnd(position: Axes, scrollingElement: HTMLElement): boolean {
+    const end =
+      axis === 'y'
+        ? scrollingElement.scrollHeight - scrollingElement.clientHeight
+        : scrollingElement.scrollWidth - scrollingElement.clientWidth;
+
+    return end > 0 && Math.ceil(position[axis]) >= Math.floor(end);
+  }
+
+  function getTheCurrent(
+    position: Axes,
+    scrollingElement: HTMLElement,
+  ): ScrollSpyItem {
+    if (isAtTheEnd(position, scrollingElement)) return list[list.length - 1];
+
     return list.reduce((previousValue, currentValue) => {
       const currentStart =
         axis === 'y'
